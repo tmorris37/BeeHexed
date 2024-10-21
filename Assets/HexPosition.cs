@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+using GridSystem; 
+
 public class HexPosition : MonoBehaviour
 {
     /*
@@ -29,6 +31,9 @@ public class HexPosition : MonoBehaviour
 
     // Controls console outputs
     [SerializeField] private bool DEBUG;
+
+    // The Grid System for the game
+    [SerializeField] private GridManager GridManager;
 
     // Used to initalize an object's position
     public bool SetPosition(int q, int r, int s)
@@ -153,7 +158,13 @@ public class HexPosition : MonoBehaviour
     // Returns true if the inputted position is blocked by another object
     private bool isBlocked(int q, int r, int s)
     {
-        // TODO: Implement a Block check
+        HexTile CandidateTile = this.GridManager.FetchTile(q, r, s);
+        if (CandidateTile.Occupied)
+        {
+            if (DEBUG)
+                Debug.Log("Tile is occupied by ID:" + CandidateTile.ID);
+            return true;
+        }
         return false;
     }
 }

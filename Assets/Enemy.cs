@@ -52,3 +52,5 @@ public class Attack
     public int DamageAmount { get; set; }
     // More fields based on attack type
 }
+
+#endregion

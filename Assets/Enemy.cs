@@ -7,6 +7,8 @@ public class Enemy : MonoBehaviour
 {
     [SerializeField] private int EnemyID;
     private EnemyData Data;
+
+    private int q, r, s;
     void Start()
     {
         // Assets/Resources/Enemies/Enemy_"".json

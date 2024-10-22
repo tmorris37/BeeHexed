@@ -49,5 +49,14 @@ namespace GridSystem
 
             return (i, j);
         }
+
+        // Converts the q, r, s coordinates to x, y Unity cooridinates
+        // Useful for spawning/moving Unity objects
+        private (float, float) QRStoXY(int q, int r, int s)
+        {
+            float x = ;
+            float y = ;
+            return (x, y);
+        }
     }
 }

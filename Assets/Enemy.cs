@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using Newtonsoft.Json;
 
-public class Enemy : MonoBehaviour
+public class Enemy : HexPosition
 {
-    [SerializeField] private int EnemyID;
-    private EnemyData Data;
+    [SerializeField] public int EnemyID;
+    public EnemyData Data;
 
-    private int q, r, s;
     void Start()
     {
         // Assets/Resources/Enemies/Enemy_"".json
@@ -30,10 +29,6 @@ public class Enemy : MonoBehaviour
 
     }
 
-    void Update()
-    {
-        
-    }
 }
 
 #region JSON Data Structures

@@ -1,16 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace GridSystem
 {
-    public class HexTile : MonoBehaviour
+    public class HexTile
     {
-        [SerializeField] public bool Occupied;
-        [SerializeField] public bool DPSEffect;
+        public bool Occupied;
+        public bool DPSEffect;
         public int ID;
 
-        void Start()
+        public HexTile()
         {
             this.Occupied = false;
             this.DPSEffect = false;
@@ -21,7 +20,6 @@ namespace GridSystem
         {
             if (!this.Occupied && ID == 0)
             {
-                Debug.Log("Cannot occupy a tile with ID 0");
                 return;
             }
             this.ID = (this.Occupied) ? 0 : ID;

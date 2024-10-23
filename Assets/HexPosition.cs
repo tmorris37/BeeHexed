@@ -24,16 +24,16 @@ public class HexPosition : MonoBehaviour
      */
 
     // Contains the x, y, z coordinates
-    [SerializeField] private int q, r, s;
+    [SerializeField] public int q, r, s;
 
     // Represents the max distance out from the origin
-    [SerializeField] private int GridRadius;
+    [SerializeField] public int GridRadius;
 
     // Controls console outputs
-    [SerializeField] private bool DEBUG;
+    [SerializeField] public bool DEBUG = true;
 
     // The Grid System for the game
-    [SerializeField] private GridManager GridManager;
+    [SerializeField] public GridManager GridManager;
 
     // Used to initalize an object's position
     public bool SetPosition(int q, int r, int s)
@@ -60,7 +60,7 @@ public class HexPosition : MonoBehaviour
      * Provides a cleaner method to update coordinates when only moving 1 tile
      * input should be a direction ("northeast", ...)
      */
-    public bool Move(string Direction)
+    public virtual bool Move(string Direction)
     {
         string DirectionLower = Direction.ToLower();
 
@@ -101,7 +101,7 @@ public class HexPosition : MonoBehaviour
      *  - new position is invalid (violates q + r + s = 0)
      *  - new position is blocked by another object
      */
-    public bool UpdatePosition(int dq, int dr, int ds)
+    public virtual bool UpdatePosition(int dq, int dr, int ds)
     {
         int qNew = this.q + dq;
         int rNew = this.r + dr;
@@ -118,6 +118,12 @@ public class HexPosition : MonoBehaviour
         // Checks if the new tile is blocked
         if (isBlocked(qNew, rNew, sNew))
             return false;
+
+        HexTile CurrentTile = this.GridManager.FetchTile(q, r, s);
+        HexTile NewTile = this.GridManager.FetchTile(qNew, rNew, sNew);
+
+        //CurrentTile.UpdateOccupy();
+        //NewTile.UpdateOccupy();
 
         this.q = qNew;
         this.r = rNew;
@@ -159,6 +165,8 @@ public class HexPosition : MonoBehaviour
     private bool isBlocked(int q, int r, int s)
     {
         HexTile CandidateTile = this.GridManager.FetchTile(q, r, s);
+        if (DEBUG)
+            Debug.Log("Candidate:" + CandidateTile);
         if (CandidateTile.Occupied)
         {
             if (DEBUG)

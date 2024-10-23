@@ -51,11 +51,12 @@ namespace GridSystem
         }
 
         // Converts the q, r, s coordinates to x, y Unity cooridinates
+        // Origin = Center of Hex Grid (0, 0, 0) [BOTH systems]
         // Useful for spawning/moving Unity objects
         private (float, float) QRStoXY(int q, int r, int s)
         {
-            float x = ;
-            float y = ;
+            float x = (q - s)/2;
+            float y = -r;
             return (x, y);
         }
     }

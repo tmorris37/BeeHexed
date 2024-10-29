@@ -36,26 +36,34 @@ public class HexPosition : MonoBehaviour
     [SerializeField] public GridManager GridManager;
 
     // Used to initalize an object's position
-    public bool SetPosition(int q, int r, int s)
+    public bool SetPosition()
     {
-        // Checks for out-of-bounds positions
-        if (isOutOfBounds(q, r, s))
-            return false;
+        if (DEBUG)
+            Debug.Log("Start: Setting Position");
         
-        // Checks for invalid positions
-        if (isInvalidPosition(q, r, s))
+        // Checks for out-of-bounds positions, invalid positions, or if the new tile is blocked
+        if (isOutOfBounds(this.q, this.r, this.s) || 
+            isInvalidPosition(this.q, this.r, this.s) || 
+            isBlocked(this.q, this.r, this.s))
+        {
+            if (DEBUG)
+                Debug.Log("Unable to Spawn Enemy/Tower");
             return false;
+        }
 
-        // Checks if the new tile is blocked
-        if (isBlocked(q, r, s))
-            return false;
+        // If we can spawn Enemy/Tower, we will
+        this.GridManager.FetchTile(this.q, this.r, this.s).EnterTile(gameObject);
+        return true;
+    }
 
+    // Sets the QRS values for the Enemy/Tower
+    public void SetQRS(int q, int r, int s)
+    {
         this.q = q;
         this.r = r;
         this.s = s;
-
-        return true;
     }
+
     /*
      * Provides a cleaner method to update coordinates when only moving 1 tile
      * input should be a direction ("northeast", ...)
@@ -122,8 +130,8 @@ public class HexPosition : MonoBehaviour
         HexTile CurrentTile = this.GridManager.FetchTile(q, r, s);
         HexTile NewTile = this.GridManager.FetchTile(qNew, rNew, sNew);
 
-        //CurrentTile.UpdateOccupy();
-        //NewTile.UpdateOccupy();
+        NewTile.EnterTile(gameObject);
+        CurrentTile.LeaveTile();
 
         this.q = qNew;
         this.r = rNew;
@@ -167,10 +175,10 @@ public class HexPosition : MonoBehaviour
         HexTile CandidateTile = this.GridManager.FetchTile(q, r, s);
         if (DEBUG)
             Debug.Log("Candidate:" + CandidateTile);
-        if (CandidateTile.Occupied)
+        if (CandidateTile.getOccupied())
         {
             if (DEBUG)
-                Debug.Log("Tile is occupied by ID:" + CandidateTile.ID);
+                Debug.Log("Tile is occupied by ID:" + CandidateTile.Occupant);
             return true;
         }
         return false;

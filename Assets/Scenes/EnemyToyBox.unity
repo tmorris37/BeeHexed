@@ -1931,6 +1931,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GridRadius: 3
+  HexTilePrefab: {fileID: 5180860355450847252, guid: 804f7f8b96697d147a944995af89b244, type: 3}
 --- !u!4 &1517485636
 Transform:
   m_ObjectHideFlags: 0

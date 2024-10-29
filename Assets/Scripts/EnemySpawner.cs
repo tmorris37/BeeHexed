@@ -17,7 +17,7 @@ public class EnemySpawner : MonoBehaviour
 
     public void ButtonSpawn()
     {
-        Spawn(5, 1, 0, -1);
+        Spawn(5, 0, 0, 0);
     }
 
     public void Spawn(int EnemyID, int q, int r, int s)

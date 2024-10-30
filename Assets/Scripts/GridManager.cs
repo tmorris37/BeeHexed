@@ -23,8 +23,9 @@ namespace GridSystem
 
         // Instantiates the Hex Grid based on GridRadius
         // Uses an array of arrays to store the grid optimally
-        void Awake()
+        public void Awake()
         {
+            Debug.Log("Creating Grid");
             Grid = new GameObject[2*GridRadius + 1][];
 
             // Creates an Object for organization in Unity

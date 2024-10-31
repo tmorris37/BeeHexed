@@ -17,32 +17,55 @@ namespace GridSystem
         // q_max = r_max = s_max = GridRadius
         [SerializeField] public int GridRadius = 3;
 
-        public HexTile[][] Grid;
+        [SerializeField] public GameObject HexTilePrefab;
+
+        public GameObject[][] Grid;
 
         // Instantiates the Hex Grid based on GridRadius
         // Uses an array of arrays to store the grid optimally
-        void Awake()
+        public void Awake()
         {
-            Grid = new HexTile[2*GridRadius + 1][];
+            Debug.Log("Creating Grid");
+            Grid = new GameObject[2*GridRadius + 1][];
 
+            // Creates an Object for organization in Unity
+            GameObject GridObject = new GameObject();
+            GridObject.name = "Grid";
+            GridObject.transform.SetParent(this.transform);
+
+            // Creates Top "Half" of the Grid
             for (int i = 0; i < GridRadius; i++)
             {
-                Grid[i] = new HexTile[GridRadius + 1 + i];
-                Grid[2*GridRadius - i] = new HexTile[GridRadius + 1 + i];
+                Grid[i] = new GameObject[GridRadius + 1 + i];
                 for (int j = 0; j < GridRadius + 1 + i; j++)
                 {
-                    Grid[i][j] = new HexTile();
-                    Grid[2*GridRadius - i][j] = new HexTile();
+                    Grid[i][j] = Instantiate(HexTilePrefab);
+                    Grid[i][j].name = "Grid[" + i + "][" + j + "]";
+                    Grid[i][j].transform.SetParent(GridObject.transform);
                 }
             }
-            Grid[GridRadius] = new HexTile[2*GridRadius + 1];
 
+            // Creates Middle Row of the Grid
+            Grid[GridRadius] = new GameObject[2*GridRadius + 1];
             for (int j = 0; j < 2*GridRadius + 1; j++)
             {
-                Grid[GridRadius][j] = new HexTile();
+                Grid[GridRadius][j] = Instantiate(HexTilePrefab);
+                Grid[GridRadius][j].name = "Grid[" + GridRadius + "][" + j + "]";
+                Grid[GridRadius][j].transform.SetParent(GridObject.transform);
             }
 
-            // Debug.Log(Grid);
+            // Creates Bottom "Half" of the Grid
+            for (int i = GridRadius - 1; i >= 0; i--)
+            {
+                Grid[2*GridRadius - i] = new GameObject[GridRadius + 1 + i];
+                for (int j = 0; j < GridRadius + 1 + i; j++)
+                {
+                    Grid[2*GridRadius - i][j] = Instantiate(HexTilePrefab);
+                    Grid[2*GridRadius - i][j].name = "Grid[" + (2*GridRadius - i) + "][" + j + "]";
+                    Grid[2*GridRadius - i][j].transform.SetParent(GridObject.transform);
+                }
+            }
+
         }
 
         // Fetches the HexTile associated with the q, r, s coordinates
@@ -52,7 +75,7 @@ namespace GridSystem
             
             //Debug.Log(Grid[i][j]);
             
-            return Grid[i][j];
+            return Grid[i][j].GetComponent<HexTile>();
         }
 
         // Converts the q, r, s coordinates to indices for the HexTile array Grid[][]

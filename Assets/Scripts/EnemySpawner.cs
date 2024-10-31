@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using GridSystem;
+using EnemyAndTowers;
 
 public class Spawner : MonoBehaviour
 {
@@ -20,7 +21,7 @@ public class Spawner : MonoBehaviour
 
     public void ButtonSpawn()
     {
-        Spawn(5, 1, 1, 1);
+        Spawn(5, 0, 0, 0);
     }
 
     public void Spawn(int EnemyID, int q, int r, int s)
@@ -31,8 +32,13 @@ public class Spawner : MonoBehaviour
 
         // Set the Enemy ID with desired ID
         this.EnemyComponent.EnemyID = EnemyID;
+
         // Set the QRS position to spawn it in
-        this.EnemyComponent.SetPosition(1, 0, -1);
+        this.EnemyComponent.SetQRS(q, r, s);
+
+        // Sets the XY coordinates in the Unity coordinates
+        (float x, float y) = this.GridManager.QRStoXY(q, r, s);
+        this.EnemyComponent.transform.Translate(x, y, 0, Space.World);
 
         this.EnemyComponent.GridManager = this.GridManager;
 

@@ -3,35 +3,37 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-
-public class TowerProjectile : MonoBehaviour
+namespace EnemyAndTowers
 {
-    private Transform target;
-    public float speed = 5f;
-
-    // Set the target for the projectile
-    public void Seek(Transform target)
+    public class TowerProjectile : MonoBehaviour
     {
-        this.target = target;
-    }
+        private Transform target;
+        public float speed = 5f;
 
-    private void Update()
-    {
-        if (target == null)
+        // Set the target for the projectile
+        public void Seek(Transform target)
         {
-            Destroy(gameObject); // Destroy the projectile if there's no target
-            return;
+            this.target = target;
         }
 
-        // Calculate direction towards the target and move the projectile
-        Vector2 direction = (target.position - transform.position).normalized;
-        transform.Translate(direction * speed * Time.deltaTime);
-
-        // Destroy projectile if it gets very close to the target (within 0.1 units)
-        if (Vector2.Distance(transform.position, target.position) < 0.1f)
+        private void Update()
         {
-            Destroy(gameObject);
-            // Optionally, you can add an effect here to represent the hit
+            if (target == null)
+            {
+                Destroy(gameObject); // Destroy the projectile if there's no target
+                return;
+            }
+
+            // Calculate direction towards the target and move the projectile
+            Vector2 direction = (target.position - transform.position).normalized;
+            transform.Translate(direction * speed * Time.deltaTime);
+
+            // Destroy projectile if it gets very close to the target (within 0.1 units)
+            if (Vector2.Distance(transform.position, target.position) < 0.1f)
+            {
+                Destroy(gameObject);
+                // Optionally, you can add an effect here to represent the hit
+            }
         }
     }
 }

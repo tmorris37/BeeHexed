@@ -1,124 +1,110 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-<<<<<<< HEAD
 using Newtonsoft.Json;
-public class Tower : HexPosition
+
+namespace EnemyAndTowers
 {
-    [SerializeField] public int TowerID;
-    public TowerData Data;
-
-    public float fireRate = 1f;
-
-    public GameObject projectilePrefab;
-
-    private Transform target;
-
-    private float fireCountdown;
-
-    void Start()
+    public class Tower : HexPosition
     {
-        // Assets/Resources/Enemies/Enemy_"".json
-        // Creates a TextAsset containing the data from Enemy_"".json
-        var FileData = Resources.Load<TextAsset>("Towers/Tower_" + TowerID);
+        [SerializeField] public int TowerID;
+        public TowerData Data;
 
-        if (FileData != null)
-        {
-            // TextAsset -> String (JSON)
-            string JSONPlainText = FileData.text;
-            // String (JSON) -> EnemyData Class
-            this.Data = JsonConvert.DeserializeObject<TowerData>(JSONPlainText);
-            // We can then read the values from the Data class as needed
-        }
-        else
-        {
-            Debug.Log("Unable to load Tower_" + TowerID);
-        }
+        public float fireRate = 1f;
 
-    }
+        public GameObject projectilePrefab;
 
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        Debug.Log("It detects a thing");
-        if (other.CompareTag("Enemy"))
-        {
-            target = other.transform;
-        }
-    }
+        private Transform target;
 
-    void OnTriggerExit2D(Collider2D other)
-    {
-        if (other.CompareTag("Enemy") && other.transform == target)
-        {
-            target = null;
-        }
-    }
+        private float fireCountdown;
 
-    private void Update()
-    {
-        if (target != null)
+        void Start()
         {
-            // shoot at intervals based on fireRate
-            if (fireCountdown <= 0f)
+            // Assets/Resources/Enemies/Enemy_"".json
+            // Creates a TextAsset containing the data from Enemy_"".json
+            var FileData = Resources.Load<TextAsset>("Towers/Tower_" + TowerID);
+
+            if (FileData != null)
             {
-                Shoot();
-                fireCountdown = 1f / fireRate;
+                // TextAsset -> String (JSON)
+                string JSONPlainText = FileData.text;
+                // String (JSON) -> EnemyData Class
+                this.Data = JsonConvert.DeserializeObject<TowerData>(JSONPlainText);
+                // We can then read the values from the Data class as needed
             }
-            fireCountdown -= Time.deltaTime;
-        }
-    }
+            else
+            {
+                Debug.Log("Unable to load Tower_" + TowerID);
+            }
 
-    private void Shoot()
-    {
-        GameObject projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
-        TowerProjectile projScript = projectile.GetComponent<TowerProjectile>();
-        if (projScript != null)
+        }
+
+        void OnTriggerEnter2D(Collider2D other)
         {
-            projScript.Seek(target);
+            Debug.Log("It detects a thing");
+            if (other.CompareTag("Enemy"))
+            {
+                target = other.transform;
+            }
         }
-    }
 
-    
+        void OnTriggerExit2D(Collider2D other)
+        {
+            if (other.CompareTag("Enemy") && other.transform == target)
+            {
+                target = null;
+            }
+        }
 
-}
+        private void Update()
+        {
+            if (target != null)
+            {
+                // shoot at intervals based on fireRate
+                if (fireCountdown <= 0f)
+                {
+                    Shoot();
+                    fireCountdown = 1f / fireRate;
+                }
+                fireCountdown -= Time.deltaTime;
+            }
+        }
 
-#region JSON Data Structures
+        private void Shoot()
+        {
+            GameObject projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
+            TowerProjectile projScript = projectile.GetComponent<TowerProjectile>();
+            if (projScript != null)
+            {
+                projScript.Seek(target);
+            }
+        }
 
-[System.Serializable]
-public class TowerData
-{
-    public int MaxHP { get; set; }
-    public IList<TowerAttack> Attacks { get; set; }
-    
-
-    
-    // More fields based on what we need to store about an enemy
-}
-
-
-//[System.Serializable]
-public class TowerAttack
-{
-    public string DamageType { get; set; }
-    public int DamageAmount { get; set; }
-    // More fields based on attack type
-}
-
-#endregion
-=======
-
-public class Tower : MonoBehaviour
-{
-    // Start is called before the first frame update
-    void Start()
-    {
         
+
     }
 
-    // Update is called once per frame
-    void Update()
+    #region JSON Data Structures
+
+    [System.Serializable]
+    public class TowerData
     {
+        public int MaxHP { get; set; }
+        public IList<TowerAttack> Attacks { get; set; }
         
+
+        
+        // More fields based on what we need to store about an enemy
     }
+
+
+    //[System.Serializable]
+    public class TowerAttack
+    {
+        public string DamageType { get; set; }
+        public int DamageAmount { get; set; }
+        // More fields based on attack type
+    }
+
+    #endregion
 }
->>>>>>> main

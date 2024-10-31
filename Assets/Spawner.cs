@@ -1,4 +1,4 @@
-using System.Collections;
+/*using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -17,7 +17,7 @@ public class Spawner : MonoBehaviour
     /*public void ButtonSpawn()
     {
         Spawn(5, 1, 1, 1);
-    }*/
+    }
 
     void Start()
     {
@@ -74,9 +74,9 @@ public class Spawner : MonoBehaviour
             this.EnemyComponent.transform.Translate(-1, 0, 0, Space.Self);
     }*/
 
-    public void Shoot()
+    /*public void Shoot()
     {
         Instantiate(ProjectilePrefab).transform.position = this.TowerComponent.transform.position;
-    }
+    }*/
 
-}
+//}

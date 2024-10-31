@@ -60,7 +60,7 @@ namespace GridSystem
         {
             int i = r + GridRadius;
             int j = (i > GridRadius) ? (q + GridRadius) : (q + i);
-            Debug.Log("q: "+ q + " r: " + r + " s: " + s + "\n" + "i: " + i + " j: " + j);
+            //Debug.Log("q: "+ q + " r: " + r + " s: " + s + "\n" + "i: " + i + " j: " + j);
 
             return (i, j);
         }

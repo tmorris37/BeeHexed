@@ -4,15 +4,19 @@ using UnityEngine;
 
 using GridSystem;
 
-public class EnemySpawner : MonoBehaviour
+public class Spawner : MonoBehaviour
 {
     [SerializeField] public GameObject EnemyPrefab;
 
     [SerializeField] public GameObject ProjectilePrefab;
 
+    [SerializeField] public GameObject TowerPrefab;
+
     [SerializeField] public GridManager GridManager;
 
     public Enemy EnemyComponent;
+
+    public Tower TowerCompnent;
 
     public void ButtonSpawn()
     {

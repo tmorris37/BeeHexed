@@ -7,6 +7,14 @@ public class Tower : HexPosition
     [SerializeField] public int TowerID;
     public TowerData Data;
 
+    public float fireRate = 1f;
+
+    public GameObject projectilePrefab;
+
+    private Transform target;
+
+    private float fireCountdown;
+
     void Start()
     {
         // Assets/Resources/Enemies/Enemy_"".json
@@ -26,6 +34,47 @@ public class Tower : HexPosition
             Debug.Log("Unable to load Tower_" + TowerID);
         }
 
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        Debug.Log("It detects a thing");
+        if (other.CompareTag("Enemy"))
+        {
+            target = other.transform;
+        }
+    }
+
+    void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.CompareTag("Enemy") && other.transform == target)
+        {
+            target = null;
+        }
+    }
+
+    private void Update()
+    {
+        if (target != null)
+        {
+            // shoot at intervals based on fireRate
+            if (fireCountdown <= 0f)
+            {
+                Shoot();
+                fireCountdown = 1f / fireRate;
+            }
+            fireCountdown -= Time.deltaTime;
+        }
+    }
+
+    private void Shoot()
+    {
+        GameObject projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
+        TowerProjectile projScript = projectile.GetComponent<TowerProjectile>();
+        if (projScript != null)
+        {
+            projScript.Seek(target);
+        }
     }
 
     

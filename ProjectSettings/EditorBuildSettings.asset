@@ -8,4 +8,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/EnemyToyBox.unity
     guid: 8c9cfa26abfee488c85f1582747f6a02
+  - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: e39507de187c6cd42bb67212d896ab0a
+  - enabled: 1
+    path: Assets/Scenes/Map.unity
+    guid: c8567806bdb568f4bac8173b77d89ba3
+  - enabled: 1
+    path: Assets/Scenes/Settings.unity
+    guid: 726848b7ef9a41140805d6f238b76e07
   m_configObjects: {}

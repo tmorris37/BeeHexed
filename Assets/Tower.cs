@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+<<<<<<< HEAD
 using Newtonsoft.Json;
 public class Tower : HexPosition
 {
@@ -104,3 +105,20 @@ public class TowerAttack
 }
 
 #endregion
+=======
+
+public class Tower : MonoBehaviour
+{
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+}
+>>>>>>> main

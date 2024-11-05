@@ -5,13 +5,13 @@ using UnityEngine;
 public class TickClock : MonoBehaviour
 {
     // A boolean that outputs true when the clock is "high"
-    [SerializeField] private bool Pulse;
+    [SerializeField] public bool Pulse;
 
     // Sets 1 Tick to 2 seconds (4 seconds / 1 complete cycle)
-    [SerializeField] private float TickLength = 2.0f;
+    [SerializeField] public float TickLength = 2.0f;
 
     // Internally tracks the time since last tick pulse.
-    private float InternalClock;
+    public float InternalClock;
 
     /*
      *      |-----| = TickLength

@@ -4,8 +4,12 @@ using UnityEngine;
 
 public class Card : ScriptableObject
 {
-  [SerializeField] private string CardName;
-  [SerializeField] private int Cost;
+  [SerializeField] public string cardName;
+  [SerializeField] public int cost;
+  [SerializeField] public string bodyText;
+  [SerializeField] public string health;
+
+  [SerializeField] public CardType cardType;
 
     // Start is called before the first frame update
     void Start()
@@ -17,5 +21,10 @@ public class Card : ScriptableObject
     void Update()
     {
         
+    }
+    
+    public enum CardType {
+      Tower,
+      Spell
     }
 }

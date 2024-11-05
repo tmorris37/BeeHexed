@@ -5,7 +5,9 @@ using UnityEngine;
 using GridSystem;
 using EnemyAndTowers;
 
-public class Spawner : MonoBehaviour
+//import GridManager.cs;
+
+    public class Level0Spawner : MonoBehaviour
 {
     [SerializeField] public GameObject EnemyPrefab;
 
@@ -19,15 +21,23 @@ public class Spawner : MonoBehaviour
 
     public Tower TowerCompnent;
 
-    public void ButtonSpawn()
+    private float timer = 0f;
+    public float moveInterval;
+
+    void Start()
     {
-        Spawn(0, 0, 0, 0);
+        //EnemyComponents = new List<Enemy>();
+        Spawn(0, 6, 0, -6);
+        //Spawn(0, 5, -5, 0);
     }
+
+    
 
     public void Spawn(int EnemyID, int q, int r, int s)
     {
         // Spawn Unity Object with Enemy script (Prefab)
         GameObject NewEnemy = Instantiate(EnemyPrefab);
+    
         this.EnemyComponent = NewEnemy.GetComponent<Enemy>();
 
         // Set the Enemy ID with desired ID
@@ -82,4 +92,22 @@ public class Spawner : MonoBehaviour
         Instantiate(ProjectilePrefab).transform.position = this.EnemyComponent.transform.position;
     }
 
+    public void Update()
+    {
+        timer += Time.deltaTime;
+
+        if (timer >= moveInterval)
+        {
+            MoveEnemy();
+            timer = 0f;
+        }
+    }
+
+    private void MoveEnemy()
+    {
+        this.EnemyComponent.transform.Translate(-1, 0, 0, Space.Self);
+        
+    }
 }
+
+

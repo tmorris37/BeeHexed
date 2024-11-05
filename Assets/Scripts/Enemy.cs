@@ -41,6 +41,20 @@ namespace EnemyAndTowers
 
         }
 
+        void Update()
+        {
+            Debug.Log(this.Data.MaxHP);
+        }
+
+        void OnTriggerEnter2D(Collider2D other)
+        {
+           // Debug.Log("It detects a thing");
+            if (other.CompareTag("Projectile"))
+            {
+                this.Data.MaxHP = this.Data.MaxHP - 1;
+            }
+        }
+
     }
 
     #region JSON Data Structures

@@ -15,7 +15,7 @@ namespace GridSystem
         
         // Represents the max distance out from the origin
         // q_max = r_max = s_max = GridRadius
-        [SerializeField] public int GridRadius = 3;
+        [SerializeField] public int GridRadius;
 
         [SerializeField] public GameObject HexTilePrefab;
 

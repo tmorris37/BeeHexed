@@ -1,0 +1,15 @@
+
+{
+    "MaxHP": 3,
+    "Attacks": [
+        {
+            "DamageType": "Physical",
+            "DamageAmount": 10
+        },
+        {
+            "DamageType": "Magic",
+            "DamageAmount": 15
+        }
+    ],
+    "MovementType": "Flying"
+}

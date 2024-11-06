@@ -28,7 +28,7 @@ using EnemyAndTowers;
 
     void Start()
     {
-        (int q, int r, int s) = GenerateEnemyStartCoords();
+        (int q, int r, int s) = UniformRandomStartCoords();
 
         //EnemyComponents = new List<Enemy>();
         print(s);
@@ -219,17 +219,17 @@ using EnemyAndTowers;
       }
       // If the enemy is not on a spoke, move it to the nearest spoke along the edges of the grid
       else {
-        if ((q > r && q > s && s > r)) || (q < r && q < s && s > r) {
+        if (q > r && q > s && Math.Abs(q) == GridManager.GridRadius) {
           MoveNW();
-        } else if ((r > q && r > s && q > s) || (r < q && r < s && q > s)) {
+        } else if (r > q && r > s && Math.Abs(r) == GridManager.GridRadius) {
           MoveE();
-        } else if ((s > q && s > r && q > r) || (s < q && s < r && q > r)) {
+        } else if (s > q && s > r && Math.Abs(s) == GridManager.GridRadius) {
           MoveSW();
-        } else if ((q < r && q < s && s < r) || (q > r && q > s && s < r)) {
+        } else if (q < r && q < s && Math.Abs(q) == GridManager.GridRadius) {
           MoveSE();
-        } else if ((r < q && r < s && q < s) || (r > q && r > s && q < s)) {
+        } else if (r < q && r < s && Math.Abs(r) == GridManager.GridRadius) {
           MoveW();
-        } else if ((s < q && s < r && q < r) || (s > q && s > r && q < r)) {
+        } else if (s < q && s < r && Math.Abs(s) == GridManager.GridRadius) {
           MoveNE();
         }
       }

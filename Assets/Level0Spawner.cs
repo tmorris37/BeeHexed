@@ -28,58 +28,13 @@ using EnemyAndTowers;
 
     void Start()
     {
-        System.Random rand = new System.Random();
-
-        int sign = (rand.Next(1, 3) == 1) ? -1 : 1;
-        int a = 4 * sign;
-        int s = 0, q = 0, r = 0, b = 0, c = 0;
-        int set = rand.Next(1,6);
-        switch (set) {
-            case 1:
-                b = -4 * sign;
-                c = 0;
-                break;
-            case 2:
-                b = -3 * sign;
-                c = -1 * sign;
-                break;
-            case 3:
-                b = -2 * sign;
-                c = -2 * sign;
-                break;
-            case 4:
-                b = -1 * sign;
-                c = -3 * sign;
-                break;
-            case 5:
-                b = 0 * sign;
-                c = -4 * sign;
-                break;
-        }
-
-        switch (rand.Next(0,3)) {
-            case 0:
-                s = a;
-                q = b;
-                r = c;
-                break;
-            case 1:
-                s = b;
-                q = c;
-                r = a;
-                break;
-            case 2:
-                s = c;
-                q = a;
-                r = b;
-                break;
-        }
+        (int q, int r, int s) = GenerateEnemyStartCoords();
 
         //EnemyComponents = new List<Enemy>();
         print(s);
         print(q);
         print(r);
-        Spawn(0,3,1,-4);
+        Spawn(0,q,r,s);
         //Spawn(0, 5, -5, 0);
     }
 
@@ -153,6 +108,37 @@ using EnemyAndTowers;
         }
     }
 
+    public (int q, int r, int s) GenerateEnemyStartCoords()
+    {
+        System.Random rand = new System.Random();
+
+        int sign = (rand.Next(1, 3) == 1) ? -1 : 1;
+        int a = 4 * sign;
+        int s = 0, q = 0, r = 0, b = 0, c = 0;
+        int set = rand.Next(1,6);
+        switch (set) {
+            case 1:
+                b = -4 * sign; c = 0; break;
+            case 2:
+                b = -3 * sign; c = -1 * sign; break;
+            case 3:
+                b = -2 * sign; c = -2 * sign; break;
+            case 4:
+                b = -1 * sign; c = -3 * sign; break;
+            case 5:
+                b = 0 * sign; c = -4 * sign; break;
+        }
+
+        switch (rand.Next(0,3)) {
+            case 0:
+                s = a; q = b; r = c; break;
+            case 1:
+                s = b; q = c; r = a; break;
+            case 2:
+                s = c; q = a; r = b; break;
+        }
+        return (q, r, s);
+    }
     private void MoveEnemy()
     {
         this.EnemyComponent.transform.Translate(-1, 0, 0, Space.Self);

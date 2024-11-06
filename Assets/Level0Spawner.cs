@@ -219,17 +219,17 @@ using EnemyAndTowers;
       }
       // If the enemy is not on a spoke, move it to the nearest spoke along the edges of the grid
       else {
-        if (q > r && q > s) {
+        if ((q > r && q > s && s > r)) || (q < r && q < s && s > r) {
           MoveNW();
-        } else if (r > q && r > s) {
+        } else if ((r > q && r > s && q > s) || (r < q && r < s && q > s)) {
           MoveE();
-        } else if (s > q && s > r) {
+        } else if ((s > q && s > r && q > r) || (s < q && s < r && q > r)) {
           MoveSW();
-        } else if (q < r && q < s) {
+        } else if ((q < r && q < s && s < r) || (q > r && q > s && s < r)) {
           MoveSE();
-        } else if (r < q && r < s) {
+        } else if ((r < q && r < s && q < s) || (r > q && r > s && q < s)) {
           MoveW();
-        } else if (s < q && s < r) {
+        } else if ((s < q && s < r && q < r) || (s > q && s > r && q < r)) {
           MoveNE();
         }
       }

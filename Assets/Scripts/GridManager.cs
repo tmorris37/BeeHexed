@@ -93,7 +93,7 @@ namespace GridSystem
         // Useful for spawning/moving Unity objects
         public (float, float) QRStoXY(int q, int r, int s)
         {
-            float x = (q - s)/2;
+            float x = (q - s)/2.0f;
             float y = -r;
             return (x, y);
         }

@@ -43,7 +43,7 @@ namespace EnemyAndTowers
 
         void Update()
         {
-            Debug.Log(this.Data.MaxHP);
+            // Debug.Log(this.Data.MaxHP);
         }
 
         void OnTriggerEnter2D(Collider2D other)

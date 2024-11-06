@@ -137,6 +137,7 @@ using EnemyAndTowers;
             case 2:
                 s = c; q = a; r = b; break;
         }
+        Debug.Log("(q, r, s): (" + q + ", " + r + ", " + s + ")");
         return (q, r, s);
     }
     private void MoveEnemy()

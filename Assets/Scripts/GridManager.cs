@@ -88,6 +88,18 @@ namespace GridSystem
             return (i, j);
         }
 
+        // Converts the indices for the HexTile array Grid[][] to q, r, s coordinates
+        public (int, int, int) IJtoQRS(int i, int j)
+        {
+            int r = i - GridRadius;
+            int q = (i > GridRadius) ? (j - GridRadius) : (j - i);
+            int s = 0 - q - r;
+
+            //Debug.Log("q: "+ q + " r: " + r + " s: " + s + "\n" + "i: " + i + " j: " + j);
+
+            return (q, r, s);
+        }
+
         // Converts the q, r, s coordinates to x, y Unity cooridinates
         // Origin = Center of Hex Grid (0, 0, 0) [BOTH systems]
         // Useful for spawning/moving Unity objects
@@ -95,7 +107,18 @@ namespace GridSystem
         {
             float x = (q - s)/2.0f;
             float y = -r;
+
             return (x, y);
+        }
+
+        // Converts the x, y Unity coordinates to q, r, s cooridinates
+        public (int, int, int) XYtoQRS(float x, float y)
+        {
+            int r = -y;
+            int q = (2*x - r)/2.0f
+            int s = 0 - q - r;
+
+            return (q, r, s);
         }
     }
 }

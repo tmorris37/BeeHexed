@@ -147,6 +147,44 @@ using EnemyAndTowers;
         Debug.Log("(q, r, s): (" + q + ", " + r + ", " + s + ")");
         return (q, r, s);
     }
+
+    // Generates a random Edge Tile on the current Hex Grid based on GridRadius
+    public (int q, int r, int s) UniformRandomStartCoords()
+    {
+        int Radius = GridManager.GridRadius;
+        // For any arbitrary Grid, there are exactly 6*Radius edge tiles
+        // Generates a random int in the range [0,6*Radius)
+        int spawnHex = UnityEngine.Random.Range(0, 6*Radius);
+
+        // Random Tile is in the First Row
+        if (spawnHex <= Radius)
+        {
+            return GridManager.IJtoQRS(0, spawnHex);
+        }
+        // Random Tile is in the Last Row
+        if (spawnHex >= 5*Radius - 1)
+        {
+            return GridManager.IJtoQRS(2*Radius, spawnHex - 5*Radius + 1);
+        }
+        // Random Tile is on Left/Right Edge
+        int adjustedSpawnHex = spawnHex - Radius - 1;
+        int i, j;
+
+        if (adjustedSpawnHex % 2 == 0)
+        {
+            // Tile is on Left Side
+            i = 1 + (adjustedSpawnHex / 2);
+            j = 0;
+        }
+        else // (adjustedSpawnHex % 2 == 1)
+        {
+            // Tile is on Right Side
+            i = 1 + ((adjustedSpawnHex - 1) / 2);
+            j = (i > Radius) ? (3*Radius - i) : (Radius + i);
+        }
+        return GridManager.IJtoQRS(i, j);
+    }
+
     
     public void SimpleMove()
     {

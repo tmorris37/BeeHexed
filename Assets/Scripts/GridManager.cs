@@ -114,8 +114,8 @@ namespace GridSystem
         // Converts the x, y Unity coordinates to q, r, s cooridinates
         public (int, int, int) XYtoQRS(float x, float y)
         {
-            int r = -y;
-            int q = (2*x - r)/2.0f
+            int r = (int) -y;
+            int q = (int) (2*x - r)/2;
             int s = 0 - q - r;
 
             return (q, r, s);

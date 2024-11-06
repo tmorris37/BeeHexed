@@ -21,6 +21,7 @@ To give a general idea, on startup the user will be presented with a main menu. 
 2. If not already listed, click the bug report button to send us an email following the provided template.
 3. Give an explanation of what the bug is, and the steps taken to recreate the bug and/or any current present circumstances when the bug occurred.
 4. Include important information such as the game version, and any other relevant information such as level/seed and towers/cards for game simulation bugs, and if necessary, the settings configuration for more overarching bugs like visual/audio bugs or general mechanic bugs. Screenshots/videos of the bug are helpful, though not necessary
+
 We may include a popup when unusual things occur (e.g. unexpected backend errors or if games run too long without ending) to push users to report bugs. We could also have statistics automatically exported to allow users to easily report game information.
 ### Known bugs
 No known major game bugs since the game in the public main branch since the game is unfinished at the moment. 

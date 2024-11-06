@@ -103,19 +103,25 @@ using EnemyAndTowers;
 
         if (timer >= moveInterval)
         {
-            MoveW();
+            SimpleMove();
             timer = 0f;
         }
     }
 
     public (int q, int r, int s) GenerateEnemyStartCoords()
     {
+        // Generate a random variable for future use
         System.Random rand = new System.Random();
-
+        
+        // Generate a random sign
         int sign = (rand.Next(1, 3) == 1) ? -1 : 1;
+        
+        // to generate an edge coord, one of the values must be 4
         int a = 4 * sign;
         int s = 0, q = 0, r = 0, b = 0, c = 0;
-        int set = rand.Next(1,6);
+        
+        // Generate a random set (combination of two values)
+        int set = rand.Next(1,6);        
         switch (set) {
             case 1:
                 b = -4 * sign; c = 0; break;
@@ -129,6 +135,7 @@ using EnemyAndTowers;
                 b = 0 * sign; c = -4 * sign; break;
         }
 
+        // Randomly shuffle the values
         switch (rand.Next(0,3)) {
             case 0:
                 s = a; q = b; r = c; break;
@@ -140,10 +147,54 @@ using EnemyAndTowers;
         Debug.Log("(q, r, s): (" + q + ", " + r + ", " + s + ")");
         return (q, r, s);
     }
-    private void MoveEnemy()
+    
+    public void SimpleMove()
     {
-        this.EnemyComponent.transform.Translate(-1, 0, 0, Space.Self);
-        
+      // Get the current position of the enemy
+      int q = EnemyComponent.q;
+      int r = EnemyComponent.r;
+      int s = EnemyComponent.s;
+
+      // If enemy is at the origin, do nothing
+      if (q == 0 && r == 0 && s == 0) {
+        return;
+      }      
+      // Move the enemy along the spokes of the hex grid if possible
+      if (Math.Abs(q) == Math.Abs(r) && s == 0) {
+        if (q > r) {
+          MoveSW();
+        } else {
+          MoveNE();
+        }
+      } else if (Math.Abs(q) == Math.Abs(s) && r == 0) {
+        if (q > s) {
+          MoveW();
+        } else {
+          MoveE();
+        }
+      } else if (Math.Abs(r) == Math.Abs(s) && q == 0) {
+        if (r > s) {
+          MoveNW();
+        } else {
+          MoveSE();
+        }
+      }
+      // If the enemy is not on a spoke, move it to the nearest spoke along the edges of the grid
+      else {
+        if (q > r && q > s) {
+          MoveNW();
+        } else if (r > q && r > s) {
+          MoveE();
+        } else if (s > q && s > r) {
+          MoveSW();
+        } else if (q < r && q < s) {
+          MoveSE();
+        } else if (r < q && r < s) {
+          MoveW();
+        } else if (s < q && s < r) {
+          MoveNE();
+        }
+      }
     }
 }
 

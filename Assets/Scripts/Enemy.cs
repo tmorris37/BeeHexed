@@ -10,6 +10,10 @@ namespace EnemyAndTowers
         [SerializeField] public int EnemyID;
         public EnemyData Data;
 
+        public int health;
+
+        [SerializeField] FloatingHealthBar healthBar;
+
         void Start()
         {
             this.DEBUG = true;
@@ -38,12 +42,15 @@ namespace EnemyAndTowers
             {
                 Debug.Log("Unable to load Enemy_" + EnemyID);
             }
+            this.health = this.Data.MaxHP;
+            healthBar = GetComponentInChildren<FloatingHealthBar>();
+            healthBar.UpdateHealthBar(this.health, this.Data.MaxHP);
 
         }
 
         void Update()
         {
-             Debug.Log(this.Data.MaxHP);
+             Debug.Log(this.health);
         }
 
         void OnTriggerEnter2D(Collider2D other)
@@ -51,7 +58,8 @@ namespace EnemyAndTowers
            // Debug.Log("It detects a thing");
             if (other.CompareTag("Projetile"))
             {
-                this.Data.MaxHP = this.Data.MaxHP - 1;
+                this.health = this.health - 1;
+                healthBar.UpdateHealthBar(this.health, this.Data.MaxHP);
                 /*if (this.Data.MaxHP <= 0)
                 {
                     Destroy(this);

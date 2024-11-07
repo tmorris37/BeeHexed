@@ -111,8 +111,11 @@ using EnemyAndTowers;
             
         }
 
-        if (this.EnemyComponent != null && this.EnemyComponent.Data.MaxHP <= 0)
+        if (this.EnemyComponent != null && this.EnemyComponent.health <= 0)
         {
+          Destroy(this.EnemyComponent.gameObject);
+        
+        // Set EnemyComponent to null to clean up the reference
           this.EnemyComponent = null;
         }
     }

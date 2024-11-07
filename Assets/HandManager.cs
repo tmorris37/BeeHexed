@@ -7,7 +7,8 @@ using UnityEngine;
 public class HandManager : MonoBehaviour
 {
     // assigned within the Unity inspector
-    public GameObject cardPrefab;
+    public GameObject towerCardPrefab;
+    public GameObject spellCardPrefab;
     // where the bottom of the hand is (also assigned in Unity)
     public Transform handLocation;
     // determines how much the hand is spread out, can be altered in inspector
@@ -18,20 +19,34 @@ public class HandManager : MonoBehaviour
     public float vertCardSpacing = 100f;
     // a list of the cards in our hand
     public List<GameObject> cardsInHand = new List<GameObject>();
+
+    public DeckManager deckManager;
+
+    // TODO: probably privatize everything
+    public int handSize = 0;
+
     // Start is called before the first frame update
     void Start()
     {
-      // add 6 cards to hand
-        for (int i = 0; i < 5; i++) {
-          AddToHand();  
-        }
+      
     }
 
-  private void AddToHand()
+  public void AddToHand(Card card)
   {
-    GameObject addCard = Instantiate(cardPrefab, handLocation.position, Quaternion.identity, handLocation);
+    GameObject addCard;
+    if (card.cardType == Card.CardType.Tower) {
+      addCard = Instantiate(towerCardPrefab, handLocation.position,
+       Quaternion.identity, handLocation);
+    } else {
+      addCard = Instantiate(spellCardPrefab, handLocation.position,
+       Quaternion.identity, handLocation);
+    }
+    
     cardsInHand.Add(addCard);
     UpdateHandDisplay();
+
+    addCard.GetComponent<CardDisplay>().cardData = card;
+
   }
 
   private void UpdateHandDisplay()
@@ -60,6 +75,6 @@ public class HandManager : MonoBehaviour
   // Update is called once per frame
   void Update()
     {
-        UpdateHandDisplay();
+        // UpdateHandDisplay();
     }
 }

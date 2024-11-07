@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.Data.Common;
 
 
 public class CardDisplay : MonoBehaviour
@@ -28,7 +29,8 @@ public class CardDisplay : MonoBehaviour
       nameText.text = cardData.cardName;
       bodyText.text = cardData.bodyText;
       costText.text = cardData.cost.ToString();
-      healthText.text = cardData.health.ToString();
-
+      if (cardData.cardType == Card.CardType.Tower) {
+        healthText.text = cardData.health.ToString();
+      }
     }
 }

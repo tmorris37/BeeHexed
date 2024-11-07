@@ -43,16 +43,21 @@ namespace EnemyAndTowers
 
         void Update()
         {
-            // Debug.Log(this.Data.MaxHP);
+             Debug.Log(this.Data.MaxHP);
         }
 
         void OnTriggerEnter2D(Collider2D other)
         {
            // Debug.Log("It detects a thing");
-            if (other.CompareTag("Projectile"))
+            if (other.CompareTag("Projetile"))
             {
                 this.Data.MaxHP = this.Data.MaxHP - 1;
+                /*if (this.Data.MaxHP <= 0)
+                {
+                    Destroy(this);
+                }*/
             }
+
         }
 
     }

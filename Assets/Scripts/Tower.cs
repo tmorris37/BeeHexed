@@ -41,7 +41,7 @@ namespace EnemyAndTowers
 
         void OnTriggerEnter2D(Collider2D other)
         {
-            Debug.Log("It detects a thing");
+            //Debug.Log("It detects a thing");
             if (other.CompareTag("Enemy"))
             {
                 target = other.transform;

@@ -103,8 +103,17 @@ using EnemyAndTowers;
 
         if (timer >= moveInterval)
         {
-            SimpleMove();
-            timer = 0f;
+            if (this.EnemyComponent != null)
+            {
+              SimpleMove();
+              timer = 0f;
+            }
+            
+        }
+
+        if (this.EnemyComponent != null && this.EnemyComponent.Data.MaxHP <= 0)
+        {
+          this.EnemyComponent = null;
         }
     }
 

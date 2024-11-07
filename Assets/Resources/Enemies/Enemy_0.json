@@ -1,6 +1,6 @@
 
 {
-    "MaxHP": 3,
+    "MaxHP": 10,
     "Attacks": [
         {
             "DamageType": "Physical",

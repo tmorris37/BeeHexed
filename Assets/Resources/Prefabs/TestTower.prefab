@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 73880117894632346}
   - component: {fileID: 9202739149329773583}
   - component: {fileID: 498275325364677042}
+  - component: {fileID: 975879447001381724}
   m_Layer: 0
   m_Name: TestTower
   m_TagString: Untagged
@@ -27,8 +28,8 @@ Transform:
   m_GameObject: {fileID: 842843656095350179}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.38, y: -0.76, z: 0}
-  m_LocalScale: {x: 0.27522, y: 0.27522, z: 0.27522}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.101693794, y: 0.101693794, z: 0.101693794}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -104,3 +105,40 @@ MonoBehaviour:
   DEBUG: 1
   GridManager: {fileID: 0}
   TowerID: 0
+  fireRate: 1
+  projectilePrefab: {fileID: 1813104218997895954, guid: dfe7bc1084486f34c87d7b9056d82f23, type: 3}
+--- !u!58 &975879447001381724
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 842843656095350179}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 16

@@ -12,6 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be53115b1aecee045948c4c80afc858a, type: 3}
   m_Name: Providence
   m_EditorClassIdentifier: 
-  CardName: Ancestral Sacrifice
-  Cost: 2
-  SpellID: 0
+  cardName: Providence
+  cost: 2
+  bodyText: RHODE ISLAND
+  health: 
+  art: {fileID: 0}
+  cardType: 1
+  SpellID: 2

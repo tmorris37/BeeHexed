@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using Microsoft.Unity.VisualStudio.Editor;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Card : ScriptableObject
 {
@@ -8,7 +10,8 @@ public class Card : ScriptableObject
   [SerializeField] public int cost;
   [SerializeField] public string bodyText;
   [SerializeField] public string health;
-
+  [SerializeField] public Sprite art;
+  //[SerializeField] public UnityEngine.UI.Image art;
   [SerializeField] public CardType cardType;
 
     // Start is called before the first frame update

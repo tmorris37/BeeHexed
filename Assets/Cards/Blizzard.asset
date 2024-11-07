@@ -12,6 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be53115b1aecee045948c4c80afc858a, type: 3}
   m_Name: Blizzard
   m_EditorClassIdentifier: 
-  CardName: Blizzard
-  Cost: 2
-  spellType: 1
+  cardName: Blizzard
+  cost: 3
+  bodyText: Ice Storm deals 10 damage to everything
+  health: 
+  art: {fileID: 21300000, guid: 9cfc6bbc99d73c743a93ba57e2248ffd, type: 3}
+  cardType: 1
+  SpellID: 1

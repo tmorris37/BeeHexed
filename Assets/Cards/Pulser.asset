@@ -12,6 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0e21d7e0f4ed8e41a6b868c6ea87a76, type: 3}
   m_Name: Pulser
   m_EditorClassIdentifier: 
-  CardName: Pulser
-  Cost: 1
-  Tower: {fileID: 0}
+  cardName: Pulser
+  cost: 2
+  bodyText: Shoots LAZERS
+  health: 20
+  art: {fileID: 0}
+  cardType: 0
+  towerID: 1

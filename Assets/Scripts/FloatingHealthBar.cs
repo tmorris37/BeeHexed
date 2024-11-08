@@ -12,7 +12,7 @@ public class FloatingHealthBar : MonoBehaviour
 
     void Start()
     {
-        camera = camera.main;
+        //camera = camera.main;
     }
 
     public void UpdateHealthBar(float currentValue, float maxValue)

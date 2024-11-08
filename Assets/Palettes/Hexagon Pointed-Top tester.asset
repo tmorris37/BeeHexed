@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Hexagon Pointed-Top tester
   m_EditorClassIdentifier: 
   m_Sprite: {fileID: -2135585597343286014, guid: 5aa8b770bc43046bc8d993d0d5b7f4a5, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.3333333, g: 0.311473, b: 0.120545, a: 1}
   m_Transform:
     e00: 1
     e01: 0

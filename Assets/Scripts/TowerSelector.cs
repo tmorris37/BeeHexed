@@ -5,6 +5,7 @@ public class TowerSelector : MonoBehaviour
 {
     public Tilemap hexTilemap;
     public Tile highlightTile; // Assign a tile with a different color/shade in the Inspector
+    public GameObject towerPrefab; // Assign your tower prefab in the Inspector
 
     private Vector3Int lastHoveredTilePosition;
     private TileBase originalTile;
@@ -37,6 +38,14 @@ public class TowerSelector : MonoBehaviour
                 lastHoveredTilePosition = cellPosition;
                 hasHoveredTile = true;
             }
+        }
+
+        // Check for mouse click to place a tower
+        if (Input.GetMouseButtonDown(0) && hasHoveredTile)
+        {
+            //Vector3 towerPosition = hexTilemap.CellToWorld(lastHoveredTilePosition) + new Vector3(0.5f, 0.5f, 0); // Adjust for tile center
+            Vector3 towerPosition = hexTilemap.CellToWorld(lastHoveredTilePosition) + new Vector3(0, 0, 0);
+            Instantiate(towerPrefab, towerPosition, Quaternion.identity); // Spawn the tower at the tile position
         }
     }
 }

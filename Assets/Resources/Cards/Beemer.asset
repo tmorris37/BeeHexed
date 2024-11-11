@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c0e21d7e0f4ed8e41a6b868c6ea87a76, type: 3}
-  m_Name: Firefly Sorceress
+  m_Name: Beemer
   m_EditorClassIdentifier: 
-  cardName: Firefly Sorceress
-  cost: 3
-  bodyText: Shoots fireballs that do 15 damage each
-  health: 25
-  art: {fileID: 21300000, guid: 8dfb58077f1742448aeffd2e87e5c8af, type: 3}
+  cardName: Beemer
+  cost: 2
+  bodyText: Shoots piercing beams of energy that do 5 damage each
+  health: 20
+  art: {fileID: 21300000, guid: 25b51481065bd20478ce5b1dd27a3032, type: 3}
   cardType: 0
-  towerID: 3
+  towerID: 7

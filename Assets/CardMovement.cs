@@ -9,17 +9,21 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
     private Canvas canvas;
     private Vector2 originLocalCursorPosition;
     private Vector3 originLocalPanelPosition;
-    private int currState;
+    private int currState = 0;
     private Quaternion origCardRotation;
     private Vector3 origCardPosition;
     private Vector3 origCardScale;
 
     [SerializeField] private float hoverScale = 1.1f;
-    // [SerializeField] private UnityEngine.Vector2 cardPlay;
     [SerializeField] private Vector3 playPosition;
     // a highlight effect
     [SerializeField] private GameObject hoverHighlight;
+    // the arrow that indicates where the card's effect will be placed
     [SerializeField] private GameObject playArrow;
+
+    [SerializeField] private Vector2 cardPlayZone;
+    // Linear interpolation amount
+    [SerializeField] private float lerpTime = 0.1f;
 
 
     void Awake() {
@@ -37,6 +41,7 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
 
     // Update is called once per frame
     void Update() {
+        Debug.Log(Input.mousePosition.y);
         switch (currState) {
           case 1:
             HandleHoverState();
@@ -50,6 +55,9 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
             break;
           case 3:
             HandlePlayState();
+            if (!Input.GetMouseButton(0)) {
+              GoToState(0);
+            }
             break;
         }
     }
@@ -71,12 +79,11 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
         currState = 1;
       } else if (desiredState == 2) {
         currState = 2;
+      } else if (desiredState == 3) {
+        currState = 3;
+        playArrow.SetActive(true);
+        rectTransform.localPosition = Vector3.Lerp(rectTransform.position, playPosition, lerpTime);
       }
-      // } else if (desiredState == 3) {
-      //   currState = 3;
-      //   playArrow.SetActive(true);
-      //   rectTransform.localPosition = playPosition;
-      // }
     }
 
     public void OnPointerEnter(PointerEventData eventData) {
@@ -93,8 +100,7 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
 
     public void OnPointerDown(PointerEventData eventData) {
       if (currState == 1) {
-        currState = 2;
-        // test effect
+        GoToState(2);
         RectTransformUtility.ScreenPointToLocalPointInRectangle(canvas.GetComponent<RectTransform>(), 
             eventData.position, eventData.pressEventCamera, out originLocalCursorPosition);
         originLocalPanelPosition = rectTransform.localPosition;
@@ -104,17 +110,25 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
     public void OnDrag(PointerEventData eventData) {
       if (currState == 2) {
         // ensures card follows mouse
-        if (RectTransformUtility.ScreenPointToLocalPointInRectangle(canvas.GetComponent<RectTransform>(), 
-            eventData.position, eventData.pressEventCamera, out UnityEngine.Vector2 localCursorPosition)) {
-              localCursorPosition /= canvas.scaleFactor;
+        // Vector2 localCursorPosition;
+        // if (rectTransform.localPosition.y > cardPlay.y) {
+        //          GoToState(3);
+        //       }
+        // if (RectTransformUtility.ScreenPointToLocalPointInRectangle(canvas.GetComponent<RectTransform>(), 
+        //     eventData.position, eventData.pressEventCamera, out localCursorPosition)) {
+        //       localCursorPosition /= canvas.scaleFactor;
+        //       Vector3 offsetToOriginal = localCursorPosition - originLocalCursorPosition;
+        //       rectTransform.localPosition = originLocalPanelPosition + offsetToOriginal;
+        //       if (rectTransform.localPosition.y > cardPlay.y) {
+        //          GoToState(3);
+        //       }
+        //     }
 
-              // use lerp for smoother movement
-              Vector3 offsetToOriginal = localCursorPosition - originLocalCursorPosition;
-              rectTransform.localPosition = originLocalPanelPosition + offsetToOriginal;
-              // if (rectTransform.localPosition.y > cardPlay.y) {
-              //   GoToState(3);
-              // }
-            }
+        // I got no clue why I have to subtract 600 but otherwise its weirdly offset
+        rectTransform.localPosition = Input.mousePosition / canvas.scaleFactor - new Vector3(600,0,0);
+        if (rectTransform.localPosition.y > cardPlayZone.y) {
+          GoToState(3);
+        }
       }
     }
 
@@ -122,7 +136,7 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
       // make it glow and enlarge
       hoverHighlight.SetActive(true);
       rectTransform.localScale =  origCardScale * hoverScale;
-      rectTransform.localPosition.Set(rectTransform.localPosition.x, rectTransform.localPosition.y, rectTransform.localPosition.z + 1);
+      // rectTransform.localPosition.Set(rectTransform.localPosition.x, rectTransform.localPosition.y, rectTransform.localPosition.z + 1);
     }
 
     private void HandleDragState() {
@@ -133,9 +147,9 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
     private void HandlePlayState() {
       rectTransform.localPosition = playPosition;
       rectTransform.localRotation = Quaternion.identity;
-      // if (Input.mousePosition.y < cardPlay.y) {
-      //   GoToState(2);
-      //   playArrow.SetActive(false);
-      // }
+      if (Input.mousePosition.y / canvas.scaleFactor < cardPlayZone.y) {
+        GoToState(2);
+        playArrow.SetActive(false);
+      }
     }
 }

@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0e21d7e0f4ed8e41a6b868c6ea87a76, type: 3}
   m_Name: Bearicade
   m_EditorClassIdentifier: 
-  cardName: 
-  cost: 0
-  bodyText: 
-  health: 
-  art: {fileID: 0}
+  cardName: Bearicade
+  cost: 1
+  bodyText: Build a Bearicade
+  health: 150
+  art: {fileID: 21300000, guid: d4777583fe58b09418b6c125daf50dd4, type: 3}
   cardType: 0
-  towerID: 0
+  towerID: 5

@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be53115b1aecee045948c4c80afc858a, type: 3}
   m_Name: Sacrificial Bargain
   m_EditorClassIdentifier: 
-  cardName: 
+  cardName: Sacrificial Bargain
   cost: 0
-  bodyText: 
+  bodyText: Take 10 damage and draw 3 cards
   health: 
-  art: {fileID: 0}
-  cardType: 0
-  SpellID: 0
+  art: {fileID: 21300000, guid: d644725c3bf9af546be08495ba9339f4, type: 3}
+  cardType: 1
+  SpellID: 3
+  Type: 0

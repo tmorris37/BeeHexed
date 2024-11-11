@@ -16,6 +16,7 @@ public class CardDisplay : MonoBehaviour
     public TMP_Text healthText;
     public TMP_Text costText;
     public TMP_Text bodyText;
+    public TMP_Text typeText;
 
     // Start is called before the first frame update
     void Start()
@@ -31,6 +32,9 @@ public class CardDisplay : MonoBehaviour
       costText.text = cardData.cost.ToString();
       if (cardData.cardType == Card.CardType.Tower) {
         healthText.text = cardData.health.ToString();
+        typeText.text = "Tower";
+      } else if (cardData.cardType == Card.CardType.Spell) {
+        typeText.text = "Spell - " + ((SpellCard)cardData).Type.ToString();
       }
     }
 }

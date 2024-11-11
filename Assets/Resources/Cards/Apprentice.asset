@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c0e21d7e0f4ed8e41a6b868c6ea87a76, type: 3}
-  m_Name: Firefly Sorceress
+  m_Name: Apprentice
   m_EditorClassIdentifier: 
-  cardName: Firefly Sorceress
-  cost: 3
-  bodyText: Shoots fireballs that do 15 damage each
-  health: 25
-  art: {fileID: 21300000, guid: 8dfb58077f1742448aeffd2e87e5c8af, type: 3}
+  cardName: Apprentice
+  cost: 1
+  bodyText: Shoots bolts of magic that do 5 damage each
+  health: 30
+  art: {fileID: 21300000, guid: d479eba340936494a9465d73db7ca732, type: 3}
   cardType: 0
-  towerID: 3
+  towerID: 6

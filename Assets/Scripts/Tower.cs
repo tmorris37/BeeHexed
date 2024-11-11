@@ -18,6 +18,10 @@ namespace EnemyAndTowers
 
         private float fireCountdown;
 
+        private int HP;
+
+        [SerializeField] FloatingHealthBar healthBar;
+
         void Start()
         {
             // Assets/Resources/Enemies/Enemy_"".json
@@ -36,6 +40,9 @@ namespace EnemyAndTowers
             {
                 Debug.Log("Unable to load Tower_" + TowerID);
             }
+            this.HP = this.Data.MaxHP;
+            healthBar = GetComponentInChildren<FloatingHealthBar>();
+            healthBar.UpdateHealthBar(this.HP, this.Data.MaxHP);
 
         }
 
@@ -58,6 +65,7 @@ namespace EnemyAndTowers
 
         private void Update()
         {
+            Debug.Log(this.HP);
             if (target != null)
             {
                 // shoot at intervals based on fireRate
@@ -103,6 +111,8 @@ namespace EnemyAndTowers
     {
         public string DamageType { get; set; }
         public int DamageAmount { get; set; }
+
+        public int Speed { get; set;}
         // More fields based on attack type
     }
 

@@ -4,18 +4,18 @@ using UnityEngine;
 
 #if UNITY_EDITOR
 using UnityEditor;
-[CustomEditor(typeof(DeckManager))]
+[CustomEditor(typeof(DrawPileManager))]
 public class DeckEditor : Editor
 {
     public override void OnInspectorGUI()
     {
         DrawDefaultInspector();
 
-        DeckManager deckManager = (DeckManager)target;
+        DrawPileManager drawPileManager = (DrawPileManager)target;
         if (GUILayout.Button("Draw Next Card")){
             HandManager handManager = FindObjectOfType<HandManager>();
             if (handManager != null){
-                deckManager.DrawCard(handManager);
+                drawPileManager.DrawCard(handManager);
             }
         }
     }

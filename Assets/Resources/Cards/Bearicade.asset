@@ -14,8 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardName: Bearicade
   cost: 1
-  bodyText: Build a Bearicade
+  bodyText: A tower that does not attack but refects 1 damage for every melee attack
+    that hits it
   health: 150
   art: {fileID: 21300000, guid: d4777583fe58b09418b6c125daf50dd4, type: 3}
   cardType: 0
   towerID: 5
+  fieldSprite: {fileID: 21300000, guid: d9e8582a088bdb04a86caa39bb10d8f9, type: 3}

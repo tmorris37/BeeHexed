@@ -1,4 +1,5 @@
 
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Rendering;
@@ -41,7 +42,6 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
 
     // Update is called once per frame
     void Update() {
-        Debug.Log(Input.mousePosition.y);
         switch (currState) {
           case 1:
             HandleHoverState();
@@ -55,9 +55,6 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
             break;
           case 3:
             HandlePlayState();
-            if (!Input.GetMouseButton(0)) {
-              GoToState(0);
-            }
             break;
         }
     }
@@ -109,21 +106,6 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
 
     public void OnDrag(PointerEventData eventData) {
       if (currState == 2) {
-        // ensures card follows mouse
-        // Vector2 localCursorPosition;
-        // if (rectTransform.localPosition.y > cardPlay.y) {
-        //          GoToState(3);
-        //       }
-        // if (RectTransformUtility.ScreenPointToLocalPointInRectangle(canvas.GetComponent<RectTransform>(), 
-        //     eventData.position, eventData.pressEventCamera, out localCursorPosition)) {
-        //       localCursorPosition /= canvas.scaleFactor;
-        //       Vector3 offsetToOriginal = localCursorPosition - originLocalCursorPosition;
-        //       rectTransform.localPosition = originLocalPanelPosition + offsetToOriginal;
-        //       if (rectTransform.localPosition.y > cardPlay.y) {
-        //          GoToState(3);
-        //       }
-        //     }
-
         // I got no clue why I have to subtract 600 but otherwise its weirdly offset
         rectTransform.localPosition = Input.mousePosition / canvas.scaleFactor - new Vector3(600,0,0);
         if (rectTransform.localPosition.y > cardPlayZone.y) {
@@ -147,6 +129,29 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
     private void HandlePlayState() {
       rectTransform.localPosition = playPosition;
       rectTransform.localRotation = Quaternion.identity;
+      if (!Input.GetMouseButton(0)) {
+        // place tower (sprite)
+        CardDisplay cardDisplay = GetComponent<CardDisplay>();
+        NectarManager nectarManager = FindObjectOfType<NectarManager>();
+        if (cardDisplay.cardData.cost <= nectarManager.GetNectar()) {
+          nectarManager.SetNectar(nectarManager.GetNectar() - cardDisplay.cardData.cost);
+          if (cardDisplay.cardData.cardType == Card.CardType.Tower) {
+          // ((TowerCard)cardDisplay.cardData).fieldSprite
+          //Instantiate(gameObject, Input.mousePosition / canvas.scaleFactor + new Vector3(-400f, -400f, 0f), Quaternion.identity);
+          // set parent transform
+          } else {
+            // cast spell
+          }
+        // Discard card and destroy card
+        HandManager handManager = FindObjectOfType<HandManager>();
+        handManager.cardsInHand.Remove(gameObject);
+        handManager.DiscardCard(cardDisplay.cardData);
+        Destroy(gameObject);
+        } else {
+        GoToState(2);
+        playArrow.SetActive(false);
+      }
+    } 
       if (Input.mousePosition.y / canvas.scaleFactor < cardPlayZone.y) {
         GoToState(2);
         playArrow.SetActive(false);

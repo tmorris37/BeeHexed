@@ -18,9 +18,11 @@ public class HandManager : MonoBehaviour
     // determines how far down each card goes
     public float vertCardSpacing = 100f;
     // a list of the cards in our hand
-    public List<GameObject> cardsInHand = new List<GameObject>();
+    public List<GameObject> cardsInHand = new();
 
-    public DeckManager deckManager;
+    public DrawPileManager drawPileManager;
+
+    public DiscardManager discardManager;
 
     // TODO: probably privatize everything
     public int handSize = 0;
@@ -28,7 +30,7 @@ public class HandManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-      
+      discardManager = FindObjectOfType<DiscardManager>();
     }
 
   public void AddToHand(Card card)
@@ -43,13 +45,19 @@ public class HandManager : MonoBehaviour
     }
     
     cardsInHand.Add(addCard);
-    UpdateHandDisplay();
-
     addCard.GetComponent<CardDisplay>().cardData = card;
+    UpdateHandDisplay();
 
   }
 
-  private void UpdateHandDisplay()
+  public bool DiscardCard(Card card) {
+    discardManager.discard(card);
+    handSize--;
+    UpdateHandDisplay();
+    return true;
+  }
+
+  public void UpdateHandDisplay()
   {
 
     int numCards = cardsInHand.Count;
@@ -61,15 +69,12 @@ public class HandManager : MonoBehaviour
       for (int i=0; i < numCards; i++) {
       float cardAngle = fanSpread * (i - (numCards - 1) / 2f);
       float normalizePosition = 2f * i / (numCards - 1) - 1f;  // centers hand arc
-      float horizPosition = horizCardSpacing * (i - numCards) / 2f;
+      float horizPosition = horizCardSpacing * (i - (numCards - 1)) / 2f;
       float vertPosition = vertCardSpacing * (1 - normalizePosition * normalizePosition);
       cardsInHand[i].transform.localRotation = Quaternion.Euler(0f, 0f, cardAngle);
       cardsInHand[i].transform.localPosition = new Vector3(horizPosition, vertPosition, 0f);
       }
     }
-    
-
-    
   }
 
   // Update is called once per frame

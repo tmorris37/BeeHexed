@@ -8,6 +8,7 @@ using Newtonsoft.Json;
 public class TowerCard : Card
 {
   [SerializeField] private int towerID;
+  public Sprite fieldSprite;
   public TowerData towerData;
 
   void Start() {

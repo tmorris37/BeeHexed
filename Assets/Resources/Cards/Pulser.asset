@@ -14,8 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardName: Pulser
   cost: 2
-  bodyText: Fires pulses of energy that do 5 damage each
+  bodyText: Fires pulses of energy to that do 5 damage to each enemy in an adjacent
+    hex
   health: 20
   art: {fileID: 21300000, guid: d1d65096205a19a4babb84129eec67a8, type: 3}
   cardType: 0
   towerID: 1
+  fieldSprite: {fileID: 21300000, guid: 50135e07b3957904fb0ae31654f12548, type: 3}

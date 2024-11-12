@@ -19,3 +19,4 @@ MonoBehaviour:
   art: {fileID: 21300000, guid: 25b51481065bd20478ce5b1dd27a3032, type: 3}
   cardType: 0
   towerID: 7
+  fieldSprite: {fileID: 21300000, guid: 98d0359fac58f4b4091d1a5198ffe690, type: 3}

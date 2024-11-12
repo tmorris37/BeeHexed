@@ -9,7 +9,6 @@ using System.Data.Common;
 public class CardDisplay : MonoBehaviour
 {
     public Card cardData;
-
     public Image cardTemplate;
     public Image cardArt;
     public TMP_Text nameText;

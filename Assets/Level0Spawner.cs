@@ -61,8 +61,8 @@ using EnemyAndTowers;
             // Choose a random cave position from the list
             Vector3 randomCavePosition = cavePositions[UnityEngine.Random.Range(0, 3)];
             // Spawn an enemy at the selected position
-            //Spawn(0,(int)randomCavePosition.x,(int)randomCavePosition.y,(int)randomCavePosition.z);
-              Spawn(0, 5, -4, -1);
+            Spawn(0,(int)randomCavePosition.x,(int)randomCavePosition.y,(int)randomCavePosition.z);
+              //Spawn(0, 5, -4, -1);
             // Wait for 5 seconds before spawning the next enemy
             yield return new WaitForSeconds(3f);
         }

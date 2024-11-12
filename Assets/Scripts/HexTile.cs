@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 using EnemyAndTowers;
 
 namespace GridSystem
@@ -55,6 +56,20 @@ namespace GridSystem
         {
             this.DPSEffect = !this.DPSEffect;
         }
+
+        public List<Transform> GetEnemiesInHex()
+        {
+            List<Transform> enemies = new List<Transform>();
+
+            // Check if tile is occupied and if the occupant is an enemy
+            if (Occupant != null && Occupant.CompareTag("Enemy"))
+            {
+                enemies.Add(Occupant.transform);
+            }
+
+            return enemies;
+        }
+
 
 
     }

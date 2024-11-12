@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Newtonsoft.Json;
+using GridSystem;
 
 namespace EnemyAndTowers
 {
@@ -13,6 +14,8 @@ namespace EnemyAndTowers
         public float pulseRate = 3f; // Pulse every 3 seconds
 
         public GameObject projectilePrefab;
+
+        public GridManager gridManager;
 
         private Transform target;
         private float fireCountdown;
@@ -37,23 +40,24 @@ namespace EnemyAndTowers
             this.HP = this.Data.MaxHP;
             healthBar = GetComponentInChildren<FloatingHealthBar>();
             healthBar.UpdateHealthBar(this.HP, this.Data.MaxHP);
+            
 
             pulseCountdown = pulseRate; // Initialize the pulse countdown
         }
 
         void Update()
         {
-            if (target != null && fireCountdown <= 0f)
+            /*if (target != null && fireCountdown <= 0f)
             {
                 Shoot();
                 fireCountdown = 1f / fireRate;
             }
-            fireCountdown -= Time.deltaTime;
+            fireCountdown -= Time.deltaTime;*/
 
             // Pulse effect logic
             if (pulseCountdown <= 0f)
             {
-                //PulseDamage();
+                PulseDamage();
                 pulseCountdown = pulseRate;
             }
             pulseCountdown -= Time.deltaTime;
@@ -69,7 +73,7 @@ namespace EnemyAndTowers
             }
         }
 
-        /*private void PulseDamage()
+        private void PulseDamage()
         {
             List<Transform> enemiesInRange = GetEnemiesInAdjacentHexes();
             foreach (Transform enemy in enemiesInRange)
@@ -86,8 +90,8 @@ namespace EnemyAndTowers
         {
             List<Transform> enemies = new List<Transform>();
             // Assuming you have a GridManager or similar component to get neighboring hexes
-            (int q, int r, int s) = GridManager.XYtoQRS(this.transform.position.x, this.transform.position.y);
-            var adjacentHexes = GridManager.GetAdjacentHexes(q, r, s); 
+            (int q, int r, int s) = gridManager.XYtoQRS(this.transform.position.x, this.transform.position.y);
+            var adjacentHexes = gridManager.GetAdjacentHexes(q, r, s); 
 
             foreach (var hex in adjacentHexes)
             {
@@ -98,6 +102,6 @@ namespace EnemyAndTowers
             }
 
             return enemies;
-        }*/
+        }
     }
 }

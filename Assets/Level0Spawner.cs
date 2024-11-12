@@ -28,7 +28,7 @@ using EnemyAndTowers;
 
     void Start()
     {
-        (int q, int r, int s) = UniformRandomStartCoords();
+        (int q, int r, int s) = RandomTileInRadius(5, 4);
 
         //EnemyComponents = new List<Enemy>();
         print(s);
@@ -119,80 +119,46 @@ using EnemyAndTowers;
           this.EnemyComponent = null;
         }
     }
-
-    public (int q, int r, int s) GenerateEnemyStartCoords()
-    {
-        // Generate a random variable for future use
-        System.Random rand = new System.Random();
-        
-        // Generate a random sign
-        int sign = (rand.Next(1, 3) == 1) ? -1 : 1;
-        
-        // to generate an edge coord, one of the values must be 4
-        int a = 4 * sign;
-        int s = 0, q = 0, r = 0, b = 0, c = 0;
-        
-        // Generate a random set (combination of two values)
-        int set = rand.Next(1,6);        
-        switch (set) {
-            case 1:
-                b = -4 * sign; c = 0; break;
-            case 2:
-                b = -3 * sign; c = -1 * sign; break;
-            case 3:
-                b = -2 * sign; c = -2 * sign; break;
-            case 4:
-                b = -1 * sign; c = -3 * sign; break;
-            case 5:
-                b = 0 * sign; c = -4 * sign; break;
-        }
-
-        // Randomly shuffle the values
-        switch (rand.Next(0,3)) {
-            case 0:
-                s = a; q = b; r = c; break;
-            case 1:
-                s = b; q = c; r = a; break;
-            case 2:
-                s = c; q = a; r = b; break;
-        }
-        Debug.Log("(q, r, s): (" + q + ", " + r + ", " + s + ")");
-        return (q, r, s);
-    }
-
+  
     // Generates a random Edge Tile on the current Hex Grid based on GridRadius
-    public (int q, int r, int s) UniformRandomStartCoords()
+    // The logic I wrote to make this work is a little ridiculous, but it works
+    // Could be better in q, r, s, but I just did it in i, j
+    public (int q, int r, int s) RandomTileInRadius(int hexRadius, int spawnRadius)
     {
-        int Radius = GridManager.GridRadius;
+        if (spawnRadius > hexRadius)
+        {
+            Debug.LogError("Spawn Radius cannot be greater than Hex Radius");
+            return (0, 0, 0);
+        }
         // For any arbitrary Grid, there are exactly 6*Radius edge tiles
         // Generates a random int in the range [0,6*Radius)
-        int spawnHex = UnityEngine.Random.Range(0, 6*Radius);
-
+        int spawnHex = UnityEngine.Random.Range(0, 6*spawnRadius);
+        Debug.Log(spawnHex);
         // Random Tile is in the First Row
-        if (spawnHex <= Radius)
+        if (spawnHex <= spawnRadius)
         {
-            return GridManager.IJtoQRS(0, spawnHex);
+            return GridManager.IJtoQRS(hexRadius - spawnRadius, spawnHex - spawnRadius + hexRadius);
         }
         // Random Tile is in the Last Row
-        if (spawnHex >= 5*Radius - 1)
+        if (spawnHex >= 5*spawnRadius - 1)
         {
-            return GridManager.IJtoQRS(2*Radius, spawnHex - 5*Radius + 1);
+            return GridManager.IJtoQRS(2*hexRadius - (hexRadius - spawnRadius), spawnHex - 5*spawnRadius + 1 - spawnRadius + hexRadius);
         }
         // Random Tile is on Left/Right Edge
-        int adjustedSpawnHex = spawnHex - Radius - 1;
+        int adjustedSpawnHex = spawnHex - spawnRadius - 1;
         int i, j;
 
         if (adjustedSpawnHex % 2 == 0)
         {
             // Tile is on Left Side
-            i = 1 + (adjustedSpawnHex / 2);
-            j = 0;
+            i = 1 + (adjustedSpawnHex / 2) + hexRadius - spawnRadius; 
+            j = hexRadius - spawnRadius;
         }
         else // (adjustedSpawnHex % 2 == 1)
         {
             // Tile is on Right Side
-            i = 1 + ((adjustedSpawnHex - 1) / 2);
-            j = (i > Radius) ? (3*Radius - i) : (Radius + i);
+            i = 1 + ((adjustedSpawnHex - 1) / 2) + hexRadius - spawnRadius;
+            j = (i > hexRadius) ? (2*hexRadius - (i - spawnRadius)) : (spawnRadius + i);
         }
         return GridManager.IJtoQRS(i, j);
     }

@@ -43,8 +43,7 @@ public class TowerSelector : MonoBehaviour
         // Check for mouse click to place a tower
         if (Input.GetMouseButtonDown(0) && hasHoveredTile)
         {
-            //Vector3 towerPosition = hexTilemap.CellToWorld(lastHoveredTilePosition) + new Vector3(0.5f, 0.5f, 0); // Adjust for tile center
-            Vector3 towerPosition = hexTilemap.CellToWorld(lastHoveredTilePosition) + new Vector3(0, 0, 0);
+            Vector3 towerPosition = hexTilemap.CellToWorld(lastHoveredTilePosition) + new Vector3(0, 0.5f, 0); // Adjust for tile center
             Instantiate(towerPrefab, towerPosition, Quaternion.identity); // Spawn the tower at the tile position
         }
     }

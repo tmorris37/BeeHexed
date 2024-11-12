@@ -1471,7 +1471,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ec5579fda5fec6498b7eadc492806b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GridRadius: 4
+  GridRadius: 5
   HexTilePrefab: {fileID: 5180860355450847252, guid: 804f7f8b96697d147a944995af89b244, type: 3}
 --- !u!4 &1554881296
 Transform:
@@ -1574,6 +1574,7 @@ MonoBehaviour:
   TowerID: 0
   fireRate: 1
   projectilePrefab: {fileID: 0}
+  healthBar: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

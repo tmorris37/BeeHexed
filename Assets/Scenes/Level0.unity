@@ -1397,8 +1397,8 @@ MonoBehaviour:
   ProjectilePrefab: {fileID: 1813104218997895954, guid: dfe7bc1084486f34c87d7b9056d82f23, type: 3}
   TowerPrefab: {fileID: 842843656095350179, guid: 466a0a1c4ac211b4cac99a17de01d534, type: 3}
   GridManager: {fileID: 1554881295}
-  EnemyComponent: {fileID: 0}
-  TowerCompnent: {fileID: 0}
+  CavePrefab: {fileID: 7393846077666523299, guid: 72013799fbfe550428d1f8d3914131af, type: 3}
+  Radius: 5
   moveInterval: 2
 --- !u!4 &949248043
 Transform:

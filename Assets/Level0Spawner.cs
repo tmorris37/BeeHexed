@@ -99,7 +99,7 @@ using EnemyAndTowers;
         // Spawn three caves at random edge tiles
         for (int i = 0; i < 3; i++)
         {
-            (int q, int r, int s) = RandomTileInRadius(Radius, 5);  // Random edge tile within a defined radius
+            (int q, int r, int s) = RandomTileInRadius(Radius, 4);  // Random edge tile within a defined radius
             GameObject newCave = Instantiate(CavePrefab);
             
             // Get the coordinates to place the cave at the calculated (q, r, s) position

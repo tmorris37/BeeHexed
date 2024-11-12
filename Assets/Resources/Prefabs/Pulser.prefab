@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 5505882775712700287}
   - component: {fileID: 297736756691704355}
-  - component: {fileID: 4130959828720681385}
   - component: {fileID: 6797564501091986317}
+  - component: {fileID: 4686297378409830323}
   m_Layer: 0
   m_Name: Pulser
   m_TagString: Untagged
@@ -29,7 +29,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2545330762916152645}
@@ -87,28 +87,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &4130959828720681385
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1460209656345654594}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 421e009e7f59cd84ebe6012ce5186cd4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  q: 0
-  r: 0
-  s: 0
-  GridRadius: 0
-  DEBUG: 1
-  GridManager: {fileID: 0}
-  TowerID: 0
-  fireRate: 1
-  projectilePrefab: {fileID: 1813104218997895954, guid: dfe7bc1084486f34c87d7b9056d82f23, type: 3}
-  healthBar: {fileID: 2398779077934470131, guid: a4b16f20b70d02a4a8ca44a5bc0619e5, type: 3}
 --- !u!58 &6797564501091986317
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -144,6 +122,18 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 16
+--- !u!114 &4686297378409830323
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1460209656345654594}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 890cba8e1470f0d4bac2d66e9ab7c305, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &7024542696919379123
 PrefabInstance:
   m_ObjectHideFlags: 0

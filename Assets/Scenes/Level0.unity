@@ -1500,6 +1500,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: CenterTower
       objectReference: {fileID: 0}
+    - target: {fileID: 1891800393546041361, guid: 3c7e526a0cb3c794babc428402c385dd, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1891800393546041361, guid: 3c7e526a0cb3c794babc428402c385dd, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2029312127345979085, guid: 3c7e526a0cb3c794babc428402c385dd, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1538,6 +1546,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2029312127345979085, guid: 3c7e526a0cb3c794babc428402c385dd, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5966163461666687044, guid: 3c7e526a0cb3c794babc428402c385dd, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5966163461666687044, guid: 3c7e526a0cb3c794babc428402c385dd, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8756086898032371762, guid: 3c7e526a0cb3c794babc428402c385dd, type: 3}
+      propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

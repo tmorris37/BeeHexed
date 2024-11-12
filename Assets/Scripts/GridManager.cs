@@ -120,5 +120,41 @@ namespace GridSystem
 
             return (q, r, s);
         }
+
+        //returns neighboring Hextiles
+        public List<HexTile> GetAdjacentHexes(int q, int r, int s)
+        {
+            List<HexTile> adjacentHexes = new List<HexTile>();
+
+            // Define the six possible directions for adjacent hexes
+            (int, int, int)[] directions = new (int, int, int)[]
+            {
+                (q + 1, r - 1, s),
+                (q - 1, r + 1, s),
+                (q + 1, r, s - 1),
+                (q - 1, r, s + 1),
+                (q, r + 1, s - 1),
+                (q, r - 1, s + 1)
+            };
+
+            foreach (var (adjQ, adjR, adjS) in directions)
+            {
+                // Check if the adjacent tile is within grid bounds
+                try
+                {
+                    HexTile adjacentHex = FetchTile(adjQ, adjR, adjS);
+                    if (adjacentHex != null)
+                    {
+                        adjacentHexes.Add(adjacentHex);
+                    }
+                }
+                catch
+                {
+                    // Ignore any out-of-bounds tiles
+                }
+            }
+
+            return adjacentHexes;
+        }
     }
 }

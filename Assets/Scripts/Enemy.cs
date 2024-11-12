@@ -48,6 +48,8 @@ namespace EnemyAndTowers
 
         }
 
+
+
         void Update()
         {
              Debug.Log(this.health);
@@ -58,14 +60,19 @@ namespace EnemyAndTowers
            // Debug.Log("It detects a thing");
             if (other.CompareTag("Projetile"))
             {
-                this.health = this.health - 1;
-                healthBar.UpdateHealthBar(this.health, this.Data.MaxHP);
+                TakeDamage(1);
                 /*if (this.Data.MaxHP <= 0)
                 {
                     Destroy(this);
                 }*/
             }
 
+        }
+
+        public void TakeDamage(int damage)
+        {
+            this.health = this.health - damage;
+            healthBar.UpdateHealthBar(this.health, this.Data.MaxHP);
         }
 
     }

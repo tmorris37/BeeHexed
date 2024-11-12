@@ -321,8 +321,8 @@ MonoBehaviour:
   GridManager: {fileID: 0}
   TowerID: 0
   fireRate: 1
-  projectilePrefab: {fileID: 1813104218997895954, guid: dfe7bc1084486f34c87d7b9056d82f23, type: 3}
-  healthBar: {fileID: 2398779077934470131, guid: a4b16f20b70d02a4a8ca44a5bc0619e5, type: 3}
+  projectilePrefab: {fileID: 0}
+  healthBar: {fileID: 0}
 --- !u!58 &8894206715748303828
 CircleCollider2D:
   m_ObjectHideFlags: 0

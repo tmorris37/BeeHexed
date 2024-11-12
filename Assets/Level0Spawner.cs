@@ -19,83 +19,136 @@ using EnemyAndTowers;
 
     [SerializeField] public GridManager GridManager;
 
-    public Enemy EnemyComponent;
+    [SerializeField] public GameObject CavePrefab;
 
-    public Tower TowerCompnent;
+    [SerializeField] public int Radius;
+
+    // public Enemy EnemyComponent;
+
+    // public Tower TowerCompnent;
 
     private float timer = 0f;
     public float moveInterval;
 
+    // List to store cave positions
+    private List<Vector3> cavePositions = new List<Vector3>();
+
+    // List to store all spawned enemies
+    private List<Enemy> enemies = new List<Enemy>();
+
     void Start()
     {
-        (int q, int r, int s) = RandomTileInRadius(5, 4);
+        // (int q, int r, int s) = RandomTileInRadius(Radius, 5);
 
-        //EnemyComponents = new List<Enemy>();
-        print(s);
-        print(q);
-        print(r);
-        Spawn(0,q,r,s);
-        //Spawn(0, 5, -5, 0);
+        SpawnCaves();
+        // Spawn(0,q,r,s);
+    }
+
+    private IEnumerator SpawnEnemiesFromCaves()
+    {
+        while (true)
+        {
+            // Choose a random cave position from the list
+            Vector3 randomCavePosition = cavePositions[UnityEngine.Random.Range(0, 2)];
+            // Spawn an enemy at the selected position
+            Spawn(0,(int)randomCavePosition.x,(int)randomCavePosition.y,(int)randomCavePosition.z);
+
+            // Wait for 5 seconds before spawning the next enemy
+            yield return new WaitForSeconds(5f);
+        }
     }
 
     public void Spawn(int EnemyID, int q, int r, int s)
     {
         // Spawn Unity Object with Enemy script (Prefab)
         GameObject NewEnemy = Instantiate(EnemyPrefab);
+        Enemy newEnemyComponent = NewEnemy.GetComponent<Enemy>();
     
-        this.EnemyComponent = NewEnemy.GetComponent<Enemy>();
+        if (newEnemyComponent != null)
+        {
+            newEnemyComponent.EnemyID = EnemyID;
+            newEnemyComponent.SetQRS(q, r, s);
+            (float x, float y) = this.GridManager.QRStoXY(q, r, s);
+            newEnemyComponent.transform.position = new Vector3(x, y, 0);
+            newEnemyComponent.GridManager = this.GridManager;
+            newEnemyComponent.GridRadius = this.GridManager.GridRadius;
+            
+            // Add the new enemy to the list of enemies
+            enemies.Add(newEnemyComponent);
+        }
+        // this.EnemyComponent = NewEnemy.GetComponent<Enemy>();
 
-        // Set the Enemy ID with desired ID
-        this.EnemyComponent.EnemyID = EnemyID;
+        // // Set the Enemy ID with desired ID
+        // this.EnemyComponent.EnemyID = EnemyID;
 
-        // Set the QRS position to spawn it in
-        this.EnemyComponent.SetQRS(q, r, s);
+        // // Set the QRS position to spawn it in
+        // this.EnemyComponent.SetQRS(q, r, s);
 
-        // Sets the XY coordinates in the Unity coordinates
-        (float x, float y) = this.GridManager.QRStoXY(q, r, s);
-        this.EnemyComponent.transform.Translate(x, y, 0, Space.World);
+        // // Sets the XY coordinates in the Unity coordinates
+        // (float x, float y) = this.GridManager.QRStoXY(q, r, s);
+        // this.EnemyComponent.transform.Translate(x, y, 0, Space.World);
 
-        this.EnemyComponent.GridManager = this.GridManager;
+        // this.EnemyComponent.GridManager = this.GridManager;
 
-        this.EnemyComponent.GridRadius = this.GridManager.GridRadius;
+        // this.EnemyComponent.GridRadius = this.GridManager.GridRadius;
 
     }
 
-    public void MoveNW()
+    public void SpawnCaves() 
     {
-        if (this.EnemyComponent.Move("Northwest"))
-            this.EnemyComponent.transform.Translate(-.5f, 1, 0, Space.Self);
-    }
-    public void MoveNE()
-    {
-        if (this.EnemyComponent.Move("Northeast"))
-            this.EnemyComponent.transform.Translate(.5f, 1, 0, Space.Self);
-    }
-    public void MoveE()
-    {
-        if (this.EnemyComponent.Move("East"))
-            this.EnemyComponent.transform.Translate(1, 0, 0, Space.Self);
-    }
-    public void MoveSE()
-    {
-        if (this.EnemyComponent.Move("Southeast"))
-            this.EnemyComponent.transform.Translate(.5f, -1, 0, Space.Self);
-    }
-    public void MoveSW()
-    {
-        if (this.EnemyComponent.Move("Southwest"))
-            this.EnemyComponent.transform.Translate(-.5f, -1, 0, Space.Self);
-    }
-    public void MoveW()
-    {
-        if (this.EnemyComponent.Move("West"))
-            this.EnemyComponent.transform.Translate(-1, 0, 0, Space.Self);
+        // Spawn three caves at random edge tiles
+        for (int i = 0; i < 3; i++)
+        {
+            (int q, int r, int s) = RandomTileInRadius(Radius, 5);  // Random edge tile within a defined radius
+            GameObject newCave = Instantiate(CavePrefab);
+            
+            // Get the coordinates to place the cave at the calculated (q, r, s) position
+            (float x, float y) = GridManager.QRStoXY(q, r, s);
+            newCave.transform.position = new Vector3(x, y, 0);
+            cavePositions.Add(new Vector3(q,r,s));
+        }
+        Debug.Log(cavePositions[0]);
+        Debug.Log(cavePositions[1]);
+        Debug.Log(cavePositions[2]);
+        // Start enemy spawn coroutine
+        StartCoroutine(SpawnEnemiesFromCaves());
     }
 
-    public void Shoot()
+    public void MoveNW(Enemy enemy)
     {
-        Instantiate(ProjectilePrefab).transform.position = this.EnemyComponent.transform.position;
+        if (enemy.Move("Northwest"))
+            enemy.transform.Translate(-.5f, 1, 0, Space.Self);
     }
+    public void MoveNE(Enemy enemy)
+    {
+        if (enemy.Move("Northeast"))
+            enemy.transform.Translate(.5f, 1, 0, Space.Self);
+    }
+    public void MoveE(Enemy enemy)
+    {
+        if (enemy.Move("East"))
+            enemy.transform.Translate(1, 0, 0, Space.Self);
+    }
+    public void MoveSE(Enemy enemy)
+    {
+        if (enemy.Move("Southeast"))
+            enemy.transform.Translate(.5f, -1, 0, Space.Self);
+    }
+    public void MoveSW(Enemy enemy)
+    {
+        if (enemy.Move("Southwest"))
+            enemy.transform.Translate(-.5f, -1, 0, Space.Self);
+    }
+    public void MoveW(Enemy enemy)
+    {
+        if (enemy.Move("West"))
+            enemy.transform.Translate(-1, 0, 0, Space.Self);
+    }
+
+    // public void Shoot()
+    // {
+    //     Instantiate(ProjectilePrefab).transform.position = this.EnemyComponent.transform.position;
+    // }
 
     public void Update()
     {
@@ -103,20 +156,25 @@ using EnemyAndTowers;
 
         if (timer >= moveInterval)
         {
-            if (this.EnemyComponent != null)
+            foreach (Enemy enemy in enemies)
             {
-              SimpleMove();
-              timer = 0f;
+                if (enemy != null)
+                {
+                    SimpleMove(enemy);
+                }
             }
-            
-        }
+            timer = 0f;
 
-        if (this.EnemyComponent != null && this.EnemyComponent.health <= 0)
-        {
-          Destroy(this.EnemyComponent.gameObject);
-        
-        // Set EnemyComponent to null to clean up the reference
-          this.EnemyComponent = null;
+            // Remove and destroy any enemies with 0 or less health
+            enemies.RemoveAll(enemy =>
+            {
+                if (enemy != null && enemy.health <= 0)
+                {
+                    Destroy(enemy.gameObject);
+                    return true;
+                }
+                return false;
+            });
         }
     }
   
@@ -164,51 +222,54 @@ using EnemyAndTowers;
     }
 
     
-    public void SimpleMove()
+    public void SimpleMove(Enemy enemy)
     {
       // Get the current position of the enemy
-      int q = EnemyComponent.q;
-      int r = EnemyComponent.r;
-      int s = EnemyComponent.s;
-
-      // If enemy is at the origin, do nothing
+      int q = enemy.q;
+      int r = enemy.r;
+      int s = enemy.s;
+            // If enemy is at the origin, do nothing
       if (q == 0 && r == 0 && s == 0) {
         return;
       }      
       // Move the enemy along the spokes of the hex grid if possible
       if (Math.Abs(q) == Math.Abs(r) && s == 0) {
         if (q > r) {
-          MoveSW();
+          MoveSW(enemy);
         } else {
-          MoveNE();
+          MoveNE(enemy);
         }
       } else if (Math.Abs(q) == Math.Abs(s) && r == 0) {
         if (q > s) {
-          MoveW();
+          MoveW(enemy);
         } else {
-          MoveE();
+          MoveE(enemy);
         }
       } else if (Math.Abs(r) == Math.Abs(s) && q == 0) {
         if (r > s) {
-          MoveNW();
+          MoveNW(enemy);
         } else {
-          MoveSE();
+          MoveSE(enemy);
         }
       }
-      // If the enemy is not on a spoke, move it to the nearest spoke along the edges of the grid
+      // If the enemy is not on a spoke, move it to the nearest spoke
       else {
-        if (q > r && q > s && Math.Abs(q) == GridManager.GridRadius) {
-          MoveNW();
-        } else if (r > q && r > s && Math.Abs(r) == GridManager.GridRadius) {
-          MoveE();
-        } else if (s > q && s > r && Math.Abs(s) == GridManager.GridRadius) {
-          MoveSW();
-        } else if (q < r && q < s && Math.Abs(q) == GridManager.GridRadius) {
-          MoveSE();
-        } else if (r < q && r < s && Math.Abs(r) == GridManager.GridRadius) {
-          MoveW();
-        } else if (s < q && s < r && Math.Abs(s) == GridManager.GridRadius) {
-          MoveNE();
+        int absq = Math.Abs(q);
+        int absr = Math.Abs(r);
+        int abss = Math.Abs(s);
+
+        if (q > r && q > s && absq > absr && absq > abss) {
+          MoveNW(enemy);
+        } else if (r > q && r > s && absr > absq && absr > abss) {
+          MoveE(enemy);
+        } else if (s > q && s > r && abss > absq && abss > absr) {
+          MoveSW(enemy);
+        } else if (q < r && q < s && absq > absr && absq > abss) {
+          MoveSE(enemy);
+        } else if (r < q && r < s && absr > absq && absr > abss) {
+          MoveW(enemy);
+        } else if (s < q && s < r && abss > absq && abss > absr) {
+          MoveNE(enemy);
         }
       }
     }

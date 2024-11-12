@@ -131,7 +131,7 @@ namespace EnemyAndTowers
 
             HexTile CurrentTile = this.GridManager.FetchTile(q, r, s);
             HexTile NewTile = this.GridManager.FetchTile(qNew, rNew, sNew);
-
+            Debug.Log("changing tiles");
             NewTile.EnterTile(gameObject);
             CurrentTile.LeaveTile();
 

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Newtonsoft.Json;
+using GridSystem;
 
 namespace EnemyAndTowers
 {
@@ -13,6 +14,8 @@ namespace EnemyAndTowers
         public int health;
         public float movementSpeed = 1f;
         private Vector3 targetPosition;
+
+        public GridManager gridManager;
 
 
 
@@ -53,8 +56,9 @@ namespace EnemyAndTowers
         // Call this method to smoothly move the enemy to a specified position
         public void MoveToPosition(Vector3 target)
         {
-            Debug.Log(target);
+            Debug.Log("Target: " + target);
             targetPosition = target;
+
             StopAllCoroutines();  // Stop any ongoing movement to avoid conflicts
             StartCoroutine(MoveToTargetAtFixedSpeed(targetPosition, movementSpeed));
         }
@@ -86,7 +90,7 @@ namespace EnemyAndTowers
         }
         void Update()
         {
-            Debug.Log(this.health);
+            //Debug.Log(this.health);
         }
 
         void OnTriggerEnter2D(Collider2D other)

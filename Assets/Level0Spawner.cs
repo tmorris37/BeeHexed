@@ -19,6 +19,8 @@ using EnemyAndTowers;
 
     [SerializeField] public GridManager GridManager;
 
+    [SerializeField] public GameObject Cheerios;
+
     [SerializeField] public GameObject CavePrefab;
 
     [SerializeField] public int Radius;
@@ -41,7 +43,15 @@ using EnemyAndTowers;
         // (int q, int r, int s) = RandomTileInRadius(Radius, 5);
 
         SpawnCaves();
+        SpawnCheerios();
         // Spawn(0,q,r,s);
+    }
+
+    private void SpawnCheerios()
+    {
+      GameObject Che = Instantiate(this.Cheerios);
+      HexTile spot = this.GridManager.FetchTile(0, 0, 0);
+      spot.EnterTile(Che);
     }
 
     private IEnumerator SpawnEnemiesFromCaves()
@@ -51,8 +61,8 @@ using EnemyAndTowers;
             // Choose a random cave position from the list
             Vector3 randomCavePosition = cavePositions[UnityEngine.Random.Range(0, 3)];
             // Spawn an enemy at the selected position
-            Spawn(0,(int)randomCavePosition.x,(int)randomCavePosition.y,(int)randomCavePosition.z);
-
+            //Spawn(0,(int)randomCavePosition.x,(int)randomCavePosition.y,(int)randomCavePosition.z);
+              Spawn(0, 5, -4, -1);
             // Wait for 5 seconds before spawning the next enemy
             yield return new WaitForSeconds(3f);
         }
@@ -126,11 +136,16 @@ using EnemyAndTowers;
             enemy.MoveToPosition(new Vector3(a, b, 0));
             // enemy.transform.Translate(-.5f, -1, 0, Space.Self);
         }
+        else
+        {
+          Debug.Log("can't move");
+        }
     }
     public void MoveW(Enemy enemy)
     {
         if (enemy.Move("West"))
             enemy.transform.Translate(-1, 0, 0, Space.Self);
+       
     }
 
     // public void Shoot()

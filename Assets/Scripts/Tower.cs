@@ -65,7 +65,7 @@ namespace EnemyAndTowers
 
         private void Update()
         {
-            Debug.Log(this.HP);
+            //Debug.Log(this.HP);
             if (target != null)
             {
                 // shoot at intervals based on fireRate

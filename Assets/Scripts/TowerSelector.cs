@@ -1,11 +1,18 @@
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using GridSystem;
+using EnemyAndTowers;
+
+
+
 
 public class TowerSelector : MonoBehaviour
 {
     public Tilemap hexTilemap;
     public Tile highlightTile; // Assign a tile with a different color/shade in the Inspector
     public GameObject towerPrefab; // Assign your tower prefab in the Inspector
+
+    public GridManager gridManager;
 
     private Vector3Int lastHoveredTilePosition;
     private TileBase originalTile;
@@ -19,7 +26,7 @@ public class TowerSelector : MonoBehaviour
 
         // Convert the mouse position to a cell position in the tilemap
         Vector3Int cellPosition = hexTilemap.WorldToCell(mouseWorldPos);
-
+        //Debug.Log("Cellposition: " + cellPosition);
         // If the mouse is over a new cell
         if (cellPosition != lastHoveredTilePosition)
         {
@@ -43,8 +50,14 @@ public class TowerSelector : MonoBehaviour
         // Check for mouse click to place a tower
         if (Input.GetMouseButtonDown(0) && hasHoveredTile)
         {
+            
             Vector3 towerPosition = hexTilemap.CellToWorld(lastHoveredTilePosition) + new Vector3(0, 0.5f, 0); // Adjust for tile center
-            Instantiate(towerPrefab, towerPosition, Quaternion.identity); // Spawn the tower at the tile position
+            GameObject t = Instantiate(towerPrefab, towerPosition, Quaternion.identity); // Spawn the tower at the tile position
+            //get the tile from grid manager
+            //set it to whatever the tower is
+            (int q, int r, int s) = this.gridManager.XYtoQRS(cellPosition.x, cellPosition.y);
+            HexTile spot = this.gridManager.FetchTile(q, r, s);
+            spot.EnterTile(t);
         }
     }
 }

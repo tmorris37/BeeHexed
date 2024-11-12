@@ -8,11 +8,13 @@ namespace EnemyAndTowers
     public class Enemy : HexPosition
     {
         [SerializeField] public int EnemyID;
-        public EnemyData Data;
-
-        public int health;
-
         [SerializeField] FloatingHealthBar healthBar;
+        public EnemyData Data;
+        public int health;
+        public float movementSpeed = 1f;
+        private Vector3 targetPosition;
+
+
 
         void Start()
         {
@@ -48,11 +50,43 @@ namespace EnemyAndTowers
 
         }
 
+        // Call this method to smoothly move the enemy to a specified position
+        public void MoveToPosition(Vector3 target)
+        {
+            Debug.Log(target);
+            targetPosition = target;
+            StopAllCoroutines();  // Stop any ongoing movement to avoid conflicts
+            StartCoroutine(MoveToTargetAtFixedSpeed(targetPosition, movementSpeed));
+        }
 
+        // Coroutine to translate the position at a constant speed
+        private IEnumerator MoveToTargetAtFixedSpeed(Vector3 target, float speed)
+        {
+            Vector3 initialPosition = transform.position;
+            float distanceToTarget = Vector3.Distance(initialPosition, target);
 
+            // Calculate total time to travel based on speed
+            float travelTime = distanceToTarget / speed;
+            float elapsedTime = 0f;
+
+            while (elapsedTime < travelTime)
+            {
+                // Calculate interpolation value based on elapsed time and speed
+                float t = elapsedTime / travelTime;
+
+                // Update position at a constant rate towards the target
+                transform.position = Vector3.Lerp(initialPosition, target, t);
+
+                elapsedTime += Time.deltaTime;
+                yield return null;
+            }
+
+            // Set the final position exactly to the target
+            transform.position = target;
+        }
         void Update()
         {
-             Debug.Log(this.health);
+            Debug.Log(this.health);
         }
 
         void OnTriggerEnter2D(Collider2D other)

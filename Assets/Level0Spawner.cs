@@ -49,12 +49,12 @@ using EnemyAndTowers;
         while (true)
         {
             // Choose a random cave position from the list
-            Vector3 randomCavePosition = cavePositions[UnityEngine.Random.Range(0, 2)];
+            Vector3 randomCavePosition = cavePositions[UnityEngine.Random.Range(0, 3)];
             // Spawn an enemy at the selected position
             Spawn(0,(int)randomCavePosition.x,(int)randomCavePosition.y,(int)randomCavePosition.z);
 
             // Wait for 5 seconds before spawning the next enemy
-            yield return new WaitForSeconds(5f);
+            yield return new WaitForSeconds(3f);
         }
     }
 
@@ -76,25 +76,9 @@ using EnemyAndTowers;
             // Add the new enemy to the list of enemies
             enemies.Add(newEnemyComponent);
         }
-        // this.EnemyComponent = NewEnemy.GetComponent<Enemy>();
-
-        // // Set the Enemy ID with desired ID
-        // this.EnemyComponent.EnemyID = EnemyID;
-
-        // // Set the QRS position to spawn it in
-        // this.EnemyComponent.SetQRS(q, r, s);
-
-        // // Sets the XY coordinates in the Unity coordinates
-        // (float x, float y) = this.GridManager.QRStoXY(q, r, s);
-        // this.EnemyComponent.transform.Translate(x, y, 0, Space.World);
-
-        // this.EnemyComponent.GridManager = this.GridManager;
-
-        // this.EnemyComponent.GridRadius = this.GridManager.GridRadius;
-
     }
 
-    public void SpawnCaves() 
+    public void SpawnCaves()
     {
         // Spawn three caves at random edge tiles
         for (int i = 0; i < 3; i++)
@@ -134,10 +118,14 @@ using EnemyAndTowers;
         if (enemy.Move("Southeast"))
             enemy.transform.Translate(.5f, -1, 0, Space.Self);
     }
-    public void MoveSW(Enemy enemy)
+    public void MoveSW(Enemy enemy, int q, int r, int s)
     {
         if (enemy.Move("Southwest"))
-            enemy.transform.Translate(-.5f, -1, 0, Space.Self);
+        {
+            (float a, float b) = GridManager.QRStoXY(q,r,s);
+            enemy.MoveToPosition(new Vector3(a, b, 0));
+            // enemy.transform.Translate(-.5f, -1, 0, Space.Self);
+        }
     }
     public void MoveW(Enemy enemy)
     {
@@ -228,14 +216,16 @@ using EnemyAndTowers;
       int q = enemy.q;
       int r = enemy.r;
       int s = enemy.s;
-            // If enemy is at the origin, do nothing
+      
+      // If enemy is at the origin, do nothing
       if (q == 0 && r == 0 && s == 0) {
         return;
-      }      
+      }
+
       // Move the enemy along the spokes of the hex grid if possible
       if (Math.Abs(q) == Math.Abs(r) && s == 0) {
         if (q > r) {
-          MoveSW(enemy);
+          MoveSW(enemy,q-1,r+1,s);
         } else {
           MoveNE(enemy);
         }
@@ -263,7 +253,7 @@ using EnemyAndTowers;
         } else if (r > q && r > s && absr > absq && absr > abss) {
           MoveE(enemy);
         } else if (s > q && s > r && abss > absq && abss > absr) {
-          MoveSW(enemy);
+          MoveSW(enemy,q-1,r+1,s);
         } else if (q < r && q < s && absq > absr && absq > abss) {
           MoveSE(enemy);
         } else if (r < q && r < s && absr > absq && absr > abss) {

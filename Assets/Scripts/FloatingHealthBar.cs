@@ -24,6 +24,10 @@ public class FloatingHealthBar : MonoBehaviour
       slider.value -= value;
     }
 
+    public float GetValue() {
+      return slider.value;
+    }
+
     // Update is called once per frame
     /*void Update()
     {

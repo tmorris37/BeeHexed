@@ -7,12 +7,13 @@ public class SacrificialOffering : MonoBehaviour
 {   
     DrawPileManager drawPileManager;
     HandManager handManager;
-    GameObject playerHealth;
+    PlayerHealthManager playerHealth;
     //Slider playerHealth;
     void Awake() {
       handManager = FindObjectOfType<HandManager>();
       drawPileManager = FindObjectOfType<DrawPileManager>();
-      playerHealth = GameObject.FindWithTag("PlayerHealth");
+      //playerHealth = GameObject.FindWithTag("PlayerHealth");
+      playerHealth = FindObjectOfType<PlayerHealthManager>();
       //playerHealth = FindFirstObjectByType<Slider>();
     }
     // Start is called before the first frame update
@@ -22,7 +23,8 @@ public class SacrificialOffering : MonoBehaviour
         for (int i = 0; i < 3; i++) {
           drawPileManager.DrawCard(handManager);
         } 
-        playerHealth.GetComponent<FloatingHealthBar>().Damage(0.25f);
+        //playerHealth.GetComponent<FloatingHealthBar>().Damage(0.25f);
+        playerHealth.TakeDamage(25);
         //playerHealth.value -= 0.25f;
     }
 

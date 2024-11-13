@@ -64,6 +64,10 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 498275325364677042, guid: 466a0a1c4ac211b4cac99a17de01d534, type: 3}
+      propertyPath: healthBar
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 842843656095350179, guid: 466a0a1c4ac211b4cac99a17de01d534, type: 3}
       propertyPath: m_Name
       value: Apprentice2
@@ -71,6 +75,10 @@ PrefabInstance:
     - target: {fileID: 842843656095350179, guid: 466a0a1c4ac211b4cac99a17de01d534, type: 3}
       propertyPath: m_TagString
       value: Tower
+      objectReference: {fileID: 0}
+    - target: {fileID: 975879447001381724, guid: 466a0a1c4ac211b4cac99a17de01d534, type: 3}
+      propertyPath: m_Radius
+      value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: 9202739149329773583, guid: 466a0a1c4ac211b4cac99a17de01d534, type: 3}
       propertyPath: m_Sprite

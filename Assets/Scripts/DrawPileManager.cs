@@ -24,7 +24,8 @@ public class DrawPileManager : MonoBehaviour
       handManager = FindObjectOfType<HandManager>();
       // load all cards from resources
       Card[] cardList = Resources.LoadAll<Card>("Cards");
-      // fill deck with cards, twice for no
+      // fill deck with cards, thrice for three copies each
+      deck.AddRange(cardList);
       deck.AddRange(cardList);
       deck.AddRange(cardList);
       generateDrawPile(deck);

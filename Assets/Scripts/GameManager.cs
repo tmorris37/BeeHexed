@@ -7,7 +7,7 @@ public class GameManager : MonoBehaviour
 
     public int wave = 0;
     [SerializeField] private int startingHandSize = 3;
-    [SerializeField] private int startingNectar = 10;
+    [SerializeField] private int startingNectar = 5;
     // [SerializeField] private int cardDrawsPerWave = 3;
 
     // Start is called before the first frame update

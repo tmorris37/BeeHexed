@@ -62,11 +62,11 @@ using EnemyAndTowers;
             // Choose a random cave position from the list
             Vector3 randomCavePosition = cavePositions[UnityEngine.Random.Range(0, 3)];
             // Spawn an enemy at the selected position
-            // Spawn(0,(int)randomCavePosition.x,(int)randomCavePosition.y,(int)randomCavePosition.z);
-            //Spawn(0, 5, -2, -3);
+            //Spawn(0,(int)randomCavePosition.x,(int)randomCavePosition.y,(int)randomCavePosition.z);
+            Spawn(0, 5, -2, -3);
             //Spawn(0, 0, 5, -5);
             // Wait for 5 seconds before spawning the next enemy
-            yield return new WaitForSeconds(5f);
+            yield return new WaitForSeconds(3f);
         }
     }
 
@@ -112,7 +112,7 @@ using EnemyAndTowers;
             cavePositions.Add(new Vector3(q, r, s));
 
             // Should check if occupied before spawning
-            GridManager.FetchTile(q, r, s).EnterTile(newCave);
+            //GridManager.FetchTile(q, r, s).EnterTile(newCave);
         }
         
         if (DEBUG)
@@ -223,6 +223,9 @@ using EnemyAndTowers;
             {
                 if (enemy != null && enemy.health <= 0)
                 {
+                    
+                    HexTile tile = GridManager.FetchTile(enemy.q, enemy.r, enemy.s);
+                    tile.LeaveTile(enemy.gameObject);
                     Destroy(enemy.gameObject);
                     return true;
                 }

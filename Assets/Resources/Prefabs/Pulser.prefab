@@ -223,7 +223,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 16
+  m_Radius: 11.5
 --- !u!114 &4686297378409830323
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -243,10 +243,8 @@ MonoBehaviour:
   DEBUG: 1
   GridManager: {fileID: 0}
   TowerID: 0
-  fireRate: 1
-  pulseRate: 3
+  pulseRate: 1
   projectilePrefab: {fileID: 1813104218997895954, guid: dfe7bc1084486f34c87d7b9056d82f23, type: 3}
-  gridManager: {fileID: 0}
   healthBar: {fileID: 0}
 --- !u!1 &2151470006906067578
 GameObject:

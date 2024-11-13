@@ -10,12 +10,12 @@ namespace EnemyAndTowers
         [SerializeField] public int TowerID;
         public TowerData Data;
 
-        public float fireRate = 1f;
-        public float pulseRate = 3f; // Pulse every 3 seconds
+        
+        public float pulseRate = 0.5f; // Pulse every 3 seconds
 
         public GameObject projectilePrefab;
 
-        private Transform target;
+        private List<Transform> targets;
         private float fireCountdown;
         private float pulseCountdown; // Countdown for the pulse effect
         private int HP;
@@ -39,7 +39,7 @@ namespace EnemyAndTowers
             healthBar = GetComponentInChildren<FloatingHealthBar>();
             healthBar.UpdateHealthBar(this.HP, this.Data.MaxHP);
             
-
+            this.targets = new List<Transform>();
             pulseCountdown = pulseRate; // Initialize the pulse countdown
         }
 
@@ -61,7 +61,27 @@ namespace EnemyAndTowers
             pulseCountdown -= Time.deltaTime;
         }
 
-        private void Shoot()
+        void OnTriggerEnter2D(Collider2D other)
+        {
+            //Debug.Log("It detects a thing");
+            if (other.CompareTag("Enemy"))
+            {
+                targets.Add(other.transform);
+            }
+        }
+
+        void OnTriggerExit2D(Collider2D other)
+        {
+            //if (other.CompareTag("Enemy") && other.transform == target)
+            if (other.CompareTag("Enemy"))
+            {
+                targets.Remove(other.transform);
+            }
+        }
+
+
+
+        /*private void Shoot()
         {
             GameObject projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
             TowerProjectile projScript = projectile.GetComponent<TowerProjectile>();
@@ -69,22 +89,33 @@ namespace EnemyAndTowers
             {
                 projScript.Seek(target);
             }
-        }
+        }*/
 
         private void PulseDamage()
         {
-            List<Transform> enemiesInRange = GetEnemiesInAdjacentHexes();
+            /*List<Transform> enemiesInRange = GetEnemiesInAdjacentHexes();
+            Debug.Log("ENEMY LIST: " + enemiesInRange.Count);
             foreach (Transform enemy in enemiesInRange)
             {
                 Enemy enemyScript = enemy.GetComponent<Enemy>(); // Assuming enemies have an Enemy script
                 if (enemyScript != null)
                 {
-                    enemyScript.TakeDamage(Data.Attacks[0].DamageAmount); // Adjust damage amount as needed
+                    //enemyScript.TakeDamage(Data.Attacks[0].DamageAmount); // Adjust damage amount as needed
+                    enemyScript.TakeDamage(1);
                 }
+            }*/
+            foreach (Transform enemy in targets)
+            {
+                Enemy enemyScript = enemy.GetComponent<Enemy>();
+                if (enemyScript != null)
+                {
+                    enemyScript.TakeDamage(1);
+                }
+                
             }
         }
 
-        private List<Transform> GetEnemiesInAdjacentHexes()
+        /*private List<Transform> GetEnemiesInAdjacentHexes()
         {
             List<Transform> enemies = new List<Transform>();
             // Assuming you have a GridManager or similar component to get neighboring hexes
@@ -100,6 +131,6 @@ namespace EnemyAndTowers
             }
 
             return enemies;
-        }
+        }*/
     }
 }

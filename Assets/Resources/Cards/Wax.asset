@@ -21,3 +21,4 @@ MonoBehaviour:
   cardType: 1
   SpellID: 4
   Type: 1
+  prefab: {fileID: 1373470221007705784, guid: 5c91fb4cd7bab8f469d68fdf88027af5, type: 3}

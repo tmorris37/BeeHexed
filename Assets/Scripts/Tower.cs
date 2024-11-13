@@ -20,6 +20,8 @@ namespace EnemyAndTowers
 
         private int HP;
 
+        //public GameObject prefab;
+
         [SerializeField] FloatingHealthBar healthBar;
 
         void Start()

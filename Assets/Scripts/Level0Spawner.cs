@@ -44,7 +44,7 @@ using EnemyAndTowers;
         // (int q, int r, int s) = RandomTileInRadius(Radius, 5);
 
         SpawnCaves();
-        SpawnCheerios();
+        //SpawnCheerios();
         // Spawn(0,q,r,s);
     }
 

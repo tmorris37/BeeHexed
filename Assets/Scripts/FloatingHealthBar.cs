@@ -20,6 +20,10 @@ public class FloatingHealthBar : MonoBehaviour
         slider.value = currentValue / maxValue;
     }
 
+    public void Damage(float value) {
+      slider.value -= value;
+    }
+
     // Update is called once per frame
     /*void Update()
     {

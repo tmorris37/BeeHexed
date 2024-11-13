@@ -135,12 +135,15 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
         NectarManager nectarManager = FindObjectOfType<NectarManager>();
         if (cardDisplay.cardData.cost <= nectarManager.GetNectar()) {
           nectarManager.SetNectar(nectarManager.GetNectar() - cardDisplay.cardData.cost);
+          TowerSelector towerSelector = FindObjectOfType<TowerSelector>();
           if (cardDisplay.cardData.cardType == Card.CardType.Tower) {
           // ((TowerCard)cardDisplay.cardData).fieldSprite
           //Instantiate(gameObject, Input.mousePosition / canvas.scaleFactor + new Vector3(-400f, -400f, 0f), Quaternion.identity);
+            towerSelector.spawnTower(((TowerCard)cardDisplay.cardData).prefab);
           // set parent transform
           } else {
             // cast spell
+            towerSelector.castSpell(((SpellCard)cardDisplay.cardData).prefab);
           }
         // Discard card and destroy card
         HandManager handManager = FindObjectOfType<HandManager>();

@@ -56,9 +56,15 @@ public class TowerSelector : MonoBehaviour
             
             Vector3 towerPosition = hexTilemap.CellToWorld(lastHoveredTilePosition) + new Vector3(0, 0.5f, 0); // Adjust for tile center
             GameObject t = Instantiate(towerPrefab, towerPosition, Quaternion.identity); // Spawn the tower at the tile position
+
+            t.GetComponent<Tower>().GridManager = this.gridManager;
+
             //get the tile from grid manager
             //set it to whatever the tower is
             (int q, int r, int s) = this.gridManager.XYtoQRS(cellPosition.x, cellPosition.y);
+
+            t.GetComponent<Tower>().SetQRS(q, r, s);
+
             HexTile spot = this.gridManager.FetchTile(q, r, s);
             spot.EnterTile(t);
             Debug.Log("Tower placed at: " + q + r + s);
@@ -67,6 +73,7 @@ public class TowerSelector : MonoBehaviour
         {
             Vector3 towerPosition = hexTilemap.CellToWorld(lastHoveredTilePosition) + new Vector3(0, 0, 0); // Adjust for tile center
             GameObject t = Instantiate(PulserPrefab, towerPosition, Quaternion.identity); // Spawn the tower at the tile position
+
             PulserTower pulserTowerComponent = t.GetComponent<PulserTower>();
             if (pulserTowerComponent != null)
             {
@@ -76,6 +83,9 @@ public class TowerSelector : MonoBehaviour
             //set it to whatever the tower is
             (int q, int r, int s) = this.gridManager.XYtoQRS(cellPosition.x, cellPosition.y);
             HexTile spot = this.gridManager.FetchTile(q, r, s);
+
+            t.GetComponent<PulserTower>().SetQRS(q, r, s);
+
             spot.EnterTile(t);
         }
     }

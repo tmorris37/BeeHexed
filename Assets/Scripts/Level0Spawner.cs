@@ -66,7 +66,7 @@ using EnemyAndTowers;
             //Spawn(0, 5, -2, -3);
             //Spawn(0, 0, 5, -5);
             // Wait for 5 seconds before spawning the next enemy
-            yield return new WaitForSeconds(15f);
+            yield return new WaitForSeconds(5f);
         }
     }
 

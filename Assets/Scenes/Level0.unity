@@ -1400,6 +1400,7 @@ MonoBehaviour:
   Cheerios: {fileID: 1341650181057277616, guid: 3c7e526a0cb3c794babc428402c385dd, type: 3}
   CavePrefab: {fileID: 7393846077666523299, guid: 72013799fbfe550428d1f8d3914131af, type: 3}
   Radius: 5
+  DEBUG: 0
   moveInterval: 2
 --- !u!4 &949248043
 Transform:

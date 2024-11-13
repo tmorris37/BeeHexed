@@ -15,7 +15,7 @@ namespace GridSystem
         
         // Represents the max distance out from the origin
         // q_max = r_max = s_max = GridRadius
-        [SerializeField] public int GridRadius = 3;
+        [SerializeField] public int GridRadius;
 
         [SerializeField] public GameObject HexTilePrefab;
 
@@ -88,14 +88,73 @@ namespace GridSystem
             return (i, j);
         }
 
+        // Converts the indices for the HexTile array Grid[][] to q, r, s coordinates
+        public (int, int, int) IJtoQRS(int i, int j)
+        {
+            int r = i - GridRadius;
+            int q = (i > GridRadius) ? (j - GridRadius) : (j - i);
+            int s = 0 - q - r;
+
+            //Debug.Log("q: "+ q + " r: " + r + " s: " + s + "\n" + "i: " + i + " j: " + j);
+
+            return (q, r, s);
+        }
+
         // Converts the q, r, s coordinates to x, y Unity cooridinates
         // Origin = Center of Hex Grid (0, 0, 0) [BOTH systems]
         // Useful for spawning/moving Unity objects
         public (float, float) QRStoXY(int q, int r, int s)
         {
-            float x = (q - s)/2;
+            float x = (q - s)/2.0f;
             float y = -r;
+
             return (x, y);
+        }
+
+        // Converts the x, y Unity coordinates to q, r, s cooridinates
+        public (int, int, int) XYtoQRS(float x, float y)
+        {
+            int r = (int) -y;
+            int q = (int) (2*x - r)/2;
+            int s = 0 - q - r;
+
+            return (q, r, s);
+        }
+
+        //returns neighboring Hextiles
+        public List<HexTile> GetAdjacentHexes(int q, int r, int s)
+        {
+            List<HexTile> adjacentHexes = new List<HexTile>();
+
+            // Define the six possible directions for adjacent hexes
+            (int, int, int)[] directions = new (int, int, int)[]
+            {
+                (q + 1, r - 1, s),
+                (q - 1, r + 1, s),
+                (q + 1, r, s - 1),
+                (q - 1, r, s + 1),
+                (q, r + 1, s - 1),
+                (q, r - 1, s + 1)
+            };
+
+            foreach (var (adjQ, adjR, adjS) in directions)
+            {
+                // Check if the adjacent tile is within grid bounds
+                try
+                {
+                    HexTile adjacentHex = FetchTile(adjQ, adjR, adjS);
+                    if (adjacentHex != null)
+                    {
+                        adjacentHexes.Add(adjacentHex);
+                    }
+                }
+                catch
+                {
+                    // Ignore any out-of-bounds tiles
+                }
+            }
+
+            return adjacentHexes;
         }
     }
 }

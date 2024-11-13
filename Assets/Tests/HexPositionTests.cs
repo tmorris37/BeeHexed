@@ -22,6 +22,9 @@ public class HexPositionTests
         GameObject Test = new GameObject();
         Test.AddComponent<GridManager>();
         GridManager TestGM = Test.GetComponent<GridManager>();
+
+        TestGM.GridRadius = 10;
+        yield return null;
         
         TestGM.HexTilePrefab = Resources.Load<GameObject>("Prefabs/HexTilePrefab");
 

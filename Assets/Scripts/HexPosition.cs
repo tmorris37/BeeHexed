@@ -76,11 +76,11 @@ namespace EnemyAndTowers
 
             if (DirectionLower == "northwest")
             {
-                return UpdatePosition( 0, -1, +1);
+                return UpdatePosition(0, -1, +1);
             }
             else if (DirectionLower == "northeast")
             {
-                return UpdatePosition(+1, -1,  0);
+                return UpdatePosition(+1, -1, 0);
             }
             else if (DirectionLower == "east")
             {
@@ -131,7 +131,7 @@ namespace EnemyAndTowers
 
             HexTile CurrentTile = this.GridManager.FetchTile(q, r, s);
             HexTile NewTile = this.GridManager.FetchTile(qNew, rNew, sNew);
-
+            Debug.Log("changing tiles");
             NewTile.EnterTile(gameObject);
             CurrentTile.LeaveTile();
 
@@ -177,6 +177,8 @@ namespace EnemyAndTowers
             HexTile CandidateTile = this.GridManager.FetchTile(q, r, s);
             if (DEBUG)
                 Debug.Log("Candidate:" + CandidateTile);
+
+                Debug.Log(CandidateTile.getOccupied());
             if (CandidateTile.getOccupied())
             {
                 if (DEBUG)

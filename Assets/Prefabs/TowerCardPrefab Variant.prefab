@@ -308,6 +308,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2533937833279112689, guid: b4c2a62bc13b68144b4c25fd2d5b00f6, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 4aaf3e53107072f4fb848d213fc2d299, type: 3}
     - target: {fileID: 2655480909785283589, guid: b4c2a62bc13b68144b4c25fd2d5b00f6, type: 3}
       propertyPath: cardArt
       value: 

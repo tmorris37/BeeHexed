@@ -1,19 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
+
+
 public class Settings : MonoBehaviour
 {
-    [SerializeField] private AudioMixer audioMixer;
-    [SerializeField] private Slider volumeSlider;
 
-    // Set Volume
-    public void SetVolume()
+    // Sets quality of 
+    public void SetQuality (int qualityIndex)
     {
-        float volume = volumeSlider.value;
-        audioMixer.SetFloat("Volume", Mathf.Log10(volume) * 20);
+        QualitySettings.SetQualityLevel(qualityIndex);
     }
 
     // Brings User to previous scene

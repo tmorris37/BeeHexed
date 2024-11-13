@@ -1750,10 +1750,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawner: {fileID: 949248042}
-  enemiesPerWave: 2
-  numWaves: 3
-  timeBetweenWaves: 10
-  timeBetweenSpawns: 1
+  enemiesPerWave: 5
+  numWaves: 5
+  timeBetweenWaves: 5
+  timeBetweenSpawns: 3
   nectarManager: {fileID: 852255254}
 --- !u!4 &781918216
 Transform:

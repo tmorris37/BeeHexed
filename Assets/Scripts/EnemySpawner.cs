@@ -21,7 +21,7 @@ public class Spawner : MonoBehaviour
 
     public void ButtonSpawn()
     {
-        Spawn(5, 0, 0, 0);
+        Spawn(0, 0, 0, 0);
     }
 
     public void Spawn(int EnemyID, int q, int r, int s)

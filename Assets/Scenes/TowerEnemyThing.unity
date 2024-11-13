@@ -1928,8 +1928,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EnemyPrefab: {fileID: 7776818319903234623, guid: 7e733351e21c7a245b9689980e9fa205, type: 3}
   ProjectilePrefab: {fileID: 5962380721487257693, guid: ab5c57b80bd748747b3f034c150127f4, type: 3}
+  TowerPrefab: {fileID: 0}
   GridManager: {fileID: 1517485635}
   EnemyComponent: {fileID: 0}
+  TowerCompnent: {fileID: 0}
 --- !u!4 &1326604699
 Transform:
   m_ObjectHideFlags: 0
@@ -2043,6 +2045,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GridRadius: 3
+  HexTilePrefab: {fileID: 5180860355450847252, guid: 804f7f8b96697d147a944995af89b244, type: 3}
 --- !u!4 &1517485636
 Transform:
   m_ObjectHideFlags: 0

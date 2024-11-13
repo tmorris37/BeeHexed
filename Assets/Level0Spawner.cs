@@ -24,6 +24,7 @@ using EnemyAndTowers;
     [SerializeField] public GameObject CavePrefab;
 
     [SerializeField] public int Radius;
+    [SerializeField] public bool DEBUG;
 
     // public Enemy EnemyComponent;
 
@@ -62,9 +63,10 @@ using EnemyAndTowers;
             Vector3 randomCavePosition = cavePositions[UnityEngine.Random.Range(0, 3)];
             // Spawn an enemy at the selected position
             //Spawn(0,(int)randomCavePosition.x,(int)randomCavePosition.y,(int)randomCavePosition.z);
-              Spawn(0, 5, -4, -1);
+            //Spawn(0, 5, -2, -3);
+            //Spawn(0, 0, 5, -5);
             // Wait for 5 seconds before spawning the next enemy
-            yield return new WaitForSeconds(3f);
+            yield return new WaitForSeconds(15f);
         }
     }
 
@@ -108,44 +110,77 @@ using EnemyAndTowers;
         StartCoroutine(SpawnEnemiesFromCaves());
     }
 
-    public void MoveNW(Enemy enemy)
+    public void MoveNW(Enemy enemy, int q, int r, int s)
     {
         if (enemy.Move("Northwest"))
-            enemy.transform.Translate(-.5f, 1, 0, Space.Self);
+        {
+            (float a, float b) = GridManager.QRStoXY(q,r-1,s+1);
+            enemy.MoveToPosition(new Vector3(a, b, 0));
+        }
+        else if (DEBUG)
+        {
+          Debug.Log("can't move");
+        }
     }
-    public void MoveNE(Enemy enemy)
+    public void MoveNE(Enemy enemy, int q, int r, int s)
     {
         if (enemy.Move("Northeast"))
-            enemy.transform.Translate(.5f, 1, 0, Space.Self);
+        {
+            (float a, float b) = GridManager.QRStoXY(q+1,r-1,s);
+            enemy.MoveToPosition(new Vector3(a, b, 0));
+        }
+        else if (DEBUG)
+        {
+          Debug.Log("can't move");
+        }
     }
-    public void MoveE(Enemy enemy)
+    public void MoveE(Enemy enemy, int q, int r, int s)
     {
         if (enemy.Move("East"))
-            enemy.transform.Translate(1, 0, 0, Space.Self);
+        {
+            (float a, float b) = GridManager.QRStoXY(q+1,r,s-1);
+            enemy.MoveToPosition(new Vector3(a, b, 0));
+        }
+        else if (DEBUG)
+        {
+          Debug.Log("can't move");
+        }
     }
-    public void MoveSE(Enemy enemy)
+    public void MoveSE(Enemy enemy, int q, int r, int s)
     {
         if (enemy.Move("Southeast"))
-            enemy.transform.Translate(.5f, -1, 0, Space.Self);
+        {
+            (float a, float b) = GridManager.QRStoXY(q,r+1,s-1);
+            enemy.MoveToPosition(new Vector3(a, b, 0));
+        }
+        else if (DEBUG)
+        {
+          Debug.Log("can't move");
+        }
     }
     public void MoveSW(Enemy enemy, int q, int r, int s)
     {
         if (enemy.Move("Southwest"))
         {
-            (float a, float b) = GridManager.QRStoXY(q,r,s);
+            (float a, float b) = GridManager.QRStoXY(q-1,r+1,s);
             enemy.MoveToPosition(new Vector3(a, b, 0));
-            // enemy.transform.Translate(-.5f, -1, 0, Space.Self);
         }
-        else
+        else if (DEBUG)
         {
           Debug.Log("can't move");
         }
     }
-    public void MoveW(Enemy enemy)
+    public void MoveW(Enemy enemy, int q, int r, int s)
     {
         if (enemy.Move("West"))
-            enemy.transform.Translate(-1, 0, 0, Space.Self);
-       
+        {
+            (float a, float b) = GridManager.QRStoXY(q-1,r,s+1);
+            enemy.MoveToPosition(new Vector3(a, b, 0));
+        }
+        else if (DEBUG)
+        {
+          Debug.Log("can't move");
+        }
     }
 
     // public void Shoot()
@@ -240,21 +275,21 @@ using EnemyAndTowers;
       // Move the enemy along the spokes of the hex grid if possible
       if (Math.Abs(q) == Math.Abs(r) && s == 0) {
         if (q > r) {
-          MoveSW(enemy,q-1,r+1,s);
+          MoveSW(enemy,q,r,s);
         } else {
-          MoveNE(enemy);
+          MoveNE(enemy,q,r,s);
         }
       } else if (Math.Abs(q) == Math.Abs(s) && r == 0) {
         if (q > s) {
-          MoveW(enemy);
+          MoveW(enemy,q,r,s);
         } else {
-          MoveE(enemy);
+          MoveE(enemy,q,r,s);
         }
       } else if (Math.Abs(r) == Math.Abs(s) && q == 0) {
         if (r > s) {
-          MoveNW(enemy);
+          MoveNW(enemy,q,r,s);
         } else {
-          MoveSE(enemy);
+          MoveSE(enemy,q,r,s);
         }
       }
       // If the enemy is not on a spoke, move it to the nearest spoke
@@ -264,17 +299,20 @@ using EnemyAndTowers;
         int abss = Math.Abs(s);
 
         if (q > r && q > s && absq > absr && absq > abss) {
-          MoveNW(enemy);
+          MoveNW(enemy,q,r,s);
+          if (DEBUG) {
+            Debug.Log("Moving NW");
+          }
         } else if (r > q && r > s && absr > absq && absr > abss) {
-          MoveE(enemy);
+          MoveE(enemy,q,r,s);
         } else if (s > q && s > r && abss > absq && abss > absr) {
-          MoveSW(enemy,q-1,r+1,s);
+          MoveSW(enemy,q,r,s);
         } else if (q < r && q < s && absq > absr && absq > abss) {
-          MoveSE(enemy);
+          MoveSE(enemy,q,r,s);
         } else if (r < q && r < s && absr > absq && absr > abss) {
-          MoveW(enemy);
+          MoveW(enemy,q,r,s);
         } else if (s < q && s < r && abss > absq && abss > absr) {
-          MoveNE(enemy);
+          MoveNE(enemy,q,r,s);
         }
       }
     }

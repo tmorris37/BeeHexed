@@ -58,6 +58,7 @@ public class TowerSelector : MonoBehaviour
             (int q, int r, int s) = this.gridManager.XYtoQRS(cellPosition.x, cellPosition.y);
             HexTile spot = this.gridManager.FetchTile(q, r, s);
             spot.EnterTile(t);
+            Debug.Log("Tower placed at: " + q + r + s);
         }
     }
 }

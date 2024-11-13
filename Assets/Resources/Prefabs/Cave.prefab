@@ -224,7 +224,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1259293093668963207}
   - component: {fileID: 799511297734730218}
-  - component: {fileID: 5838664730151275263}
   - component: {fileID: 8894206715748303828}
   m_Layer: 0
   m_Name: Cave
@@ -301,28 +300,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &5838664730151275263
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7393846077666523299}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 421e009e7f59cd84ebe6012ce5186cd4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  q: 0
-  r: 0
-  s: 0
-  GridRadius: 0
-  DEBUG: 1
-  GridManager: {fileID: 0}
-  TowerID: 0
-  fireRate: 1
-  projectilePrefab: {fileID: 0}
-  healthBar: {fileID: 0}
 --- !u!58 &8894206715748303828
 CircleCollider2D:
   m_ObjectHideFlags: 0

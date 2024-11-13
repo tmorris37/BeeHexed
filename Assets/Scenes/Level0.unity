@@ -259,76 +259,6 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
---- !u!1001 &659782255
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 1460209656345654594, guid: 246305428a605e34aa8078d43adab99f, type: 3}
-      propertyPath: m_Name
-      value: Pulser
-      objectReference: {fileID: 0}
-    - target: {fileID: 4686297378409830323, guid: 246305428a605e34aa8078d43adab99f, type: 3}
-      propertyPath: animator
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5505882775712700287, guid: 246305428a605e34aa8078d43adab99f, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0.9035022
-      objectReference: {fileID: 0}
-    - target: {fileID: 5505882775712700287, guid: 246305428a605e34aa8078d43adab99f, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 2.0128863
-      objectReference: {fileID: 0}
-    - target: {fileID: 5505882775712700287, guid: 246305428a605e34aa8078d43adab99f, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5505882775712700287, guid: 246305428a605e34aa8078d43adab99f, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5505882775712700287, guid: 246305428a605e34aa8078d43adab99f, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5505882775712700287, guid: 246305428a605e34aa8078d43adab99f, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5505882775712700287, guid: 246305428a605e34aa8078d43adab99f, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5505882775712700287, guid: 246305428a605e34aa8078d43adab99f, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5505882775712700287, guid: 246305428a605e34aa8078d43adab99f, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5505882775712700287, guid: 246305428a605e34aa8078d43adab99f, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7689325910826770887, guid: 246305428a605e34aa8078d43adab99f, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7689325910826770887, guid: 246305428a605e34aa8078d43adab99f, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 5682345049428268370, guid: 246305428a605e34aa8078d43adab99f, type: 3}
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 246305428a605e34aa8078d43adab99f, type: 3}
 --- !u!1 &741012468
 GameObject:
   m_ObjectHideFlags: 0
@@ -1387,6 +1317,54 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!1 &781918214
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 781918216}
+  - component: {fileID: 781918215}
+  m_Layer: 0
+  m_Name: WaveManagerObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &781918215
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 781918214}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17d80b9ba9d80b34bb202bc3a19b270f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawner: {fileID: 949248042}
+  enemiesPerWave: 5
+  timeBetweenWaves: 20
+  timeBetweenSpawns: 1
+--- !u!4 &781918216
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 781918214}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.5281162, y: 1.7901541, z: 0.09173872}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &834354649
 GameObject:
   m_ObjectHideFlags: 0
@@ -1464,10 +1442,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EnemyPrefab: {fileID: 435629412242135445, guid: 42dfd6f16840d99418b0a41916b0c381, type: 3}
-  ProjectilePrefab: {fileID: 1813104218997895954, guid: dfe7bc1084486f34c87d7b9056d82f23, type: 3}
-  TowerPrefab: {fileID: 842843656095350179, guid: 466a0a1c4ac211b4cac99a17de01d534, type: 3}
   GridManager: {fileID: 1554881295}
-  Cheerios: {fileID: 1808685649}
+  Cheerios: {fileID: 0}
   CavePrefab: {fileID: 7393846077666523299, guid: 72013799fbfe550428d1f8d3914131af, type: 3}
   Radius: 5
   DEBUG: 0
@@ -1570,10 +1546,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1266234649812552233, guid: 3c7e526a0cb3c794babc428402c385dd, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 1341650181057277616, guid: 3c7e526a0cb3c794babc428402c385dd, type: 3}
       propertyPath: m_Name
       value: CenterTower
@@ -1617,10 +1589,6 @@ PrefabInstance:
     - target: {fileID: 2029312127345979085, guid: 3c7e526a0cb3c794babc428402c385dd, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2980173258882968639, guid: 3c7e526a0cb3c794babc428402c385dd, type: 3}
-      propertyPath: m_Enabled
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5966163461666687044, guid: 3c7e526a0cb3c794babc428402c385dd, type: 3}
       propertyPath: m_AnchorMax.x
@@ -1674,4 +1642,4 @@ SceneRoots:
   - {fileID: 1808685648}
   - {fileID: 949248043}
   - {fileID: 1554881296}
-  - {fileID: 659782255}
+  - {fileID: 781918216}

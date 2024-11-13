@@ -20,7 +20,7 @@ public class DrawPileManager : MonoBehaviour
     public TextMeshProUGUI drawPileCounter;
 
 
-    void Awake() {
+    public void Awake() {
       handManager = FindObjectOfType<HandManager>();
       // load all cards from resources
       Card[] cardList = Resources.LoadAll<Card>("Cards");
@@ -38,15 +38,13 @@ public class DrawPileManager : MonoBehaviour
       if (deck.Count == 0) {
         ShuffleGraveIntoDeck();
       }
-      
-      
       if (deck.Count == 0 || handManager.handSize >= handLimit) {
         return;
       } else {
         Card nextCard = deck[0];
         handManager.AddToHand(nextCard);
         deck.RemoveAt(0);
-        handManager.handSize++;
+        // handManager.handSize++;
         drawPileCounter.text = deck.Count.ToString();
       }
     }

@@ -28,7 +28,7 @@ public class HandManager : MonoBehaviour
     public int handSize = 0;
 
     // Start is called before the first frame update
-    void Start()
+    public void Start()
     {
       discardManager = FindObjectOfType<DiscardManager>();
     }
@@ -45,6 +45,7 @@ public class HandManager : MonoBehaviour
     }
     
     cardsInHand.Add(addCard);
+    handSize++;
     addCard.GetComponent<CardDisplay>().cardData = card;
     UpdateHandDisplay();
 

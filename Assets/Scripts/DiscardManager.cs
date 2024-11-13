@@ -11,7 +11,7 @@ public class DiscardManager : MonoBehaviour
     [SerializeField] public List<Card> graveyard = new List<Card>();
     public TextMeshProUGUI graveyardSizeText;
     public int graveyardSize;
-    void Awake()
+    public void Awake()
     {
         UpdateGraveyardSize();
     }

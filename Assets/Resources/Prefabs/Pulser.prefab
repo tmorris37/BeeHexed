@@ -246,7 +246,7 @@ MonoBehaviour:
   TowerID: 0
   pulseRate: 1
   projectilePrefab: {fileID: 1813104218997895954, guid: dfe7bc1084486f34c87d7b9056d82f23, type: 3}
-  animator: {fileID: 5682345049428268370}
+  animator: {fileID: 0}
   healthBar: {fileID: 0}
 --- !u!95 &5682345049428268370
 Animator:
@@ -258,7 +258,7 @@ Animator:
   m_GameObject: {fileID: 1460209656345654594}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: a39f382f1be3ebb4187225d76060bdf0, type: 2}
+  m_Controller: {fileID: 0}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

@@ -13,9 +13,9 @@ using EnemyAndTowers;
 {
     [SerializeField] public GameObject EnemyPrefab;
 
-    [SerializeField] public GameObject ProjectilePrefab;
+    //[SerializeField] public GameObject ProjectilePrefab;
 
-    [SerializeField] public GameObject TowerPrefab;
+    //[SerializeField] public GameObject TowerPrefab;
 
     [SerializeField] public GridManager GridManager;
 
@@ -25,10 +25,6 @@ using EnemyAndTowers;
 
     [SerializeField] public int Radius;
     [SerializeField] public bool DEBUG;
-
-    // public Enemy EnemyComponent;
-
-    // public Tower TowerCompnent;
 
     private float timer = 0f;
     public float moveInterval;
@@ -55,23 +51,27 @@ using EnemyAndTowers;
       spot.EnterTile(Che);
     }
 
-    private IEnumerator SpawnEnemiesFromCaves()
-    {
-        while (true)
-        {
-            // Choose a random cave position from the list
-            Vector3 randomCavePosition = cavePositions[UnityEngine.Random.Range(0, 3)];
-            // Spawn an enemy at the selected position
-            //Spawn(0,(int)randomCavePosition.x,(int)randomCavePosition.y,(int)randomCavePosition.z);
-            Spawn(0, 5, -2, -3);
-            //Spawn(0, 0, 5, -5);
-            // Wait for 5 seconds before spawning the next enemy
-            yield return new WaitForSeconds(3f);
-        }
-    }
+    // private IEnumerator SpawnEnemiesFromCaves()
+    // {
+    //     while (true)
+    //     {
+    //         // Choose a random cave position from the list
+    //         Vector3 randomCavePosition = cavePositions[UnityEngine.Random.Range(0, 3)];
+    //         // Spawn an enemy at the selected position
+    //         Spawn(0,(int)randomCavePosition.x,(int)randomCavePosition.y,(int)randomCavePosition.z);
+    //         //Spawn(0, 5, -2, -3);
+    //         //Spawn(0, 0, 5, -5);
+    //         // Wait for 5 seconds before spawning the next enemy
+    //         yield return new WaitForSeconds(3f);
+    //     }
+    // }
 
-    public void Spawn(int EnemyID, int q, int r, int s)
+    public void SpawnFromCaves(int EnemyID)
     {
+        Vector3 randomCavePosition = cavePositions[UnityEngine.Random.Range(0, 3)];
+        int q = (int)randomCavePosition.x;
+        int r = (int)randomCavePosition.y;
+        int s = (int)randomCavePosition.z;
         // Spawn Unity Object with Enemy script (Prefab)
         GameObject NewEnemy = Instantiate(EnemyPrefab);
         Enemy newEnemyComponent = NewEnemy.GetComponent<Enemy>();
@@ -123,7 +123,7 @@ using EnemyAndTowers;
             }
         }
         
-        StartCoroutine(SpawnEnemiesFromCaves());
+        // StartCoroutine(SpawnEnemiesFromCaves());
     }
 
     // Helper method to determine edge

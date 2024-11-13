@@ -114,6 +114,7 @@ GameObject:
   - component: {fileID: 297736756691704355}
   - component: {fileID: 6797564501091986317}
   - component: {fileID: 4686297378409830323}
+  - component: {fileID: 5682345049428268370}
   m_Layer: 0
   m_Name: Pulser
   m_TagString: Untagged
@@ -245,7 +246,29 @@ MonoBehaviour:
   TowerID: 0
   pulseRate: 1
   projectilePrefab: {fileID: 1813104218997895954, guid: dfe7bc1084486f34c87d7b9056d82f23, type: 3}
+  animator: {fileID: 5682345049428268370}
   healthBar: {fileID: 0}
+--- !u!95 &5682345049428268370
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1460209656345654594}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a39f382f1be3ebb4187225d76060bdf0, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &2151470006906067578
 GameObject:
   m_ObjectHideFlags: 0

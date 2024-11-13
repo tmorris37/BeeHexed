@@ -121,7 +121,16 @@ namespace GridSystem
             return (q, r, s);
         }
 
-        // Converts the TileMap Coordinates to q, r, s coordinates
+        // Converts the q, r, s coordinates to TileMap coordinates
+        public (int, int) QRStoTileMapXY(int q, int r, int s)
+        {
+            int y = -r;
+            int x = (r % 2 == 0) ? ( (q - s)/2 ) : ( (q - s - 1)/2 );
+
+            return (x, y);
+        } 
+
+        // Converts the TileMap coordinates to q, r, s coordinates
         public (int, int, int) TileMapXYtoQRS(int x, int y)
         {
             int r = -y;

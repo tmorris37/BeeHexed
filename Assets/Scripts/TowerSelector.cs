@@ -51,42 +51,38 @@ public class TowerSelector : MonoBehaviour
         }
 
         // Check for mouse click to place a tower
-        if (Input.GetMouseButtonDown(0) && hasHoveredTile)
+        if (hasHoveredTile)
         {
-            
-            Vector3 towerPosition = hexTilemap.CellToWorld(lastHoveredTilePosition) + new Vector3(0, 0.5f, 0); // Adjust for tile center
-            GameObject t = Instantiate(towerPrefab, towerPosition, Quaternion.identity); // Spawn the tower at the tile position
-
-            t.GetComponent<Tower>().GridManager = this.gridManager;
-
             //get the tile from grid manager
             //set it to whatever the tower is
             (int q, int r, int s) = this.gridManager.XYtoQRS(cellPosition.x, cellPosition.y);
-
-            t.GetComponent<Tower>().SetQRS(q, r, s);
-
             HexTile spot = this.gridManager.FetchTile(q, r, s);
-            spot.EnterTile(t);
-            Debug.Log("Tower placed at: " + q + r + s);
-        }
-        if (Input.GetMouseButtonDown(1))
-        {
-            Vector3 towerPosition = hexTilemap.CellToWorld(lastHoveredTilePosition) + new Vector3(0, 0, 0); // Adjust for tile center
-            GameObject t = Instantiate(PulserPrefab, towerPosition, Quaternion.identity); // Spawn the tower at the tile position
-
-            PulserTower pulserTowerComponent = t.GetComponent<PulserTower>();
-            if (pulserTowerComponent != null)
+            HexPosition TowerComponent;
+            GameObject t;
+            if (!spot.getOccupied())
             {
-                pulserTowerComponent.gridManager = this.gridManager;
+                if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1))
+                {
+                    if (Input.GetMouseButtonDown(0))
+                    {
+                        Vector3 towerPosition = hexTilemap.CellToWorld(lastHoveredTilePosition) + new Vector3(0, 0.5f, 0); // Adjust for tile center
+                        t = Instantiate(towerPrefab, towerPosition, Quaternion.identity); // Spawn the tower at the tile position
+
+                        TowerComponent = t.GetComponent<Tower>();
+                    }
+                    else
+                    {
+                        Vector3 towerPosition = hexTilemap.CellToWorld(lastHoveredTilePosition) + new Vector3(0, 0, 0); // Adjust for tile center
+                        t = Instantiate(PulserPrefab, towerPosition, Quaternion.identity); // Spawn the tower at the tile position
+
+                        TowerComponent = t.GetComponent<PulserTower>();
+                    }
+                    TowerComponent.GridManager = this.gridManager;
+                    TowerComponent.SetQRS(q, r, s);
+                    spot.EnterTile(t);
+                    Debug.Log("Tower placed at: " + q + r + s);
+                }
             }
-            //get the tile from grid manager
-            //set it to whatever the tower is
-            (int q, int r, int s) = this.gridManager.XYtoQRS(cellPosition.x, cellPosition.y);
-            HexTile spot = this.gridManager.FetchTile(q, r, s);
-
-            t.GetComponent<PulserTower>().SetQRS(q, r, s);
-
-            spot.EnterTile(t);
-        }
+        }  
     }
 }

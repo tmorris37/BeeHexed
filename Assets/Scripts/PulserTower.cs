@@ -15,8 +15,6 @@ namespace EnemyAndTowers
 
         public GameObject projectilePrefab;
 
-        public GridManager gridManager;
-
         private Transform target;
         private float fireCountdown;
         private float pulseCountdown; // Countdown for the pulse effect
@@ -90,8 +88,8 @@ namespace EnemyAndTowers
         {
             List<Transform> enemies = new List<Transform>();
             // Assuming you have a GridManager or similar component to get neighboring hexes
-            (int q, int r, int s) = gridManager.XYtoQRS(this.transform.position.x, this.transform.position.y);
-            var adjacentHexes = gridManager.GetAdjacentHexes(q, r, s); 
+            (int q, int r, int s) = GridManager.XYtoQRS(this.transform.position.x, this.transform.position.y);
+            var adjacentHexes = GridManager.GetAdjacentHexes(q, r, s); 
 
             foreach (var hex in adjacentHexes)
             {

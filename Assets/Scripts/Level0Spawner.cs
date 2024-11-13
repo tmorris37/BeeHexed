@@ -110,6 +110,9 @@ using EnemyAndTowers;
             (float x, float y) = GridManager.QRStoXY(q, r, s);
             newCave.transform.position = new Vector3(x, y, 0);
             cavePositions.Add(new Vector3(q, r, s));
+
+            // Should check if occupied before spawning
+            GridManager.FetchTile(q, r, s).EnterTile(newCave);
         }
         
         if (DEBUG)

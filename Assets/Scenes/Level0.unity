@@ -1397,7 +1397,7 @@ MonoBehaviour:
   ProjectilePrefab: {fileID: 1813104218997895954, guid: dfe7bc1084486f34c87d7b9056d82f23, type: 3}
   TowerPrefab: {fileID: 842843656095350179, guid: 466a0a1c4ac211b4cac99a17de01d534, type: 3}
   GridManager: {fileID: 1554881295}
-  Cheerios: {fileID: 0}
+  Cheerios: {fileID: 1808685649}
   CavePrefab: {fileID: 7393846077666523299, guid: 72013799fbfe550428d1f8d3914131af, type: 3}
   Radius: 5
   DEBUG: 0
@@ -1433,7 +1433,7 @@ MonoBehaviour:
   highlightTile: {fileID: 11400000, guid: b81b265c3cfc5164b898cc5dcb9df22b, type: 2}
   towerPrefab: {fileID: 842843656095350179, guid: 466a0a1c4ac211b4cac99a17de01d534, type: 3}
   gridManager: {fileID: 1554881295}
-  PulserPrefab: {fileID: 0}
+  PulserPrefab: {fileID: 1460209656345654594, guid: 246305428a605e34aa8078d43adab99f, type: 3}
 --- !u!114 &949248045
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1500,6 +1500,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1266234649812552233, guid: 3c7e526a0cb3c794babc428402c385dd, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1341650181057277616, guid: 3c7e526a0cb3c794babc428402c385dd, type: 3}
       propertyPath: m_Name
       value: CenterTower
@@ -1543,6 +1547,10 @@ PrefabInstance:
     - target: {fileID: 2029312127345979085, guid: 3c7e526a0cb3c794babc428402c385dd, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2980173258882968639, guid: 3c7e526a0cb3c794babc428402c385dd, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5966163461666687044, guid: 3c7e526a0cb3c794babc428402c385dd, type: 3}
       propertyPath: m_AnchorMax.x

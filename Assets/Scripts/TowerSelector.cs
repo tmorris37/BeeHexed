@@ -55,7 +55,7 @@ public class TowerSelector : MonoBehaviour
         {
             //get the tile from grid manager
             //set it to whatever the tower is
-            (int q, int r, int s) = this.gridManager.XYtoQRS(cellPosition.x, cellPosition.y);
+            (int q, int r, int s) = this.gridManager.TileMapXYtoQRS(cellPosition.x, cellPosition.y);
             HexTile spot = this.gridManager.FetchTile(q, r, s);
             HexPosition TowerComponent;
             GameObject t;
@@ -63,6 +63,7 @@ public class TowerSelector : MonoBehaviour
             {
                 if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1))
                 {
+                    Debug.Log("X: " + cellPosition.x + ", Y: " + cellPosition.y + " -> Q: " + q + ", R: " + r + ", S: " + s);
                     if (Input.GetMouseButtonDown(0))
                     {
                         Vector3 towerPosition = hexTilemap.CellToWorld(lastHoveredTilePosition) + new Vector3(0, 0.5f, 0); // Adjust for tile center

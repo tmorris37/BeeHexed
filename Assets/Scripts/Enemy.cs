@@ -12,7 +12,7 @@ namespace EnemyAndTowers
         [SerializeField] FloatingHealthBar healthBar;
         public EnemyData Data;
         public int health;
-        public float movementSpeed = 1f;
+        public float movementSpeed = 3f;
         private Vector3 targetPosition;
 
         public GridManager gridManager;

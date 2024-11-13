@@ -107,8 +107,10 @@ MonoBehaviour:
   DEBUG: 1
   GridManager: {fileID: 0}
   EnemyID: 0
-  health: 0
   healthBar: {fileID: 0}
+  health: 0
+  movementSpeed: 0.33333334
+  gridManager: {fileID: 0}
 --- !u!61 &7338443146895155815
 BoxCollider2D:
   m_ObjectHideFlags: 0

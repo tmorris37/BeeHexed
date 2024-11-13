@@ -16,6 +16,15 @@ The objective is that all it takes to run the game is to open the executable fil
 Missing Functionality: A working software product.
 This is the section where our user guide will be, but given it is not complete, there is not much to write. 
 To give a general idea, on startup the user will be presented with a main menu. They will be able to click start and be brought into the game. The user will then be able to play through the game. The game will exit on completion, or the user can exit from the in-game menu. After exiting the game, they will be brought back to the main menu, from which they can play again or quit to the desktop, closing the program.
+### Use Cases
+#### Main Menu
+Users will see a main menu with 3 buttons, play, settings, and exit.
+Clicking play currently does nothing (later starts game or placeholder level)
+Clicking settings takes the user to the settings page with a volume slider and a back button. Clicking the back button takes the user back to the main menu.
+Clicking exit will end the game
+#### Level 
+Upon starting the level, caves that spawn enemies will be randomly placed on the border of the hex grid.
+Players can click tiles to spawn towers that will occasionally shoot at enemies.
 ### Reporting bugs
 1. Check the list of bugs to see if your bug is already listed. If your circumstances and/or the cause of the bug aren't already listed, continue with the bug report. 
 2. If not already listed, click the bug report button to send us an email following the provided template.
@@ -34,8 +43,8 @@ In the GitHub repository, there are several files immediately available at root.
 ### Building software 
 Unity automatically builds the software.
 ### Testing software 
-There are a couple of options for testing the software. When you push to a branch, tests are automatically run. The other way to run tests is within Unity. Unity has a built in test-runner which can be found by going to Window on the top bar and clicking on the General subfolder. From here, individual tests can be run.
+There are a couple of options for testing the software. When you push to a branch, tests are automatically run. The other way to run tests is within Unity. Unity has a built in test-runner which can be found by going to Window on the top bar and clicking on the General subfolder. From here, individual tests can be run. Simulations of the game can be individually tested by selecting a scene, and then clicking the play button at the top of the screen. Not all scenes currently work
 ### Adding tests 
 You can add new tests straight in Unity, as we are using the Unity testing suite. In the assets folder, proceed to the tests folder. In there there are multiple scripts which contain tests. If the tests you want to add are relevant to the name of any of the existing scripts, add your tests there. To create a new testing file, and name it describing what tests you will be running. Please name using the camelcase format. Use the previous scripts as reference if need be. 
 ### Building release 
-In order to create a build of the game, in Unity go to file, and then build and run. From there you can choose where you want the build of the game to be stored on your computer. 
+In order to create a build of the game, in Unity go to file, and then build and run. From there you can choose where you want the build of the game to be stored on your computer. GAME IS CURRENTLY UNPLAYABLE LIKE THIS 

@@ -62,7 +62,7 @@ using EnemyAndTowers;
             // Choose a random cave position from the list
             Vector3 randomCavePosition = cavePositions[UnityEngine.Random.Range(0, 3)];
             // Spawn an enemy at the selected position
-            Spawn(0,(int)randomCavePosition.x,(int)randomCavePosition.y,(int)randomCavePosition.z);
+            // Spawn(0,(int)randomCavePosition.x,(int)randomCavePosition.y,(int)randomCavePosition.z);
             //Spawn(0, 5, -2, -3);
             //Spawn(0, 0, 5, -5);
             // Wait for 5 seconds before spawning the next enemy
@@ -92,22 +92,51 @@ using EnemyAndTowers;
 
     public void SpawnCaves()
     {
-        // Spawn three caves at random edge tiles
+        HashSet<int> usedEdges = new HashSet<int>();  // Track used edges
         for (int i = 0; i < 3; i++)
         {
-            (int q, int r, int s) = RandomTileInRadius(Radius, 5);  // Random edge tile within a defined radius
+            (int q, int r, int s) = RandomTileInRadius(Radius, 5);
+            int edge = DetermineEdge(q, r, s);  // Identify which edge this tile is on
+
+            // If the edge has already been used, find a new tile
+            while (usedEdges.Contains(edge))
+            {
+                (q, r, s) = RandomTileInRadius(Radius, 5);
+                edge = DetermineEdge(q, r, s);
+            }
+
+            usedEdges.Add(edge);  // Mark this edge as used
             GameObject newCave = Instantiate(CavePrefab);
-            
-            // Get the coordinates to place the cave at the calculated (q, r, s) position
             (float x, float y) = GridManager.QRStoXY(q, r, s);
             newCave.transform.position = new Vector3(x, y, 0);
-            cavePositions.Add(new Vector3(q,r,s));
+            cavePositions.Add(new Vector3(q, r, s));
         }
-        Debug.Log(cavePositions[0]);
-        Debug.Log(cavePositions[1]);
-        Debug.Log(cavePositions[2]);
-        // Start enemy spawn coroutine
+        
+        if (DEBUG)
+        {
+            foreach (var position in cavePositions)
+            {
+                Debug.Log("Cave position: " + position);
+            }
+        }
+        
         StartCoroutine(SpawnEnemiesFromCaves());
+    }
+
+    // Helper method to determine edge
+    private int DetermineEdge(int q, int r, int s)
+    {
+        (int i, int j) = GridManager.QRStoIJ(q, r, s);
+        // Example logic based on q, r, s values
+        if (i == 0) return 1;            // Top
+        if (i == 2 * Radius) return 2;   // Bottom
+        return 3;                   // Left or Right
+    }
+
+    public void moveFailure()
+    {
+        if (DEBUG)
+            Debug.Log("Move failed");
     }
 
     public void MoveNW(Enemy enemy, int q, int r, int s)
@@ -117,10 +146,8 @@ using EnemyAndTowers;
             (float a, float b) = GridManager.QRStoXY(q,r-1,s+1);
             enemy.MoveToPosition(new Vector3(a, b, 0));
         }
-        else if (DEBUG)
-        {
-          Debug.Log("can't move");
-        }
+        else
+          moveFailure();
     }
     public void MoveNE(Enemy enemy, int q, int r, int s)
     {
@@ -129,10 +156,8 @@ using EnemyAndTowers;
             (float a, float b) = GridManager.QRStoXY(q+1,r-1,s);
             enemy.MoveToPosition(new Vector3(a, b, 0));
         }
-        else if (DEBUG)
-        {
-          Debug.Log("can't move");
-        }
+        else
+          moveFailure();
     }
     public void MoveE(Enemy enemy, int q, int r, int s)
     {
@@ -141,10 +166,8 @@ using EnemyAndTowers;
             (float a, float b) = GridManager.QRStoXY(q+1,r,s-1);
             enemy.MoveToPosition(new Vector3(a, b, 0));
         }
-        else if (DEBUG)
-        {
-          Debug.Log("can't move");
-        }
+        else
+          moveFailure();
     }
     public void MoveSE(Enemy enemy, int q, int r, int s)
     {
@@ -153,10 +176,8 @@ using EnemyAndTowers;
             (float a, float b) = GridManager.QRStoXY(q,r+1,s-1);
             enemy.MoveToPosition(new Vector3(a, b, 0));
         }
-        else if (DEBUG)
-        {
-          Debug.Log("can't move");
-        }
+        else
+          moveFailure();
     }
     public void MoveSW(Enemy enemy, int q, int r, int s)
     {
@@ -165,10 +186,8 @@ using EnemyAndTowers;
             (float a, float b) = GridManager.QRStoXY(q-1,r+1,s);
             enemy.MoveToPosition(new Vector3(a, b, 0));
         }
-        else if (DEBUG)
-        {
-          Debug.Log("can't move");
-        }
+        else
+          moveFailure();
     }
     public void MoveW(Enemy enemy, int q, int r, int s)
     {
@@ -177,16 +196,9 @@ using EnemyAndTowers;
             (float a, float b) = GridManager.QRStoXY(q-1,r,s+1);
             enemy.MoveToPosition(new Vector3(a, b, 0));
         }
-        else if (DEBUG)
-        {
-          Debug.Log("can't move");
-        }
+        else
+          moveFailure();
     }
-
-    // public void Shoot()
-    // {
-    //     Instantiate(ProjectilePrefab).transform.position = this.EnemyComponent.transform.position;
-    // }
 
     public void Update()
     {

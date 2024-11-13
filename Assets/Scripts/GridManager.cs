@@ -115,11 +115,21 @@ namespace GridSystem
         public (int, int, int) XYtoQRS(float x, float y)
         {
             int r = (int) -y;
-            int q = (int) (2*x - r)/2;
+            int q = (int) (2*x + y)/2;
             int s = 0 - q - r;
 
             return (q, r, s);
         }
+
+        // Converts the TileMap Coordinates to q, r, s coordinates
+        public (int, int, int) TileMapXYtoQRS(int x, int y)
+        {
+            int r = -y;
+            int q = (y % 2 == 0) ? ( (2*x + y)/2 ) : ( (2*x + y + 1)/2 );
+            int s = 0 - q - r;
+
+            return (q, r, s);
+        } 
 
         //returns neighboring Hextiles
         public List<HexTile> GetAdjacentHexes(int q, int r, int s)

@@ -6,6 +6,7 @@ using EnemyAndTowers;
 
 
 
+
 public class TowerSelector : MonoBehaviour
 {
     public Tilemap hexTilemap;
@@ -13,6 +14,8 @@ public class TowerSelector : MonoBehaviour
     public GameObject towerPrefab; // Assign your tower prefab in the Inspector
 
     public GridManager gridManager;
+
+    public GameObject PulserPrefab;
 
     private Vector3Int lastHoveredTilePosition;
     private TileBase originalTile;
@@ -59,6 +62,21 @@ public class TowerSelector : MonoBehaviour
             HexTile spot = this.gridManager.FetchTile(q, r, s);
             spot.EnterTile(t);
             Debug.Log("Tower placed at: " + q + r + s);
+        }
+        if (Input.GetMouseButtonDown(1))
+        {
+            Vector3 towerPosition = hexTilemap.CellToWorld(lastHoveredTilePosition) + new Vector3(0, 0, 0); // Adjust for tile center
+            GameObject t = Instantiate(PulserPrefab, towerPosition, Quaternion.identity); // Spawn the tower at the tile position
+            PulserTower pulserTowerComponent = t.GetComponent<PulserTower>();
+            if (pulserTowerComponent != null)
+            {
+                pulserTowerComponent.gridManager = this.gridManager;
+            }
+            //get the tile from grid manager
+            //set it to whatever the tower is
+            (int q, int r, int s) = this.gridManager.XYtoQRS(cellPosition.x, cellPosition.y);
+            HexTile spot = this.gridManager.FetchTile(q, r, s);
+            spot.EnterTile(t);
         }
     }
 }

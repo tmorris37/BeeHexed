@@ -131,7 +131,7 @@ namespace EnemyAndTowers
 
             HexTile CurrentTile = this.GridManager.FetchTile(q, r, s);
             HexTile NewTile = this.GridManager.FetchTile(qNew, rNew, sNew);
-            Debug.Log("changing tiles");
+            //Debug.Log("changing tiles");
             NewTile.EnterTile(gameObject);
             CurrentTile.LeaveTile(gameObject);
 
@@ -176,9 +176,9 @@ namespace EnemyAndTowers
         {
             HexTile CandidateTile = this.GridManager.FetchTile(q, r, s);
             if (DEBUG)
-                Debug.Log("Candidate:" + CandidateTile);
+                //Debug.Log("Candidate:" + CandidateTile);
 
-                Debug.Log(CandidateTile.getOccupied());
+                //Debug.Log(CandidateTile.getOccupied());
             if (CandidateTile.getOccupiedByTower())
             {
                 if (DEBUG)

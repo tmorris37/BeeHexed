@@ -19,7 +19,11 @@ namespace EnemyAndTowers
         private float fireCountdown;
         private float pulseCountdown; // Countdown for the pulse effect
         private int HP;
-        public Animator animator;
+
+        [SerializeField] private Animator circleAnimator;
+
+        
+        //public Animator animator;
 
         [SerializeField] FloatingHealthBar healthBar;
 
@@ -42,7 +46,8 @@ namespace EnemyAndTowers
             
             this.targets = new List<Transform>();
             pulseCountdown = pulseRate; // Initialize the pulse countdown
-            animator = GetComponent<Animator>();
+            //animator = GetComponent<Animator>();
+            
         }
 
         void Update()
@@ -69,6 +74,7 @@ namespace EnemyAndTowers
             if (other.CompareTag("Enemy"))
             {
                 targets.Add(other.transform);
+                
             }
         }
 
@@ -78,6 +84,10 @@ namespace EnemyAndTowers
             if (other.CompareTag("Enemy"))
             {
                 targets.Remove(other.transform);
+                if (targets.Count == 0)
+                {
+                    circleAnimator.Play("newState");
+                }
             }
         }
 
@@ -106,16 +116,25 @@ namespace EnemyAndTowers
                     enemyScript.TakeDamage(1);
                 }
             }*/
-            animator.SetTrigger("PulseTrigger");
+            //animator.SetTrigger("PulseTrigger");
+           
             foreach (Transform enemy in targets)
             {
                 Enemy enemyScript = enemy.GetComponent<Enemy>();
                 if (enemyScript != null)
                 {
+                    
                     enemyScript.TakeDamage(1);
+                    if (circleAnimator != null)
+                    {
+                
+                        circleAnimator.SetTrigger("PulseEffect");
+                    }
                 }
                 
             }
+
+            
         }
 
         /*private List<Transform> GetEnemiesInAdjacentHexes()

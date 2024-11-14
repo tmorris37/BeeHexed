@@ -56,7 +56,7 @@ namespace EnemyAndTowers
         // Call this method to smoothly move the enemy to a specified position
         public void MoveToPosition(Vector3 target)
         {
-            Debug.Log("Target: " + target);
+            //Debug.Log("Target: " + target);
             targetPosition = target;
 
             StopAllCoroutines();  // Stop any ongoing movement to avoid conflicts

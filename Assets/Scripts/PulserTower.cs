@@ -19,7 +19,8 @@ namespace EnemyAndTowers
         private float fireCountdown;
         private float pulseCountdown; // Countdown for the pulse effect
         private int HP;
-        public Animator animator;
+        private Animator animator;
+        
 
         [SerializeField] FloatingHealthBar healthBar;
 
@@ -106,7 +107,7 @@ namespace EnemyAndTowers
                     enemyScript.TakeDamage(1);
                 }
             }*/
-            animator.SetTrigger("PulseTrigger");
+            animator.SetTrigger("PulseEffect");
             foreach (Transform enemy in targets)
             {
                 Enemy enemyScript = enemy.GetComponent<Enemy>();

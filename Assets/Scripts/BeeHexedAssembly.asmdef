@@ -2,8 +2,7 @@
     "name": "BeeHexedAssembly",
     "rootNamespace": "",
     "references": [
-        "GUID:6055be8ebefd69e48b49212b09b47b2f",
-        "GUID:cb6f150dfa5a8f9489fb9a0ba9894cd3"
+        "GUID:6055be8ebefd69e48b49212b09b47b2f"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

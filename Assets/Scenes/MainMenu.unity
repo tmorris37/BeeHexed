@@ -539,7 +539,6 @@ GameObject:
   - component: {fileID: 652508953}
   - component: {fileID: 652508952}
   - component: {fileID: 652508951}
-  - component: {fileID: 652508955}
   m_Layer: 5
   m_Name: Quit Button
   m_TagString: Untagged
@@ -719,18 +718,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 652508949}
   m_CullTransparentMesh: 1
---- !u!114 &652508955
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 652508949}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 55b643078cae0da4c941ac15d554f0ec, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &845449490
 GameObject:
   m_ObjectHideFlags: 0
@@ -1141,7 +1128,6 @@ GameObject:
   - component: {fileID: 1346658890}
   - component: {fileID: 1346658889}
   - component: {fileID: 1346658892}
-  - component: {fileID: 1346658893}
   m_Layer: 5
   m_Name: New Game Button
   m_TagString: Untagged
@@ -1222,7 +1208,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Level0
+          m_StringArgument: Map
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1346658890
@@ -1319,18 +1305,6 @@ PolygonCollider2D:
       - {x: -132.81851, y: -46.49611}
       - {x: 225.73175, y: -54.515545}
   m_UseDelaunayMesh: 0
---- !u!114 &1346658893
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1346658887}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 55b643078cae0da4c941ac15d554f0ec, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1387328082
 GameObject:
   m_ObjectHideFlags: 0
@@ -1420,7 +1394,6 @@ GameObject:
   - component: {fileID: 1392450060}
   - component: {fileID: 1392450059}
   - component: {fileID: 1392450058}
-  - component: {fileID: 1392450062}
   m_Layer: 5
   m_Name: Settings Button
   m_TagString: Untagged
@@ -1600,18 +1573,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1392450056}
   m_CullTransparentMesh: 1
---- !u!114 &1392450062
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1392450056}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 55b643078cae0da4c941ac15d554f0ec, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1592817022
 GameObject:
   m_ObjectHideFlags: 0

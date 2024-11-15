@@ -14,7 +14,7 @@ namespace EnemyAndTowers
 
         public GameObject projectilePrefab;
 
-        private Transform target;
+        private List<Transform> targets;
 
         private float fireCountdown;
 
@@ -45,6 +45,7 @@ namespace EnemyAndTowers
             this.HP = this.Data.MaxHP;
             healthBar = GetComponentInChildren<FloatingHealthBar>();
             healthBar.UpdateHealthBar(this.HP, this.Data.MaxHP);
+            targets = new List<Transform>();
 
         }
 
@@ -53,22 +54,25 @@ namespace EnemyAndTowers
             //Debug.Log("It detects a thing");
             if (other.CompareTag("Enemy"))
             {
-                target = other.transform;
+                //target = other.transform;
+                targets.Add(other.transform);
             }
         }
 
         void OnTriggerExit2D(Collider2D other)
         {
-            if (other.CompareTag("Enemy") && other.transform == target)
+            //if (other.CompareTag("Enemy") && other.transform == target)
+            if (other.CompareTag("Enemy"))
             {
-                target = null;
+                //target = null;
+                targets.Remove(other.transform);
             }
         }
 
         private void Update()
         {
             //Debug.Log(this.HP);
-            if (target != null)
+            if (targets.Count > 0)
             {
                 // shoot at intervals based on fireRate
                 if (fireCountdown <= 0f)
@@ -86,6 +90,11 @@ namespace EnemyAndTowers
             TowerProjectile projScript = projectile.GetComponent<TowerProjectile>();
             if (projScript != null)
             {
+                //Transform target;
+                //if (targets.Count > 0)
+                
+                 Transform target = targets[0];
+                
                 projScript.Seek(target);
             }
         }

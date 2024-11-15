@@ -112,7 +112,7 @@ namespace EnemyAndTowers
             /*this.health = this.health - damage;
             healthBar.UpdateHealthBar(this.health, this.Data.MaxHP);
             */
-            StartCoroutine(UpdateHealthAfterDelay(damage, 0.1f));       
+            StartCoroutine(UpdateHealthAfterDelay(damage, 0.04f));       
         }
 
         private IEnumerator UpdateHealthAfterDelay(int damage, float delay)

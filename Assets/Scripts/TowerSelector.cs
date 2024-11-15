@@ -102,13 +102,22 @@ public class TowerSelector : MonoBehaviour
             {
                 if (Input.GetMouseButtonUp(0))
                 {
-                  Vector3 towerPosition = hexTilemap.CellToWorld(lastHoveredTilePosition); // Adjust for tile center
+                  /*Vector3 towerPosition = hexTilemap.CellToWorld(lastHoveredTilePosition); // Adjust for tile center
                   t = Instantiate(tower, towerPosition, Quaternion.identity); // Spawn the tower at the tile position
                   TowerComponent = t.GetComponent<Tower>();
                   TowerComponent.GridManager = this.gridManager;
                   TowerComponent.SetQRS(q, r, s);
                   spot.EnterTile(t);
+                  Debug.Log("Tower placed at: " + q + r + s);*/
+
+                  Vector3 towerPosition = hexTilemap.CellToWorld(lastHoveredTilePosition); // Adjust for tile center
+                  t = Instantiate(tower, towerPosition, Quaternion.identity); // Spawn the tower at the tile position
+                  TowerComponent = t.GetComponent<HexPosition>();
+                  TowerComponent.GridManager = this.gridManager;
+                  TowerComponent.SetQRS(q, r, s);
+                  spot.EnterTile(t);
                   Debug.Log("Tower placed at: " + q + r + s);
+
                 }
             }
         } 

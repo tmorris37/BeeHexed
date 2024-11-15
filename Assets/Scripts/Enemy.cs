@@ -109,6 +109,15 @@ namespace EnemyAndTowers
 
         public void TakeDamage(int damage)
         {
+            /*this.health = this.health - damage;
+            healthBar.UpdateHealthBar(this.health, this.Data.MaxHP);
+            */
+            StartCoroutine(UpdateHealthAfterDelay(damage, 0.1f));       
+        }
+
+        private IEnumerator UpdateHealthAfterDelay(int damage, float delay)
+        {
+            yield return new WaitForSeconds(delay);
             this.health = this.health - damage;
             healthBar.UpdateHealthBar(this.health, this.Data.MaxHP);
         }

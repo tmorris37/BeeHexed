@@ -9,22 +9,38 @@ Beehexed is a game running on the Unity Engine, it is a roguelike deckbuilder he
 ### Installation
 Functionality missing: How to install the software
 Our current intention is to publish this game on itch.io and all the required files to play the game. Users would install the game from the distribution site. 
+In the meantime, do the following:
+1. Download and Install Unity Hub 
+2. Install Unity Editor version 2022.3.49f1 (LTS) through Unity Hub
+3. Clone this repository
+4. In Unity Hub, click Add -> Add project from disk, then select where you cloned the repository to add the project to Unity Hub
+5. In Unity Hub, ensure the Editor is the correct version and double-click to open the project (this will take a while)
 ### Running software
 Missing Functionality: An executable file that starts a game. 
 The objective is that all it takes to run the game is to open the executable file.
+In the meantime, do the following:
+1. Open the Unity Project you created above
+2. In the project window at the bottom of your screen open the 'Scenes' Folder
+2. Double click on the Scene called MainMenu to open it
+4. Click the play button at the top of the screen to start/stop the game (you may want to change Play Focused to Play Maximized)
 ### Use guide
-Missing Functionality: A working software product.
-This is the section where our user guide will be, but given it is not complete, there is not much to write. 
-To give a general idea, on startup the user will be presented with a main menu. They will be able to click start and be brought into the game. The user will then be able to play through the game. The game will exit on completion, or the user can exit from the in-game menu. After exiting the game, they will be brought back to the main menu, from which they can play again or quit to the desktop, closing the program.
+On startup the user will be presented with a main menu. They will be able to click New Game and be brought into the game.
+The user is brought to the overworld level selection map. From here they can click on one of the flashing icons to start that level. 
+This will bring the player into the game. A level takes place over the course of several rounds. Each round the player gains nectar and cards, but enemies will spawn from the caves.
+The bears will move to attack the center, which the player must defend using their cards. Tower cards place a tower that attacks the bears. Spell cards place unique effects on the player or enemies.
+Cards are played by dragging them from the hand to a tile on the hex grid. 
+Each card has a nectar cost that is subtracted from the player's total nectar in the top right. If the player lacks sufficient nectar, the card is returned to the hand.
+The player loses the game if their health in the top right is reduced to 0 OR if there are still enemies present 10 seconds after the final wave.
+The player wins the game if they have defeated all enemies 10 seconds after the final wave.
 ### Use Cases
 #### Main Menu
-Users will see a main menu with 3 buttons, play, settings, and exit.
-Clicking play currently does nothing (later starts game or placeholder level)
+Users will see a main menu with 3 buttons: New Game, Settings, and Exit.
+Clicking New Game will begin a run, bringing the player to the level select map
 Clicking settings takes the user to the settings page with a volume slider and a back button. Clicking the back button takes the user back to the main menu.
 Clicking exit will end the game
 #### Level 
 Upon starting the level, caves that spawn enemies will be randomly placed on the border of the hex grid.
-Players can click tiles to spawn towers that will occasionally shoot at enemies.
+Players can drag cards to tiles to spawn towers that will occasionally shoot at enemies and cast spells.
 ### Reporting bugs
 1. Check the list of bugs to see if your bug is already listed. If your circumstances and/or the cause of the bug aren't already listed, continue with the bug report. 
 2. If not already listed, click the bug report button to send us an email following the provided template.
@@ -33,7 +49,12 @@ Players can click tiles to spawn towers that will occasionally shoot at enemies.
 
 We may include a popup when unusual things occur (e.g. unexpected backend errors or if games run too long without ending) to push users to report bugs. We could also have statistics automatically exported to allow users to easily report game information.
 ### Known bugs
-No known major game bugs since the game in the public main branch since the game is unfinished at the moment. 
+The game can still be interacted with after winning or losing
+Winning/Losing does not bring the player back to the level select map
+There is a delay between casting certain spells and their effect on the bears
+The bears do not do any damage to towers in their path
+Placing cards off the grid uses them without activating their effects
+
 
 ## Development Manual
 ### Obtaining source code 

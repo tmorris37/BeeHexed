@@ -11,9 +11,9 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
     private Vector2 originLocalCursorPosition;
     private Vector3 originLocalPanelPosition;
     private int currState = 0;
-    private Quaternion origCardRotation;
-    private Vector3 origCardPosition;
-    private Vector3 origCardScale;
+    public Quaternion origCardRotation;
+    public Vector3 origCardPosition;
+    public Vector3 origCardScale;
 
     [SerializeField] private float hoverScale = 1.1f;
     [SerializeField] private Vector3 playPosition;
@@ -25,11 +25,13 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
     [SerializeField] private Vector2 cardPlayZone;
     // Linear interpolation amount
     [SerializeField] private float lerpTime = 0.1f;
+    [SerializeField] private ErrorManager errorManager;
 
 
     void Awake() {
       rectTransform = GetComponent<RectTransform>();
       canvas = GetComponentInParent<Canvas>();
+      errorManager = FindObjectOfType<ErrorManager>();
       // store the original transform of the card
       origCardScale = rectTransform.localScale;
       origCardPosition = rectTransform.localPosition;
@@ -69,7 +71,6 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
         hoverHighlight.SetActive(false);
         playArrow.SetActive(false);
       } else if (desiredState == 1) {
-        // necessary??
         origCardScale = rectTransform.localScale;
         origCardPosition = rectTransform.localPosition;
         origCardRotation = rectTransform.localRotation;
@@ -129,21 +130,40 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
     private void HandlePlayState() {
       rectTransform.localPosition = playPosition;
       rectTransform.localRotation = Quaternion.identity;
+      // mouse released
       if (!Input.GetMouseButton(0)) {
-        // place tower (sprite)
         CardDisplay cardDisplay = GetComponent<CardDisplay>();
         NectarManager nectarManager = FindObjectOfType<NectarManager>();
+        // check cost
         if (cardDisplay.cardData.cost <= nectarManager.GetNectar()) {
-          nectarManager.SetNectar(nectarManager.GetNectar() - cardDisplay.cardData.cost);
           TowerSelector towerSelector = FindObjectOfType<TowerSelector>();
           if (cardDisplay.cardData.cardType == Card.CardType.Tower) {
-          // ((TowerCard)cardDisplay.cardData).fieldSprite
-          //Instantiate(gameObject, Input.mousePosition / canvas.scaleFactor + new Vector3(-400f, -400f, 0f), Quaternion.identity);
-            towerSelector.spawnTower(((TowerCard)cardDisplay.cardData).prefab);
+            // ensures tower is playable at mouse location
+            if (towerSelector.spawnTower(((TowerCard)cardDisplay.cardData).prefab)) {
+              nectarManager.SetNectar(nectarManager.GetNectar() - cardDisplay.cardData.cost);
+            } else {
+              errorManager.SetErrorMsg("Invalid tile!");
+              GoToState(2);
+              playArrow.SetActive(false);
+              return;
+            }
           // set parent transform
           } else {
             // cast spell
-            towerSelector.castSpell(((SpellCard)cardDisplay.cardData).prefab);
+            if (((SpellCard)cardDisplay.cardData).Type == SpellType.Hex) {
+              if (towerSelector.castSpell(((SpellCard)cardDisplay.cardData).prefab, SpellType.Hex)) {
+                nectarManager.SetNectar(nectarManager.GetNectar() - cardDisplay.cardData.cost);
+              } else {
+                errorManager.SetErrorMsg("Invalid tile!");
+                GoToState(2);
+                playArrow.SetActive(false);
+                return;
+              }
+            } else {
+              towerSelector.castSpell(((SpellCard)cardDisplay.cardData).prefab, SpellType.Blessing);
+              nectarManager.SetNectar(nectarManager.GetNectar() - cardDisplay.cardData.cost);
+            }
+            
           }
         // Discard card and destroy card
         HandManager handManager = FindObjectOfType<HandManager>();
@@ -151,6 +171,7 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
         handManager.DiscardCard(cardDisplay.cardData);
         Destroy(gameObject);
         } else {
+        errorManager.SetErrorMsg("Not Enough Nectar!");
         GoToState(2);
         playArrow.SetActive(false);
       }

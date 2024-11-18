@@ -6,10 +6,10 @@ public class MainMenu : MonoBehaviour
 {
 
    // Switches Scene to input Scene, sceneName
-   public void GoToScene(string sceneName) 
-   {
+    public void GoToScene(string sceneName) 
+    {
         SceneManager.LoadScene(sceneName);
-   }
+    }
 
     // Quits the Game
     public void QuitApp()

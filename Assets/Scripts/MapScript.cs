@@ -16,6 +16,17 @@ namespace Map {
         // Switches Scene to input Scene, sceneName
         public void GoToScene(string sceneName)
         {
+            if (AudioManager.Instance != null)
+            {
+                if (sceneName == "Level0")
+                {
+                    AudioManager.Instance.PlayInGameAudio();
+                }
+                else
+                {
+                    AudioManager.Instance.PlayMainMenuAudio();
+                }
+            }
             SceneManager.LoadScene(sceneName);
         }
     }

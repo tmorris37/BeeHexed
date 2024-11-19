@@ -1617,6 +1617,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainMenuClip: {fileID: 8300000, guid: 82dec27b1c555e44ab2de3170e78a9bb, type: 3}
   newGameClip: {fileID: 8300000, guid: ddf1e3f693c7a3c4d976fc796aac4062, type: 3}
+  inGameClip: {fileID: 8300000, guid: eae20413163bd9840a097ddd8bde3413, type: 3}
 --- !u!82 &1428806544
 AudioSource:
   m_ObjectHideFlags: 0

@@ -1,8 +1,8 @@
 using UnityEngine;
 
-public class AudioManager : MonoBehaviour
+public class MusicManager : MonoBehaviour
 {
-    public static AudioManager Instance { get; private set; }
+    public static MusicManager Instance { get; private set; }
     private AudioSource audioSource;
 
     public AudioClip mainMenuClip;
@@ -25,25 +25,25 @@ public class AudioManager : MonoBehaviour
 
     private void Start()
     {
-        PlayMainMenuAudio();
+        PlayMainMenuMusic();
     }
 
-    public void PlayMainMenuAudio()
+    public void PlayMainMenuMusic()
     {
-        PlayAudio(mainMenuClip);
+        PlayMusic(mainMenuClip);
     }
 
-    public void PlayInGameAudio()
+    public void PlayInGameMusic()
     {
-        PlayAudio(inGameClip);
+        PlayMusic(inGameClip);
     }
 
-    public void PlayNewGameAudio()
+    public void PlayNewGameMusic()
     {
-        PlayAudio(newGameClip);
+        PlayMusic(newGameClip);
     }
 
-    private void PlayAudio(AudioClip clip)
+    private void PlayMusic(AudioClip clip)
     {
         if (audioSource.clip == clip) return; // Avoid restarting the same audio
         audioSource.Stop();

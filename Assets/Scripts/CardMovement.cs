@@ -3,6 +3,8 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Rendering;
+using EnemyAndTowers;
+
 public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerEnterHandler, IPointerExitHandler
 {
 
@@ -41,23 +43,28 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
     }
 
     // Update is called once per frame
-    void Update() {
-        switch (currState) {
-          case 1:
+    void Update()
+{
+    switch (currState)
+    {
+        case 1:
             HandleHoverState();
             break;
-          case 2:
+        case 2:
             HandleDragState();
-            // if left click is released
-            if (!Input.GetMouseButton(0)) {
-              GoToState(0);
+            if (!Input.GetMouseButton(0))
+            {
+                GoToState(0);
             }
             break;
-          case 3:
+        case 3:
             HandlePlayState();
             break;
-        }
+        case 4:
+            HandleRotationState();
+            break;
     }
+}
 
     private void GoToState(int desiredState) {
       // default state
@@ -80,6 +87,11 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
         currState = 3;
         playArrow.SetActive(true);
         rectTransform.localPosition = Vector3.Lerp(rectTransform.position, playPosition, lerpTime);
+      }
+      else if (desiredState == 4)
+      {
+        currState = 4;
+        playArrow.SetActive(true);
       }
     }
 
@@ -127,7 +139,7 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
     }
 
     private void HandlePlayState() {
-      rectTransform.localPosition = playPosition;
+      /*rectTransform.localPosition = playPosition;
       rectTransform.localRotation = Quaternion.identity;
       if (!Input.GetMouseButton(0)) {
         // place tower (sprite)
@@ -139,7 +151,16 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
           if (cardDisplay.cardData.cardType == Card.CardType.Tower) {
           // ((TowerCard)cardDisplay.cardData).fieldSprite
           //Instantiate(gameObject, Input.mousePosition / canvas.scaleFactor + new Vector3(-400f, -400f, 0f), Quaternion.identity);
+            
+            GameObject to = ((TowerCard)cardDisplay.cardData).prefab;
+            if (to.GetComponent<PulserTower>() != null)
+            {
+              
+            }
             towerSelector.spawnTower(((TowerCard)cardDisplay.cardData).prefab);
+          
+          
+          
           // set parent transform
           } else {
             // cast spell
@@ -158,6 +179,88 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
       if (Input.mousePosition.y / canvas.scaleFactor < cardPlayZone.y) {
         GoToState(2);
         playArrow.SetActive(false);
-      }
+      }*/
+      rectTransform.localPosition = playPosition;
+    rectTransform.localRotation = Quaternion.identity;
+
+    if (!Input.GetMouseButton(0))
+    {
+        // Place tower (sprite)
+        CardDisplay cardDisplay = GetComponent<CardDisplay>();
+        NectarManager nectarManager = FindObjectOfType<NectarManager>();
+
+        if (cardDisplay.cardData.cost <= nectarManager.GetNectar())
+        {
+            nectarManager.SetNectar(nectarManager.GetNectar() - cardDisplay.cardData.cost);
+            TowerSelector towerSelector = FindObjectOfType<TowerSelector>();
+
+            if (cardDisplay.cardData.cardType == Card.CardType.Tower)
+            {
+                GameObject to = ((TowerCard)cardDisplay.cardData).prefab;
+                Debug.Log("Its about to look at a tower");
+                if (to.GetComponent<BeamerTower>() != null)
+                {
+                    Debug.Log("It knows its a beamer");
+                    // Transition to the rotation state
+                    towerSelector.spawnTower(to);
+                    GoToState(4); // Enter Set Rotation state
+                    return;
+                }
+
+                towerSelector.spawnTower(to);
+            }
+            else
+            {
+                // Cast spell
+                towerSelector.castSpell(((SpellCard)cardDisplay.cardData).prefab);
+            }
+
+            // Discard card and destroy card
+            HandManager handManager = FindObjectOfType<HandManager>();
+            handManager.cardsInHand.Remove(gameObject);
+            handManager.DiscardCard(cardDisplay.cardData);
+            Destroy(gameObject);
+        }
+        else
+        {
+            GoToState(2);
+            playArrow.SetActive(false);
+        }
     }
+
+    if (Input.mousePosition.y / canvas.scaleFactor < cardPlayZone.y)
+    {
+        GoToState(2);
+        playArrow.SetActive(false);
+    }
+    }
+
+
+    private void HandleRotationState()
+{
+    //Debug.Log("It goes to HandleRotation state");
+    BeamerTower beamerTower = FindObjectOfType<BeamerTower>();
+    if (beamerTower == null)
+        return;
+
+    // Visualize potential directions (optional)
+    Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+    mousePosition.z = 0;
+
+    Vector3 direction = mousePosition - beamerTower.transform.position;
+    float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+
+    // Snap to one of 6 hexagonal directions (optional)
+    float snappedAngle = Mathf.Round(angle / 60f) * 60f;
+
+    beamerTower.transform.rotation = Quaternion.Euler(0, 0, snappedAngle);
+
+    // Confirm rotation on click
+    if (Input.GetMouseButtonDown(0))
+    {
+        Debug.Log($"Pulser Tower rotation set to {snappedAngle} degrees.");
+        GoToState(0); // Return to default state
+    }
+}
+
 }

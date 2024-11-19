@@ -116,6 +116,7 @@ public class TowerSelector : MonoBehaviour
                   TowerComponent.GridManager = this.gridManager;
                   TowerComponent.SetQRS(q, r, s);
                   spot.EnterTile(t);
+                  
                   Debug.Log("Tower placed at: " + q + r + s);
 
                 }

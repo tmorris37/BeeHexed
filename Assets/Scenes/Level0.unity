@@ -662,6 +662,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 515682202}
   m_CullTransparentMesh: 1
+--- !u!114 &574980980 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5925348805290694432, guid: 3c7e526a0cb3c794babc428402c385dd, type: 3}
+  m_PrefabInstance: {fileID: 1808685648}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91724a5f0b643684cb73b4040001075a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &741012468
 GameObject:
   m_ObjectHideFlags: 0
@@ -2014,6 +2025,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EnemyPrefab: {fileID: 435629412242135445, guid: 42dfd6f16840d99418b0a41916b0c381, type: 3}
   GridManager: {fileID: 1554881295}
+  CaveGenerator: {fileID: 1846675530}
   Cheerios: {fileID: 0}
   CavePrefab: {fileID: 7393846077666523299, guid: 72013799fbfe550428d1f8d3914131af, type: 3}
   Radius: 5
@@ -3087,7 +3099,7 @@ MonoBehaviour:
   TowerID: 0
   fireRate: 1
   projectilePrefab: {fileID: 0}
-  healthBar: {fileID: 0}
+  healthBar: {fileID: 574980980}
 --- !u!1 &1828288586
 GameObject:
   m_ObjectHideFlags: 0
@@ -3297,6 +3309,56 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1836495243}
   m_CullTransparentMesh: 1
+--- !u!1 &1846675529
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1846675531}
+  - component: {fileID: 1846675530}
+  m_Layer: 0
+  m_Name: CaveGenerator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1846675530
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1846675529}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b2e9eae963aed141a8c186f16f42de7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GridManager: {fileID: 1554881295}
+  CavePrefab: {fileID: 7393846077666523299, guid: 72013799fbfe550428d1f8d3914131af, type: 3}
+  numCaves: 5
+  Radius: 5
+  DEBUG: 1
+  CavePositions: []
+--- !u!4 &1846675531
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1846675529}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.5281162, y: 1.7901541, z: 0.09173872}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1854202666
 GameObject:
   m_ObjectHideFlags: 0
@@ -3385,3 +3447,4 @@ SceneRoots:
   - {fileID: 457705402}
   - {fileID: 930808615}
   - {fileID: 781918216}
+  - {fileID: 1846675531}

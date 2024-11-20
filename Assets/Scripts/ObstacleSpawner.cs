@@ -15,10 +15,28 @@ public class ObstacleSpawner : MonoBehaviour
 
     private List<GameObject> Obstacles;
 
+    [SerializeField] public bool Percent;
+    [SerializeField] public float Percentage;
+    [SerializeField] public bool Constant;
+    [SerializeField] public int ConstantQuantity;
+
+    [SerializeField] public List<int> Inputs;
+
     void Start()
     {
         this.Obstacles = AddObstaclePrefabs();
-        SpawnXPercentObstaclesPerRing(0.2f);
+        if (Percent)
+        {
+            SpawnXPercentObstaclesPerRing(Percentage);
+        }
+        else if (Constant)
+        {
+            SpawnNObstaclesPerRing(ConstantQuantity);
+        }
+        else
+        {
+            SpawnObstaclesPerRing(Inputs);
+        }
     }
 
     // Creates a List from the Obstacle Prefabs attached to script
@@ -64,8 +82,8 @@ public class ObstacleSpawner : MonoBehaviour
     public void SpawnObstaclesPerRing(List<int> ObstacleQuantities)
     {
         // Loops for each Ring in Grid
-        int MaxRing = (ObstacleQuantities.Count > GridManager.GridRadius) ?
-                         GridManager.GridRadius : ObstacleQuantities.Count;
+        int MaxRing = (ObstacleQuantities.Count >= GridManager.GridRadius) ?
+                      GridManager.GridRadius - 1 : ObstacleQuantities.Count;
         for (int i = 0; i < MaxRing; i++)
         {
             int RingNumber = i + 1;

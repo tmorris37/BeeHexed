@@ -422,7 +422,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fcc2a91327458840bec2a194d087e6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sfxMixer: {fileID: 0}
+  sfxMixer: {fileID: 24100000, guid: 8954569ea1c100b4abc974846b84367f, type: 2}
   Volume: 1
   Beem: {fileID: 8300000, guid: 9736710c5866be24686683e3c317c9bf, type: 3}
   Pulse: {fileID: 8300000, guid: ed28874eece7c764cb4091e2c90bee4b, type: 3}
@@ -435,7 +435,7 @@ AudioSource:
   m_GameObject: {fileID: 290391412}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -6208500474576176588, guid: 8954569ea1c100b4abc974846b84367f, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1

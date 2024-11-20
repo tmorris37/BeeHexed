@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class VolumeSlider : MonoBehaviour
+public class SFXSlider : MonoBehaviour
 {
     private Slider slider;
 
@@ -11,7 +11,7 @@ public class VolumeSlider : MonoBehaviour
 
         // Set the slider's initial value based on the MusicManager
         float volume;
-        if (MusicManager.Instance != null && MusicManager.Instance.musicMixer.GetFloat("MusicVolume", out volume))
+        if (SFXManager.Instance != null && SFXManager.Instance.sfxMixer.GetFloat("SFXVolume", out volume))
         {
             // Convert decibel value back to linear (0 to 1)
             slider.value = Mathf.Pow(10, volume / 20);
@@ -28,9 +28,9 @@ public class VolumeSlider : MonoBehaviour
     private void UpdateVolume(float value)
     {
         // Call MusicManager's SetVolume method
-        if (MusicManager.Instance != null)
+        if (SFXManager.Instance != null)
         {
-            MusicManager.Instance.SetVolume(value);
+            SFXManager.Instance.SetVolume(value);
         }
     }
 }

@@ -117,7 +117,7 @@ namespace EnemyAndTowers
                 }
             }*/
             //animator.SetTrigger("PulseTrigger");
-           
+
             foreach (Transform enemy in targets)
             {
                 Enemy enemyScript = enemy.GetComponent<Enemy>();
@@ -129,6 +129,10 @@ namespace EnemyAndTowers
                     {
                 
                         circleAnimator.SetTrigger("PulseEffect");
+                    }
+                    if (SFXManager.Instance != null)
+                    {
+                        SFXManager.Instance.PlayPulse();
                     }
                 }
                 

@@ -16,6 +16,17 @@ namespace Map {
         // Switches Scene to input Scene, sceneName
         public void GoToScene(string sceneName)
         {
+            if (MusicManager.Instance != null)
+            {
+                if (sceneName == "Level0")
+                {
+                    MusicManager.Instance.PlayInGameMusic();
+                }
+                else
+                {
+                    MusicManager.Instance.PlayMainMenuMusic();
+                }
+            }
             SceneManager.LoadScene(sceneName);
         }
     }

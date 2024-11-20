@@ -216,10 +216,11 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
             }
 
             // Discard card and destroy card
-            HandManager handManager = FindObjectOfType<HandManager>();
+            /*HandManager handManager = FindObjectOfType<HandManager>();
             handManager.cardsInHand.Remove(gameObject);
             handManager.DiscardCard(cardDisplay.cardData);
-            Destroy(gameObject);
+            Destroy(gameObject);*/
+            destroyCard();
         }
         else
         {
@@ -249,6 +250,7 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
 
     Vector3 direction = mousePosition - beamerTower.transform.position;
     float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+    angle -= 180f;
 
     // Snap to one of 6 hexagonal directions (optional)
     float snappedAngle = Mathf.Round(angle / 60f) * 60f;
@@ -258,9 +260,20 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
     // Confirm rotation on click
     if (Input.GetMouseButtonDown(0))
     {
+        
         Debug.Log($"Pulser Tower rotation set to {snappedAngle} degrees.");
+        destroyCard();
         GoToState(0); // Return to default state
     }
 }
 
+
+private void destroyCard()
+{
+            CardDisplay cardDisplay = GetComponent<CardDisplay>();
+            HandManager handManager = FindObjectOfType<HandManager>();
+            handManager.cardsInHand.Remove(gameObject);
+            handManager.DiscardCard(cardDisplay.cardData);
+            Destroy(gameObject);
+}
 }

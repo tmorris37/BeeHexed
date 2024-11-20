@@ -1,10 +1,12 @@
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class MusicManager : MonoBehaviour
 {
     public static MusicManager Instance { get; private set; }
+    public AudioMixer musicMixer;
     private AudioSource audioSource;
-
+    public float Volume;
     public AudioClip mainMenuClip;
     public AudioClip newGameClip;
     public AudioClip inGameClip;
@@ -21,11 +23,17 @@ public class MusicManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
 
         audioSource = GetComponent<AudioSource>();
+        audioSource.volume = Volume;
     }
 
     private void Start()
     {
         PlayMainMenuMusic();
+    }
+
+    public void SetVolume(float volume)
+    {
+        musicMixer.SetFloat("MusicVolume", Mathf.Log10(volume) * 20);
     }
 
     public void PlayMainMenuMusic()

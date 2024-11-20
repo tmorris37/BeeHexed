@@ -1,10 +1,12 @@
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class SFXManager : MonoBehaviour
 {
     public static SFXManager Instance { get; private set; }
+    public AudioMixer sfxMixer;
     private AudioSource audioSource;
-
+    public float Volume;
     public AudioClip Beem;
     public AudioClip Pulse;
 
@@ -20,12 +22,17 @@ public class SFXManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
 
         audioSource = GetComponent<AudioSource>();
+        audioSource.volume = Volume;
     }
 
     private void Start()
+    {}
+
+    public void SetVolume(float volume)
     {
-        
+        sfxMixer.SetFloat("SFXVolume", Mathf.Log10(volume) * 20);
     }
+
 
     public void PlayBeem()
     {

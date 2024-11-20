@@ -983,6 +983,7 @@ GameObject:
   m_Component:
   - component: {fileID: 819457912}
   - component: {fileID: 819457913}
+  - component: {fileID: 819457914}
   m_Layer: 5
   m_Name: VolumeSlider
   m_TagString: Untagged
@@ -1059,13 +1060,13 @@ MonoBehaviour:
   m_MinValue: 0.0001
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0.00901
+  m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Settings, BeeHexedAssembly
-        m_MethodName: SetQuality
+        m_MethodName: 
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1075,6 +1076,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &819457914
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 819457911}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ac05afdf220b684d9684abe0000f48d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &910447510
 GameObject:
   m_ObjectHideFlags: 0

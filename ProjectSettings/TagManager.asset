@@ -8,6 +8,7 @@ TagManager:
   - Projetile
   - PlayerHealth
   - Tower
+  - Beam
   layers:
   - Default
   - TransparentFX

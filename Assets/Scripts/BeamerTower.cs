@@ -11,9 +11,11 @@ namespace EnemyAndTowers
         public TowerData Data;
 
         
-        public float fireRate = 0.5f; // Pulse every 3 seconds
+        public float fireRate = 2f; // Pulse every 3 seconds
 
-        public GameObject projectilePrefab;
+        //public GameObject projectilePrefab;
+
+        public GameObject beam;
 
         private List<Transform> targets;
         private float fireCountdown;
@@ -55,9 +57,9 @@ namespace EnemyAndTowers
             
 
             // Pulse effect logic
-            if (fireCountdown <= 0f)
+            if (fireCountdown <= 0f && targets.Count > 0)
             {
-                Damage();
+                fire();
                 fireCountdown = fireRate;
             }
             fireCountdown -= Time.deltaTime;
@@ -91,27 +93,30 @@ namespace EnemyAndTowers
 
         
 
-        private void Damage()
+        private void fire()
         {
            
-           //possible bug were targets is null if firerate isn't set. Very strange
-            foreach (Transform enemy in targets)
-            {
-                Enemy enemyScript = enemy.GetComponent<Enemy>();
-                if (enemyScript != null)
-                {
-                    
-                    enemyScript.TakeDamage(1);
-                    //if (circleAnimator != null)
-                    //{
-                
-                        //circleAnimator.SetTrigger("PulseEffect");
-                    //}
-                }
-                
-            }
+           if (beam == null)
+    {
+        Debug.LogError("Beam prefab not assigned!");
+        return;
+    }
 
+    
+    // Instantiate the beam at the tower's position with the same rotation as the tower
+    Vector3 offset = -this.transform.right * 12.5f; // Assuming the beam shoots along the tower's right direction
+GameObject instantiatedBeam = Instantiate(beam, this.transform.position + offset, this.transform.rotation);
+    //GameObject instantiatedBeam = Instantiate(beam, this.transform.position + new Vector3(12.5f, 0, 0), Quaternion.identity);
+    //Debug.Log("PreRotate: " + instantiatedBeam.transform.rotation);
+    //instantiatedBeam.transform.RotateAround(this.transform.position, Vector3.forward, this.transform.rotation.z);
+    //Debug.Log("PostRotate: " + instantiatedBeam.transform.rotation);
+    instantiatedBeam.transform.rotation = this.transform.rotation;
+
+
+    // Destroy the beam after 0.2 seconds
+    Destroy(instantiatedBeam, 0.2f);
             
+             
         }
 
        

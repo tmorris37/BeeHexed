@@ -104,6 +104,10 @@ namespace EnemyAndTowers
                     Destroy(this);
                 }*/
             }
+            else if (other.CompareTag("Beam"))
+            {
+                TakeDamage(3);
+            }
 
         }
 

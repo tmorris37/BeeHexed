@@ -107,6 +107,7 @@ MonoBehaviour:
   TowerID: 0
   fireRate: 0.5
   projectilePrefab: {fileID: 0}
+  beam: {fileID: 3655123639976924818, guid: 57b9ba4538121644f9dc61520d9c7307, type: 3}
   healthBar: {fileID: 0}
 --- !u!61 &2900799567144085508
 BoxCollider2D:

@@ -2116,7 +2116,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 949248041}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c40fbe0ab8ddf454d91ee87eb885df92, type: 3}
+  m_Script: {fileID: 11500000, guid: 7df78d04ebf9cdc46ae407f263757e65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   EnemyPrefab: {fileID: 435629412242135445, guid: ce2be51eee2719b48b1bdcb1ec473536, type: 3}
@@ -2126,7 +2126,7 @@ MonoBehaviour:
   CavePrefab: {fileID: 7393846077666523299, guid: 72013799fbfe550428d1f8d3914131af, type: 3}
   Radius: 5
   DEBUG: 0
-  moveInterval: 3
+  moveInterval: 2
 --- !u!1 &962259158
 GameObject:
   m_ObjectHideFlags: 0
@@ -3158,7 +3158,6 @@ MonoBehaviour:
   GridManager: {fileID: 0}
   TowerID: 0
   fireRate: 1
-  projectilePrefab: {fileID: 0}
   healthBar: {fileID: 574980980}
 --- !u!1 &1828288586
 GameObject:
@@ -3508,3 +3507,4 @@ SceneRoots:
   - {fileID: 930808615}
   - {fileID: 781918216}
   - {fileID: 777690094}
+  - {fileID: 1846675531}

@@ -240,7 +240,7 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
     private void HandleRotationState()
 {
     //Debug.Log("It goes to HandleRotation state");
-    BeamerTower beamerTower = FindObjectOfType<BeamerTower>();
+    /*BeamerTower beamerTower = FindObjectOfType<BeamerTower>();
     if (beamerTower == null)
         return;
 
@@ -262,6 +262,48 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
     {
         
         Debug.Log($"Pulser Tower rotation set to {snappedAngle} degrees.");
+        destroyCard();
+        GoToState(0); // Return to default state
+    }*/
+
+    BeamerTower beamerTower = FindObjectOfType<BeamerTower>();
+    if (beamerTower == null)
+        return;
+
+    // Visualize potential directions
+    Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+    mousePosition.z = 0;
+
+    Vector3 direction = mousePosition - beamerTower.transform.position;
+    float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+    angle -= 180f;
+
+    // Snap to one of 6 hexagonal directions
+    float snappedAngle = Mathf.Round(angle / 60f) * 60f;
+
+    // Calculate direction to the center of the map (assuming center at (0, 0))
+    Vector3 centerDirection = Vector3.zero + beamerTower.transform.position;
+    float centerAngle = Mathf.Atan2(centerDirection.y, centerDirection.x) * Mathf.Rad2Deg;
+    centerAngle = Mathf.Round(centerAngle / 60f) * 60f;
+
+    // Debug the calculated angles for verification
+    Debug.Log($"Snapped Angle: {snappedAngle}, Center Angle: {centerAngle}");
+
+    // Use a tolerance to check if snappedAngle points toward the center
+    float tolerance = 0.1f; // Adjust if necessary
+    if (Mathf.Abs(Mathf.DeltaAngle(snappedAngle, centerAngle)) < tolerance)
+    {
+        Debug.Log("Blocked rotation toward the center! Adjust the direction.");
+        return; // Skip updating rotation but keep the user in the adjustment state
+    }
+
+    // Update the tower's rotation
+    beamerTower.transform.rotation = Quaternion.Euler(0, 0, snappedAngle);
+
+    // Confirm rotation on click
+    if (Input.GetMouseButtonDown(0))
+    {
+        Debug.Log($"Beamer Tower rotation set to {snappedAngle} degrees.");
         destroyCard();
         GoToState(0); // Return to default state
     }

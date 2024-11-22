@@ -1760,7 +1760,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17d80b9ba9d80b34bb202bc3a19b270f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawner: {fileID: 949248046}
+  spawner: {fileID: 949248042}
   enemiesPerWave: 5
   numWaves: 5
   timeBetweenWaves: 5
@@ -2001,9 +2001,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 949248043}
+  - component: {fileID: 949248042}
   - component: {fileID: 949248044}
   - component: {fileID: 949248045}
-  - component: {fileID: 949248046}
   m_Layer: 0
   m_Name: Spawner
   m_TagString: Untagged
@@ -2011,6 +2011,26 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &949248042
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 949248041}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9f55d1bc5e59494b84808aa55f5fdad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EnemyPrefab: {fileID: 435629412242135445, guid: 42dfd6f16840d99418b0a41916b0c381, type: 3}
+  GridManager: {fileID: 1554881295}
+  CaveGenerator: {fileID: 1846675530}
+  Cheerios: {fileID: 0}
+  CavePrefab: {fileID: 7393846077666523299, guid: 72013799fbfe550428d1f8d3914131af, type: 3}
+  Radius: 5
+  DEBUG: 0
+  moveInterval: 3
 --- !u!4 &949248043
 Transform:
   m_ObjectHideFlags: 0
@@ -2055,26 +2075,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e7f8e81208cb204f883197df769829e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &949248046
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 949248041}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c40fbe0ab8ddf454d91ee87eb885df92, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  EnemyPrefab: {fileID: 435629412242135445, guid: ce2be51eee2719b48b1bdcb1ec473536, type: 3}
-  GridManager: {fileID: 1554881295}
-  CaveGenerator: {fileID: 1846675530}
-  Cheerios: {fileID: 1341650181057277616, guid: 3c7e526a0cb3c794babc428402c385dd, type: 3}
-  CavePrefab: {fileID: 7393846077666523299, guid: 72013799fbfe550428d1f8d3914131af, type: 3}
-  Radius: 5
-  DEBUG: 0
-  moveInterval: 3
 --- !u!1 &962259158
 GameObject:
   m_ObjectHideFlags: 0

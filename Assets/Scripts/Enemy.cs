@@ -8,18 +8,15 @@ namespace EnemyAndTowers
 {
     public class Enemy : HexPosition
     {
-        [SerializeField] public int EnemyID;
-        [SerializeField] FloatingHealthBar healthBar;
+        [SerializeField] protected FloatingHealthBar healthBar;
+        public int EnemyID;
         public EnemyData Data;
         public int health;
         public float movementSpeed = 3f;
-        private Vector3 targetPosition;
-
+        protected Vector3 targetPosition;
         public GridManager gridManager;
 
-
-
-        void Start()
+        protected void Start()
         {
             this.DEBUG = true;
             // Instantiates the Enemy at the Provided Spawn Location
@@ -54,7 +51,7 @@ namespace EnemyAndTowers
         }
 
         // Call this method to smoothly move the enemy to a specified position
-        public void MoveToPosition(Vector3 target)
+        public virtual void MoveToPosition(Vector3 target)
         {
             //Debug.Log("Target: " + target);
             targetPosition = target;
@@ -107,7 +104,7 @@ namespace EnemyAndTowers
 
         }
 
-        public void TakeDamage(int damage)
+        public virtual void TakeDamage(int damage)
         {
             /*this.health = this.health - damage;
             healthBar.UpdateHealthBar(this.health, this.Data.MaxHP);

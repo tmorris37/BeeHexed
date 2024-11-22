@@ -284,6 +284,7 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
     if (Input.GetMouseButtonDown(0))
     {
         Debug.Log($"Beamer Tower rotation set to {snappedAngle} degrees.");
+        beamerTower.active = true;
         destroyCard();
         GoToState(0); // Return to default state
     }

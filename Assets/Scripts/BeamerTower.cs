@@ -22,6 +22,8 @@ namespace EnemyAndTowers
         
         private int HP;
 
+        public bool active;
+
         //[SerializeField] private Animator circleAnimator;
 
         
@@ -33,6 +35,7 @@ namespace EnemyAndTowers
         {
             var FileData = Resources.Load<TextAsset>("Towers/Tower_" + TowerID);
             this.targets = new List<Transform>();
+            this.active = false;
             if (FileData != null)
             {
                 string JSONPlainText = FileData.text;
@@ -57,8 +60,9 @@ namespace EnemyAndTowers
             
 
             // Pulse effect logic
-            if (fireCountdown <= 0f && targets.Count > 0)
+            if (fireCountdown <= 0f && targets.Count > 0 && this.active)
             {
+               
                 fire();
                 fireCountdown = fireRate;
             }

@@ -2725,7 +2725,8 @@ MonoBehaviour:
   DEBUG_MODE: 0
   customDeck:
   - {fileID: 11400000, guid: 15a9b22756fbc3d4a9ca4c99ce1bfad7, type: 2}
-  - {fileID: 11400000, guid: e4fcfb67a9a95d142843372780c397da, type: 2}
+  - {fileID: 11400000, guid: 2942af11a37e5f04a8fecc1b7c0ae4ec, type: 2}
+  - {fileID: 11400000, guid: 2942af11a37e5f04a8fecc1b7c0ae4ec, type: 2}
   - {fileID: 11400000, guid: 2942af11a37e5f04a8fecc1b7c0ae4ec, type: 2}
   deck: []
   handLimit: 8

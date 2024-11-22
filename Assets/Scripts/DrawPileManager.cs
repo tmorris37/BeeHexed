@@ -35,6 +35,8 @@ public class DrawPileManager : MonoBehaviour
       //
       if (DEVELOPER_MODE) {
         WriteDeckToFile(customDeck);
+      } else {
+        WriteDeckToFile(new List<Card>(Resources.LoadAll<Card>("Cards/")));
       }
       getDeckFromFile();
       generateDrawPile(deck);

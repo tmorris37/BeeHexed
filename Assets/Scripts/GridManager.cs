@@ -105,8 +105,8 @@ namespace GridSystem
         // Useful for spawning/moving Unity objects
         public (float, float) QRStoXY(int q, int r, int s)
         {
-            float x = (q - s)/2.0f;
-            float y = -r;
+            float x = (q - s) * 0.5f * 1.05f;
+            float y = -r * 0.866f * 1.0385f;
 
             return (x, y);
         }
@@ -114,8 +114,8 @@ namespace GridSystem
         // Converts the x, y Unity coordinates to q, r, s cooridinates
         public (int, int, int) XYtoQRS(float x, float y)
         {
-            int r = (int) -y;
-            int q = (int) (2*x + y)/2;
+            int r = (int) (-y / (0.866f * 1.0385f));
+            int q = (int) (2*(x / 1.05f) - r)/2;
             int s = 0 - q - r;
 
             return (q, r, s);

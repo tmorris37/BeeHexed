@@ -108,6 +108,8 @@ using EnemyAndTowers;
             usedEdges.Add(edge);  // Mark this edge as used
             GameObject newCave = Instantiate(CavePrefab);
             (float x, float y) = GridManager.QRStoXY(q, r, s);
+            Debug.Log("Cave QRS:" + q + ", " + r + ", " + s);
+            Debug.Log("Cave XY:" + x + ", " + y);
             newCave.transform.position = new Vector3(x, y, 0);
             cavePositions.Add(new Vector3(q, r, s));
 

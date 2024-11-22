@@ -1752,6 +1752,11 @@ MonoBehaviour:
   GridManager: {fileID: 1554881295}
   Obstacle1: {fileID: 8427140594737057986, guid: e0954496b7fdcd3469d4cb6db17afa30, type: 3}
   Obstacle2: {fileID: 8427140594737057986, guid: e0954496b7fdcd3469d4cb6db17afa30, type: 3}
+  Percent: 0
+  Percentage: 0
+  Constant: 0
+  ConstantQuantity: 0
+  Inputs: 
 --- !u!4 &777690094
 Transform:
   m_ObjectHideFlags: 0
@@ -2716,12 +2721,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 179dd428836948f449d0617198da4296, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deck: []
-  handLimit: 8
+  DEVELOPER_MODE: 0
+  DEBUG_MODE: 0
   customDeck:
   - {fileID: 11400000, guid: 15a9b22756fbc3d4a9ca4c99ce1bfad7, type: 2}
   - {fileID: 11400000, guid: e4fcfb67a9a95d142843372780c397da, type: 2}
   - {fileID: 11400000, guid: 2942af11a37e5f04a8fecc1b7c0ae4ec, type: 2}
+  deck: []
+  handLimit: 8
+  deckSavePath: Assets/Deck/Deck.json
   drawPileCounter: {fileID: 515682204}
 --- !u!1 &1554881294
 GameObject:

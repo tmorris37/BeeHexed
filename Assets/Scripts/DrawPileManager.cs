@@ -13,7 +13,7 @@ public class DrawPileManager : MonoBehaviour
 {
 
     // lets you use a custom deck rather than the starting deck
-    [SerializeField] bool DEVELOPER_MODE = false;
+    [SerializeField] public bool DEVELOPER_MODE = false;
     [SerializeField] bool DEBUG_MODE = false;
     // add the cards you want via the inspector, ensure DEVELOPER_MODE is on
     [SerializeField] private List<Card> customDeck;
@@ -114,4 +114,18 @@ public class DrawPileManager : MonoBehaviour
       Shuffle();
       drawPileCounter.text = deck.Count.ToString();
     }
+
+    // DEVELOPER ONLY METHODS
+    public void DEV_setDeckPath(string path) {
+      if (DEVELOPER_MODE) {
+        deckSavePath = path;
+      }
+    }
+
+    public void DEV_setCustomDeck(List<Card> custDeck) {
+      if (DEVELOPER_MODE) {
+        customDeck = custDeck;
+      }
+    }
+
 }

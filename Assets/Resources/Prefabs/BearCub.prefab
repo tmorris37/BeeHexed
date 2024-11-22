@@ -10,12 +10,12 @@ GameObject:
   m_Component:
   - component: {fileID: 8878003986080987967}
   - component: {fileID: 3161000316992470741}
-  - component: {fileID: 3950002485354835379}
   - component: {fileID: 7338443146895155815}
   - component: {fileID: 6077610187350365586}
   - component: {fileID: 674138057000917732}
+  - component: {fileID: 8151426367890482933}
   m_Layer: 0
-  m_Name: Enemy
+  m_Name: BearCub
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -90,29 +90,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &3950002485354835379
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 435629412242135445}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7d9ecbbee90e9b544882b87ac5824819, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  q: 0
-  r: 0
-  s: 0
-  GridRadius: 0
-  DEBUG: 1
-  GridManager: {fileID: 0}
-  EnemyID: 0
-  healthBar: {fileID: 0}
-  health: 0
-  movementSpeed: 0.33333334
-  gridManager: {fileID: 0}
 --- !u!61 &7338443146895155815
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -230,6 +207,30 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.5, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &8151426367890482933
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 435629412242135445}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 869358b3adaf9114c9da898de2daf2ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  q: 0
+  r: 0
+  s: 0
+  GridRadius: 0
+  DEBUG: 1
+  GridManager: {fileID: 0}
+  EnemyID: 0
+  healthBar: {fileID: 0}
+  health: 0
+  movementSpeed: 3
+  gridManager: {fileID: 0}
+  healthBar: {fileID: 0}
 --- !u!1 &1005827184157380306
 GameObject:
   m_ObjectHideFlags: 0

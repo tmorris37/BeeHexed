@@ -245,10 +245,11 @@ MonoBehaviour:
   DEBUG: 1
   GridManager: {fileID: 0}
   TowerID: 0
+  fireRate: 0
+  healthBar: {fileID: 0}
   pulseRate: 1
   projectilePrefab: {fileID: 1813104218997895954, guid: dfe7bc1084486f34c87d7b9056d82f23, type: 3}
   circleAnimator: {fileID: 6997950305440006813}
-  healthBar: {fileID: 0}
 --- !u!61 &6634457094529438420
 BoxCollider2D:
   m_ObjectHideFlags: 0

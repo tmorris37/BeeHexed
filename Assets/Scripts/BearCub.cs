@@ -8,7 +8,7 @@ namespace EnemyAndTowers
 {
     public class BearCub : Enemy
     {
-        void Start()
+        protected override void Start()
         {
             this.DEBUG = true;
             base.Start();
@@ -38,24 +38,6 @@ namespace EnemyAndTowers
 
             // Set the final position exactly to the target
             transform.position = target;
-        }
-        void Update()
-        {
-            //Debug.Log(this.health);
-        }
-
-        void OnTriggerEnter2D(Collider2D other)
-        {
-           // Debug.Log("It detects a thing");
-            if (other.CompareTag("Projetile"))
-            {
-                TakeDamage(1);
-                /*if (this.Data.MaxHP <= 0)
-                {
-                    Destroy(this);
-                }*/
-            }
-
         }
     }
 }

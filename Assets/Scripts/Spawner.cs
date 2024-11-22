@@ -87,73 +87,6 @@ using EnemyAndTowers;
         }
     }
 
-    public void moveFailure()
-    {
-        if (DEBUG)
-            Debug.Log("Move failed");
-    }
-
-    public void MoveNW(Enemy enemy, int q, int r, int s)
-    {
-        if (enemy.Move("Northwest"))
-        {
-            (float a, float b) = GridManager.QRStoXY(q,r-1,s+1);
-            enemy.MoveToPosition(new Vector3(a, b, 0));
-        }
-        else
-          moveFailure();
-    }
-    public void MoveNE(Enemy enemy, int q, int r, int s)
-    {
-        if (enemy.Move("Northeast"))
-        {
-            (float a, float b) = GridManager.QRStoXY(q+1,r-1,s);
-            enemy.MoveToPosition(new Vector3(a, b, 0));
-        }
-        else
-          moveFailure();
-    }
-    public void MoveE(Enemy enemy, int q, int r, int s)
-    {
-        if (enemy.Move("East"))
-        {
-            (float a, float b) = GridManager.QRStoXY(q+1,r,s-1);
-            enemy.MoveToPosition(new Vector3(a, b, 0));
-        }
-        else
-          moveFailure();
-    }
-    public void MoveSE(Enemy enemy, int q, int r, int s)
-    {
-        if (enemy.Move("Southeast"))
-        {
-            (float a, float b) = GridManager.QRStoXY(q,r+1,s-1);
-            enemy.MoveToPosition(new Vector3(a, b, 0));
-        }
-        else
-          moveFailure();
-    }
-    public void MoveSW(Enemy enemy, int q, int r, int s)
-    {
-        if (enemy.Move("Southwest"))
-        {
-            (float a, float b) = GridManager.QRStoXY(q-1,r+1,s);
-            enemy.MoveToPosition(new Vector3(a, b, 0));
-        }
-        else
-          moveFailure();
-    }
-    public void MoveW(Enemy enemy, int q, int r, int s)
-    {
-        if (enemy.Move("West"))
-        {
-            (float a, float b) = GridManager.QRStoXY(q-1,r,s+1);
-            enemy.MoveToPosition(new Vector3(a, b, 0));
-        }
-        else
-          moveFailure();
-    }
-
     public void Update()
     {
         timer += Time.deltaTime;
@@ -169,20 +102,19 @@ using EnemyAndTowers;
             }
             timer = 0f;
 
-            // Remove and destroy any enemies with 0 or less health
-            enemies.RemoveAll(enemy =>
-            {
-                if (enemy != null && enemy.health <= 0)
-                {
-                    
-                    HexTile tile = GridManager.FetchTile(enemy.q, enemy.r, enemy.s);
-                    tile.LeaveTile(enemy.gameObject);
-                    Destroy(enemy.gameObject);
-                    return true;
-                }
-                return false;
-            });
         }
+        // Remove and destroy any enemies with 0 or less health
+        enemies.RemoveAll(enemy =>
+        {
+            if (enemy != null && enemy.health <= 0)
+            {                
+                HexTile tile = GridManager.FetchTile(enemy.q, enemy.r, enemy.s);
+                tile.LeaveTile(enemy.gameObject);
+                Destroy(enemy.gameObject);
+                return true;
+            }
+            return false;
+        });
     }
   
     // Generates a random Edge Tile on the current Hex Grid based on GridRadius

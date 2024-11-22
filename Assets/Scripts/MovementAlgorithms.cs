@@ -24,12 +24,27 @@ namespace EnemyAndTowers
                 Debug.Log("Move failed");
         }
 
+        public void RotateTowards(Enemy enemy, Vector3 targetPosition)
+        {
+            // Calculate the direction vector
+            Vector3 direction = targetPosition - enemy.transform.position;
+
+            // Rotate to face direction
+            if (direction != Vector3.zero)
+            {
+                float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+                enemy.transform.rotation = Quaternion.Euler(0, 0, angle);
+            }
+        }
+
         public void MoveNW(Enemy enemy, int q, int r, int s)
         {
             if (enemy.Move("Northwest"))
             {
                 (float a, float b) = GridManager.QRStoXY(q,r-1,s+1);
-                enemy.MoveToPosition(new Vector3(a, b, 0));
+                Vector3 targetPosition = new Vector3(a, b, 0);
+                RotateTowards(enemy, targetPosition);
+                enemy.MoveToPosition(targetPosition);
             }
             else
               moveFailure();
@@ -39,7 +54,9 @@ namespace EnemyAndTowers
             if (enemy.Move("Northeast"))
             {
                 (float a, float b) = GridManager.QRStoXY(q+1,r-1,s);
-                enemy.MoveToPosition(new Vector3(a, b, 0));
+                Vector3 targetPosition = new Vector3(a, b, 0);
+                RotateTowards(enemy, targetPosition);
+                enemy.MoveToPosition(targetPosition);
             }
             else
               moveFailure();
@@ -49,7 +66,9 @@ namespace EnemyAndTowers
             if (enemy.Move("East"))
             {
                 (float a, float b) = GridManager.QRStoXY(q+1,r,s-1);
-                enemy.MoveToPosition(new Vector3(a, b, 0));
+                Vector3 targetPosition = new Vector3(a, b, 0);
+                RotateTowards(enemy, targetPosition);
+                enemy.MoveToPosition(targetPosition);
             }
             else
               moveFailure();
@@ -59,7 +78,9 @@ namespace EnemyAndTowers
             if (enemy.Move("Southeast"))
             {
                 (float a, float b) = GridManager.QRStoXY(q,r+1,s-1);
-                enemy.MoveToPosition(new Vector3(a, b, 0));
+                Vector3 targetPosition = new Vector3(a, b, 0);
+                RotateTowards(enemy, targetPosition);
+                enemy.MoveToPosition(targetPosition);
             }
             else
               moveFailure();
@@ -69,7 +90,9 @@ namespace EnemyAndTowers
             if (enemy.Move("Southwest"))
             {
                 (float a, float b) = GridManager.QRStoXY(q-1,r+1,s);
-                enemy.MoveToPosition(new Vector3(a, b, 0));
+                Vector3 targetPosition = new Vector3(a, b, 0);
+                RotateTowards(enemy, targetPosition);
+                enemy.MoveToPosition(targetPosition);
             }
             else
               moveFailure();
@@ -79,7 +102,9 @@ namespace EnemyAndTowers
             if (enemy.Move("West"))
             {
                 (float a, float b) = GridManager.QRStoXY(q-1,r,s+1);
-                enemy.MoveToPosition(new Vector3(a, b, 0));
+                Vector3 targetPosition = new Vector3(a, b, 0);
+                RotateTowards(enemy, targetPosition);
+                enemy.MoveToPosition(targetPosition);
             }
             else
               moveFailure();

@@ -19,7 +19,7 @@ namespace EnemyAndTowers
         private List<Transform> targets;
         private float fireCountdown;
         
-        private int HP;
+        private int health;
 
         //[SerializeField] private Animator circleAnimator;
 
@@ -41,9 +41,9 @@ namespace EnemyAndTowers
             {
                 Debug.Log("Unable to load Tower_" + TowerID);
             }
-            this.HP = this.Data.MaxHP;
+            this.health = this.Data.MaxHealth;
             healthBar = GetComponentInChildren<FloatingHealthBar>();
-            healthBar.UpdateHealthBar(this.HP, this.Data.MaxHP);
+            healthBar.UpdateHealthBar(this.health, this.Data.MaxHealth);
             
             
             fireCountdown = fireRate; // Initialize the pulse countdown
@@ -94,27 +94,17 @@ namespace EnemyAndTowers
 
         private void fire()
         {
-           
-           if (beam == null)
-    {
-        Debug.LogError("Beam prefab not assigned!");
-        return;
-    }
-
-    
-    // Instantiate the beam at the tower's position with the same rotation as the tower
-    Vector3 offset = -this.transform.right * 12.5f; // Assuming the beam shoots along the tower's right direction
-GameObject instantiatedBeam = Instantiate(beam, this.transform.position + offset, this.transform.rotation);
-    
-    instantiatedBeam.transform.rotation = this.transform.rotation;
-
-
-    
-    Destroy(instantiatedBeam, 0.2f);
+            if (beam == null)
+            {
+                Debug.LogError("Beam prefab not assigned!");
+                return;
+            }
+            // Instantiate the beam at the tower's position with the same rotation as the tower
+            Vector3 offset = -this.transform.right * 12.5f; // Assuming the beam shoots along the tower's right direction
+            GameObject instantiatedBeam = Instantiate(beam, this.transform.position + offset, this.transform.rotation);
+            instantiatedBeam.transform.rotation = this.transform.rotation;
             
-             
+            Destroy(instantiatedBeam, 0.2f);
         }
-
-       
     }
 }

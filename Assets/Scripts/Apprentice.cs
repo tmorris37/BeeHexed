@@ -5,19 +5,26 @@ using Newtonsoft.Json;
 
 namespace EnemyAndTowers
 {
-    public class Tower : HexPosition
+    public class Apprentice : HexPosition
     {
         [SerializeField] public int TowerID;
         public TowerData Data;
 
-        public float fireRate;
-        protected List<Transform> targets;
-        protected float fireCountdown;
-        protected int health;
+        public float fireRate = 1f;
 
-        [SerializeField] protected FloatingHealthBar healthBar;
+        public GameObject projectilePrefab;
 
-        protected virtual void Start()
+        private List<Transform> targets;
+
+        private float fireCountdown;
+
+        private int health;
+
+        //public GameObject prefab;
+
+        [SerializeField] FloatingHealthBar healthBar;
+
+        void Start()
         {
             // Assets/Resources/Enemies/Enemy_"".json
             // Creates a TextAsset containing the data from Enemy_"".json
@@ -39,6 +46,7 @@ namespace EnemyAndTowers
             healthBar = GetComponentInChildren<FloatingHealthBar>();
             healthBar.UpdateHealthBar(this.health, this.Data.MaxHealth);
             targets = new List<Transform>();
+
         }
 
         void OnTriggerEnter2D(Collider2D other)
@@ -51,7 +59,7 @@ namespace EnemyAndTowers
             }
         }
 
-        protected virtual void OnTriggerExit2D(Collider2D other)
+        void OnTriggerExit2D(Collider2D other)
         {
             //if (other.CompareTag("Enemy") && other.transform == target)
             if (other.CompareTag("Enemy"))
@@ -61,8 +69,38 @@ namespace EnemyAndTowers
             }
         }
 
-        protected virtual void Update()
+        private void Update()
         {
+            //Debug.Log(this.health);
+            if (this.health <= 0)
+            {
+                Destroy(gameObject);
+            }
+            if (targets.Count > 0)
+            {
+                // shoot at intervals based on fireRate
+                if (fireCountdown <= 0f)
+                {
+                    Shoot();
+                    fireCountdown = 1f / fireRate;
+                }
+                fireCountdown -= Time.deltaTime;
+            }
+        }
+
+        private void Shoot()
+        {
+            GameObject projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
+            TowerProjectile projScript = projectile.GetComponent<TowerProjectile>();
+            if (projScript != null)
+            {
+                //Transform target;
+                //if (targets.Count > 0)
+                
+                Transform target = targets[0];
+                
+                projScript.Seek(target);
+            }
         }
 
         public virtual void TakeDamage(int damage)
@@ -76,31 +114,8 @@ namespace EnemyAndTowers
             this.health = this.health - damage;
             healthBar.UpdateHealthBar(this.health, this.Data.MaxHealth);
         }
-    }
-
-    #region JSON Data Structures
-
-    [System.Serializable]
-    public class TowerData
-    {
-        public int MaxHealth { get; set; }
-        public IList<TowerAttack> Attacks { get; set; }
-        
 
         
-        // More fields based on what we need to store about an enemy
+
     }
-
-
-    //[System.Serializable]
-    public class TowerAttack
-    {
-        public string DamageType { get; set; }
-        public int DamageAmount { get; set; }
-
-        public int Speed { get; set;}
-        // More fields based on attack type
-    }
-
-    #endregion
 }

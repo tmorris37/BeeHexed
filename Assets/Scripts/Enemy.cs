@@ -8,17 +8,22 @@ namespace EnemyAndTowers
 {
     public class Enemy : HexPosition
     {
-        [SerializeField] protected FloatingHealthBar healthBar;
+        // [SerializeField] protected FloatingHealthBar healthBar;
         public int EnemyID;
         public EnemyData Data;
         public int health;
-        public float movementSpeed = 3f;
-        protected Vector3 targetPosition;
         public GridManager gridManager;
+        public float movementSpeed = 3f;
+        public EnemyDetection Detection;
+        public float attackRate = 1f;
+        public float attackCooldown;
+        public List<Transform> targets;
+        protected Vector3 targetPosition;
 
-        protected void Start()
+        protected virtual void Start()
         {
             this.DEBUG = true;
+            Detection = GetComponentInChildren<EnemyDetection>();
             // Instantiates the Enemy at the Provided Spawn Location
             // If The Enemy could not spawn, despawn the sprite
             if (!SetPosition())
@@ -45,8 +50,9 @@ namespace EnemyAndTowers
                 Debug.Log("Unable to load Enemy_" + EnemyID);
             }
             this.health = this.Data.MaxHP;
-            healthBar = GetComponentInChildren<FloatingHealthBar>();
-            healthBar.UpdateHealthBar(this.health, this.Data.MaxHP);
+            // healthBar = GetComponentInChildren<FloatingHealthBar>();
+            // healthBar.UpdateHealthBar(this.health, this.Data.MaxHP);
+            attackCooldown = attackRate;
 
         }
 
@@ -85,40 +91,53 @@ namespace EnemyAndTowers
             // Set the final position exactly to the target
             transform.position = target;
         }
-        void Update()
+        protected virtual void Update()
         {
-            //Debug.Log(this.health);
+            this.targets = Detection.targets;
+            if (attackCooldown <= 0f && targets.Count > 0)
+            {
+                Debug.Log("Targets identified, time to attack");
+                Attack();
+                attackCooldown = attackRate;
+            }
+            attackCooldown -= Time.deltaTime;
         }
 
-        void OnTriggerEnter2D(Collider2D other)
+        protected virtual void Attack()
         {
-           // Debug.Log("It detects a thing");
+            Debug.Log("Towers: " + targets.Count);
+            foreach (Transform tower in targets)
+            {
+                Debug.Log("Attacking Tower");
+                Tower towerScript = tower.GetComponent<Tower>();
+                if (towerScript != null)
+                {
+                    Debug.Log("Tower Script Found");
+                    towerScript.TakeDamage(5);
+                }
+            }
+        }
+
+        protected virtual void OnTriggerEnter2D(Collider2D other)
+        {
+            // Debug.Log("It detects a thing");
             if (other.CompareTag("Projetile"))
             {
                 TakeDamage(1);
-                /*if (this.Data.MaxHP <= 0)
-                {
-                    Destroy(this);
-                }*/
             }
-
         }
 
         public virtual void TakeDamage(int damage)
         {
-            /*this.health = this.health - damage;
-            healthBar.UpdateHealthBar(this.health, this.Data.MaxHP);
-            */
-            StartCoroutine(UpdateHealthAfterDelay(damage, 0.04f));       
+            StartCoroutine(UpdateHealthAfterDelay(damage, 0.04f));
         }
 
         private IEnumerator UpdateHealthAfterDelay(int damage, float delay)
         {
             yield return new WaitForSeconds(delay);
             this.health = this.health - damage;
-            healthBar.UpdateHealthBar(this.health, this.Data.MaxHP);
+            // healthBar.UpdateHealthBar(this.health, this.Data.MaxHP);
         }
-
     }
 
     #region JSON Data Structures

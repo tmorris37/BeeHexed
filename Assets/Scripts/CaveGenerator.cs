@@ -47,24 +47,6 @@ namespace EnemyAndTowers
             CavePositions.Add(new Vector3(q, r, s));
           }
           
-        /*
-          for (int i = 0; i < this.numCaves; i++)
-          {
-              (int q, int r, int s) = RandomTileInRadius(Radius, 5);
-              int edge = DetermineEdge(q, r, s);  // Identify which edge this tile is on
-
-              // If the edge has already been used, find a new tile
-              while (usedEdges.Contains(edge) || isSpoke(q, r, s))
-              {
-                  (q, r, s) = RandomTileInRadius(Radius, 5);
-                  edge = DetermineEdge(q, r, s);
-              }
-
-              usedEdges.Add(edge);  // Mark this edge as used
-              CavePositions.Add(new Vector3(q, r, s));
-          }
-        */
-          
           if (DEBUG)
           {
               foreach (var Position in CavePositions)
@@ -78,8 +60,10 @@ namespace EnemyAndTowers
       {
         (int q, int r, int s) = QRSTuple;
         int edge = DetermineEdge(q, r, s);
-
-        return (!usedEdges.Add(edge) && !isSpoke(q,r,s));
+        if (usedEdges.Contains(edge) || isSpoke(q, r, s))
+            return false;
+        usedEdges.Add(edge);
+        return true;
       }
 
       // Helper method to determine edge
@@ -100,50 +84,5 @@ namespace EnemyAndTowers
           return (Math.Abs(q) == Math.Abs(r) && s == 0) || (Math.Abs(q) == Math.Abs(s) && r == 0) || 
                 (Math.Abs(r) == Math.Abs(s) && q == 0);
       }
-
-          
-      // Generates a random Edge Tile on the current Hex Grid based on GridRadius
-      // The logic I wrote to make this work is a little ridiculous, but it works
-      // Could be better in q, r, s, but I just did it in i, j
-      public (int q, int r, int s) RandomTileInRadius(int hexRadius, int spawnRadius)
-      {
-          if (spawnRadius > hexRadius)
-          {
-              Debug.LogError("Spawn Radius cannot be greater than Hex Radius");
-              return (0, 0, 0);
-          }
-          // For any arbitrary Grid, there are exactly 6*Radius edge tiles
-          // Generates a random int in the range [0,6*Radius)
-          int spawnHex = UnityEngine.Random.Range(0, 6*spawnRadius);
-          Debug.Log(spawnHex);
-          // Random Tile is in the First Row
-          if (spawnHex <= spawnRadius)
-          {
-              return GridManager.IJtoQRS(hexRadius - spawnRadius, spawnHex - spawnRadius + hexRadius);
-          }
-          // Random Tile is in the Last Row
-          if (spawnHex >= 5*spawnRadius - 1)
-          {
-              return GridManager.IJtoQRS(2*hexRadius - (hexRadius - spawnRadius), spawnHex - 5*spawnRadius + 1 - spawnRadius + hexRadius);
-          }
-          // Random Tile is on Left/Right Edge
-          int adjustedSpawnHex = spawnHex - spawnRadius - 1;
-          int i, j;
-
-          if (adjustedSpawnHex % 2 == 0)
-          {
-              // Tile is on Left Side
-              i = 1 + (adjustedSpawnHex / 2) + hexRadius - spawnRadius; 
-              j = hexRadius - spawnRadius;
-          }
-          else // (adjustedSpawnHex % 2 == 1)
-          {
-              // Tile is on Right Side
-              i = 1 + ((adjustedSpawnHex - 1) / 2) + hexRadius - spawnRadius;
-              j = (i > hexRadius) ? (2*hexRadius - (i - spawnRadius)) : (spawnRadius + i);
-          }
-          return GridManager.IJtoQRS(i, j);
-      }
   }
 }
-

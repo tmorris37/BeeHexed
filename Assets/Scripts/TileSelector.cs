@@ -41,6 +41,7 @@ namespace GridSystem
                     NRandomTiles.Add((q, r, s));
                     i++;
                 }
+                Debug.Log(AvailableTiles.Count);
                 AvailableTiles.RemoveAt(RandomIndex);
             }
             return NRandomTiles;

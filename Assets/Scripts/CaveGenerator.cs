@@ -20,6 +20,8 @@ namespace EnemyAndTowers
       [SerializeField] public bool DEBUG;
       public List<Vector3> CavePositions = new List<Vector3>();
 
+      HashSet<int> usedEdges;
+
       void Awake()
       {
           GenerateCaves();
@@ -33,7 +35,19 @@ namespace EnemyAndTowers
               Debug.LogError("Number of caves cannot exceed 6");
               return;
           }
-          HashSet<int> usedEdges = new HashSet<int>();  // Track used edges
+          usedEdges = new HashSet<int>();  // Track used edges
+
+          TileSelector CaveTileSelector = new TileSelector();
+          List<(int, int, int)> CaveLocations = CaveTileSelector.SelectNRandomTiles(numCaves, Radius, TileSelectorCallback);
+
+          int q, r, s;
+          for (int i = 0; i < CaveLocations.Count; i++)
+          {
+            (q, r, s) = CaveLocations[i];
+            CavePositions.Add(new Vector3(q, r, s));
+          }
+          
+        /*
           for (int i = 0; i < this.numCaves; i++)
           {
               (int q, int r, int s) = RandomTileInRadius(Radius, 5);
@@ -49,6 +63,7 @@ namespace EnemyAndTowers
               usedEdges.Add(edge);  // Mark this edge as used
               CavePositions.Add(new Vector3(q, r, s));
           }
+        */
           
           if (DEBUG)
           {
@@ -57,6 +72,14 @@ namespace EnemyAndTowers
                   Debug.Log("Cave position: " + Position);
               }
           }
+      }
+
+      public bool TileSelectorCallback((int, int, int) QRSTuple)
+      {
+        (int q, int r, int s) = QRSTuple;
+        int edge = DetermineEdge(q, r, s);
+
+        return (!usedEdges.Add(edge) && !isSpoke(q,r,s));
       }
 
       // Helper method to determine edge

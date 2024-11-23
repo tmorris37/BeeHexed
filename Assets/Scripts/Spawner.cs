@@ -7,7 +7,7 @@ using UnityEngine;
 using GridSystem;
 using EnemyAndTowers;
 
-    public class Spawner : MonoBehaviour
+public class Spawner : MonoBehaviour
 {
     [SerializeField] public GameObject EnemyPrefab;
 

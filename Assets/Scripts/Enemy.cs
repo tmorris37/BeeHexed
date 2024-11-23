@@ -108,7 +108,7 @@ namespace EnemyAndTowers
             Debug.Log("Towers: " + targets.Count);
             foreach (Transform tower in targets)
             {
-                Debug.Log("Attacking Tower");
+                Debug.Log("Attacking Tower: " + tower.name);
                 Tower towerScript = tower.GetComponent<Tower>();
                 if (towerScript != null)
                 {

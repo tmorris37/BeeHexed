@@ -51,7 +51,8 @@ public class DrawPileManager : MonoBehaviour
     }
     string jsonDeck = JsonConvert.SerializeObject(cardNames);
     File.WriteAllText(deckSavePath, jsonDeck);
-    Debug.Log("Written Deck" + jsonDeck);
+    if (DEBUG_MODE)
+      Debug.Log("Written Deck" + jsonDeck);
   }
 
 

@@ -15,10 +15,28 @@ public class ObstacleSpawner : MonoBehaviour
 
     private List<GameObject> Obstacles;
 
+    [SerializeField] public bool Percent;
+    [SerializeField] public float Percentage;
+    [SerializeField] public bool Constant;
+    [SerializeField] public int ConstantQuantity;
+
+    [SerializeField] public List<int> Inputs;
+
     void Start()
     {
         this.Obstacles = AddObstaclePrefabs();
-        SpawnXPercentObstaclesPerRing(0.2f);
+        if (Percent)
+        {
+            SpawnXPercentObstaclesPerRing(Percentage);
+        }
+        else if (Constant)
+        {
+            SpawnNObstaclesPerRing(ConstantQuantity);
+        }
+        else
+        {
+            SpawnObstaclesPerRing(Inputs);
+        }
     }
 
     // Creates a List from the Obstacle Prefabs attached to script

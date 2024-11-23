@@ -12,7 +12,7 @@ namespace GridSystem
         // If (N > 6*Radius): Returns List with size 6*Radius
         // Otherwise: Returns List with size N
         // If Callback function is specifed, will only add (q, r, s) values that satisfy the Callback
-        public List<(int, int, int)> SelectNRandomTiles(int N, int Radius, Predicate<(int, int, int)> Callback = null)
+        public List<(int, int, int)> SelectNRandomTiles(int N, int Radius, Predicate<(int, int, int)> ConditionCallback = null)
         {
             List<(int, int, int)> AvailableTiles = TilesInRing(Radius);
 
@@ -36,7 +36,7 @@ namespace GridSystem
                 // Shifts the (q, r, s) value from AvailableTiles to NRandomTiles
                 // Only shifts if there is no Callback or if Callback returns true
                 (q, r, s) = AvailableTiles[RandomIndex];
-                if (Callback == null || Callback((q, r, s)))
+                if (ConditionCallback == null || ConditionCallback((q, r, s)))
                 {
                     NRandomTiles.Add((q, r, s));
                     i++;

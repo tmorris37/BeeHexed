@@ -7,7 +7,7 @@ using UnityEngine;
 using GridSystem;
 using EnemyAndTowers;
 
-    public class Spawner : MonoBehaviour
+public class Spawner : MonoBehaviour
 {
     [SerializeField] public GameObject EnemyPrefab;
 
@@ -22,7 +22,7 @@ using EnemyAndTowers;
     [SerializeField] public int Radius;
     [SerializeField] public bool DEBUG;
 
-    private MovementAlgorithms Movement;
+    [SerializeField] private MovementAlgorithms Movement;
     private float timer = 0f;
     public float moveInterval;
 
@@ -34,7 +34,7 @@ using EnemyAndTowers;
 
     void Start()
     {
-        this.Movement = new MovementAlgorithms(GridManager, DEBUG);
+        // this.Movement = new MovementAlgorithms(GridManager, DEBUG);
         this.CavePositions = CaveGenerator.CavePositions;
         SpawnCaves();
     }

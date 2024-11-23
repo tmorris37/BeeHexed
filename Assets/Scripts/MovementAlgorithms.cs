@@ -10,14 +10,8 @@ namespace EnemyAndTowers
     public class MovementAlgorithms : MonoBehaviour
     {
         public bool DEBUG = false;
-        private GridManager GridManager;
-
-        public MovementAlgorithms(GridManager GridManager, bool DEBUG)
-        {
-            this.GridManager = GridManager;
-            this.DEBUG = DEBUG;
-
-        }
+        [SerializeField] private GridManager GridManager;
+        
         public void moveFailure()
         {
             if (DEBUG)

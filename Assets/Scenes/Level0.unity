@@ -662,6 +662,63 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 515682202}
   m_CullTransparentMesh: 1
+--- !u!114 &574980980 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5925348805290694432, guid: 3c7e526a0cb3c794babc428402c385dd, type: 3}
+  m_PrefabInstance: {fileID: 1808685648}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91724a5f0b643684cb73b4040001075a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &580640691
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 580640693}
+  - component: {fileID: 580640692}
+  m_Layer: 0
+  m_Name: MovementAlgorithms
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &580640692
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 580640691}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3527993bf9a29754d96a3bf58303c46d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DEBUG: 0
+  GridManager: {fileID: 1554881295}
+--- !u!4 &580640693
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 580640691}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 4.551702, y: 0.6996088, z: -0.09057266}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &741012468
 GameObject:
   m_ObjectHideFlags: 0
@@ -1720,6 +1777,58 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!1 &777690092
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 777690094}
+  - component: {fileID: 777690093}
+  m_Layer: 0
+  m_Name: ObstacleSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &777690093
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 777690092}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b353f00826c879488f285eff3106057, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GridManager: {fileID: 1554881295}
+  Obstacle1: {fileID: 8427140594737057986, guid: e0954496b7fdcd3469d4cb6db17afa30, type: 3}
+  Obstacle2: {fileID: 8427140594737057986, guid: e0954496b7fdcd3469d4cb6db17afa30, type: 3}
+  Percent: 0
+  Percentage: 0
+  Constant: 0
+  ConstantQuantity: 0
+  Inputs: 
+--- !u!4 &777690094
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 777690092}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &781918214
 GameObject:
   m_ObjectHideFlags: 0
@@ -1749,7 +1858,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17d80b9ba9d80b34bb202bc3a19b270f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawner: {fileID: 949248042}
+  spawner: {fileID: 949248046}
   enemiesPerWave: 5
   numWaves: 5
   timeBetweenWaves: 5
@@ -1990,9 +2099,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 949248043}
-  - component: {fileID: 949248042}
   - component: {fileID: 949248044}
   - component: {fileID: 949248045}
+  - component: {fileID: 949248046}
   m_Layer: 0
   m_Name: Spawner
   m_TagString: Untagged
@@ -2000,25 +2109,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &949248042
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 949248041}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c9f55d1bc5e59494b84808aa55f5fdad, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  EnemyPrefab: {fileID: 435629412242135445, guid: 42dfd6f16840d99418b0a41916b0c381, type: 3}
-  GridManager: {fileID: 1554881295}
-  Cheerios: {fileID: 0}
-  CavePrefab: {fileID: 7393846077666523299, guid: 72013799fbfe550428d1f8d3914131af, type: 3}
-  Radius: 5
-  DEBUG: 0
-  moveInterval: 3
 --- !u!4 &949248043
 Transform:
   m_ObjectHideFlags: 0
@@ -2063,6 +2153,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e7f8e81208cb204f883197df769829e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &949248046
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 949248041}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7df78d04ebf9cdc46ae407f263757e65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EnemyPrefab: {fileID: 435629412242135445, guid: ce2be51eee2719b48b1bdcb1ec473536, type: 3}
+  GridManager: {fileID: 1554881295}
+  CaveGenerator: {fileID: 1846675530}
+  Cheerios: {fileID: 1341650181057277616, guid: 3c7e526a0cb3c794babc428402c385dd, type: 3}
+  CavePrefab: {fileID: 7393846077666523299, guid: 72013799fbfe550428d1f8d3914131af, type: 3}
+  Radius: 5
+  DEBUG: 0
+  Movement: {fileID: 580640692}
+  moveInterval: 2
 --- !u!1 &962259158
 GameObject:
   m_ObjectHideFlags: 0
@@ -2669,8 +2780,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 179dd428836948f449d0617198da4296, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DEVELOPER_MODE: 0
+  DEBUG_MODE: 0
+  customDeck:
+  - {fileID: 11400000, guid: 15a9b22756fbc3d4a9ca4c99ce1bfad7, type: 2}
+  - {fileID: 11400000, guid: 2942af11a37e5f04a8fecc1b7c0ae4ec, type: 2}
+  - {fileID: 11400000, guid: 2942af11a37e5f04a8fecc1b7c0ae4ec, type: 2}
+  - {fileID: 11400000, guid: 2942af11a37e5f04a8fecc1b7c0ae4ec, type: 2}
   deck: []
   handLimit: 8
+  deckSavePath: Assets/Deck/Deck.json
   drawPileCounter: {fileID: 515682204}
 --- !u!1 &1554881294
 GameObject:
@@ -2703,6 +2822,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GridRadius: 5
   HexTilePrefab: {fileID: 5180860355450847252, guid: 804f7f8b96697d147a944995af89b244, type: 3}
+  DEBUG: 0
 --- !u!4 &1554881296
 Transform:
   m_ObjectHideFlags: 0
@@ -3086,8 +3206,7 @@ MonoBehaviour:
   GridManager: {fileID: 0}
   TowerID: 0
   fireRate: 1
-  projectilePrefab: {fileID: 0}
-  healthBar: {fileID: 0}
+  healthBar: {fileID: 574980980}
 --- !u!1 &1828288586
 GameObject:
   m_ObjectHideFlags: 0
@@ -3297,6 +3416,56 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1836495243}
   m_CullTransparentMesh: 1
+--- !u!1 &1846675529
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1846675531}
+  - component: {fileID: 1846675530}
+  m_Layer: 0
+  m_Name: CaveGenerator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1846675530
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1846675529}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b2e9eae963aed141a8c186f16f42de7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GridManager: {fileID: 1554881295}
+  CavePrefab: {fileID: 7393846077666523299, guid: 72013799fbfe550428d1f8d3914131af, type: 3}
+  numCaves: 5
+  Radius: 5
+  DEBUG: 0
+  CavePositions: []
+--- !u!4 &1846675531
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1846675529}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.5281162, y: 1.7901541, z: 0.09173872}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1854202666
 GameObject:
   m_ObjectHideFlags: 0
@@ -3385,3 +3554,6 @@ SceneRoots:
   - {fileID: 457705402}
   - {fileID: 930808615}
   - {fileID: 781918216}
+  - {fileID: 777690094}
+  - {fileID: 1846675531}
+  - {fileID: 580640693}

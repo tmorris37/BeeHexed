@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class WaveManager : MonoBehaviour
 {
-    [SerializeField] private Level0Spawner spawner;
+    [SerializeField] private Spawner spawner;
     [SerializeField] private int enemiesPerWave = 5;
     [SerializeField] private int numWaves = 3;
 

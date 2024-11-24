@@ -10,21 +10,14 @@ namespace EnemyAndTowers
         [SerializeField] public int TowerID;
         public TowerData Data;
 
-        public float fireRate = 1f;
+        public float fireRate;
+        protected List<Transform> targets;
+        protected float fireCountdown;
+        protected int health;
 
-        public GameObject projectilePrefab;
+        [SerializeField] protected FloatingHealthBar healthBar;
 
-        private List<Transform> targets;
-
-        private float fireCountdown;
-
-        private int HP;
-
-        //public GameObject prefab;
-
-        [SerializeField] FloatingHealthBar healthBar;
-
-        void Start()
+        protected virtual void Start()
         {
             // Assets/Resources/Enemies/Enemy_"".json
             // Creates a TextAsset containing the data from Enemy_"".json
@@ -42,11 +35,10 @@ namespace EnemyAndTowers
             {
                 Debug.Log("Unable to load Tower_" + TowerID);
             }
-            this.HP = this.Data.MaxHP;
+            this.health = this.Data.MaxHealth;
             healthBar = GetComponentInChildren<FloatingHealthBar>();
-            healthBar.UpdateHealthBar(this.HP, this.Data.MaxHP);
+            healthBar.UpdateHealthBar(this.health, this.Data.MaxHealth);
             targets = new List<Transform>();
-
         }
 
         void OnTriggerEnter2D(Collider2D other)
@@ -59,7 +51,7 @@ namespace EnemyAndTowers
             }
         }
 
-        void OnTriggerExit2D(Collider2D other)
+        protected virtual void OnTriggerExit2D(Collider2D other)
         {
             //if (other.CompareTag("Enemy") && other.transform == target)
             if (other.CompareTag("Enemy"))
@@ -69,38 +61,21 @@ namespace EnemyAndTowers
             }
         }
 
-        private void Update()
+        protected virtual void Update()
         {
-            //Debug.Log(this.HP);
-            if (targets.Count > 0)
-            {
-                // shoot at intervals based on fireRate
-                if (fireCountdown <= 0f)
-                {
-                    Shoot();
-                    fireCountdown = 1f / fireRate;
-                }
-                fireCountdown -= Time.deltaTime;
-            }
         }
 
-        private void Shoot()
+        public virtual void TakeDamage(int damage)
         {
-            GameObject projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
-            TowerProjectile projScript = projectile.GetComponent<TowerProjectile>();
-            if (projScript != null)
-            {
-                //Transform target;
-                //if (targets.Count > 0)
-                
-                 Transform target = targets[0];
-                
-                projScript.Seek(target);
-            }
+            StartCoroutine(UpdateHealthAfterDelay(damage, 0.04f));
         }
 
-        
-
+        private IEnumerator UpdateHealthAfterDelay(int damage, float delay)
+        {
+            yield return new WaitForSeconds(delay);
+            this.health = this.health - damage;
+            healthBar.UpdateHealthBar(this.health, this.Data.MaxHealth);
+        }
     }
 
     #region JSON Data Structures
@@ -108,7 +83,7 @@ namespace EnemyAndTowers
     [System.Serializable]
     public class TowerData
     {
-        public int MaxHP { get; set; }
+        public int MaxHealth { get; set; }
         public IList<TowerAttack> Attacks { get; set; }
         
 

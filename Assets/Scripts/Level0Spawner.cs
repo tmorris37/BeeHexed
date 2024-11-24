@@ -7,17 +7,13 @@ using UnityEngine;
 using GridSystem;
 using EnemyAndTowers;
 
-//import GridManager.cs;
-
     public class Level0Spawner : MonoBehaviour
 {
     [SerializeField] public GameObject EnemyPrefab;
 
-    //[SerializeField] public GameObject ProjectilePrefab;
-
-    //[SerializeField] public GameObject TowerPrefab;
-
     [SerializeField] public GridManager GridManager;
+    [SerializeField] public CaveGenerator CaveGenerator;
+
 
     [SerializeField] public GameObject Cheerios;
 
@@ -30,18 +26,15 @@ using EnemyAndTowers;
     public float moveInterval;
 
     // List to store cave positions
-    private List<Vector3> cavePositions = new List<Vector3>();
+    private List<Vector3> CavePositions = new List<Vector3>();
 
     // List to store all spawned enemies
     private List<Enemy> enemies = new List<Enemy>();
 
     void Start()
     {
-        // (int q, int r, int s) = RandomTileInRadius(Radius, 5);
-
+        this.CavePositions = CaveGenerator.CavePositions;
         SpawnCaves();
-        //SpawnCheerios();
-        // Spawn(0,q,r,s);
     }
 
     private void SpawnCheerios()
@@ -51,24 +44,9 @@ using EnemyAndTowers;
       spot.EnterTile(Che);
     }
 
-    // private IEnumerator SpawnEnemiesFromCaves()
-    // {
-    //     while (true)
-    //     {
-    //         // Choose a random cave position from the list
-    //         Vector3 randomCavePosition = cavePositions[UnityEngine.Random.Range(0, 3)];
-    //         // Spawn an enemy at the selected position
-    //         Spawn(0,(int)randomCavePosition.x,(int)randomCavePosition.y,(int)randomCavePosition.z);
-    //         //Spawn(0, 5, -2, -3);
-    //         //Spawn(0, 0, 5, -5);
-    //         // Wait for 5 seconds before spawning the next enemy
-    //         yield return new WaitForSeconds(3f);
-    //     }
-    // }
-
     public void SpawnFromCaves(int EnemyID)
     {
-        Vector3 randomCavePosition = cavePositions[UnityEngine.Random.Range(0, 3)];
+        Vector3 randomCavePosition = CavePositions[UnityEngine.Random.Range(0, CavePositions.Count)];
         int q = (int)randomCavePosition.x;
         int r = (int)randomCavePosition.y;
         int s = (int)randomCavePosition.z;
@@ -92,50 +70,22 @@ using EnemyAndTowers;
 
     public void SpawnCaves()
     {
-        HashSet<int> usedEdges = new HashSet<int>();  // Track used edges
-        for (int i = 0; i < 3; i++)
+        foreach (Vector3 CavePosition in CavePositions)
         {
-            (int q, int r, int s) = RandomTileInRadius(Radius, 5);
-            int edge = DetermineEdge(q, r, s);  // Identify which edge this tile is on
-
-            // If the edge has already been used, find a new tile
-            while (usedEdges.Contains(edge))
-            {
-                (q, r, s) = RandomTileInRadius(Radius, 5);
-                edge = DetermineEdge(q, r, s);
-            }
-
-            usedEdges.Add(edge);  // Mark this edge as used
+            (float x, float y) = GridManager.QRStoXY((int)CavePosition.x, (int)CavePosition.y, (int)CavePosition.z);
             GameObject newCave = Instantiate(CavePrefab);
             (float x, float y) = GridManager.QRStoXY(q, r, s);
             Debug.Log("Cave QRS:" + q + ", " + r + ", " + s);
             Debug.Log("Cave XY:" + x + ", " + y);
             newCave.transform.position = new Vector3(x, y, 0);
-            cavePositions.Add(new Vector3(q, r, s));
-
-            // Should check if occupied before spawning
-            //GridManager.FetchTile(q, r, s).EnterTile(newCave);
-        }
-        
+        }        
         if (DEBUG)
         {
-            foreach (var position in cavePositions)
+            foreach (var position in CavePositions)
             {
                 Debug.Log("Cave position: " + position);
             }
-        }
-        
-        // StartCoroutine(SpawnEnemiesFromCaves());
-    }
-
-    // Helper method to determine edge
-    private int DetermineEdge(int q, int r, int s)
-    {
-        (int i, int j) = GridManager.QRStoIJ(q, r, s);
-        // Example logic based on q, r, s values
-        if (i == 0) return 1;            // Top
-        if (i == 2 * Radius) return 2;   // Bottom
-        return 3;                   // Left or Right
+        }        
     }
 
     public void moveFailure()

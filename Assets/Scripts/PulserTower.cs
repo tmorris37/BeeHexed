@@ -26,6 +26,7 @@ namespace EnemyAndTowers
 
         protected override void Update()
         {
+            this.targets = Detection.targets;
             if (this.health <= 0)
             {
                 HexTile tile = GridManager.FetchTile(q,r,s);
@@ -35,25 +36,13 @@ namespace EnemyAndTowers
             // Pulse effect logic
             if (pulseCountdown <= 0f)
             {
-                PulseDamage();
+                DealDamage();
                 pulseCountdown = pulseRate;
             }
             pulseCountdown -= Time.deltaTime;
         }
 
-        protected override void OnTriggerExit2D(Collider2D other)
-        {
-            if (other.CompareTag("Enemy"))
-            {
-                targets.Remove(other.transform);
-                if (targets.Count == 0)
-                {
-                    circleAnimator.Play("newState");
-                }
-            }
-        }
-
-        private void PulseDamage()
+        private void DealDamage()
         {
             foreach (Transform enemy in targets)
             {

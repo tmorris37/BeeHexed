@@ -5,121 +5,67 @@ using GridSystem;
 
 namespace EnemyAndTowers
 {
-    public class BeamerTower : HexPosition
+    public class BeamerTower : Tower
     {
-        [SerializeField] public int TowerID;
-        public TowerData Data;
-
-        
-        public float fireRate = 2f; // Pulse every 3 seconds
-
-        //public GameObject projectilePrefab;
-
         public GameObject beam;
-
-        private List<Transform> targets;
-        private float fireCountdown;
-        
-        private int HP;
 
         public bool active;
 
-        //[SerializeField] private Animator circleAnimator;
-
-        
-        //public Animator animator;
-
-        [SerializeField] FloatingHealthBar healthBar;
-
-        void Start()
+        protected override void Start()
         {
-            var FileData = Resources.Load<TextAsset>("Towers/Tower_" + TowerID);
-            this.targets = new List<Transform>();
-            this.active = false;
-            if (FileData != null)
-            {
-                string JSONPlainText = FileData.text;
-                this.Data = JsonConvert.DeserializeObject<TowerData>(JSONPlainText);
-            }
-            else
-            {
-                Debug.Log("Unable to load Tower_" + TowerID);
-            }
-            this.HP = this.Data.MaxHP;
-            healthBar = GetComponentInChildren<FloatingHealthBar>();
-            healthBar.UpdateHealthBar(this.HP, this.Data.MaxHP);
+            base.Start();
             
-            
-            fireCountdown = fireRate; // Initialize the pulse countdown
+            fireCountdown = fireRate;
             //animator = GetComponent<Animator>();
-            
         }
 
-        void Update()
+        protected override void Update()
         {
-            
-
-            // Pulse effect logic
+            this.targets = Detection.targets;
+            if (this.health <= 0)
+            {
+                HexTile tile = GridManager.FetchTile(q,r,s);
+                tile.LeaveTile(gameObject);
+                Destroy(gameObject);
+            }
             if (fireCountdown <= 0f && targets.Count > 0 && this.active)
             {
-               
-                fire();
+                DealDamage();
+                Fire();
                 fireCountdown = fireRate;
             }
             fireCountdown -= Time.deltaTime;
         }
 
-        void OnTriggerEnter2D(Collider2D other)
+        private void Fire()
         {
-            //Debug.Log("It detects a thing");
-            if (other.CompareTag("Enemy"))
+            if (beam == null)
             {
-                Debug.Log("Enemy detected");
-                targets.Add(other.transform);
-                
+                Debug.LogError("Beam prefab not assigned!");
+                return;
             }
+
+            // Instantiate the beam at the tower's position with the same rotation as the tower
+            Vector3 offset = -this.transform.right * 12.5f; // Assuming the beam shoots along the tower's right direction
+            GameObject instantiatedBeam = Instantiate(beam, this.transform.position + offset, this.transform.rotation);
+            instantiatedBeam.transform.rotation = this.transform.rotation;
+            Destroy(instantiatedBeam, 0.2f);
         }
 
-        void OnTriggerExit2D(Collider2D other)
+        private void DealDamage()
         {
-            //if (other.CompareTag("Enemy") && other.transform == target)
-            if (other.CompareTag("Enemy"))
+            foreach (Transform enemy in targets)
             {
-                targets.Remove(other.transform);
-                if (targets.Count == 0)
+                Enemy enemyScript = enemy.GetComponent<Enemy>();
+                if (enemyScript != null)
                 {
-                    //circleAnimator.Play("newState");
+                    enemyScript.TakeDamage(1);
+                    if (SFXManager.Instance != null)
+                    {
+                        SFXManager.Instance.PlayBeem();
+                    }
                 }
             }
         }
-
-
-
-        
-
-        private void fire()
-        {
-           
-           if (beam == null)
-    {
-        Debug.LogError("Beam prefab not assigned!");
-        return;
-    }
-
-    
-    // Instantiate the beam at the tower's position with the same rotation as the tower
-    Vector3 offset = -this.transform.right * 12.5f; // Assuming the beam shoots along the tower's right direction
-GameObject instantiatedBeam = Instantiate(beam, this.transform.position + offset, this.transform.rotation);
-    
-    instantiatedBeam.transform.rotation = this.transform.rotation;
-
-
-    
-    Destroy(instantiatedBeam, 0.2f);
-            
-             
-        }
-
-       
     }
 }

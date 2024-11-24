@@ -10,14 +10,14 @@ public class EnemyDetection : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("TowerBody"))
+        {
+            Transform towerTransform = other.transform.root;
+            if (!targets.Contains(towerTransform))
             {
-                Transform towerTransform = other.transform.root;
-                if (!targets.Contains(towerTransform))
-                {
-                    targets.Add(towerTransform);
-                }
-                Debug.Log(targets);
+                targets.Add(towerTransform);
             }
+            Debug.Log(targets);
+        }
     }
 
     private void OnTriggerExit2D(Collider2D other)

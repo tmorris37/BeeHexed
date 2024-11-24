@@ -5,12 +5,14 @@ TagManager:
   serializedVersion: 2
   tags:
   - Enemy
-  - Projetile
   - PlayerHealth
   - Tower
   - Beam
   - TowerBody
   - EnemyHitbox
+  - EnemyBody
+  - TowerHitbox
+  - Projectile
   layers:
   - Default
   - TransparentFX

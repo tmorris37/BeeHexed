@@ -2173,7 +2173,7 @@ MonoBehaviour:
   Radius: 5
   DEBUG: 0
   Movement: {fileID: 580640692}
-  moveInterval: 2
+  moveInterval: 4
 --- !u!1 &962259158
 GameObject:
   m_ObjectHideFlags: 0
@@ -3193,7 +3193,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1808685649}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 421e009e7f59cd84ebe6012ce5186cd4, type: 3}
   m_Name: 
@@ -3205,7 +3205,9 @@ MonoBehaviour:
   DEBUG: 1
   GridManager: {fileID: 0}
   TowerID: 0
+  Detection: {fileID: 0}
   fireRate: 1
+  health: 0
   healthBar: {fileID: 574980980}
 --- !u!1 &1828288586
 GameObject:
@@ -3447,7 +3449,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GridManager: {fileID: 1554881295}
   CavePrefab: {fileID: 7393846077666523299, guid: 72013799fbfe550428d1f8d3914131af, type: 3}
-  numCaves: 5
+  numCaves: 2
   Radius: 5
   DEBUG: 0
   CavePositions: []

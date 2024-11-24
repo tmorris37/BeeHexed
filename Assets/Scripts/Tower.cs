@@ -3,22 +3,26 @@ using System.Collections.Generic;
 using UnityEngine;
 using Newtonsoft.Json;
 
+using GridSystem;
+
 namespace EnemyAndTowers
 {
     public class Tower : HexPosition
     {
         [SerializeField] public int TowerID;
         public TowerData Data;
-
+        public TowerDetection Detection;
         public float fireRate;
+        public int health;
         protected List<Transform> targets;
         protected float fireCountdown;
-        protected int health;
 
         [SerializeField] protected FloatingHealthBar healthBar;
 
         protected virtual void Start()
         {
+            Detection = GetComponentInChildren<TowerDetection>();
+            Debug.Log(Detection);
             // Assets/Resources/Enemies/Enemy_"".json
             // Creates a TextAsset containing the data from Enemy_"".json
             var FileData = Resources.Load<TextAsset>("Towers/Tower_" + TowerID);
@@ -36,33 +40,40 @@ namespace EnemyAndTowers
                 Debug.Log("Unable to load Tower_" + TowerID);
             }
             this.health = this.Data.MaxHealth;
-            healthBar = GetComponentInChildren<FloatingHealthBar>();
-            healthBar.UpdateHealthBar(this.health, this.Data.MaxHealth);
+            // healthBar = GetComponentInChildren<FloatingHealthBar>();
+            // healthBar.UpdateHealthBar(this.health, this.Data.MaxHealth);
             targets = new List<Transform>();
         }
 
-        void OnTriggerEnter2D(Collider2D other)
-        {
-            //Debug.Log("It detects a thing");
-            if (other.CompareTag("Enemy"))
-            {
-                //target = other.transform;
-                targets.Add(other.transform);
-            }
-        }
+        // void OnTriggerEnter2D(Collider2D other)
+        // {
+        //     Debug.Log("It detects a thing");
+        //     if (other.CompareTag("EnemyBody"))
+        //     {
+        //         Debug.Log("It detects an enemy");
+        //         targets.Add(other.transform);
+        //     }
+        // }
 
-        protected virtual void OnTriggerExit2D(Collider2D other)
-        {
-            //if (other.CompareTag("Enemy") && other.transform == target)
-            if (other.CompareTag("Enemy"))
-            {
-                //target = null;
-                targets.Remove(other.transform);
-            }
-        }
+        // protected virtual void OnTriggerExit2D(Collider2D other)
+        // {
+        //     //if (other.CompareTag("Enemy") && other.transform == target)
+        //     if (other.CompareTag("EnemyBody"))
+        //     {
+        //         //target = null;
+        //         targets.Remove(other.transform);
+        //     }
+        // }
 
         protected virtual void Update()
         {
+            this.targets = Detection.targets;
+            if (this.health <= 0)
+            {
+                HexTile tile = GridManager.FetchTile(q,r,s);
+                tile.LeaveTile(gameObject);
+                Destroy(gameObject);
+            }
         }
 
         public virtual void TakeDamage(int damage)
@@ -74,7 +85,7 @@ namespace EnemyAndTowers
         {
             yield return new WaitForSeconds(delay);
             this.health = this.health - damage;
-            healthBar.UpdateHealthBar(this.health, this.Data.MaxHealth);
+            // healthBar.UpdateHealthBar(this.health, this.Data.MaxHealth);
         }
     }
 

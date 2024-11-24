@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Newtonsoft.Json;
+
 using GridSystem;
 
 namespace EnemyAndTowers
@@ -12,7 +13,6 @@ namespace EnemyAndTowers
         public int EnemyID;
         public EnemyData Data;
         public int health;
-        public GridManager gridManager;
         public float movementSpeed = 3f;
         public EnemyDetection Detection;
         public float attackRate = 1f;
@@ -59,7 +59,7 @@ namespace EnemyAndTowers
         // Call this method to smoothly move the enemy to a specified position
         public virtual void MoveToPosition(Vector3 target)
         {
-            //Debug.Log("Target: " + target);
+            Debug.Log("Target: " + target);
             targetPosition = target;
 
             StopAllCoroutines();  // Stop any ongoing movement to avoid conflicts
@@ -116,20 +116,6 @@ namespace EnemyAndTowers
                     towerScript.TakeDamage(5);
                 }
             }
-        }
-
-        protected virtual void OnTriggerEnter2D(Collider2D other)
-        {
-            // Debug.Log("It detects a thing");
-            if (other.CompareTag("Projetile"))
-            {
-                TakeDamage(1);
-            }
-            else if (other.CompareTag("Beam"))
-            {
-                TakeDamage(3);
-            }
-
         }
 
         public virtual void TakeDamage(int damage)

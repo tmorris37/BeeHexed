@@ -109,10 +109,13 @@ MonoBehaviour:
   DEBUG: 1
   GridManager: {fileID: 0}
   EnemyID: 0
-  healthBar: {fileID: 0}
   health: 0
-  movementSpeed: 0.33333334
   gridManager: {fileID: 0}
+  movementSpeed: 0.33333334
+  Detection: {fileID: 0}
+  attackRate: 1
+  attackCooldown: 0
+  targets: []
 --- !u!61 &7338443146895155815
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -559,8 +562,8 @@ GameObject:
   - component: {fileID: 5379044423997836574}
   - component: {fileID: 998869456472387437}
   m_Layer: 0
-  m_Name: DetectionZone
-  m_TagString: Untagged
+  m_Name: Hitbox
+  m_TagString: EnemyHitbox
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -623,7 +626,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.5, y: 1}
+  m_Size: {x: 0.5, y: 0.7}
   m_EdgeRadius: 0
 --- !u!50 &5379044423997836574
 Rigidbody2D:
@@ -665,6 +668,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemy: {fileID: 435629412242135445}
+  targets: []
 --- !u!1 &8668604022031029050
 GameObject:
   m_ObjectHideFlags: 0

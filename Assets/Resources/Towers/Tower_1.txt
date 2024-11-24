@@ -1,0 +1,10 @@
+{
+  "MaxHealth": 30,
+  "Attacks": [
+    {
+      "DamageType": "Fire",
+      "DamageAmount": 30,
+      "Speed": 1
+    }
+  ]
+}

@@ -9,12 +9,12 @@ public class EnemyDetection : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Tower"))
+        if (other.CompareTag("TowerBody"))
             {
-                Debug.Log("Tower Detected");
-                if (!targets.Contains(other.transform)) 
+                Transform towerTransform = other.transform.root;
+                if (!targets.Contains(towerTransform))
                 {
-                    targets.Add(other.transform);
+                    targets.Add(towerTransform);
                 }
                 Debug.Log(targets);
             }
@@ -22,9 +22,12 @@ public class EnemyDetection : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (other.CompareTag("Tower"))
+        if (other.CompareTag("TowerBody"))
         {
-            targets.Remove(other.transform);
+            // Get the root GameObject of the tower
+            Transform towerTransform = other.transform.root;
+
+            targets.Remove(towerTransform);
         }
     }
 }

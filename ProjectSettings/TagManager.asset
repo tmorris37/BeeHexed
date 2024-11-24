@@ -9,6 +9,8 @@ TagManager:
   - PlayerHealth
   - Tower
   - Beam
+  - TowerBody
+  - EnemyHitbox
   layers:
   - Default
   - TransparentFX
@@ -16,7 +18,7 @@ TagManager:
   - Art
   - Water
   - UI
-  - 
+  - TowerBody
   - 
   - 
   - 

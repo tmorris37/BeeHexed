@@ -9,6 +9,17 @@ namespace EnemyAndTowers
 {
     public class Enemy : HexPosition
     {
+        public enum InertiaDirection        // Possible directions of inertia
+        {
+            cw,   // Clockwise
+            ccw,  // Counter-clockwise
+            cwi,  // Clockwise inward
+            cwo,  // Clockwise outward
+            ccwi, // Counter-clockwise inward
+            ccwo, // Counter-clockwise outward
+            i,    // Inward
+            o     // Outward
+        }
         // [SerializeField] protected FloatingHealthBar healthBar;
         public int EnemyID;                 // Determines the type of enemy
         public int health;                  // Current health of the enemy
@@ -21,6 +32,7 @@ namespace EnemyAndTowers
         public EnemyData data;              // Data about the enemy
         public EnemyDetection detection;    // Detection script for the enemy
         public List<Transform> targets;     // List of targets in range
+        public InertiaDirection inertia;    // Direction of inertia for the enemy
 
         protected virtual void Start()
         {

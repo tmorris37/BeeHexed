@@ -1813,7 +1813,7 @@ MonoBehaviour:
   Percentage: 0
   Constant: 0
   ConstantQuantity: 0
-  Inputs: 00000000050000000000000005000000
+  Inputs: 00000000060000000600000000000000
 --- !u!4 &777690094
 Transform:
   m_ObjectHideFlags: 0

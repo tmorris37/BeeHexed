@@ -59,7 +59,7 @@ namespace EnemyAndTowers
                 Enemy enemyScript = enemy.GetComponent<Enemy>();
                 if (enemyScript != null)
                 {
-                    enemyScript.TakeDamage(1);
+                    enemyScript.TakeDamage(damage);
                     if (SFXManager.Instance != null)
                     {
                         SFXManager.Instance.PlayBeem();

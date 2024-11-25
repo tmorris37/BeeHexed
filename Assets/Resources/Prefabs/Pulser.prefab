@@ -213,6 +213,7 @@ MonoBehaviour:
   detection: {fileID: 0}
   fireRate: 2
   health: 0
+  damage: 1
   healthBar: {fileID: 0}
   pulseRate: 1
   projectilePrefab: {fileID: 1813104218997895954, guid: dfe7bc1084486f34c87d7b9056d82f23, type: 3}

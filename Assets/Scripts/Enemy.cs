@@ -13,12 +13,9 @@ namespace EnemyAndTowers
         {
             cw,   // Clockwise
             ccw,  // Counter-clockwise
-            cwi,  // Clockwise inward
-            cwo,  // Clockwise outward
-            ccwi, // Counter-clockwise inward
-            ccwo, // Counter-clockwise outward
             i,    // Inward
-            o     // Outward
+            o,     // Outward
+            nullDir // No direction
         }
         // [SerializeField] protected FloatingHealthBar healthBar;
         public int EnemyID;                 // Determines the type of enemy
@@ -32,7 +29,10 @@ namespace EnemyAndTowers
         public EnemyData data;              // Data about the enemy
         public EnemyDetection detection;    // Detection script for the enemy
         public List<Transform> targets;     // List of targets in range
-        public InertiaDirection inertia;    // Direction of inertia for the enemy
+        public InertiaDirection inertiaIO;    // Direction of inertia for the enemy (in/out)
+        public InertiaDirection inertiaDir;    // Direction of inertia for the enemy (cw/ccw)
+        public InertiaDirection desiredInertiaDir;    // Desired direction of inertia for the enemy (cw/ccw)
+        public InertiaDirection desiredInertiaIO;    // Desired direction of inertia for the enemy (in/out)
 
         protected virtual void Start()
         {
@@ -63,11 +63,14 @@ namespace EnemyAndTowers
             {
                 Debug.Log("Unable to load Enemy_" + EnemyID);
             }
-            this.health = this.data.MaxHP;
+            this.health = this.data.MaxHealth;
             // healthBar = GetComponentInChildren<FloatingHealthBar>();
             // healthBar.UpdateHealthBar(this.health, this.data.MaxHP);
             attackCooldown = attackRate;
-
+            inertiaDir = InertiaDirection.nullDir;
+            inertiaIO = InertiaDirection.nullDir;
+            desiredInertiaDir = InertiaDirection.nullDir;
+            desiredInertiaIO = InertiaDirection.nullDir;
         }
 
         // Call this method to smoothly move the enemy to a target position
@@ -162,7 +165,7 @@ namespace EnemyAndTowers
     [System.Serializable]
     public class EnemyData
     {
-        public int MaxHP { get; set; }
+        public int MaxHealth { get; set; }
         public IList<Attack> Attacks { get; set; }
         public string MovementType { get; set; }
         // More fields based on what we need to store about an enemy

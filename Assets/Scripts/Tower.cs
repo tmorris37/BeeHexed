@@ -14,6 +14,7 @@ namespace EnemyAndTowers
         public TowerDetection detection;
         public float fireRate;
         public int health;
+        public int damage;
         protected List<Transform> targets;
         protected float fireCountdown;
 

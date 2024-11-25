@@ -108,7 +108,7 @@ MonoBehaviour:
   gridManager: {fileID: 0}
   EnemyID: 0
   health: 0
-  movementSpeed: 2
+  movementSpeed: 1
   moveTimeRemaining: 0
   attackRate: 1
   attackCooldown: 0

@@ -197,7 +197,7 @@ namespace EnemyAndTowers
                     enemy.desiredInertiaDir = CW;
                 }
                 // Try to move clockwise
-                if ((enemy.inertiaDir == CW || enemy.desiredInertiaDir == CW) 
+                if ((enemy.inertiaDir == CW || enemy.desiredInertiaDir == CW)
                 && enemy.inertiaIO == NULLDIR) {
                     if (moveClockwise(enemy)) {
                         enemy.inertiaDir = CW;
@@ -295,46 +295,82 @@ namespace EnemyAndTowers
             }
             
             // Try to move clockwise
-            if (enemy.inertiaDir == CW)
+            if ((enemy.inertiaDir == CW || enemy.desiredInertiaDir == CW)
+            && enemy.inertiaIO == NULLDIR)
             {
                 if (moveClockwise(enemy)) {
+                    enemy.inertiaDir = CW;
+                    enemy.desiredInertiaDir = NULLDIR;
                     return true;
                 }
                 // Failed, check if the blocker was a tower
                 if (BlockedByTower(enemy)) {
+                    enemy.inertiaDir = CW;
+                    enemy.desiredInertiaDir = NULLDIR;
                     return false;
                 }
-                // Set the inertia to counterclockwise to try the other direction
-                enemy.inertiaDir = CCW;
+                // Set the inertiaIO to 'I' to try to go in
+                enemy.desiredInertiaIO = I;
             }
             // Try to move counterclockwise
-            if (enemy.inertiaDir == CCW)
+            if ((enemy.inertiaDir == CCW || enemy.desiredInertiaDir == CCW)
+            && enemy.inertiaIO == NULLDIR)
             {
                 if (moveCounterclockwise(enemy)) {
+                    enemy.inertiaDir = CCW;
+                    enemy.desiredInertiaDir = NULLDIR;
                     return true;
                 }
                 // Failed, check if the blocker was a tower
                 if (BlockedByTower(enemy)) {
+                    enemy.inertiaDir = CCW;
+                    enemy.desiredInertiaDir = NULLDIR;
                     return false;
                 }
-                // Set the inertia to clockwise to try the other direction
-                enemy.inertiaDir = CW;
+                // Set to inertiaIO to 'I' to try to go in
+                enemy.desiredInertiaIO = I;
             }
-            // // Try to move counterclockwisein
-            // if (enemy.inertiaDir == CCW)
-            // {
-            //     if (moveCounterclockwiseIn(enemy)) {
-            //         return true;
-            //     }
-            //     // Failed, check if the blocker was a tower
-            //     if (BlockedByTower(enemy)) {
-            //         return false;
-            //     }
-            //     // Set the inertia to clockwise to try the other direction
-            //     enemy.inertiaIO = I;
-            // }
-
-
+            // Try to move clockwise in
+            if ((enemy.inertiaDir == CW || enemy.desiredInertiaDir == CW)
+            && (enemy.inertiaIO == I || enemy.desiredInertiaIO == I))
+            {
+                if (moveClockwiseIn(enemy)) {
+                    enemy.inertiaDir = CW;
+                    enemy.desiredInertiaDir = NULLDIR;
+                    enemy.inertiaIO = I;
+                    return true;
+                }
+                // Failed, check if the blocker was a tower
+                if (BlockedByTower(enemy)) {
+                    enemy.inertiaDir = CW;
+                    enemy.desiredInertiaDir = NULLDIR;
+                    enemy.inertiaIO = I;
+                    return false;
+                }
+                // Set the inertiaDir to 'counterclockwise' to try the other direction
+                enemy.inertiaDir = NULLDIR;
+                enemy.desiredInertiaDir = CCW;
+            }
+            // Try to move counterclockwise in
+            if ((enemy.inertiaDir == CCW || enemy.desiredInertiaDir == CCW)
+            && (enemy.inertiaIO == I || enemy.desiredInertiaIO == I))
+            {
+                if (moveCounterclockwiseIn(enemy)) {
+                    enemy.inertiaDir = CCW;
+                    enemy.desiredInertiaDir = NULLDIR;
+                    enemy.inertiaIO = I;
+                    return true;
+                }
+                // Failed, check if the blocker was a tower
+                if (BlockedByTower(enemy)) {
+                    enemy.inertiaDir = CCW;
+                    enemy.desiredInertiaDir = NULLDIR;
+                    enemy.inertiaIO = I;
+                    return false;
+                }
+                enemy.desiredInertiaIO = NULLDIR;
+                enemy.desiredInertiaDir = CW;
+            }
             return false;
         }
 
@@ -347,6 +383,82 @@ namespace EnemyAndTowers
             if (enemy.isBlockedBy(tq, tr, ts) == 1)
             {
                 return true;
+            }
+            return false;
+        }
+
+        // Move the enemy counterclockwise and towards the middle
+        // Returns true if the move was successful, false otherwise
+        public bool moveCounterclockwiseIn(Enemy enemy)
+        {
+            // Get the current position of the enemy
+            int q = enemy.q;
+            int r = enemy.r;
+            int s = enemy.s;
+
+            // If enemy is at the origin, do nothing
+            if (q == 0 && r == 0 && s == 0) {
+                return false;
+            }
+
+            // If the enemy is not on a spoke
+            if (q != 0 && r != 0 && s != 0)
+            {
+                int absq = Math.Abs(q);
+                int absr = Math.Abs(r);
+                int abss = Math.Abs(s);
+
+                if (q > r && q > s && absq > absr && absq > abss) {
+                return MoveW(enemy,q,r,s);
+                } else if (r > q && r > s && absr > absq && absr > abss) {
+                return MoveNE(enemy,q,r,s);
+                } else if (s > q && s > r && abss > absq && abss > absr) {
+                return MoveSE(enemy,q,r,s);
+                } else if (q < r && q < s && absq > absr && absq > abss) {
+                return MoveE(enemy,q,r,s);
+                } else if (r < q && r < s && absr > absq && absr > abss) {
+                return MoveSW(enemy,q,r,s);
+                } else if (s < q && s < r && abss > absq && abss > absr) {
+                return MoveNW(enemy,q,r,s);
+                }
+            }
+            return false;
+        }
+
+        // Move the enemy clockwise and towards from the middle
+        // Returns true if the move was successful, false otherwise
+        public bool moveClockwiseIn(Enemy enemy)
+        {
+            // Get the current position of the enemy
+            int q = enemy.q;
+            int r = enemy.r;
+            int s = enemy.s;
+
+            // If enemy is at the origin, do nothing
+            if (q == 0 && r == 0 && s == 0) {
+                return false;
+            }
+
+            // If the enemy is not on a spoke
+            if (q != 0 && r != 0 && s != 0)
+            {
+                int absq = Math.Abs(q);
+                int absr = Math.Abs(r);
+                int abss = Math.Abs(s);
+
+                if (q > r && q > s && absq > absr && absq > abss) {
+                return MoveSW(enemy,q,r,s);
+                } else if (r > q && r > s && absr > absq && absr > abss) {
+                return MoveNW(enemy,q,r,s);
+                } else if (s > q && s > r && abss > absq && abss > absr) {
+                return MoveE(enemy,q,r,s);
+                } else if (q < r && q < s && absq > absr && absq > abss) {
+                return MoveNE(enemy,q,r,s);
+                } else if (r < q && r < s && absr > absq && absr > abss) {
+                return MoveSE(enemy,q,r,s);
+                } else if (s < q && s < r && abss > absq && abss > absr) {
+                return MoveW(enemy,q,r,s);
+                }
             }
             return false;
         }

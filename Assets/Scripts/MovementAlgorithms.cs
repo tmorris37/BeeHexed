@@ -168,8 +168,6 @@ namespace EnemyAndTowers
             int r = enemy.r;
             int s = enemy.s;
 
-            
-            
             // If enemy is at the origin, do nothing
             if (q == 0 && r == 0 && s == 0) {
                 return false;
@@ -180,6 +178,7 @@ namespace EnemyAndTowers
                 //Try to move towards the center
                 if (moveInOnSpokes(enemy)) {
                     enemy.inertiaIO = I;
+                    enemy.desiredInertiaIO = NULLDIR;
                     enemy.inertiaDir = NULLDIR;
                     return true;
                 }
@@ -272,13 +271,29 @@ namespace EnemyAndTowers
                         return false;
                     }
                 }
+
+                // // Try to move out
+                // if ((enemy.inertiaDir == NULLDIR && enemy.desiredInertiaDir == NULLDIR)
+                // && (enemy.inertiaIO == O || enemy.desiredInertiaIO == O)) {
+                //     if (moveOutOnSpokes(enemy)) {
+                //         enemy.inertiaIO = O;
+                //         return true;
+                //     }
+                //     // Failed, check if the blocker was a tower
+                //     if (BlockedByTower(enemy)) {
+                //         enemy.desiredInertiaIO = O;
+                //         return false;
+                //     }
+                // }
             }
 
             // If the enemy is not on a spoke
-            // If there is no set inertia, set it to clockwise
-            if (enemy.inertiaDir == Enemy.InertiaDirection.nullDir) {
+            enemy.inertiaIO = NULLDIR;
+            // If there is no set inertiaDir, set it to clockwise
+            if (enemy.inertiaDir == NULLDIR && enemy.desiredInertiaDir == NULLDIR) {
                 enemy.inertiaDir = CW;
             }
+            
             // Try to move clockwise
             if (enemy.inertiaDir == CW)
             {
@@ -305,6 +320,21 @@ namespace EnemyAndTowers
                 // Set the inertia to clockwise to try the other direction
                 enemy.inertiaDir = CW;
             }
+            // // Try to move counterclockwisein
+            // if (enemy.inertiaDir == CCW)
+            // {
+            //     if (moveCounterclockwiseIn(enemy)) {
+            //         return true;
+            //     }
+            //     // Failed, check if the blocker was a tower
+            //     if (BlockedByTower(enemy)) {
+            //         return false;
+            //     }
+            //     // Set the inertia to clockwise to try the other direction
+            //     enemy.inertiaIO = I;
+            // }
+
+
             return false;
         }
 

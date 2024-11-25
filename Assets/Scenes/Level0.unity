@@ -1813,7 +1813,7 @@ MonoBehaviour:
   Percentage: 0
   Constant: 0
   ConstantQuantity: 0
-  Inputs: 000000000c0000000a00000008000000
+  Inputs: 00000000090000000200000008000000
 --- !u!4 &777690094
 Transform:
   m_ObjectHideFlags: 0
@@ -3449,7 +3449,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gridManager: {fileID: 1554881295}
   cavePrefab: {fileID: 7393846077666523299, guid: 72013799fbfe550428d1f8d3914131af, type: 3}
-  numCaves: 4
+  numCaves: 6
   radius: 5
   DEBUG: 0
   cavePositions: []

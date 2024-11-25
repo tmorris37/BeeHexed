@@ -31,79 +31,79 @@ namespace EnemyAndTowers
             }
         }
 
-        public void MoveNW(Enemy enemy, int q, int r, int s)
+        public bool MoveNW(Enemy enemy, int q, int r, int s)
         {
+            (float a, float b) = GridManager.QRStoXY(q,r-1,s+1);
+            Vector3 targetPosition = new Vector3(a, b, 0);
+            RotateTowards(enemy, targetPosition);
             if (enemy.Move("Northwest"))
             {
-                (float a, float b) = GridManager.QRStoXY(q,r-1,s+1);
-                Vector3 targetPosition = new Vector3(a, b, 0);
-                RotateTowards(enemy, targetPosition);
                 enemy.MoveToPosition(targetPosition);
+                return true;
             }
-            else
-              moveFailure();
+            return false;
         }
-        public void MoveNE(Enemy enemy, int q, int r, int s)
+        public bool MoveNE(Enemy enemy, int q, int r, int s)
         {
+            (float a, float b) = GridManager.QRStoXY(q+1,r-1,s);
+            Vector3 targetPosition = new Vector3(a, b, 0);
+            RotateTowards(enemy, targetPosition);
             if (enemy.Move("Northeast"))
             {
-                (float a, float b) = GridManager.QRStoXY(q+1,r-1,s);
-                Vector3 targetPosition = new Vector3(a, b, 0);
-                RotateTowards(enemy, targetPosition);
                 enemy.MoveToPosition(targetPosition);
+                return true;
             }
-            else
-              moveFailure();
+            return false;
         }
-        public void MoveE(Enemy enemy, int q, int r, int s)
+        public bool MoveE(Enemy enemy, int q, int r, int s)
         {
+            (float a, float b) = GridManager.QRStoXY(q+1,r,s-1);
+            Vector3 targetPosition = new Vector3(a, b, 0);
+            RotateTowards(enemy, targetPosition);
             if (enemy.Move("East"))
             {
-                (float a, float b) = GridManager.QRStoXY(q+1,r,s-1);
-                Vector3 targetPosition = new Vector3(a, b, 0);
-                RotateTowards(enemy, targetPosition);
                 enemy.MoveToPosition(targetPosition);
+                return true;
             }
-            else
-              moveFailure();
+            return false;
         }
-        public void MoveSE(Enemy enemy, int q, int r, int s)
+        public bool MoveSE(Enemy enemy, int q, int r, int s)
         {
+            (float a, float b) = GridManager.QRStoXY(q,r+1,s-1);
+            Vector3 targetPosition = new Vector3(a, b, 0);
+            RotateTowards(enemy, targetPosition);
             if (enemy.Move("Southeast"))
             {
-                (float a, float b) = GridManager.QRStoXY(q,r+1,s-1);
-                Vector3 targetPosition = new Vector3(a, b, 0);
-                RotateTowards(enemy, targetPosition);
                 enemy.MoveToPosition(targetPosition);
+                return true;
             }
-            else
-              moveFailure();
+            return false;
         }
-        public void MoveSW(Enemy enemy, int q, int r, int s)
+        public bool MoveSW(Enemy enemy, int q, int r, int s)
         {
+            (float a, float b) = GridManager.QRStoXY(q-1,r+1,s);
+            Vector3 targetPosition = new Vector3(a, b, 0);
+            RotateTowards(enemy, targetPosition);
             if (enemy.Move("Southwest"))
             {
-                (float a, float b) = GridManager.QRStoXY(q-1,r+1,s);
-                Vector3 targetPosition = new Vector3(a, b, 0);
-                RotateTowards(enemy, targetPosition);
                 enemy.MoveToPosition(targetPosition);
+                return true;
             }
-            else
-              moveFailure();
+            return false;
         }
-        public void MoveW(Enemy enemy, int q, int r, int s)
+        public bool MoveW(Enemy enemy, int q, int r, int s)
         {
+            (float a, float b) = GridManager.QRStoXY(q-1,r,s+1);
+            Vector3 targetPosition = new Vector3(a, b, 0);
+            RotateTowards(enemy, targetPosition);
             if (enemy.Move("West"))
             {
-                (float a, float b) = GridManager.QRStoXY(q-1,r,s+1);
-                Vector3 targetPosition = new Vector3(a, b, 0);
-                RotateTowards(enemy, targetPosition);
                 enemy.MoveToPosition(targetPosition);
+                return true;
             }
-            else
-              moveFailure();
+            return false;
         }
-        public void SimpleMove(Enemy enemy)
+        public bool SimpleMove(Enemy enemy)
         {
           // Get the current position of the enemy
           int q = enemy.q;
@@ -112,27 +112,27 @@ namespace EnemyAndTowers
           
           // If enemy is at the origin, do nothing
           if (q == 0 && r == 0 && s == 0) {
-            return;
+            return false;
           }
 
           // Move the enemy along the spokes of the hex grid if possible
           if (Math.Abs(q) == Math.Abs(r) && s == 0) {
             if (q > r) {
-              MoveSW(enemy,q,r,s);
+              return MoveSW(enemy,q,r,s);
             } else {
-              MoveNE(enemy,q,r,s);
+              return MoveNE(enemy,q,r,s);
             }
           } else if (Math.Abs(q) == Math.Abs(s) && r == 0) {
             if (q > s) {
-              MoveW(enemy,q,r,s);
+              return MoveW(enemy,q,r,s);
             } else {
-              MoveE(enemy,q,r,s);
+              return MoveE(enemy,q,r,s);
             }
           } else if (Math.Abs(r) == Math.Abs(s) && q == 0) {
             if (r > s) {
-              MoveNW(enemy,q,r,s);
+              return MoveNW(enemy,q,r,s);
             } else {
-              MoveSE(enemy,q,r,s);
+              return MoveSE(enemy,q,r,s);
             }
           }
           // If the enemy is not on a spoke, move it to the nearest spoke
@@ -142,22 +142,20 @@ namespace EnemyAndTowers
             int abss = Math.Abs(s);
 
             if (q > r && q > s && absq > absr && absq > abss) {
-              MoveNW(enemy,q,r,s);
-              if (DEBUG) {
-                Debug.Log("Moving NW");
-              }
+              return MoveNW(enemy,q,r,s);
             } else if (r > q && r > s && absr > absq && absr > abss) {
-              MoveE(enemy,q,r,s);
+              return MoveE(enemy,q,r,s);
             } else if (s > q && s > r && abss > absq && abss > absr) {
-              MoveSW(enemy,q,r,s);
+              return MoveSW(enemy,q,r,s);
             } else if (q < r && q < s && absq > absr && absq > abss) {
-              MoveSE(enemy,q,r,s);
+              return MoveSE(enemy,q,r,s);
             } else if (r < q && r < s && absr > absq && absr > abss) {
-              MoveW(enemy,q,r,s);
+              return MoveW(enemy,q,r,s);
             } else if (s < q && s < r && abss > absq && abss > absr) {
-              MoveNE(enemy,q,r,s);
+              return MoveNE(enemy,q,r,s);
             }
           }
+          return false;
         }
     }
 }

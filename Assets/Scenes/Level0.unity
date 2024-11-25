@@ -2173,7 +2173,7 @@ MonoBehaviour:
   Radius: 5
   DEBUG: 0
   Movement: {fileID: 580640692}
-  moveInterval: 4
+  moveInterval: 3
 --- !u!1 &962259158
 GameObject:
   m_ObjectHideFlags: 0
@@ -3198,11 +3198,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 421e009e7f59cd84ebe6012ce5186cd4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DEBUG: 1
   q: 0
   r: 0
   s: 0
   GridRadius: 0
-  DEBUG: 1
   GridManager: {fileID: 0}
   TowerID: 0
   Detection: {fileID: 0}
@@ -3449,7 +3449,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GridManager: {fileID: 1554881295}
   CavePrefab: {fileID: 7393846077666523299, guid: 72013799fbfe550428d1f8d3914131af, type: 3}
-  numCaves: 2
+  numCaves: 4
   Radius: 5
   DEBUG: 0
   CavePositions: []

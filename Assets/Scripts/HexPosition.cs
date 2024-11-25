@@ -25,18 +25,14 @@ namespace EnemyAndTowers
         *     6 - West:      (-1,  0, +1)
         */
 
-        // Contains the x, y, z coordinates
-        [SerializeField] public int q, r, s;
-
-        // Represents the max distance out from the origin
-        [SerializeField] public int GridRadius;
-
         // Controls console outputs
         [SerializeField] public bool DEBUG = true;
-
+                // Contains the x, y, z coordinates
+        [SerializeField] public int q, r, s;
+        // Represents the max distance out from the origin
+        [SerializeField] public int GridRadius;
         // The Grid System for the game
         [SerializeField] public GridManager GridManager;
-
         // Used to initalize an object's position
         public bool SetPosition()
         {

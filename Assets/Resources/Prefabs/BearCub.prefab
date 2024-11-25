@@ -100,15 +100,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 869358b3adaf9114c9da898de2daf2ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DEBUG: 1
   q: 0
   r: 0
   s: 0
   GridRadius: 0
-  DEBUG: 1
   GridManager: {fileID: 0}
   EnemyID: 0
   health: 0
-  movementSpeed: 3
+  movementSpeed: 0.3333333
   Detection: {fileID: 998869456472387437}
   attackRate: 1
   attackCooldown: 0

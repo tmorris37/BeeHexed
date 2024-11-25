@@ -60,6 +60,7 @@ public class Spawner : MonoBehaviour
         {
             newEnemyComponent.EnemyID = EnemyID;
             newEnemyComponent.SetQRS(q, r, s);
+            newEnemyComponent.Movement = Movement;
             (float x, float y) = this.GridManager.QRStoXY(q, r, s);
             newEnemyComponent.transform.position = new Vector3(x, y, 0);
             newEnemyComponent.GridManager = this.GridManager;
@@ -89,20 +90,6 @@ public class Spawner : MonoBehaviour
 
     public void Update()
     {
-        timer += Time.deltaTime;
-
-        if (timer >= moveInterval)
-        {
-            foreach (Enemy enemy in enemies)
-            {
-                if (enemy != null)
-                {
-                    Movement.SimpleMove(enemy);
-                }
-            }
-            timer = 0f;
-
-        }
         // Remove and destroy any enemies with 0 or less health
         enemies.RemoveAll(enemy =>
         {

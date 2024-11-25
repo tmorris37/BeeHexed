@@ -11,14 +11,17 @@ namespace EnemyAndTowers
     {
         // [SerializeField] protected FloatingHealthBar healthBar;
         public int EnemyID;
-        public EnemyData Data;
         public int health;
-        public float movementSpeed = 3f;
-        public EnemyDetection Detection;
+        public float movementSpeed = 0.5f;
+        public float moveTimeRemaining;
+        public bool isMoving = false;
         public float attackRate = 1f;
         public float attackCooldown;
-        public List<Transform> targets;
         protected Vector3 targetPosition;
+        public MovementAlgorithms Movement;
+        public EnemyData Data;
+        public EnemyDetection Detection;
+        public List<Transform> targets;
 
         protected virtual void Start()
         {
@@ -63,17 +66,17 @@ namespace EnemyAndTowers
             targetPosition = target;
 
             StopAllCoroutines();  // Stop any ongoing movement to avoid conflicts
-            StartCoroutine(MoveToTargetAtFixedSpeed(targetPosition, movementSpeed));
+            StartCoroutine(MoveToTargetAtFixedSpeed(targetPosition));
         }
 
         // Coroutine to translate the position at a constant speed
-        private IEnumerator MoveToTargetAtFixedSpeed(Vector3 target, float speed)
+        private IEnumerator MoveToTargetAtFixedSpeed(Vector3 target)
         {
             Vector3 initialPosition = transform.position;
             float distanceToTarget = Vector3.Distance(initialPosition, target);
 
             // Calculate total time to travel based on speed
-            float travelTime = distanceToTarget / speed;
+            float travelTime = 1 / movementSpeed;
             float elapsedTime = 0f;
 
             while (elapsedTime < travelTime)
@@ -93,13 +96,27 @@ namespace EnemyAndTowers
         }
         protected virtual void Update()
         {
+            // Update the list of targets from the detection script
             this.targets = Detection.targets;
+            
+            // Check if there are any targets in range and attack if off cooldown
             if (attackCooldown <= 0f && targets.Count > 0)
             {
                 Debug.Log("Targets identified, time to attack");
                 Attack();
                 attackCooldown = attackRate;
             }
+            // Try and move towards the next tile if off cooldown
+            if (moveTimeRemaining <= 0f)
+            {
+                Debug.Log("No targets identified, time to move");
+                // Only reset the moveTimeRemaining if the enemy actually started moving
+                if (Movement.SimpleMove(this)) {
+                    moveTimeRemaining = 1 / movementSpeed;
+                }
+            }
+            // Update the timers
+            moveTimeRemaining -= Time.deltaTime;
             attackCooldown -= Time.deltaTime;
         }
 

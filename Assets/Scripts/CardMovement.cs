@@ -220,19 +220,17 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
             {
               GameObject to = ((TowerCard)cardDisplay.cardData).prefab;
               Debug.Log("Its about to look at a tower");
-              if (to.GetComponent<BeamerTower>() != null)
-              {
-                  Debug.Log("It knows its a beamer");
-                  // Transition to the rotation state
-                  towerSelector.spawnTower(to);
-                  GoToState(4); // Enter Set Rotation state
-                  return;
-              }
-
-              towerSelector.spawnTower(to);
               // ensures tower is playable at mouse location
               if (towerSelector.spawnTower(to)) {
                 nectarManager.SetNectar(nectarManager.GetNectar() - cardDisplay.cardData.cost);
+                if (to.GetComponent<BeamerTower>() != null)
+                {
+                  Debug.Log("It knows its a beamer");
+                  // Transition to the rotation state
+                  GoToState(4); 
+                  //playArrow.SetActive(false);
+                  return;
+                }
               } else {
                 errorManager.SetErrorMsg("Invalid tile!");
                 GoToState(2);

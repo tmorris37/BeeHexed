@@ -2252,7 +2252,7 @@ MonoBehaviour:
   caveGenerator: {fileID: 1846675530}
   cheerios: {fileID: 1341650181057277616, guid: 3c7e526a0cb3c794babc428402c385dd, type: 3}
   cavePrefab: {fileID: 7393846077666523299, guid: 72013799fbfe550428d1f8d3914131af, type: 3}
-  radius: 5
+  radius: 0
   DEBUG: 0
   movement: {fileID: 580640692}
 --- !u!1 &962259158
@@ -2915,11 +2915,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DEVELOPER_MODE: 0
   DEBUG_MODE: 0
-  customDeck:
-  - {fileID: 11400000, guid: 15a9b22756fbc3d4a9ca4c99ce1bfad7, type: 2}
-  - {fileID: 11400000, guid: 2942af11a37e5f04a8fecc1b7c0ae4ec, type: 2}
-  - {fileID: 11400000, guid: 2942af11a37e5f04a8fecc1b7c0ae4ec, type: 2}
-  - {fileID: 11400000, guid: 2942af11a37e5f04a8fecc1b7c0ae4ec, type: 2}
+  customDeck: []
   deck: []
   handLimit: 8
   deckSavePath: Assets/Deck/Deck.json
@@ -3677,6 +3673,58 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1854202666}
   m_CullTransparentMesh: 1
+--- !u!1 &1914675430
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1914675432}
+  - component: {fileID: 1914675431}
+  m_Layer: 0
+  m_Name: ObjectSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1914675431
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1914675430}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b353f00826c879488f285eff3106057, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gridManager: {fileID: 1554881295}
+  Obstacle1: {fileID: 8427140594737057986, guid: e0954496b7fdcd3469d4cb6db17afa30, type: 3}
+  Obstacle2: {fileID: 8427140594737057986, guid: e0954496b7fdcd3469d4cb6db17afa30, type: 3}
+  Percent: 0
+  Percentage: 0
+  Constant: 0
+  ConstantQuantity: 0
+  Inputs: 0000000004000000
+--- !u!4 &1914675432
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1914675430}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 944.03125, y: 255.18344, z: -16.294088}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -3690,6 +3738,6 @@ SceneRoots:
   - {fileID: 457705402}
   - {fileID: 930808615}
   - {fileID: 781918216}
-  - {fileID: 777690094}
   - {fileID: 1846675531}
   - {fileID: 580640693}
+  - {fileID: 1914675432}

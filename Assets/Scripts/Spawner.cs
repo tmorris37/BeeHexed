@@ -24,7 +24,6 @@ public class Spawner : MonoBehaviour
 
     [SerializeField] private MovementAlgorithms Movement;
     private float timer = 0f;
-    public float moveInterval;
 
     // List to store cave positions
     private List<Vector3> CavePositions = new List<Vector3>();
@@ -94,7 +93,7 @@ public class Spawner : MonoBehaviour
         enemies.RemoveAll(enemy =>
         {
             if (enemy != null && enemy.health <= 0)
-            {                
+            {
                 HexTile tile = GridManager.FetchTile(enemy.q, enemy.r, enemy.s);
                 tile.LeaveTile(enemy.gameObject);
                 Destroy(enemy.gameObject);

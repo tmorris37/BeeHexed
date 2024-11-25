@@ -10,22 +10,21 @@ namespace EnemyAndTowers
     public class Enemy : HexPosition
     {
         // [SerializeField] protected FloatingHealthBar healthBar;
-        public int EnemyID;
-        public int health;
-        public float movementSpeed = 0.5f;
-        public float moveTimeRemaining;
-        public bool isMoving = false;
-        public float attackRate = 1f;
-        public float attackCooldown;
-        protected Vector3 targetPosition;
-        public MovementAlgorithms Movement;
-        public EnemyData Data;
-        public EnemyDetection Detection;
-        public List<Transform> targets;
+        public int EnemyID;                 // Determines the type of enemy
+        public int health;                  // Current health of the enemy
+        public float movementSpeed = 0.5f;  // Speed at which the enemy moves (tiles per second)
+        public float moveTimeRemaining;     // Time remaining to move to the next tile
+        public float attackRate = 1f;       // Time between attacks
+        public float attackCooldown;        // Time remaining before the enemy can attack again
+        protected Vector3 targetPosition;   // Position the enemy is moving towards
+        public MovementAlgorithms Movement; // Movement algorithms for the enemy
+        public EnemyData Data;              // Data about the enemy
+        public EnemyDetection Detection;    // Detection script for the enemy
+        public List<Transform> targets;     // List of targets in range
 
         protected virtual void Start()
         {
-            this.DEBUG = true;
+            // Get the hitbox of the enemy
             Detection = GetComponentInChildren<EnemyDetection>();
             // Instantiates the Enemy at the Provided Spawn Location
             // If The Enemy could not spawn, despawn the sprite
@@ -59,29 +58,27 @@ namespace EnemyAndTowers
 
         }
 
-        // Call this method to smoothly move the enemy to a specified position
+        // Call this method to smoothly move the enemy to a target position
         public virtual void MoveToPosition(Vector3 target)
         {
-            Debug.Log("Target: " + target);
-            targetPosition = target;
-
             StopAllCoroutines();  // Stop any ongoing movement to avoid conflicts
-            StartCoroutine(MoveToTargetAtFixedSpeed(targetPosition));
+            StartCoroutine(MoveToTargetAtFixedSpeed(target));
         }
 
         // Coroutine to translate the position at a constant speed
         private IEnumerator MoveToTargetAtFixedSpeed(Vector3 target)
         {
+            // Store the initial position of the enemy
             Vector3 initialPosition = transform.position;
-            float distanceToTarget = Vector3.Distance(initialPosition, target);
 
             // Calculate total time to travel based on speed
             float travelTime = 1 / movementSpeed;
             float elapsedTime = 0f;
 
+            // Move the enemy towards the target position
             while (elapsedTime < travelTime)
             {
-                // Calculate interpolation value based on elapsed time and speed
+                // Calculate interpolation value based on elapsed time
                 float t = elapsedTime / travelTime;
 
                 // Update position at a constant rate towards the target
@@ -122,24 +119,24 @@ namespace EnemyAndTowers
 
         protected virtual void Attack()
         {
-            Debug.Log("Towers: " + targets.Count);
+            // Loop through all targets and deal damage
             foreach (Transform tower in targets)
             {
-                Debug.Log("Attacking Tower: " + tower.name);
                 Tower towerScript = tower.GetComponent<Tower>();
                 if (towerScript != null)
                 {
-                    Debug.Log("Tower Script Found");
                     towerScript.TakeDamage(5);
                 }
             }
         }
 
+        // Method to deal damage to the enemy
         public virtual void TakeDamage(int damage)
         {
             StartCoroutine(UpdateHealthAfterDelay(damage, 0.04f));
         }
 
+        // Coroutine to update the health after a delay
         private IEnumerator UpdateHealthAfterDelay(int damage, float delay)
         {
             yield return new WaitForSeconds(delay);

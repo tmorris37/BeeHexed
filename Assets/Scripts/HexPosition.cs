@@ -65,49 +65,55 @@ namespace EnemyAndTowers
         /*
         * Provides a cleaner method to update coordinates when only moving 1 tile
         * input should be a direction ("northeast", ...)
+        * Returns a negative number if the move was unsuccessful
+        * -1 means out of bounds
+        * -2 means invalid position
+        * -3 means blocked
+        * -4 means invalid direction
+        * 1 means successful
         */
-        public virtual bool Move(string Direction)
+        public virtual int Move(string direction)
         {
-            string DirectionLower = Direction.ToLower();
+            string directionLower = direction.ToLower();
 
-            if (DirectionLower == "northwest")
+            if (directionLower == "northwest")
             {
                 return UpdatePosition(0, -1, +1);
             }
-            else if (DirectionLower == "northeast")
+            else if (directionLower == "northeast")
             {
                 return UpdatePosition(+1, -1, 0);
             }
-            else if (DirectionLower == "east")
+            else if (directionLower == "east")
             {
                 return UpdatePosition(+1,  0, -1);
             }
-            else if (DirectionLower == "southeast")
+            else if (directionLower == "southeast")
             {
                 return UpdatePosition( 0, +1, -1);
             }
-            else if (DirectionLower == "southwest")
+            else if (directionLower == "southwest")
             {
                 return UpdatePosition(-1, +1,  0);
             }
-            else if (DirectionLower == "west")
+            else if (directionLower == "west")
             {
                 return UpdatePosition(-1,  0, +1);
             }
             else
             {
-                return false;
+                return -4;
             }
         }
 
         /*
         * A more direct method of changing position. 
-        * Returns false if:
+        * Returns negative number if:
         *  - new position is out-of-bounds
         *  - new position is invalid (violates q + r + s = 0)
         *  - new position is blocked by another object
         */
-        public virtual bool UpdatePosition(int dq, int dr, int ds)
+        public virtual int UpdatePosition(int dq, int dr, int ds)
         {
             int qNew = this.q + dq;
             int rNew = this.r + dr;
@@ -115,15 +121,15 @@ namespace EnemyAndTowers
 
             // Checks for out-of-bounds positions
             if (isOutOfBounds(qNew, rNew, sNew))
-                return false;
+                return -1;
 
             // Checks for invalid positions
             if (isInvalidPosition(qNew, rNew, sNew))
-                return false;
+                return -2;
 
             // Checks if the new tile is blocked
             if (isBlocked(qNew, rNew, sNew))
-                return false;
+                return -3;
 
             HexTile CurrentTile = this.gridManager.FetchTile(q, r, s);
             HexTile NewTile = this.gridManager.FetchTile(qNew, rNew, sNew);
@@ -135,7 +141,7 @@ namespace EnemyAndTowers
             this.r = rNew;
             this.s = sNew;
 
-            return true;
+            return 1;
         }
 
         // Returns true if the inputted position is out of bounds
@@ -170,19 +176,29 @@ namespace EnemyAndTowers
         // Returns true if the inputted position is blocked by another object
         private bool isBlocked(int q, int r, int s)
         {
-            HexTile CandidateTile = this.gridManager.FetchTile(q, r, s);
-            if (DEBUG)
-                //Debug.Log("Candidate:" + CandidateTile);
-
-                //Debug.Log(CandidateTile.getOccupied());
-            if (CandidateTile.getOccupiedByTower())
+            HexTile candidateTile = this.gridManager.FetchTile(q, r, s);
+            if (candidateTile.getOccupiedByTower() || candidateTile.getOccupiedByObstacle())
             {
                 if (DEBUG)
-                    Debug.Log("Tile is occupied by ID:" + CandidateTile.Occupants);
+                    Debug.Log("Tile is occupied by ID:" + candidateTile.Occupants);
                 return true;
             }
             return false;
         }
 
+        // Returns 0 if unblocked, 1 if blocked by tower, 2 if blocked by obstacle
+        public int isBlockedBy(int q, int r, int s)
+        {
+            HexTile candidateTile = this.gridManager.FetchTile(q, r, s);
+            if (candidateTile.getOccupiedByTower())
+            {
+                return 1;
+            }
+            if (candidateTile.getOccupiedByObstacle())
+            {
+                return 2;
+            }
+            return 0;
+        }
     }
 }

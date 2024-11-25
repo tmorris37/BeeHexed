@@ -18,9 +18,9 @@ public class WaveManager : MonoBehaviour
     private HandManager handManager;
     private VictoryManager victoryManager;
     void Awake() {
-      drawPileManager = FindObjectOfType<DrawPileManager>();
-      handManager = FindObjectOfType<HandManager>();
-      victoryManager = FindObjectOfType<VictoryManager>();
+        drawPileManager = FindObjectOfType<DrawPileManager>();
+        handManager = FindObjectOfType<HandManager>();
+        victoryManager = FindObjectOfType<VictoryManager>();
     }
     void Start()
     {
@@ -36,7 +36,7 @@ public class WaveManager : MonoBehaviour
             waveInProgress = true;
             nectarManager.SetNectar(nectarManager.GetNectar() + 5);
             for (int i = 0; i < 3; i++) {
-              drawPileManager.DrawCard(handManager);
+                drawPileManager.DrawCard(handManager);
             }
             for (int i = 0; i <= enemiesPerWave; i++)
             {
@@ -52,9 +52,9 @@ public class WaveManager : MonoBehaviour
         Debug.Log("Waves are done");
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
         if (enemies.Length == 0) {
-          victoryManager.Win();
+            victoryManager.Win();
         } else {
-          victoryManager.Lose();
+            victoryManager.Lose();
         }
         
     }

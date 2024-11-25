@@ -16,7 +16,7 @@ namespace EnemyAndTowers
         public float moveTimeRemaining;     // Time remaining to move to the next tile
         public float attackRate = 1f;       // Time between attacks
         public float attackCooldown;        // Time remaining before the enemy can attack again
-        protected Vector3 targetPosition;   // Position the enemy is moving towards
+        public Vector3 targetPosition;      // Position the enemy is moving towards
         public MovementAlgorithms movement; // Movement algorithms for the enemy
         public EnemyData data;              // Data about the enemy
         public EnemyDetection detection;    // Detection script for the enemy

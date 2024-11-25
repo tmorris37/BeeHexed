@@ -67,7 +67,7 @@ public class HexPositionTests
         yield return null;
 
         // Tests a good movement
-        Assert.IsTrue(TestHP.UpdatePosition(0, -1, 1));
+        Assert.IsTrue(TestHP.UpdatePosition(0, -1, 1) == 1);
 
         Assert.AreEqual(TestHP.q, 1);
         Assert.AreEqual(TestHP.r, -1);
@@ -76,7 +76,7 @@ public class HexPositionTests
         yield return null;
 
         // Tests a bad movement
-        Assert.IsFalse(TestHP.UpdatePosition(0, -10, 1));
+        Assert.IsFalse(TestHP.UpdatePosition(0, -10, 1) < 0);
 
         // Should not change if movement is bad
         Assert.AreEqual(TestHP.q, 1);

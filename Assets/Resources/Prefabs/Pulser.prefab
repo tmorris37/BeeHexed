@@ -203,15 +203,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 890cba8e1470f0d4bac2d66e9ab7c305, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DEBUG: 1
   q: 0
   r: 0
   s: 0
   GridRadius: 0
-  DEBUG: 1
-  GridManager: {fileID: 0}
-  TowerID: 0
-  Detection: {fileID: 5075254002988577474}
-  fireRate: 0
+  gridManager: {fileID: 0}
+  towerID: 0
+  detection: {fileID: 0}
+  fireRate: 2
+  health: 0
   healthBar: {fileID: 0}
   pulseRate: 1
   projectilePrefab: {fileID: 1813104218997895954, guid: dfe7bc1084486f34c87d7b9056d82f23, type: 3}

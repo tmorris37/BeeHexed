@@ -9,61 +9,59 @@ using EnemyAndTowers;
 
 public class Spawner : MonoBehaviour
 {
-    [SerializeField] public GameObject EnemyPrefab;
+    [SerializeField] public GameObject enemyPrefab;
 
-    [SerializeField] public GridManager GridManager;
-    [SerializeField] public CaveGenerator CaveGenerator;
+    [SerializeField] public GridManager gridManager;
+    [SerializeField] public CaveGenerator caveGenerator;
 
 
-    [SerializeField] public GameObject Cheerios;
+    [SerializeField] public GameObject cheerios;
 
-    [SerializeField] public GameObject CavePrefab;
+    [SerializeField] public GameObject cavePrefab;
 
-    [SerializeField] public int Radius;
+    [SerializeField] public int radius;
     [SerializeField] public bool DEBUG;
 
-    [SerializeField] private MovementAlgorithms Movement;
-    private float timer = 0f;
+    [SerializeField] private MovementAlgorithms movement;
 
     // List to store cave positions
-    private List<Vector3> CavePositions = new List<Vector3>();
+    private List<Vector3> cavePositions = new List<Vector3>();
 
     // List to store all spawned enemies
     private List<Enemy> enemies = new List<Enemy>();
 
     void Start()
     {
-        // this.Movement = new MovementAlgorithms(GridManager, DEBUG);
-        this.CavePositions = CaveGenerator.CavePositions;
+        this.cavePositions = caveGenerator.cavePositions;
         SpawnCaves();
     }
 
     private void SpawnCheerios()
     {
-      GameObject Che = Instantiate(this.Cheerios);
-      HexTile spot = this.GridManager.FetchTile(0, 0, 0);
-      spot.EnterTile(Che);
+        GameObject che = Instantiate(cheerios);
+        HexTile spot = this.gridManager.FetchTile(0, 0, 0);
+        spot.EnterTile(che);
     }
 
     public void SpawnFromCaves(int EnemyID)
     {
-        Vector3 randomCavePosition = CavePositions[UnityEngine.Random.Range(0, CavePositions.Count)];
+        Vector3 randomCavePosition = cavePositions[UnityEngine.Random.Range(0, cavePositions.Count)];
         int q = (int)randomCavePosition.x;
         int r = (int)randomCavePosition.y;
         int s = (int)randomCavePosition.z;
         // Spawn Unity Object with Enemy script (Prefab)
-        GameObject NewEnemy = Instantiate(EnemyPrefab);
+        GameObject NewEnemy = Instantiate(enemyPrefab);
         Enemy newEnemyComponent = NewEnemy.GetComponent<Enemy>();
     
         if (newEnemyComponent != null)
         {
             newEnemyComponent.EnemyID = EnemyID;
             newEnemyComponent.SetQRS(q, r, s);
-            newEnemyComponent.Movement = Movement;
-            (float x, float y) = this.GridManager.QRStoXY(q, r, s);
+            newEnemyComponent.movement = movement;
+            (float x, float y) = this.gridManager.QRStoXY(q, r, s);
             newEnemyComponent.transform.position = new Vector3(x, y, 0);
-            newEnemyComponent.GridManager = this.GridManager;
-            newEnemyComponent.GridRadius = this.GridManager.GridRadius;
+            newEnemyComponent.gridManager = this.gridManager;
+            newEnemyComponent.GridRadius = this.gridManager.GridRadius;
             
             // Add the new enemy to the list of enemies
             enemies.Add(newEnemyComponent);
@@ -72,15 +70,15 @@ public class Spawner : MonoBehaviour
 
     public void SpawnCaves()
     {
-        foreach (Vector3 CavePosition in CavePositions)
+        foreach (Vector3 cavePosition in cavePositions)
         {
-            (float x, float y) = GridManager.QRStoXY((int)CavePosition.x, (int)CavePosition.y, (int)CavePosition.z);
-            GameObject newCave = Instantiate(CavePrefab);
+            (float x, float y) = gridManager.QRStoXY((int)cavePosition.x, (int)cavePosition.y, (int)cavePosition.z);
+            GameObject newCave = Instantiate(cavePrefab);
             newCave.transform.position = new Vector3(x, y, 0);
         }
         if (DEBUG)
         {
-            foreach (var position in CavePositions)
+            foreach (var position in cavePositions)
             {
                 Debug.Log("Cave position: " + position);
             }
@@ -94,7 +92,7 @@ public class Spawner : MonoBehaviour
         {
             if (enemy != null && enemy.health <= 0)
             {
-                HexTile tile = GridManager.FetchTile(enemy.q, enemy.r, enemy.s);
+                HexTile tile = gridManager.FetchTile(enemy.q, enemy.r, enemy.s);
                 tile.LeaveTile(enemy.gameObject);
                 Destroy(enemy.gameObject);
                 return true;
@@ -102,7 +100,7 @@ public class Spawner : MonoBehaviour
             return false;
         });
     }
-  
+
     // Generates a random Edge Tile on the current Hex Grid based on GridRadius
     // The logic I wrote to make this work is a little ridiculous, but it works
     // Could be better in q, r, s, but I just did it in i, j
@@ -120,12 +118,12 @@ public class Spawner : MonoBehaviour
         // Random Tile is in the First Row
         if (spawnHex <= spawnRadius)
         {
-            return GridManager.IJtoQRS(hexRadius - spawnRadius, spawnHex - spawnRadius + hexRadius);
+            return gridManager.IJtoQRS(hexRadius - spawnRadius, spawnHex - spawnRadius + hexRadius);
         }
         // Random Tile is in the Last Row
         if (spawnHex >= 5*spawnRadius - 1)
         {
-            return GridManager.IJtoQRS(2*hexRadius - (hexRadius - spawnRadius), spawnHex - 5*spawnRadius + 1 - spawnRadius + hexRadius);
+            return gridManager.IJtoQRS(2*hexRadius - (hexRadius - spawnRadius), spawnHex - 5*spawnRadius + 1 - spawnRadius + hexRadius);
         }
         // Random Tile is on Left/Right Edge
         int adjustedSpawnHex = spawnHex - spawnRadius - 1;
@@ -143,7 +141,7 @@ public class Spawner : MonoBehaviour
             i = 1 + ((adjustedSpawnHex - 1) / 2) + hexRadius - spawnRadius;
             j = (i > hexRadius) ? (2*hexRadius - (i - spawnRadius)) : (spawnRadius + i);
         }
-        return GridManager.IJtoQRS(i, j);
+        return gridManager.IJtoQRS(i, j);
     }
 }
 

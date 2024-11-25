@@ -7,7 +7,7 @@ using EnemyAndTowers;
 
 public class ObstacleSpawner : MonoBehaviour
 {
-    [SerializeField] public GridManager GridManager;
+    [SerializeField] public GridManager gridManager;
 
     // Corresponds to 2 Prefabs we might want to spawn
     [SerializeField] public GameObject Obstacle1;
@@ -55,7 +55,7 @@ public class ObstacleSpawner : MonoBehaviour
     public void SpawnNObstaclesPerRing(int N)
     {
         List<int> UniformObstacles = new List<int>();
-        for (int i = 1; i < this.GridManager.GridRadius; i++)
+        for (int i = 1; i < this.gridManager.GridRadius; i++)
         {
             UniformObstacles.Add(N);
         }
@@ -67,7 +67,7 @@ public class ObstacleSpawner : MonoBehaviour
     public void SpawnXPercentObstaclesPerRing(float X)
     {
         List<int> PercentageObstacles = new List<int>();
-        for (int i = 1; i < this.GridManager.GridRadius; i++)
+        for (int i = 1; i < this.gridManager.GridRadius; i++)
         {
             PercentageObstacles.Add((int) (X * i * 6));
         }
@@ -82,8 +82,8 @@ public class ObstacleSpawner : MonoBehaviour
     public void SpawnObstaclesPerRing(List<int> ObstacleQuantities)
     {
         // MaxRing Represents the largest ring we can spawn an obstacle in
-        int MaxRing = (ObstacleQuantities.Count < GridManager.GridRadius) ?
-                       ObstacleQuantities.Count : GridManager.GridRadius - 1;
+        int MaxRing = (ObstacleQuantities.Count < gridManager.GridRadius) ?
+                       ObstacleQuantities.Count : gridManager.GridRadius - 1;
 
         TileSelector ObstacleTileSelector = new TileSelector();
 
@@ -109,13 +109,13 @@ public class ObstacleSpawner : MonoBehaviour
         GameObject CurrentObstacle = Instantiate(RandomObstacleFromList());
         CurrentObstacle.transform.SetParent(gameObject.transform);
 
-        CurrentObstacle.GetComponent<Obstacle>().GridManager = this.GridManager;
-        CurrentObstacle.GetComponent<Obstacle>().GridRadius = this.GridManager.GridRadius;
+        CurrentObstacle.GetComponent<Obstacle>().gridManager = this.gridManager;
+        CurrentObstacle.GetComponent<Obstacle>().GridRadius = this.gridManager.GridRadius;
         CurrentObstacle.GetComponent<Obstacle>().SetQRS(q, r, s);
 
         if (CurrentObstacle.GetComponent<Obstacle>().SetPosition())
         {
-            (float x, float y) = this.GridManager.QRStoXY(q, r, s);
+            (float x, float y) = this.gridManager.QRStoXY(q, r, s);
             CurrentObstacle.transform.Translate(x, y, 0, Space.World);
         }
         else

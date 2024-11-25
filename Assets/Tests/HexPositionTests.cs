@@ -39,7 +39,7 @@ public class HexPositionTests
         Test1.AddComponent<HexPosition>();
         HexPosition TestHP = Test1.GetComponent<HexPosition>();
 
-        TestHP.GridManager = TestGM;
+        TestHP.gridManager = TestGM;
         TestHP.GridRadius = TestGM.GridRadius;
 
         yield return null;

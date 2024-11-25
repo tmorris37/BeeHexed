@@ -26,10 +26,10 @@ namespace EnemyAndTowers
 
         protected override void Update()
         {
-            this.targets = Detection.targets;
+            this.targets = detection.targets;
             if (this.health <= 0)
             {
-                HexTile tile = GridManager.FetchTile(q,r,s);
+                HexTile tile = gridManager.FetchTile(q,r,s);
                 tile.LeaveTile(gameObject);
                 Destroy(gameObject);
             }

@@ -99,15 +99,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee313305ee6879b4894d14b5eabe7f65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DEBUG: 1
   q: 0
   r: 0
   s: 0
   GridRadius: 0
-  DEBUG: 1
-  GridManager: {fileID: 0}
-  TowerID: 1
-  Detection: {fileID: 8367280166849261000}
-  fireRate: 1
+  gridManager: {fileID: 0}
+  towerID: 0
+  detection: {fileID: 0}
+  fireRate: 2
+  health: 0
   healthBar: {fileID: 0}
   beam: {fileID: 3655123639976924818, guid: 57b9ba4538121644f9dc61520d9c7307, type: 3}
   active: 0

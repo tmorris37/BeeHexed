@@ -1806,7 +1806,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b353f00826c879488f285eff3106057, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GridManager: {fileID: 1554881295}
+  gridManager: {fileID: 1554881295}
   Obstacle1: {fileID: 8427140594737057986, guid: e0954496b7fdcd3469d4cb6db17afa30, type: 3}
   Obstacle2: {fileID: 8427140594737057986, guid: e0954496b7fdcd3469d4cb6db17afa30, type: 3}
   Percent: 0
@@ -2165,15 +2165,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7df78d04ebf9cdc46ae407f263757e65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EnemyPrefab: {fileID: 435629412242135445, guid: ce2be51eee2719b48b1bdcb1ec473536, type: 3}
-  GridManager: {fileID: 1554881295}
-  CaveGenerator: {fileID: 1846675530}
-  Cheerios: {fileID: 1341650181057277616, guid: 3c7e526a0cb3c794babc428402c385dd, type: 3}
-  CavePrefab: {fileID: 7393846077666523299, guid: 72013799fbfe550428d1f8d3914131af, type: 3}
-  Radius: 5
+  enemyPrefab: {fileID: 435629412242135445, guid: ce2be51eee2719b48b1bdcb1ec473536, type: 3}
+  gridManager: {fileID: 1554881295}
+  caveGenerator: {fileID: 1846675530}
+  cheerios: {fileID: 1341650181057277616, guid: 3c7e526a0cb3c794babc428402c385dd, type: 3}
+  cavePrefab: {fileID: 7393846077666523299, guid: 72013799fbfe550428d1f8d3914131af, type: 3}
+  radius: 5
   DEBUG: 0
-  Movement: {fileID: 580640692}
-  moveInterval: 3
+  movement: {fileID: 580640692}
 --- !u!1 &962259158
 GameObject:
   m_ObjectHideFlags: 0
@@ -3203,9 +3202,9 @@ MonoBehaviour:
   r: 0
   s: 0
   GridRadius: 0
-  GridManager: {fileID: 0}
-  TowerID: 0
-  Detection: {fileID: 0}
+  gridManager: {fileID: 0}
+  towerID: 0
+  detection: {fileID: 0}
   fireRate: 1
   health: 0
   healthBar: {fileID: 574980980}
@@ -3447,12 +3446,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b2e9eae963aed141a8c186f16f42de7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GridManager: {fileID: 1554881295}
-  CavePrefab: {fileID: 7393846077666523299, guid: 72013799fbfe550428d1f8d3914131af, type: 3}
+  gridManager: {fileID: 1554881295}
+  cavePrefab: {fileID: 7393846077666523299, guid: 72013799fbfe550428d1f8d3914131af, type: 3}
   numCaves: 4
-  Radius: 5
+  radius: 5
   DEBUG: 0
-  CavePositions: []
+  cavePositions: []
 --- !u!4 &1846675531
 Transform:
   m_ObjectHideFlags: 0

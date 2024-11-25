@@ -9,9 +9,9 @@ namespace EnemyAndTowers
 {
     public class Tower : HexPosition
     {
-        [SerializeField] public int TowerID;
-        public TowerData Data;
-        public TowerDetection Detection;
+        [SerializeField] public int towerID;
+        public TowerData data;
+        public TowerDetection detection;
         public float fireRate;
         public int health;
         protected List<Transform> targets;
@@ -21,25 +21,24 @@ namespace EnemyAndTowers
 
         protected virtual void Start()
         {
-            Detection = GetComponentInChildren<TowerDetection>();
-            Debug.Log(Detection);
+            detection = GetComponentInChildren<TowerDetection>();
             // Assets/Resources/Enemies/Enemy_"".json
             // Creates a TextAsset containing the data from Enemy_"".json
-            var FileData = Resources.Load<TextAsset>("Towers/Tower_" + TowerID);
+            var FileData = Resources.Load<TextAsset>("Towers/Tower_" + towerID);
 
             if (FileData != null)
             {
                 // TextAsset -> String (JSON)
                 string JSONPlainText = FileData.text;
                 // String (JSON) -> EnemyData Class
-                this.Data = JsonConvert.DeserializeObject<TowerData>(JSONPlainText);
+                this.data = JsonConvert.DeserializeObject<TowerData>(JSONPlainText);
                 // We can then read the values from the Data class as needed
             }
             else
             {
-                Debug.Log("Unable to load Tower_" + TowerID);
+                Debug.Log("Unable to load Tower_" + towerID);
             }
-            this.health = this.Data.MaxHealth;
+            this.health = this.data.MaxHealth;
             // healthBar = GetComponentInChildren<FloatingHealthBar>();
             // healthBar.UpdateHealthBar(this.health, this.Data.MaxHealth);
             targets = new List<Transform>();
@@ -67,10 +66,10 @@ namespace EnemyAndTowers
 
         protected virtual void Update()
         {
-            this.targets = Detection.targets;
+            this.targets = detection.targets;
             if (this.health <= 0)
             {
-                HexTile tile = GridManager.FetchTile(q,r,s);
+                HexTile tile = gridManager.FetchTile(q,r,s);
                 tile.LeaveTile(gameObject);
                 Destroy(gameObject);
             }

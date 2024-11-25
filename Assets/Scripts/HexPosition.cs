@@ -26,13 +26,13 @@ namespace EnemyAndTowers
         */
 
         // Controls console outputs
-        [SerializeField] public bool DEBUG = true;
+        [SerializeField] public bool DEBUG = false;
                 // Contains the x, y, z coordinates
         [SerializeField] public int q, r, s;
         // Represents the max distance out from the origin
         [SerializeField] public int GridRadius;
         // The Grid System for the game
-        [SerializeField] public GridManager GridManager;
+        [SerializeField] public GridManager gridManager;
         // Used to initalize an object's position
         public bool SetPosition()
         {
@@ -50,7 +50,7 @@ namespace EnemyAndTowers
             }
 
             // If we can spawn Enemy/Tower, we will
-            this.GridManager.FetchTile(this.q, this.r, this.s).EnterTile(gameObject);
+            this.gridManager.FetchTile(this.q, this.r, this.s).EnterTile(gameObject);
             return true;
         }
 
@@ -125,8 +125,8 @@ namespace EnemyAndTowers
             if (isBlocked(qNew, rNew, sNew))
                 return false;
 
-            HexTile CurrentTile = this.GridManager.FetchTile(q, r, s);
-            HexTile NewTile = this.GridManager.FetchTile(qNew, rNew, sNew);
+            HexTile CurrentTile = this.gridManager.FetchTile(q, r, s);
+            HexTile NewTile = this.gridManager.FetchTile(qNew, rNew, sNew);
             //Debug.Log("changing tiles");
             NewTile.EnterTile(gameObject);
             CurrentTile.LeaveTile(gameObject);
@@ -170,7 +170,7 @@ namespace EnemyAndTowers
         // Returns true if the inputted position is blocked by another object
         private bool isBlocked(int q, int r, int s)
         {
-            HexTile CandidateTile = this.GridManager.FetchTile(q, r, s);
+            HexTile CandidateTile = this.gridManager.FetchTile(q, r, s);
             if (DEBUG)
                 //Debug.Log("Candidate:" + CandidateTile);
 

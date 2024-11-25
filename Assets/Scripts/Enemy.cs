@@ -17,15 +17,15 @@ namespace EnemyAndTowers
         public float attackRate = 1f;       // Time between attacks
         public float attackCooldown;        // Time remaining before the enemy can attack again
         protected Vector3 targetPosition;   // Position the enemy is moving towards
-        public MovementAlgorithms Movement; // Movement algorithms for the enemy
-        public EnemyData Data;              // Data about the enemy
-        public EnemyDetection Detection;    // Detection script for the enemy
+        public MovementAlgorithms movement; // Movement algorithms for the enemy
+        public EnemyData data;              // Data about the enemy
+        public EnemyDetection detection;    // Detection script for the enemy
         public List<Transform> targets;     // List of targets in range
 
         protected virtual void Start()
         {
             // Get the hitbox of the enemy
-            Detection = GetComponentInChildren<EnemyDetection>();
+            detection = GetComponentInChildren<EnemyDetection>();
             // Instantiates the Enemy at the Provided Spawn Location
             // If The Enemy could not spawn, despawn the sprite
             if (!SetPosition())
@@ -44,16 +44,16 @@ namespace EnemyAndTowers
                 // TextAsset -> String (JSON)
                 string JSONPlainText = FileData.text;
                 // String (JSON) -> EnemyData Class
-                this.Data = JsonConvert.DeserializeObject<EnemyData>(JSONPlainText);
+                this.data = JsonConvert.DeserializeObject<EnemyData>(JSONPlainText);
                 // We can then read the values from the Data class as needed
             }
             else
             {
                 Debug.Log("Unable to load Enemy_" + EnemyID);
             }
-            this.health = this.Data.MaxHP;
+            this.health = this.data.MaxHP;
             // healthBar = GetComponentInChildren<FloatingHealthBar>();
-            // healthBar.UpdateHealthBar(this.health, this.Data.MaxHP);
+            // healthBar.UpdateHealthBar(this.health, this.data.MaxHP);
             attackCooldown = attackRate;
 
         }
@@ -94,7 +94,7 @@ namespace EnemyAndTowers
         protected virtual void Update()
         {
             // Update the list of targets from the detection script
-            this.targets = Detection.targets;
+            this.targets = detection.targets;
             
             // Check if there are any targets in range and attack if off cooldown
             if (attackCooldown <= 0f && targets.Count > 0)
@@ -108,7 +108,7 @@ namespace EnemyAndTowers
             {
                 Debug.Log("No targets identified, time to move");
                 // Only reset the moveTimeRemaining if the enemy actually started moving
-                if (Movement.SimpleMove(this)) {
+                if (movement.SimpleMove(this)) {
                     moveTimeRemaining = 1 / movementSpeed;
                 }
             }
@@ -141,7 +141,7 @@ namespace EnemyAndTowers
         {
             yield return new WaitForSeconds(delay);
             this.health = this.health - damage;
-            // healthBar.UpdateHealthBar(this.health, this.Data.MaxHP);
+            // healthBar.UpdateHealthBar(this.health, this.data.MaxHP);
         }
     }
 

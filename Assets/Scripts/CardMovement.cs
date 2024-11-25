@@ -204,39 +204,58 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
         GoToState(2);
         playArrow.SetActive(false);
       }*/
-      rectTransform.localPosition = playPosition;
+    rectTransform.localPosition = playPosition;
     rectTransform.localRotation = Quaternion.identity;
-
+    // mouse released
     if (!Input.GetMouseButton(0))
     {
-        // Place tower (sprite)
         CardDisplay cardDisplay = GetComponent<CardDisplay>();
         NectarManager nectarManager = FindObjectOfType<NectarManager>();
 
         if (cardDisplay.cardData.cost <= nectarManager.GetNectar())
         {
-            nectarManager.SetNectar(nectarManager.GetNectar() - cardDisplay.cardData.cost);
             TowerSelector towerSelector = FindObjectOfType<TowerSelector>();
 
             if (cardDisplay.cardData.cardType == Card.CardType.Tower)
             {
-                GameObject to = ((TowerCard)cardDisplay.cardData).prefab;
-                Debug.Log("Its about to look at a tower");
-                if (to.GetComponent<BeamerTower>() != null)
-                {
-                    Debug.Log("It knows its a beamer");
-                    // Transition to the rotation state
-                    towerSelector.spawnTower(to);
-                    GoToState(4); // Enter Set Rotation state
-                    return;
-                }
+              GameObject to = ((TowerCard)cardDisplay.cardData).prefab;
+              Debug.Log("Its about to look at a tower");
+              if (to.GetComponent<BeamerTower>() != null)
+              {
+                  Debug.Log("It knows its a beamer");
+                  // Transition to the rotation state
+                  towerSelector.spawnTower(to);
+                  GoToState(4); // Enter Set Rotation state
+                  return;
+              }
 
-                towerSelector.spawnTower(to);
+              towerSelector.spawnTower(to);
+              // ensures tower is playable at mouse location
+              if (towerSelector.spawnTower(to)) {
+                nectarManager.SetNectar(nectarManager.GetNectar() - cardDisplay.cardData.cost);
+              } else {
+                errorManager.SetErrorMsg("Invalid tile!");
+                GoToState(2);
+                playArrow.SetActive(false);
+                return;
+              }
             }
             else
             {
-                // Cast spell
-                towerSelector.castSpell(((SpellCard)cardDisplay.cardData).prefab);
+              // Cast spell
+              if (((SpellCard)cardDisplay.cardData).Type == SpellType.Hex) {
+                if (towerSelector.castSpell(((SpellCard)cardDisplay.cardData).prefab, SpellType.Hex)) {
+                  nectarManager.SetNectar(nectarManager.GetNectar() - cardDisplay.cardData.cost);
+                } else {
+                  errorManager.SetErrorMsg("Invalid tile!");
+                  GoToState(2);
+                  playArrow.SetActive(false);
+                  return;
+                }
+              } else {
+                towerSelector.castSpell(((SpellCard)cardDisplay.cardData).prefab, SpellType.Blessing);
+                nectarManager.SetNectar(nectarManager.GetNectar() - cardDisplay.cardData.cost);
+              }
             }
 
             // Discard card and destroy card
@@ -248,6 +267,7 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
         }
         else
         {
+            errorManager.SetErrorMsg("Not enough nectar!");
             GoToState(2);
             playArrow.SetActive(false);
         }

@@ -3,104 +3,90 @@ using System.Collections.Generic;
 using UnityEngine;
 using Newtonsoft.Json;
 
+using GridSystem;
+
 namespace EnemyAndTowers
 {
     public class Tower : HexPosition
     {
-        [SerializeField] public int TowerID;
-        public TowerData Data;
+        [SerializeField] public int towerID;
+        public TowerData data;
+        public TowerDetection detection;
+        public float fireRate;
+        public int health;
+        public int damage;
+        protected List<Transform> targets;
+        protected float fireCountdown;
 
-        public float fireRate = 1f;
+        [SerializeField] protected FloatingHealthBar healthBar;
 
-        public GameObject projectilePrefab;
-
-        private List<Transform> targets;
-
-        private float fireCountdown;
-
-        private int HP;
-
-        //public GameObject prefab;
-
-        [SerializeField] FloatingHealthBar healthBar;
-
-        void Start()
+        protected virtual void Start()
         {
+            detection = GetComponentInChildren<TowerDetection>();
             // Assets/Resources/Enemies/Enemy_"".json
             // Creates a TextAsset containing the data from Enemy_"".json
-            var FileData = Resources.Load<TextAsset>("Towers/Tower_" + TowerID);
+            var FileData = Resources.Load<TextAsset>("Towers/Tower_" + towerID);
 
             if (FileData != null)
             {
                 // TextAsset -> String (JSON)
                 string JSONPlainText = FileData.text;
                 // String (JSON) -> EnemyData Class
-                this.Data = JsonConvert.DeserializeObject<TowerData>(JSONPlainText);
+                this.data = JsonConvert.DeserializeObject<TowerData>(JSONPlainText);
                 // We can then read the values from the Data class as needed
             }
             else
             {
-                Debug.Log("Unable to load Tower_" + TowerID);
+                Debug.Log("Unable to load Tower_" + towerID);
             }
-            this.HP = this.Data.MaxHP;
-            healthBar = GetComponentInChildren<FloatingHealthBar>();
-            healthBar.UpdateHealthBar(this.HP, this.Data.MaxHP);
+            this.health = this.data.MaxHealth;
+            // healthBar = GetComponentInChildren<FloatingHealthBar>();
+            // healthBar.UpdateHealthBar(this.health, this.Data.MaxHealth);
             targets = new List<Transform>();
-
         }
 
-        void OnTriggerEnter2D(Collider2D other)
+        // void OnTriggerEnter2D(Collider2D other)
+        // {
+        //     Debug.Log("It detects a thing");
+        //     if (other.CompareTag("EnemyBody"))
+        //     {
+        //         Debug.Log("It detects an enemy");
+        //         targets.Add(other.transform);
+        //     }
+        // }
+
+        // protected virtual void OnTriggerExit2D(Collider2D other)
+        // {
+        //     //if (other.CompareTag("Enemy") && other.transform == target)
+        //     if (other.CompareTag("EnemyBody"))
+        //     {
+        //         //target = null;
+        //         targets.Remove(other.transform);
+        //     }
+        // }
+
+        protected virtual void Update()
         {
-            //Debug.Log("It detects a thing");
-            if (other.CompareTag("Enemy"))
+            this.targets = detection.targets;
+            if (this.health <= 0)
             {
-                //target = other.transform;
-                targets.Add(other.transform);
+                HexTile tile = gridManager.FetchTile(q,r,s);
+                tile.LeaveTile(gameObject);
+                Destroy(gameObject);
             }
         }
 
-        void OnTriggerExit2D(Collider2D other)
+        public virtual void TakeDamage(int damage)
         {
-            //if (other.CompareTag("Enemy") && other.transform == target)
-            if (other.CompareTag("Enemy"))
-            {
-                //target = null;
-                targets.Remove(other.transform);
-            }
+            StartCoroutine(UpdateHealthAfterDelay(damage, 0.04f));
         }
 
-        private void Update()
+        private IEnumerator UpdateHealthAfterDelay(int damage, float delay)
         {
-            //Debug.Log(this.HP);
-            if (targets.Count > 0)
-            {
-                // shoot at intervals based on fireRate
-                if (fireCountdown <= 0f)
-                {
-                    Shoot();
-                    fireCountdown = 1f / fireRate;
-                }
-                fireCountdown -= Time.deltaTime;
-            }
+            yield return new WaitForSeconds(delay);
+            this.health = this.health - damage;
+            // healthBar.UpdateHealthBar(this.health, this.Data.MaxHealth);
         }
-
-        private void Shoot()
-        {
-            GameObject projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
-            TowerProjectile projScript = projectile.GetComponent<TowerProjectile>();
-            if (projScript != null)
-            {
-                //Transform target;
-                //if (targets.Count > 0)
-                
-                 Transform target = targets[0];
-                
-                projScript.Seek(target);
-            }
-        }
-
-        
-
     }
 
     #region JSON Data Structures
@@ -108,7 +94,7 @@ namespace EnemyAndTowers
     [System.Serializable]
     public class TowerData
     {
-        public int MaxHP { get; set; }
+        public int MaxHealth { get; set; }
         public IList<TowerAttack> Attacks { get; set; }
         
 

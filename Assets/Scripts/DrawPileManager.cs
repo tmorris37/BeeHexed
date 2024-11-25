@@ -4,15 +4,25 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.XR;
+using Newtonsoft.Json;
+using System.IO;
+using UnityEditor.Experimental.GraphView;
+
 
 public class DrawPileManager : MonoBehaviour
 {
 
+    // lets you use a custom deck rather than the starting deck
+    [SerializeField] public bool DEVELOPER_MODE = false;
+    [SerializeField] bool DEBUG_MODE = false;
+    // add the cards you want via the inspector, ensure DEVELOPER_MODE is on
+    [SerializeField] private List<Card> customDeck;
+
     public List<Card> deck = new();
 
-     //private int currIndex;
-
     [SerializeField] int handLimit = 8;
+    
+    [SerializeField] private string deckSavePath = "Assets/Deck/Deck.json";
 
     private HandManager handManager;
     private DiscardManager discardManager;
@@ -22,17 +32,43 @@ public class DrawPileManager : MonoBehaviour
 
     public void Awake() {
       handManager = FindObjectOfType<HandManager>();
-      // load all cards from resources
-      Card[] cardList = Resources.LoadAll<Card>("Cards");
-      // fill deck with cards, thrice for three copies each
-      deck.AddRange(cardList);
-      deck.AddRange(cardList);
-      deck.AddRange(cardList);
+      //
+      if (DEVELOPER_MODE) {
+        WriteDeckToFile(customDeck);
+      } else {
+        WriteDeckToFile(new List<Card>(Resources.LoadAll<Card>("Cards/")));
+      }
+      getDeckFromFile();
       generateDrawPile(deck);
     }
+    
 
-    void Start() {
-      
+  private void WriteDeckToFile(List<Card> deck)
+  {
+    List<string> cardNames = new();
+    foreach (Card card in deck){
+      cardNames.Add("Cards/" + card.cardName);
+    }
+    string jsonDeck = JsonConvert.SerializeObject(cardNames);
+    File.WriteAllText(deckSavePath, jsonDeck);
+    if (DEBUG_MODE)
+      Debug.Log("Written Deck" + jsonDeck);
+  }
+
+
+  void getDeckFromFile() {
+      deck.Clear();
+      string JSONPlainText = File.ReadAllText(deckSavePath);
+      if (DEBUG_MODE) {
+        Debug.Log("Read deck" + JSONPlainText);
+      }
+      // String (JSON) -> List
+      IList<string> cardPaths = JsonConvert.DeserializeObject<List<string>>(JSONPlainText);
+      // add each card twice
+      foreach (string path in cardPaths) {
+        deck.Add(Resources.Load<Card>(path));
+        deck.Add(Resources.Load<Card>(path));
+      }
     }
 
     public void DrawCard(HandManager handManager) {
@@ -82,9 +118,17 @@ public class DrawPileManager : MonoBehaviour
       drawPileCounter.text = deck.Count.ToString();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    // DEVELOPER ONLY METHODS
+    public void DEV_setDeckPath(string path) {
+      if (DEVELOPER_MODE) {
+        deckSavePath = path;
+      }
     }
+
+    public void DEV_setCustomDeck(List<Card> custDeck) {
+      if (DEVELOPER_MODE) {
+        customDeck = custDeck;
+      }
+    }
+
 }

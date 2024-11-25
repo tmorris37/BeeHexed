@@ -3,10 +3,6 @@ using UnityEngine.Tilemaps;
 using GridSystem;
 using EnemyAndTowers;
 
-
-
-
-
 public class TowerSelector : MonoBehaviour
 {
     public Tilemap hexTilemap;
@@ -84,7 +80,7 @@ public class TowerSelector : MonoBehaviour
         //             Debug.Log("Tower placed at: " + q + r + s);
         //         }
         //     }
-        // }  
+        // }
     }
 
 
@@ -96,7 +92,7 @@ public class TowerSelector : MonoBehaviour
             //set it to whatever the tower is
             (int q, int r, int s) = this.gridManager.TileMapXYtoQRS(cellPosition.x, cellPosition.y);
             HexTile spot = this.gridManager.FetchTile(q, r, s);
-            HexPosition TowerComponent;
+            HexPosition towerComponent;
             GameObject t;
             if (!spot.getOccupied())
             {
@@ -108,6 +104,7 @@ public class TowerSelector : MonoBehaviour
                   TowerComponent.GridManager = this.gridManager;
                   TowerComponent.SetQRS(q, r, s);
                   spot.EnterTile(t);
+                  Debug.Log("Tower cast at: " + q + r + s);
                   return true;
                 }
             }
@@ -129,6 +126,7 @@ public class TowerSelector : MonoBehaviour
                 {
                   Vector3 spellPosition = hexTilemap.CellToWorld(lastHoveredTilePosition); // Adjust for tile center
                   t = Instantiate(spell, spellPosition, Quaternion.identity); // Spawn the 'spell' at the tile position
+                  Debug.Log("Spell cast at: " + q + r + s);
                   return true;
                 }
             }

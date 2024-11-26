@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class WaveManager : MonoBehaviour
@@ -17,6 +18,7 @@ public class WaveManager : MonoBehaviour
     private DrawPileManager drawPileManager;
     private HandManager handManager;
     private VictoryManager victoryManager;
+    private List<int> enemyIDs = new List<int>();
     void Awake() {
         drawPileManager = FindObjectOfType<DrawPileManager>();
         handManager = FindObjectOfType<HandManager>();
@@ -40,8 +42,14 @@ public class WaveManager : MonoBehaviour
             }
             for (int i = 0; i <= enemiesPerWave; i++)
             {
-                // Spawn an enemy using the Level0Spawner
-                spawner.SpawnFromCaves(0);
+                // TODO: Make this not hardcoded
+                int enemyID = UnityEngine.Random.Range(0, 4);
+                if (enemyID == 3) {
+                    enemyID = 1;
+                } else {
+                    enemyID = 0;
+                }
+                spawner.SpawnFromCaves(enemyID);
                 yield return new WaitForSeconds(timeBetweenSpawns);
             }
 

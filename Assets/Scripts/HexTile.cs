@@ -63,20 +63,6 @@ namespace GridSystem
                 return true;
             }
             return false;
-            
-
-
-
-/*
-
-            if (this.Occupants != null)
-            {
-                Debug.Log("Tile is full. No room for another occupant!");
-                return false;
-            }
-
-            this.Occupant = newOccupant;
-            return true;*/
         }
 
         public bool getOccupied()
@@ -91,17 +77,22 @@ namespace GridSystem
 
         public bool getOccupiedByTower()
         {
-            if (this.Occupants.Count == 0)
-            {
-                //Debug.Log("Tile is empty");
-                return false;
-            }
-            
             foreach (GameObject occupant in Occupants)
             {
-                if (occupant.GetComponent<Enemy>() == null)
+                if (occupant.GetComponent<Tower>() != null)
                 {
-                    
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public bool getOccupiedByObstacle()
+        {
+            foreach (GameObject occupant in Occupants)
+            {
+                if (occupant.GetComponent<Obstacle>() != null)
+                {
                     return true;
                 }
             }

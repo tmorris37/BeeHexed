@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4298973830712483334}
   m_Layer: 0
   m_Name: TreePrefab
-  m_TagString: Untagged
+  m_TagString: Undefined
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -97,9 +97,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cb894cf4fefaa64b961ce59e164f08f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DEBUG: 1
   q: 0
   r: 0
   s: 0
   GridRadius: 0
-  DEBUG: 1
-  GridManager: {fileID: 0}
+  gridManager: {fileID: 0}

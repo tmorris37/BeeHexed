@@ -48,7 +48,6 @@ public class HandManager : MonoBehaviour
     handSize++;
     addCard.GetComponent<CardDisplay>().cardData = card;
     UpdateHandDisplay();
-
   }
 
   public bool DiscardCard(Card card) {
@@ -68,12 +67,16 @@ public class HandManager : MonoBehaviour
       cardsInHand[0].transform.localPosition = new Vector3(0f, 0f, 0f);
     } else {
       for (int i=0; i < numCards; i++) {
-      float cardAngle = fanSpread * (i - (numCards - 1) / 2f);
-      float normalizePosition = 2f * i / (numCards - 1) - 1f;  // centers hand arc
-      float horizPosition = horizCardSpacing * (i - (numCards - 1)) / 2f;
-      float vertPosition = vertCardSpacing * (1 - normalizePosition * normalizePosition);
-      cardsInHand[i].transform.localRotation = Quaternion.Euler(0f, 0f, cardAngle);
-      cardsInHand[i].transform.localPosition = new Vector3(horizPosition, vertPosition, 0f);
+        float cardAngle = fanSpread * (i - (numCards - 1) / 2f);
+        float normalizePosition = 2f * i / (numCards - 1) - 1f;  // centers hand arc
+        float horizPosition = horizCardSpacing * (i - (numCards - 1)) / 2f;
+        float vertPosition = vertCardSpacing * (1 - normalizePosition * normalizePosition);
+        // TODO: optimize sequential assignment
+        cardsInHand[i].transform.localRotation = Quaternion.Euler(0f, 0f, cardAngle);
+        cardsInHand[i].transform.localPosition = new Vector3(horizPosition, vertPosition, 0f);
+        CardMovement moveScript = cardsInHand[i].GetComponent<CardMovement>();
+        moveScript.origCardPosition = cardsInHand[i].transform.localPosition;
+        moveScript.origCardRotation = cardsInHand[i].transform.localRotation;
       }
     }
   }

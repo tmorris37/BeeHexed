@@ -1,5 +1,5 @@
 {
-  "MaxHP": 30,
+  "MaxHealth": 30,
   "Attacks": [
     {
       "DamageType": "Fire",

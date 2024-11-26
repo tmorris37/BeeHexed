@@ -1,10 +1,10 @@
 
 {
-    "MaxHP": 10,
+    "MaxHealth": 20,
     "Attacks": [
         {
             "DamageType": "Physical",
-            "DamageAmount": 10
+            "DamageAmount": 5
         },
         {
             "DamageType": "Magic",

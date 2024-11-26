@@ -7,8 +7,7 @@ using Map;
 namespace Map {
 public class NewMapScript : MonoBehaviour
 {
-    public static Sell
-
+  
     // Start is called before the first frame update
     void Start()
     {

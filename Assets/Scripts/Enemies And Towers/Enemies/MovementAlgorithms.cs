@@ -179,17 +179,20 @@ namespace EnemyAndTowers
                 if (moveInOnSpokes(enemy)) {
                     enemy.inertiaIO = I;
                     enemy.desiredInertiaIO = NULLDIR;
+                    enemy.desiredInertiaDir = enemy.inertiaDir;
                     enemy.inertiaDir = NULLDIR;
                     return true;
                 }
                 // Failed, check if the blocker was a tower
                 if (BlockedByTower(enemy)) {
-                    enemy.desiredInertiaIO = I;
-                    enemy.desiredInertiaDir = NULLDIR;
+                    enemy.inertiaIO = I;
+                    enemy.desiredInertiaIO = NULLDIR;
+                    // enemy.inertiaDir = NULLDIR;
                     return false;
                 }
                 // If the inertiaIO was 'in or out' set it to null
                 if (enemy.inertiaIO != NULLDIR) {
+                    enemy.desiredInertiaIO = enemy.inertiaIO;
                     enemy.inertiaIO = NULLDIR;
                 }
                 // If the inertiaDir is not set, desire clockwise
@@ -197,11 +200,12 @@ namespace EnemyAndTowers
                     enemy.desiredInertiaDir = CW;
                 }
                 // Try to move clockwise
-                if ((enemy.inertiaDir == CW || enemy.desiredInertiaDir == CW)
-                && enemy.inertiaIO == NULLDIR) {
+                if (enemy.inertiaDir == CW || enemy.desiredInertiaDir == CW)
+                {
                     if (moveClockwise(enemy)) {
                         enemy.inertiaDir = CW;
                         enemy.desiredInertiaDir = NULLDIR;
+                        enemy.desiredInertiaIO = NULLDIR;
                         return true;
                     }
                     // Failed, check if the blocker was a tower
@@ -219,11 +223,12 @@ namespace EnemyAndTowers
                     }
                 }
                 // Try to move counterclockwise
-                if ((enemy.inertiaDir == CCW || enemy.desiredInertiaDir == CCW)
-                && enemy.inertiaIO == NULLDIR) {
+                if (enemy.inertiaDir == CCW || enemy.desiredInertiaDir == CCW)
+                {
                     if (moveCounterclockwise(enemy)) {
                         enemy.inertiaDir = CCW;
                         enemy.desiredInertiaDir = NULLDIR;
+                        enemy.desiredInertiaIO = NULLDIR;
                         return true;
                     }
                     // Failed, check if the blocker was a tower
@@ -232,12 +237,18 @@ namespace EnemyAndTowers
                         enemy.desiredInertiaDir = NULLDIR;
                         return false;
                     }
+                    if (enemy.inertiaDir == CCW) {
+                        enemy.desiredInertiaIO = NULLDIR;
+                    } else {
+                        enemy.inertiaDir = NULLDIR;
+                        enemy.desiredInertiaDir = CW;
+                    }
                     // Set the inertiaIO to 'out' to try to get out
                     enemy.desiredInertiaIO = O;
                 }
                 // Try to move counterclockwise out
                 if ((enemy.inertiaDir == CCW || enemy.desiredInertiaDir == CCW)
-                && (enemy.inertiaIO == O || enemy.desiredInertiaIO == O)) {
+                && (enemy.desiredInertiaIO == O)) {
                     if (moveCounterclockwiseOut(enemy)) {
                         enemy.inertiaDir = CCW;
                         enemy.desiredInertiaDir = NULLDIR;
@@ -252,11 +263,12 @@ namespace EnemyAndTowers
                         return false;
                     }
                     // Set the inertia to 'clockwise' to try the other direction
+                    
                     enemy.desiredInertiaDir = CW;
                 }
                 // Try to move clockwise out
                 if ((enemy.inertiaDir == CW || enemy.desiredInertiaDir == CW)
-                && (enemy.inertiaIO == O || enemy.desiredInertiaIO == O)) {
+                && (enemy.desiredInertiaIO == O)) {
                     if (moveClockwiseOut(enemy)) {
                         enemy.inertiaDir = CW;
                         enemy.desiredInertiaDir = NULLDIR;
@@ -271,6 +283,7 @@ namespace EnemyAndTowers
                         return false;
                     }
                 }
+                return false;
 
                 // // Try to move out
                 // if ((enemy.inertiaDir == NULLDIR && enemy.desiredInertiaDir == NULLDIR)
@@ -288,15 +301,19 @@ namespace EnemyAndTowers
             }
 
             // If the enemy is not on a spoke
-            enemy.inertiaIO = NULLDIR;
             // If there is no set inertiaDir, set it to clockwise
             if (enemy.inertiaDir == NULLDIR && enemy.desiredInertiaDir == NULLDIR) {
                 enemy.inertiaDir = CW;
             }
+
+            if (enemy.inertiaIO == O || enemy.inertiaIO == I) {
+                enemy.desiredInertiaIO = NULLDIR;
+                enemy.inertiaIO = NULLDIR;
+            }
             
             // Try to move clockwise
             if ((enemy.inertiaDir == CW || enemy.desiredInertiaDir == CW)
-            && enemy.inertiaIO == NULLDIR)
+            && enemy.desiredInertiaIO == NULLDIR)
             {
                 if (moveClockwise(enemy)) {
                     enemy.inertiaDir = CW;
@@ -312,27 +329,9 @@ namespace EnemyAndTowers
                 // Set the inertiaIO to 'I' to try to go in
                 enemy.desiredInertiaIO = I;
             }
-            // Try to move counterclockwise
-            if ((enemy.inertiaDir == CCW || enemy.desiredInertiaDir == CCW)
-            && enemy.inertiaIO == NULLDIR)
-            {
-                if (moveCounterclockwise(enemy)) {
-                    enemy.inertiaDir = CCW;
-                    enemy.desiredInertiaDir = NULLDIR;
-                    return true;
-                }
-                // Failed, check if the blocker was a tower
-                if (BlockedByTower(enemy)) {
-                    enemy.inertiaDir = CCW;
-                    enemy.desiredInertiaDir = NULLDIR;
-                    return false;
-                }
-                // Set to inertiaIO to 'I' to try to go in
-                enemy.desiredInertiaIO = I;
-            }
             // Try to move clockwise in
             if ((enemy.inertiaDir == CW || enemy.desiredInertiaDir == CW)
-            && (enemy.inertiaIO == I || enemy.desiredInertiaIO == I))
+            && (enemy.desiredInertiaIO == I))
             {
                 if (moveClockwiseIn(enemy)) {
                     enemy.inertiaDir = CW;
@@ -347,13 +346,22 @@ namespace EnemyAndTowers
                     enemy.inertiaIO = I;
                     return false;
                 }
+                if (enemy.inertiaDir == CCW) {
+                    enemy.inertiaDir = NULLDIR;
+                    enemy.desiredInertiaDir = CW;
+                    enemy.desiredInertiaIO = NULLDIR;
+                } else {
+                    enemy.desiredInertiaDir = CCW;
+                }
+                
                 // Set the inertiaDir to 'counterclockwise' to try the other direction
                 enemy.inertiaDir = NULLDIR;
                 enemy.desiredInertiaDir = CCW;
+                enemy.desiredInertiaIO = I;
             }
             // Try to move counterclockwise in
             if ((enemy.inertiaDir == CCW || enemy.desiredInertiaDir == CCW)
-            && (enemy.inertiaIO == I || enemy.desiredInertiaIO == I))
+            && enemy.desiredInertiaIO == I)
             {
                 if (moveCounterclockwiseIn(enemy)) {
                     enemy.inertiaDir = CCW;
@@ -368,8 +376,37 @@ namespace EnemyAndTowers
                     enemy.inertiaIO = I;
                     return false;
                 }
-                enemy.desiredInertiaIO = NULLDIR;
-                enemy.desiredInertiaDir = CW;
+                // enemy.inertiaIO = NULLDIR;
+                // enemy.desiredInertiaIO = NULLDIR;
+                // enemy.desiredInertiaDir = CW;
+                if (enemy.inertiaDir == CCW) {
+                    enemy.desiredInertiaDir = CW;
+                    enemy.desiredInertiaIO = I;
+                } else {
+                    enemy.desiredInertiaIO = NULLDIR;
+                }
+            }
+            // Try to move counterclockwise
+            if ((enemy.inertiaDir == CCW || enemy.desiredInertiaDir == CCW)
+            && enemy.desiredInertiaIO == NULLDIR)
+            {
+                if (moveCounterclockwise(enemy)) {
+                    enemy.inertiaDir = CCW;
+                    enemy.desiredInertiaDir = NULLDIR;
+                    return true;
+                }
+                // Failed, check if the blocker was a tower
+                if (BlockedByTower(enemy)) {
+                    enemy.inertiaDir = CCW;
+                    enemy.desiredInertiaDir = NULLDIR;
+                    return false;
+                }
+                // Set to inertiaIO to 'I' to try to go in
+                if (enemy.inertiaDir == CCW) {
+                    enemy.desiredInertiaIO = I;
+                } else {
+                    enemy.desiredInertiaDir = CW;
+                }
             }
             return false;
         }

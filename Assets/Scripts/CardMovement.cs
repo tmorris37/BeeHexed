@@ -198,7 +198,7 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
             {
                 GameObject to = ((TowerCard)cardDisplay.cardData).prefab;
                 Debug.Log("Its about to look at a tower");
-                if (to.GetComponent<BeamerTower>() != null)
+                if (to.GetComponent<BeamerTower>() != null || to.GetComponent<StraightShooterTower>() != null)
                 {
                     Debug.Log("It knows its a beamer");
                     // Transition to the rotation state

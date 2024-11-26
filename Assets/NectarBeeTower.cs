@@ -16,7 +16,7 @@ namespace EnemyAndTowers{
         protected override void Start()
         {
             base.Start();
-            this.nectarManager = GetComponent<NectarManager>();
+            this.nectarManager = FindObjectOfType<NectarManager>();
         }
 
         // Update is called once per frame

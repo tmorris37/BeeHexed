@@ -35,8 +35,6 @@ public class DrawPileManager : MonoBehaviour
       //
       if (DEVELOPER_MODE) {
         WriteDeckToFile(customDeck);
-      } else {
-        WriteDeckToFile(new List<Card>(Resources.LoadAll<Card>("Cards/")));
       }
       getDeckFromFile();
       generateDrawPile(deck);
@@ -64,9 +62,8 @@ public class DrawPileManager : MonoBehaviour
       }
       // String (JSON) -> List
       IList<string> cardPaths = JsonConvert.DeserializeObject<List<string>>(JSONPlainText);
-      // add each card twice
+      // add each card once
       foreach (string path in cardPaths) {
-        deck.Add(Resources.Load<Card>(path));
         deck.Add(Resources.Load<Card>(path));
       }
     }

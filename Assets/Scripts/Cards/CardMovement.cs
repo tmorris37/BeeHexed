@@ -38,10 +38,7 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
       origCardScale = rectTransform.localScale;
       origCardPosition = rectTransform.localPosition;
       origCardRotation = rectTransform.localRotation;
-    }
-    // Start is called before the first frame update
-    void Start() {
-        hoverHighlight.SetActive(false);
+      hoverHighlight.SetActive(false);
     }
 
     // Update is called once per frame

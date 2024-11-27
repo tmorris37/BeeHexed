@@ -12,19 +12,19 @@ Our current intention is to publish this game on itch.io and all the required fi
 In the meantime, do the following:
 Prerequisite, make sure [Git](https://git-scm.com/downloads) is installed, follow the instructions there
 1. Download and Install [Unity Hub](https://unity.com/download)
-    a. Sign in or Create an Account with Unity
-2. Install Unity Editor version 2022.3.49f1 (LTS) through Unity Hub, if version not available download through [Unity Version Archive](https://unity.com/releases/editor/archive)
-3. Download the [Zip file](https://github.com/tmorris37/BeeHexed/archive/refs/heads/main.zip) of this Repo
-4. Unzip the file and place into a directory
-4. In Unity Hub, click Add -> Add project from disk, then select where the unzipped Beehexed folder
-5. In Unity Hub, ensure the Editor is the correct version and double-click to open the project (this will take a while)
+2. Sign in or Create an Account with Unity
+3. Install Unity Editor version 2022.3.49f1 (LTS) through Unity Hub, if version is not available download through [Unity Version Archive](https://unity.com/releases/editor/archive)
+4. Download the [Zip file](https://github.com/tmorris37/BeeHexed/archive/refs/heads/main.zip) of this Repo
+5. Unzip the file and place into a directory
+6. In Unity Hub, click Add -> Add project from disk, then select where the unzipped Beehexed folder
+7. In Unity Hub, ensure the Editor is the correct version and double-click to open the project (this will take a while)
 ### Running software
 Missing Functionality: An executable file that starts a game. 
 The objective is that all it takes to run the game is to open the executable file.
 In the meantime, do the following:
 1. Open the Unity Project you created above
 2. In the project window at the bottom of your screen open the 'Scenes' Folder
-2. Double click on the Scene called MainMenu to open it
+3. Double click on the Scene called MainMenu to open it
 4. Click the play button at the top of the screen to start/stop the game (you may want to change Play Focused to Play Maximized)
 ### User guide
 On startup the user will be presented with a main menu. They will be able to click New Game and be brought into the game.
@@ -69,13 +69,13 @@ In the meantime, do the following:
     a. Sign in or Create an Account with Unity
 2. Install Unity Editor version 2022.3.49f1 (LTS) through Unity Hub, if version not available download through [Unity Version Archive](https://unity.com/releases/editor/archive)
 3. Clone this repository, below are steps for SSH cloning
-In terminal or git bash `cd` into the directory you want the repo in
+4. In terminal or git bash `cd` into the directory you want the repo in
 Git Clone in the directory
 ```
 git clone git@github.com:tmorris37/BeeHexed.git
 ```
-4. In Unity Hub, click Add -> Add project from disk, then select where you cloned the repository to add the project to Unity Hub
-5. In Unity Hub, ensure the Editor is the correct version and double-click to open the project (this will take a while)
+5. In Unity Hub, click Add -> Add project from disk, then select where you cloned the repository to add the project to Unity Hub
+6. In Unity Hub, ensure the Editor is the correct version and double-click to open the project (this will take a while)
 
 ### Directory layout
 In the GitHub repository, there are several files immediately available at root. These files are used for bookkeeping purposes, either by Unity or by GitHub. Similarly, the folders .github, .vscode, ProjectSettings, and Packages are also used by Unity and GitHub for bookkeeping. In the Assets folder, the developer-generated files are broken up into Resources, Scripts, Scenes, Sprites, and Tests. The Resources folder contains all of the Prefabs and JSON files. This is the preferred location for persistent files that are needed after compilation. In Scripts, developer-defined behaviors of gameobjects are dictated. In Scenes, the different scenes that can be used in Unity are located. It includes individual levels, testing scenes, and menus. In Sprites, images of in-game sprites are located. In game, these images are spawned in and shown to the player. Finally, Tests includes all of the Unity tests the developers have created.

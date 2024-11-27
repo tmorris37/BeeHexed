@@ -1941,10 +1941,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawner: {fileID: 949248046}
-  enemiesPerWave: 5
-  numWaves: 5
+  enemiesPerWave: 3
+  numWaves: 3
   timeBetweenWaves: 5
   timeBetweenSpawns: 3
+  timeToRewardLoad: 10
   nectarManager: {fileID: 852255254}
 --- !u!4 &781918216
 Transform:

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class WaveManager : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class WaveManager : MonoBehaviour
 
     [SerializeField] private float timeBetweenWaves = 10f;
     [SerializeField] private float timeBetweenSpawns = 1f;
+    [SerializeField] private float timeToRewardLoad = 3f;
 
     private int currentWave = 0;
     private bool waveInProgress = false;
@@ -61,8 +63,12 @@ public class WaveManager : MonoBehaviour
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
         if (enemies.Length == 0) {
             victoryManager.Win();
+            yield return new WaitForSeconds(timeToRewardLoad);
+            SceneManager.LoadScene("Rewards");
         } else {
             victoryManager.Lose();
+            yield return new WaitForSeconds(timeToRewardLoad);
+            SceneManager.LoadScene("MainMenu");
         }
         
     }

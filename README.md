@@ -16,7 +16,7 @@ Prerequisite, make sure [Git](https://git-scm.com/downloads) is installed, follo
 3. Install Unity Editor version 2022.3.49f1 (LTS) through Unity Hub, if version is not available download through [Unity Version Archive](https://unity.com/releases/editor/archive)
 4. Download the [Zip file](https://github.com/tmorris37/BeeHexed/archive/refs/heads/main.zip) of this Repo
 5. Unzip the file and place into a directory
-6. In Unity Hub, click Add -> Add project from disk, then select where the unzipped Beehexed folder
+6. In Unity Hub, click Add -> Add project from disk, then select the unzipped Beehexed folder
 7. In Unity Hub, ensure the Editor is the correct version and double-click to open the project (this will take a while)
 ### Running software
 Missing Functionality: An executable file that starts a game. 

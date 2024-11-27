@@ -86,6 +86,8 @@ There are a couple of options for testing the software. When you push to a branc
 ### Adding tests 
 You can add new tests straight in Unity, as we are using the Unity testing suite. In the assets folder, proceed to the tests folder. In there there are multiple scripts which contain tests. If the tests you want to add are relevant to the name of any of the existing scripts, add your tests there. To create a new testing file, and name it describing what tests you will be running. Please name using the camelcase format. Use the previous scripts as reference if need be. 
 ### Building release 
+<pre>
 [CI Tool : Github Actions](https://github.com/tmorris37/BeeHexed/actions)
+</pre>
 In order to create a build of the game, in Unity go to file, and then build and run. From there you can choose where you want the build of the game to be stored on your computer. GAME IS CURRENTLY UNPLAYABLE LIKE THIS 
 

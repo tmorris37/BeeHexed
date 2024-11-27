@@ -1,9 +1,13 @@
 using System.Collections;
+using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class WaveManager : MonoBehaviour
 {
+    [SerializeField] private bool DEBUG_MODE = false;
+    [SerializeField] private TextMeshProUGUI waveText;
     [SerializeField] private Spawner spawner;
     [SerializeField] private int enemiesPerWave = 5;
     [SerializeField] private int numWaves = 3;
@@ -13,19 +17,19 @@ public class WaveManager : MonoBehaviour
     [SerializeField] private float timeToRewardLoad = 3f;
 
     private int currentWave = 0;
-    private bool waveInProgress = false;
+    private bool lastEnemySpawned = false;
 
     [SerializeField] private NectarManager nectarManager;
     private DrawPileManager drawPileManager;
     private HandManager handManager;
-    private VictoryManager victoryManager;
+    private List<int> enemyIDs = new List<int>();
     void Awake() {
         drawPileManager = FindObjectOfType<DrawPileManager>();
         handManager = FindObjectOfType<HandManager>();
-        victoryManager = FindObjectOfType<VictoryManager>();
     }
     void Start()
     {
+        waveText.text = "Waves not started";
         StartCoroutine(WaveRoutine());
     }
 
@@ -35,7 +39,7 @@ public class WaveManager : MonoBehaviour
         while (currentWave < numWaves)
         {
             currentWave++;
-            waveInProgress = true;
+            waveText.text = "Wave: " + currentWave + "/" + numWaves;
             nectarManager.SetNectar(nectarManager.GetNectar() + 5);
             for (int i = 0; i < 3; i++) {
                 drawPileManager.DrawCard(handManager);
@@ -46,22 +50,21 @@ public class WaveManager : MonoBehaviour
                 spawner.SpawnFromCaves(0);
                 yield return new WaitForSeconds(timeBetweenSpawns);
             }
+            if (currentWave == numWaves) {
+              lastEnemySpawned = true;
+            } else {
+              yield return new WaitForSeconds(timeBetweenWaves);
+            }
+        }
+        waveText.text = "Waves Complete!";
+        if (DEBUG_MODE) Debug.Log("Waves are done");
+    }
 
-            waveInProgress = false;
-            yield return new WaitForSeconds(timeBetweenWaves);
-        }
-        yield return new WaitForSeconds(10f);
-        Debug.Log("Waves are done");
-        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
-        if (enemies.Length == 0) {
-            victoryManager.Win();
-            yield return new WaitForSeconds(timeToRewardLoad);
-            SceneManager.LoadScene("Rewards");
-        } else {
-            victoryManager.Lose();
-            yield return new WaitForSeconds(timeToRewardLoad);
-            SceneManager.LoadScene("MainMenu");
-        }
-        
+    public bool GetLastEnemySpawned() {
+      return lastEnemySpawned;
+    }
+
+    public void Stop() {
+      StopAllCoroutines();
     }
 }

@@ -158,6 +158,12 @@ namespace EnemyAndTowers
             this.health = this.health - damage;
             // healthBar.UpdateHealthBar(this.health, this.data.MaxHP);
         }
+
+        public virtual void Stop() {
+          StopAllCoroutines();
+          movementSpeed = 0;
+          attackRate = 0;
+        }
     }
 
     #region JSON Data Structures

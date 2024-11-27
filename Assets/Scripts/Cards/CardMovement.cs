@@ -90,6 +90,13 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
       {
         currState = 4;
         playArrow.SetActive(true);
+      } else if (desiredState == -1) {
+        currState = -1;
+        rectTransform.localPosition = origCardPosition;
+        rectTransform.localRotation = origCardRotation;
+        rectTransform.localScale = origCardScale;
+        hoverHighlight.SetActive(false);
+        playArrow.SetActive(false);
       }
     }
 
@@ -332,12 +339,16 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
 }
 
 
-private void destroyCard()
-{
-            CardDisplay cardDisplay = GetComponent<CardDisplay>();
-            HandManager handManager = FindObjectOfType<HandManager>();
-            handManager.cardsInHand.Remove(gameObject);
-            handManager.DiscardCard(cardDisplay.cardData);
-            Destroy(gameObject);
-}
+  private void destroyCard()
+  {
+              CardDisplay cardDisplay = GetComponent<CardDisplay>();
+              HandManager handManager = FindObjectOfType<HandManager>();
+              handManager.cardsInHand.Remove(gameObject);
+              handManager.DiscardCard(cardDisplay.cardData);
+              Destroy(gameObject);
+  }
+
+  public void Reset() {
+    GoToState(-1);
+  }
 }

@@ -19,12 +19,16 @@ public class DrawDiscardHandTest
         Test.AddComponent<TextMeshProUGUI>();
         TestDPM.drawPileCounter = Test.GetComponent<TextMeshProUGUI>();
         TestDPM.DEVELOPER_MODE = true;
-        // set up a test deck, knowing each will be added twice
+        // set up a test deck manually adding two copies of each as the game would
         List<Card> myDeck = new()
         {
           Resources.Load<Card>("Cards/Wax"),
+          Resources.Load<Card>("Cards/Wax"),
+          Resources.Load<Card>("Cards/Pulser"),
           Resources.Load<Card>("Cards/Pulser"),
           Resources.Load<Card>("Cards/Blizzard"),
+          Resources.Load<Card>("Cards/Blizzard"),
+          Resources.Load<Card>("Cards/Beemer"),
           Resources.Load<Card>("Cards/Beemer")
         };
         TestDPM.DEV_setCustomDeck(myDeck);
@@ -206,6 +210,11 @@ public class DrawDiscardHandTest
         // set up a test deck, knowing each will be added twice
         List<Card> myDeck = new()
         {
+          Resources.Load<Card>("Cards/Wax"),
+          Resources.Load<Card>("Cards/Pulser"),
+          Resources.Load<Card>("Cards/Blizzard"),
+          Resources.Load<Card>("Cards/Sacrificial Bargain"),
+          Resources.Load<Card>("Cards/Beemer"),
           Resources.Load<Card>("Cards/Wax"),
           Resources.Load<Card>("Cards/Pulser"),
           Resources.Load<Card>("Cards/Blizzard"),

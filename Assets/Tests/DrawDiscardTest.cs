@@ -9,6 +9,7 @@ using TMPro;
 public class DrawDiscardHandTest
 {
     [UnityTest]
+    // All of the asserts are backwards, TODO: Change later
 
     // Unit test for DrawPileManager
     public IEnumerator DrawPileManagerTest()
@@ -19,17 +20,13 @@ public class DrawDiscardHandTest
         Test.AddComponent<TextMeshProUGUI>();
         TestDPM.drawPileCounter = Test.GetComponent<TextMeshProUGUI>();
         TestDPM.DEVELOPER_MODE = true;
-        // set up a test deck manually adding two copies of each as the game would
+        // set up a test deck, knowing each will be added twice
         List<Card> myDeck = new()
         {
           Resources.Load<Card>("Cards/Wax"),
-          Resources.Load<Card>("Cards/Wax"),
-          Resources.Load<Card>("Cards/Pulser"),
           Resources.Load<Card>("Cards/Pulser"),
           Resources.Load<Card>("Cards/Blizzard"),
-          Resources.Load<Card>("Cards/Blizzard"),
-          Resources.Load<Card>("Cards/Beemer"),
-          Resources.Load<Card>("Cards/Beemer")
+          Resources.Load<Card>("Cards/Apprentice")
         };
         TestDPM.DEV_setCustomDeck(myDeck);
         TestDPM.Awake();
@@ -39,22 +36,22 @@ public class DrawDiscardHandTest
 
 
         // After setup there should be 8 cards since our custom deck has 4 and each card is added twice
-        Assert.AreEqual(8, TestDPM.deck.Count);
-        Assert.AreEqual("8", TestDPM.drawPileCounter.text);
+        Assert.AreEqual(TestDPM.deck.Count, 8);
+        Assert.AreEqual(TestDPM.drawPileCounter.text, "8");
 
         TestDPM.Shuffle();
         yield return null;
         // there is no way to confirm that cards have been shuffled randomly since every permutation is valid
 
         // confirm shuffling does not change card count
-        Assert.AreEqual(8, TestDPM.deck.Count);
-        Assert.AreEqual("8", TestDPM.drawPileCounter.text);
+        Assert.AreEqual(TestDPM.deck.Count, 8);
+        Assert.AreEqual(TestDPM.drawPileCounter.text, "8");
 
         TestDPM.generateDrawPile(TestDPM.deck);
         yield return null;
         // confirm generated pile has the same amount of cards as it was given
-        Assert.AreEqual(8, TestDPM.deck.Count);
-        Assert.AreEqual("8", TestDPM.drawPileCounter.text);
+        Assert.AreEqual(TestDPM.deck.Count, 8);
+        Assert.AreEqual(TestDPM.drawPileCounter.text, "8");
 
         // There are a few methods we can't test without a hand, like drawing and discarding
     }
@@ -77,8 +74,8 @@ public class DrawDiscardHandTest
 
 
         // At start hand should be empty by default
-        Assert.AreEqual(0, TestHM.handSize);
-        Assert.AreEqual(TestHM.cardsInHand.Count, TestHM.handSize);
+        Assert.AreEqual(TestHM.handSize, 0);
+        Assert.AreEqual(TestHM.handSize, TestHM.cardsInHand.Count);
 
 
         yield return null;
@@ -88,14 +85,14 @@ public class DrawDiscardHandTest
 
 
         Assert.AreEqual(1, TestHM.handSize);
-        Assert.AreEqual(TestHM.cardsInHand.Count, TestHM.handSize);
+        Assert.AreEqual(TestHM.handSize, TestHM.cardsInHand.Count);
 
         yield return null;
 
         TestHM.AddToHand(cardList[4]);
 
-        Assert.AreEqual(2, TestHM.handSize);
-        Assert.AreEqual(TestHM.cardsInHand.Count, TestHM.handSize);
+        Assert.AreEqual(TestHM.handSize, 2);
+        Assert.AreEqual(TestHM.handSize, TestHM.cardsInHand.Count);
         
         yield return null;
 
@@ -103,8 +100,8 @@ public class DrawDiscardHandTest
           TestHM.AddToHand(cardList[i]);
         }
 
-        Assert.AreEqual(7, TestHM.handSize);
-        Assert.AreEqual(TestHM.cardsInHand.Count, TestHM.handSize);
+        Assert.AreEqual(TestHM.handSize, 7);
+        Assert.AreEqual(TestHM.handSize, TestHM.cardsInHand.Count);
 
 
     }
@@ -126,8 +123,8 @@ public class DrawDiscardHandTest
 
 
         // At start discard should be empty by default
-        Assert.AreEqual(0, TestDM.graveyardSize);
-        Assert.AreEqual("0", TestDM.graveyardSizeText.text);
+        Assert.AreEqual(TestDM.graveyardSize, 0);
+        Assert.AreEqual(TestDM.graveyardSizeText.text, "0");
 
         Assert.IsFalse(TestDM.drawFromGraveyard(null));
         Assert.IsFalse(TestDM.drawFromGraveyard(cardList[0]));
@@ -138,8 +135,8 @@ public class DrawDiscardHandTest
         TestDM.discard(null);
 
         // discarding null should not work
-        Assert.AreEqual(0, TestDM.graveyardSize);
-        Assert.AreEqual("0", TestDM.graveyardSizeText.text);
+        Assert.AreEqual(TestDM.graveyardSize, 0);
+        Assert.AreEqual(TestDM.graveyardSizeText.text, "0");
         Assert.IsFalse(TestDM.drawFromGraveyard(null));
         Assert.IsFalse(TestDM.drawFromGraveyard(cardList[0]));
 
@@ -148,14 +145,14 @@ public class DrawDiscardHandTest
         
         TestDM.discard(cardList[0]);
 
-        Assert.AreEqual(1, TestDM.graveyardSize);
-        Assert.AreEqual("1", TestDM.graveyardSizeText.text);
+        Assert.AreEqual(TestDM.graveyardSize, 1);
+        Assert.AreEqual(TestDM.graveyardSizeText.text, "1");
         Assert.IsTrue(TestDM.graveyard.Contains(cardList[0]));
 
         Assert.IsTrue(TestDM.drawFromGraveyard(cardList[0]));
 
-        Assert.AreEqual(0, TestDM.graveyardSize);
-        Assert.AreEqual("0", TestDM.graveyardSizeText.text);
+        Assert.AreEqual(TestDM.graveyardSize, 0);
+        Assert.AreEqual(TestDM.graveyardSizeText.text, "0");
         Assert.IsFalse(TestDM.graveyard.Contains(cardList[0]));
 
         yield return null;
@@ -164,15 +161,15 @@ public class DrawDiscardHandTest
         TestDM.discard(cardList[0]);
         
 
-        Assert.AreEqual(2, TestDM.graveyardSize);
-        Assert.AreEqual("2", TestDM.graveyardSizeText.text);
+        Assert.AreEqual(TestDM.graveyardSize, 2);
+        Assert.AreEqual(TestDM.graveyardSizeText.text, "2");
         Assert.IsTrue(TestDM.graveyard.Contains(cardList[0]));
         Assert.IsTrue(TestDM.graveyard.Contains(cardList[4]));
 
         Assert.IsTrue(TestDM.drawFromGraveyard(cardList[4]));
 
-        Assert.AreEqual(1, TestDM.graveyardSize);
-        Assert.AreEqual("1", TestDM.graveyardSizeText.text);
+        Assert.AreEqual(TestDM.graveyardSize, 1);
+        Assert.AreEqual(TestDM.graveyardSizeText.text, "1");
         Assert.IsFalse(TestDM.graveyard.Contains(cardList[4]));
 
         yield return null;
@@ -180,15 +177,15 @@ public class DrawDiscardHandTest
         for (int i = 0; i < 5; i++) {
           TestDM.discard(cardList[i]);
         }
-        Assert.AreEqual(6, TestDM.graveyardSize);
-        Assert.AreEqual("6", TestDM.graveyardSizeText.text);
+        Assert.AreEqual(TestDM.graveyardSize, 6);
+        Assert.AreEqual(TestDM.graveyardSizeText.text, "6");
         for (int i = 0; i < 5; i++) {
           Assert.IsTrue(TestDM.graveyard.Contains(cardList[i]));
         }
 
         List<Card> returnList = TestDM.drawAllGraveyard();
-        Assert.AreEqual(0, TestDM.graveyardSize);
-        Assert.AreEqual("0", TestDM.graveyardSizeText.text);
+        Assert.AreEqual(TestDM.graveyardSize, 0);
+        Assert.AreEqual(TestDM.graveyardSizeText.text, "0");
         for (int i = 0; i < 5; i++) {
           Assert.IsFalse(TestDM.graveyard.Contains(cardList[i]));
           Assert.IsTrue(returnList.Contains(cardList[i]));
@@ -214,12 +211,7 @@ public class DrawDiscardHandTest
           Resources.Load<Card>("Cards/Pulser"),
           Resources.Load<Card>("Cards/Blizzard"),
           Resources.Load<Card>("Cards/Sacrificial Bargain"),
-          Resources.Load<Card>("Cards/Beemer"),
-          Resources.Load<Card>("Cards/Wax"),
-          Resources.Load<Card>("Cards/Pulser"),
-          Resources.Load<Card>("Cards/Blizzard"),
-          Resources.Load<Card>("Cards/Sacrificial Bargain"),
-          Resources.Load<Card>("Cards/Beemer")
+          Resources.Load<Card>("Cards/Apprentice")
         };
         TestDPM.DEV_setCustomDeck(myDeck);
         TestHM.spellCardPrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/SpellCard.prefab");
@@ -234,23 +226,23 @@ public class DrawDiscardHandTest
 
         yield return null;
 
-        Assert.AreEqual(10, TestDPM.deck.Count);
-        Assert.AreEqual(0, TestHM.handSize);
-        Assert.AreEqual(0, TestDM.graveyardSize);
+        Assert.AreEqual(TestDPM.deck.Count, 10);
+        Assert.AreEqual(TestHM.handSize, 0);
+        Assert.AreEqual(TestDM.graveyardSize, 0);
 
         yield return null;
 
         TestDPM.DrawCard(TestHM);
-        Assert.AreEqual(9, TestDPM.deck.Count);
-        Assert.AreEqual(1, TestHM.handSize);
-        Assert.AreEqual(0, TestDM.graveyardSize);
+        Assert.AreEqual(TestDPM.deck.Count, 9);
+        Assert.AreEqual(TestHM.handSize, 1);
+        Assert.AreEqual(TestDM.graveyardSize, 0);
 
         yield return null;
         
         TestHM.DiscardCard(TestHM.cardsInHand[0].GetComponent<CardDisplay>().cardData);
-        Assert.AreEqual(9, TestDPM.deck.Count);
-        Assert.AreEqual(0, TestHM.handSize);
-        Assert.AreEqual(1, TestDM.graveyardSize);
+        Assert.AreEqual(TestDPM.deck.Count, 9);
+        Assert.AreEqual(TestHM.handSize, 0);
+        Assert.AreEqual(TestDM.graveyardSize, 1);
 
         yield return null;
 
@@ -258,18 +250,18 @@ public class DrawDiscardHandTest
           TestDPM.DrawCard(TestHM);
         }
         // max hand size is 8, so no cards should be drawn after
-        Assert.AreEqual(1, TestDPM.deck.Count);
-        Assert.AreEqual(8, TestHM.handSize);
-        Assert.AreEqual(1, TestDM.graveyardSize);
+        Assert.AreEqual(TestDPM.deck.Count, 1);
+        Assert.AreEqual(TestHM.handSize, 8);
+        Assert.AreEqual(TestDM.graveyardSize, 1);
 
         yield return null;
 
         for (int i = 0; i < 8; i++) {
           TestHM.DiscardCard(TestHM.cardsInHand[0].GetComponent<CardDisplay>().cardData);
         }
-        Assert.AreEqual(1, TestDPM.deck.Count);
-        Assert.AreEqual(0, TestHM.handSize);
-        Assert.AreEqual(9, TestDM.graveyardSize);
+        Assert.AreEqual(TestDPM.deck.Count, 1);
+        Assert.AreEqual(TestHM.handSize, 0);
+        Assert.AreEqual(TestDM.graveyardSize, 9);
 
         yield return null;
 
@@ -277,15 +269,15 @@ public class DrawDiscardHandTest
           TestDPM.DrawCard(TestHM);
           TestHM.DiscardCard(TestHM.cardsInHand[0].GetComponent<CardDisplay>().cardData);
         }
-        Assert.AreEqual(3, TestDPM.deck.Count);
-        Assert.AreEqual(0, TestHM.handSize);
-        Assert.AreEqual(7, TestDM.graveyardSize);
+        Assert.AreEqual(TestDPM.deck.Count, 3);
+        Assert.AreEqual(TestHM.handSize, 0);
+        Assert.AreEqual(TestDM.graveyardSize, 7);
         for (int i = 0; i < 3; i++) {
             TestDPM.DrawCard(TestHM);
         }
-        Assert.AreEqual(0, TestDPM.deck.Count);
-        Assert.AreEqual(3, TestHM.handSize);
-        Assert.AreEqual(7, TestDM.graveyardSize);
+        Assert.AreEqual(TestDPM.deck.Count, 0);
+        Assert.AreEqual(TestHM.handSize, 3);
+        Assert.AreEqual(TestDM.graveyardSize, 7);
     }
 }
 

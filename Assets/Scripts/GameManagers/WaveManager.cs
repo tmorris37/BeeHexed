@@ -1,7 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class WaveManager : MonoBehaviour
 {
@@ -11,7 +9,6 @@ public class WaveManager : MonoBehaviour
 
     [SerializeField] private float timeBetweenWaves = 10f;
     [SerializeField] private float timeBetweenSpawns = 1f;
-    [SerializeField] private float timeToRewardLoad = 3f;
 
     private int currentWave = 0;
     private bool waveInProgress = false;
@@ -20,7 +17,6 @@ public class WaveManager : MonoBehaviour
     private DrawPileManager drawPileManager;
     private HandManager handManager;
     private VictoryManager victoryManager;
-    private List<int> enemyIDs = new List<int>();
     void Awake() {
         drawPileManager = FindObjectOfType<DrawPileManager>();
         handManager = FindObjectOfType<HandManager>();
@@ -44,14 +40,8 @@ public class WaveManager : MonoBehaviour
             }
             for (int i = 0; i <= enemiesPerWave; i++)
             {
-                // TODO: Make this not hardcoded
-                int enemyID = UnityEngine.Random.Range(0, 4);
-                if (enemyID == 3) {
-                    enemyID = 1;
-                } else {
-                    enemyID = 0;
-                }
-                spawner.SpawnFromCaves(enemyID);
+                // Spawn an enemy using the Level0Spawner
+                spawner.SpawnFromCaves(0);
                 yield return new WaitForSeconds(timeBetweenSpawns);
             }
 
@@ -63,12 +53,8 @@ public class WaveManager : MonoBehaviour
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
         if (enemies.Length == 0) {
             victoryManager.Win();
-            yield return new WaitForSeconds(timeToRewardLoad);
-            SceneManager.LoadScene("Rewards");
         } else {
             victoryManager.Lose();
-            yield return new WaitForSeconds(timeToRewardLoad);
-            SceneManager.LoadScene("MainMenu");
         }
         
     }

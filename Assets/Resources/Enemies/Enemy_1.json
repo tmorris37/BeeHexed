@@ -1,0 +1,15 @@
+
+{
+    "MaxHealth": 10,
+    "Attacks": [
+        {
+            "DamageType": "Physical",
+            "DamageAmount": 5
+        },
+        {
+            "DamageType": "Magic",
+            "DamageAmount": 15
+        }
+    ],
+    "MovementType": "Flying"
+}

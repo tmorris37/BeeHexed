@@ -38,10 +38,7 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
       origCardScale = rectTransform.localScale;
       origCardPosition = rectTransform.localPosition;
       origCardRotation = rectTransform.localRotation;
-    }
-    // Start is called before the first frame update
-    void Start() {
-        hoverHighlight.SetActive(false);
+      hoverHighlight.SetActive(false);
     }
 
     // Update is called once per frame
@@ -93,6 +90,13 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
       {
         currState = 4;
         playArrow.SetActive(true);
+      } else if (desiredState == -1) {
+        currState = -1;
+        rectTransform.localPosition = origCardPosition;
+        rectTransform.localRotation = origCardRotation;
+        rectTransform.localScale = origCardScale;
+        hoverHighlight.SetActive(false);
+        playArrow.SetActive(false);
       }
     }
 
@@ -335,12 +339,16 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
 }
 
 
-private void destroyCard()
-{
-            CardDisplay cardDisplay = GetComponent<CardDisplay>();
-            HandManager handManager = FindObjectOfType<HandManager>();
-            handManager.cardsInHand.Remove(gameObject);
-            handManager.DiscardCard(cardDisplay.cardData);
-            Destroy(gameObject);
-}
+  private void destroyCard()
+  {
+              CardDisplay cardDisplay = GetComponent<CardDisplay>();
+              HandManager handManager = FindObjectOfType<HandManager>();
+              handManager.cardsInHand.Remove(gameObject);
+              handManager.DiscardCard(cardDisplay.cardData);
+              Destroy(gameObject);
+  }
+
+  public void Reset() {
+    GoToState(-1);
+  }
 }

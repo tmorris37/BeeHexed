@@ -4692,7 +4692,7 @@ MonoBehaviour:
   Percentage: 0
   Constant: 0
   ConstantQuantity: 0
-  Inputs: 020000000500000004000000
+  Inputs: 02000000050000000400000004000000
 --- !u!4 &1914675432
 Transform:
   m_ObjectHideFlags: 0

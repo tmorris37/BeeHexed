@@ -113,6 +113,7 @@ namespace EnemyAndTowers
             // Set the final position exactly to the target
             transform.position = target;
         }
+
         protected virtual void Update()
         {
             // Update the list of targets from the detection script

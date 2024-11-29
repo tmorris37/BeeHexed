@@ -24,6 +24,7 @@ namespace EnemyAndTowers
         public float moveTimeRemaining;     // Time remaining to move to the next tile
         public float attackRate = 1f;       // Time between attacks
         public float attackCooldown;        // Time remaining before the enemy can attack again
+        public int attackDamage;          // Damage dealt by the enemy
         public Vector3 targetPosition;      // Position the enemy is moving towards
         public MovementAlgorithms movement; // Movement algorithms for the enemy
         public EnemyData data;              // Data about the enemy
@@ -33,6 +34,7 @@ namespace EnemyAndTowers
         public InertiaDirection inertiaDir;    // Direction of inertia for the enemy (cw/ccw)
         public InertiaDirection desiredInertiaDir;    // Desired direction of inertia for the enemy (cw/ccw)
         public InertiaDirection desiredInertiaIO;    // Desired direction of inertia for the enemy (in/out)
+
 
         protected virtual void Start()
         {
@@ -140,7 +142,7 @@ namespace EnemyAndTowers
                 Tower towerScript = tower.GetComponent<Tower>();
                 if (towerScript != null)
                 {
-                    towerScript.TakeDamage(5);
+                    towerScript.TakeDamage(attackDamage);
                 }
             }
         }
@@ -157,6 +159,12 @@ namespace EnemyAndTowers
             yield return new WaitForSeconds(delay);
             this.health = this.health - damage;
             // healthBar.UpdateHealthBar(this.health, this.data.MaxHP);
+        }
+
+        public virtual void Stop() {
+          StopAllCoroutines();
+          movementSpeed = 0;
+          attackRate = 0;
         }
     }
 

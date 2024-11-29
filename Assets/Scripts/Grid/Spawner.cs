@@ -9,7 +9,8 @@ using EnemyAndTowers;
 
 public class Spawner : MonoBehaviour
 {
-    [SerializeField] public GameObject enemyPrefab;
+    [SerializeField] public GameObject enemyPrefab0;
+    [SerializeField] public GameObject enemyPrefab1;
 
     [SerializeField] public GridManager gridManager;
     [SerializeField] public CaveGenerator caveGenerator;
@@ -43,19 +44,30 @@ public class Spawner : MonoBehaviour
         spot.EnterTile(che);
     }
 
-    public void SpawnFromCaves(int EnemyID)
+    public void SpawnFromCaves(int enemyID)
     {
+        GameObject newEnemy;
         Vector3 randomCavePosition = cavePositions[UnityEngine.Random.Range(0, cavePositions.Count)];
         int q = (int)randomCavePosition.x;
         int r = (int)randomCavePosition.y;
         int s = (int)randomCavePosition.z;
         // Spawn Unity Object with Enemy script (Prefab)
-        GameObject NewEnemy = Instantiate(enemyPrefab);
-        Enemy newEnemyComponent = NewEnemy.GetComponent<Enemy>();
+        // TODO: Make this not hardcoded
+        if (enemyID == 0)
+        {
+            newEnemy = Instantiate(enemyPrefab0);
+        } else if (enemyID == 1)
+        {
+            newEnemy = Instantiate(enemyPrefab1);
+        } else {
+            Debug.LogError("Invalid Enemy ID");
+            return;
+        }
+        Enemy newEnemyComponent = newEnemy.GetComponent<Enemy>();
     
         if (newEnemyComponent != null)
         {
-            newEnemyComponent.EnemyID = EnemyID;
+            newEnemyComponent.EnemyID = enemyID;
             newEnemyComponent.SetQRS(q, r, s);
             newEnemyComponent.movement = movement;
             (float x, float y) = this.gridManager.QRStoXY(q, r, s);

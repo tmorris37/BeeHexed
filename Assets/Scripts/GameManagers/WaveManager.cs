@@ -49,18 +49,23 @@ public class WaveManager : MonoBehaviour
             {
                 // TODO: Make this not hardcoded
                 int enemyID = UnityEngine.Random.Range(0, 4);
+                string enemyType = "";
                 if (enemyID == 3) {
-                    enemyID = 1;
+                    enemyType = "SlothBear";
+                } else if (enemyID == 2) {
+                    enemyType = "Bombeardier";
+                } else if (enemyID == 1) {
+                    enemyType = "BearCub";
                 } else {
-                    enemyID = 0;
+                    enemyType = "AssassinBear";
                 }
-                spawner.SpawnFromCaves(enemyID);
+                spawner.SpawnFromCaves(enemyType);
                 yield return new WaitForSeconds(timeBetweenSpawns);
             }
             if (currentWave == numWaves) {
-              lastEnemySpawned = true;
+                lastEnemySpawned = true;
             } else {
-              yield return new WaitForSeconds(timeBetweenWaves);
+                yield return new WaitForSeconds(timeBetweenWaves);
             }
         }
         waveText.text = "Waves Complete!";

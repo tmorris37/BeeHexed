@@ -1,0 +1,12 @@
+{
+    "MaxHealth": 15,
+    "Speed": 0.25,
+    "Attacks": [
+        {
+            "DamageType": "Physical",
+            "DamageAmount": 5,
+            "AttackRate": 0.5
+        }
+    ],
+    "MovementType": "Ground"
+}

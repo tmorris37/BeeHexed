@@ -6,7 +6,7 @@ public class MusicManager : MonoBehaviour
     public static MusicManager Instance { get; private set; }
     public AudioMixer musicMixer;
     private AudioSource audioSource;
-    public float Volume;
+    public float volume;
     public AudioClip mainMenuClip;
     public AudioClip newGameClip;
     public AudioClip inGameClip;
@@ -23,16 +23,18 @@ public class MusicManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
 
         audioSource = GetComponent<AudioSource>();
-        audioSource.volume = Volume;
+        audioSource.volume = volume;
     }
 
-    private void Start()
+    public void Start()
     {
+        SetVolume(volume);
         PlayMainMenuMusic();
     }
 
     public void SetVolume(float volume)
     {
+        this.volume = volume;
         musicMixer.SetFloat("MusicVolume", Mathf.Log10(volume) * 20);
     }
 

@@ -28,6 +28,10 @@ namespace EnemyAndTowers
             if (entity.CompareTag("Tower") && entity.transform == target)
             {
                 entity.GetComponent<Tower>().TakeDamage(bombDamage);
+                if (SFXManager.Instance != null)
+                {
+                    SFXManager.Instance.PlayExplosion();
+                }
             }
         }
         private void Update()

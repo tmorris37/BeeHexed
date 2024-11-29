@@ -108,15 +108,19 @@ MonoBehaviour:
   gridManager: {fileID: 0}
   EnemyID: 0
   health: 0
-  movementSpeed: 1
+  movementSpeed: 0.25
   moveTimeRemaining: 0
   attackRate: 1
   attackCooldown: 0
+  attackDamage: 5
   targetPosition: {x: 0, y: 0, z: 0}
   movement: {fileID: 0}
   detection: {fileID: 0}
   targets: []
-  inertia: 0
+  inertiaIO: 0
+  inertiaDir: 0
+  desiredInertiaDir: 0
+  desiredInertiaIO: 0
 --- !u!1 &1155896374811132989
 GameObject:
   m_ObjectHideFlags: 0

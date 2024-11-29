@@ -109,6 +109,7 @@ MonoBehaviour:
   detection: {fileID: 0}
   fireRate: 2
   health: 0
+  damage: 2
   healthBar: {fileID: 0}
   beam: {fileID: 3655123639976924818, guid: 57b9ba4538121644f9dc61520d9c7307, type: 3}
   active: 0

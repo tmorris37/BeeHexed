@@ -68,7 +68,7 @@ namespace EnemyAndTowers
             this.health = this.data.MaxHealth;
             this.movementSpeed = this.data.Speed;
             this.attackDamage = this.data.Attacks[0].DamageAmount;
-            this.attackRate =  this.data.Attacks[0].AttackRate;
+            this.attackRate =  1 / this.data.Attacks[0].AttackRate;
             attackCooldown = attackRate;
 
             inertiaDir = InertiaDirection.nullDir;
@@ -113,6 +113,7 @@ namespace EnemyAndTowers
             // Set the final position exactly to the target
             transform.position = target;
         }
+
         protected virtual void Update()
         {
             // Update the list of targets from the detection script

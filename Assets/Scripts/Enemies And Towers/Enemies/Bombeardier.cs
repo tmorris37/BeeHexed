@@ -25,6 +25,10 @@ namespace EnemyAndTowers
             BombeardierProjectile bombScript = bomb.GetComponent<BombeardierProjectile>();
             bombScript.bombDamage = attackDamage;
             bombScript?.Seek(target.transform);
+            if (SFXManager.Instance != null)
+            {
+                SFXManager.Instance.PlayToss();
+            }
         }
 
         // Coroutine to translate the position at a constant speed

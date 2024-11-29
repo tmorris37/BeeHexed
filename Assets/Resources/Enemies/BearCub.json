@@ -5,7 +5,7 @@
         {
             "DamageType": "Physical",
             "DamageAmount": 5,
-            "AttackRate": 0.5
+            "AttackRate": 0.75
         }
     ],
     "MovementType": "Ground"

@@ -2671,6 +2671,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7df78d04ebf9cdc46ae407f263757e65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  assassinBear: {fileID: 435629412242135445, guid: cf66faa4e83f274438cefa8851f29d0b, type: 3}
   bearCub: {fileID: 435629412242135445, guid: ce2be51eee2719b48b1bdcb1ec473536, type: 3}
   bombeardier: {fileID: 435629412242135445, guid: 5a061379583b55d47add163dc3ea0b1a, type: 3}
   slothBear: {fileID: 435629412242135445, guid: 2593051021df8134e83697a5a7f90cf6, type: 3}

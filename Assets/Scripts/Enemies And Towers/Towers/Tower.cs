@@ -45,26 +45,6 @@ namespace EnemyAndTowers
             targets = new List<Transform>();
         }
 
-        // void OnTriggerEnter2D(Collider2D other)
-        // {
-        //     Debug.Log("It detects a thing");
-        //     if (other.CompareTag("EnemyBody"))
-        //     {
-        //         Debug.Log("It detects an enemy");
-        //         targets.Add(other.transform);
-        //     }
-        // }
-
-        // protected virtual void OnTriggerExit2D(Collider2D other)
-        // {
-        //     //if (other.CompareTag("Enemy") && other.transform == target)
-        //     if (other.CompareTag("EnemyBody"))
-        //     {
-        //         //target = null;
-        //         targets.Remove(other.transform);
-        //     }
-        // }
-
         protected virtual void Update()
         {
             this.targets = detection.targets;

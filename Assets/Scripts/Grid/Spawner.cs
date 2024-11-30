@@ -21,6 +21,7 @@ public class Spawner : MonoBehaviour
     [SerializeField] public GameObject cheerios;
 
     [SerializeField] public GameObject cavePrefab;
+    [SerializeField] public GameObject centerTower;
 
     [SerializeField] public int radius;
     [SerializeField] public bool DEBUG;
@@ -37,6 +38,16 @@ public class Spawner : MonoBehaviour
     {
         this.cavePositions = caveGenerator.cavePositions;
         SpawnCaves();
+        SpawnCenterTower();
+    }
+
+    public void SpawnCenterTower()
+    {
+        GameObject centerTower = Instantiate(this.centerTower);
+        Tower centerTowerComponent = centerTower.GetComponent<Tower>();
+        HexTile centerTile = gridManager.FetchTile(0, 0, 0);
+        centerTile.EnterTile(centerTower);
+        centerTowerComponent.gridManager = this.gridManager;
     }
 
     private void SpawnCheerios()

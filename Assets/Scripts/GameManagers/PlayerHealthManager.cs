@@ -17,11 +17,11 @@ public class PlayerHealthManager : MonoBehaviour
     }
 
     public void TakeDamage(int value) {
-      if (currentPlayerHealth <= value) {
-        currentPlayerHealth = 0;
-      } else {
-        currentPlayerHealth -= value;
-      }
+        if (currentPlayerHealth <= value) {
+            currentPlayerHealth = 0;
+        } else {
+            currentPlayerHealth -= value;
+        }
     }
 
     public int GetPlayerHealth() {

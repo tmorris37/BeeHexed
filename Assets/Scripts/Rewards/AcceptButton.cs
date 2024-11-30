@@ -11,7 +11,7 @@ public class AcceptButton : MonoBehaviour
 {
     [SerializeField] private bool DEBUG_MODE;
     [SerializeField] private string deckSavePath = "Assets/Deck/Deck.json";
-    [SerializeField] private string mapScene = "Scenes/Map";
+    [SerializeField] private string mapScene = "Overworld";
     private List<Card> deck = new();
     private void Start() {
       string JSONPlainText = File.ReadAllText(deckSavePath);

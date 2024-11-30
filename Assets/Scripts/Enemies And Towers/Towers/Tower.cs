@@ -58,14 +58,26 @@ namespace EnemyAndTowers
 
         public virtual void TakeDamage(int damage)
         {
-            StartCoroutine(UpdateHealthAfterDelay(damage, 0.04f));
+            SpriteRenderer sprite = GetComponent<SpriteRenderer>();
+            sprite.color = Color.red;
+            StartCoroutine(FadeBackColor(sprite, 0.5f));
+            this.health = this.health - damage;
         }
 
-        private IEnumerator UpdateHealthAfterDelay(int damage, float delay)
+        private IEnumerator FadeBackColor(SpriteRenderer sprite, float duration)
         {
-            yield return new WaitForSeconds(delay);
-            this.health = this.health - damage;
-            // healthBar.UpdateHealthBar(this.health, this.Data.MaxHealth);
+            Color startColor = sprite.color;
+            Color endColor = Color.white;
+            float elapsed = 0f;
+
+            while (elapsed < duration)
+            {
+                elapsed += Time.deltaTime;
+                sprite.color = Color.Lerp(startColor, endColor, elapsed / duration);
+                yield return null; // Wait for the next frame
+            }
+
+            sprite.color = endColor; // Ensure the final color is set
         }
     }
 

@@ -4,7 +4,7 @@
     "Attacks": [
         {
             "DamageType": "Physical",
-            "DamageAmount": 50,
+            "DamageAmount": 15,
             "AttackRate": 1
         }
     ],

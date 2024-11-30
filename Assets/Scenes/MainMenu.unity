@@ -422,7 +422,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sfxMixer: {fileID: 24100000, guid: 8954569ea1c100b4abc974846b84367f, type: 2}
-  volume: 0.5
+  volume: 0.15
   Beem: {fileID: 8300000, guid: 9736710c5866be24686683e3c317c9bf, type: 3}
   Pulse: {fileID: 8300000, guid: ed28874eece7c764cb4091e2c90bee4b, type: 3}
   Explosion: {fileID: 8300000, guid: 4c394284fa6c1984186b2f28be93c5f1, type: 3}
@@ -1682,7 +1682,7 @@ MonoBehaviour:
   volume: 0.5
   mainMenuClip: {fileID: 8300000, guid: baba779d9bafe914e8199232a5b219e7, type: 3}
   newGameClip: {fileID: 8300000, guid: ddf1e3f693c7a3c4d976fc796aac4062, type: 3}
-  inGameClip: {fileID: 8300000, guid: eae20413163bd9840a097ddd8bde3413, type: 3}
+  inGameClip: {fileID: 8300000, guid: 5906dd866e116754ca0b8e705f246cdb, type: 3}
 --- !u!82 &1428806544
 AudioSource:
   m_ObjectHideFlags: 0

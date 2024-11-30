@@ -6,12 +6,12 @@ using Newtonsoft.Json;
 [CreateAssetMenu(fileName = "New Spell Card", menuName = "Card/Spell Card")]
 public class SpellCard : Card
 {
-  [SerializeField] private int SpellID;
-  public SpellType Type;
-  private SpellData spellData;
-  public GameObject prefab;
+    [SerializeField] private int SpellID;
+    public SpellType Type;
+    private SpellData spellData;
+    public GameObject prefab;
 
-  void Start() {
+    void Start() {
     var FileData = Resources.Load<TextAsset>("Spells/Spell_" + SpellID);
 
         if (FileData != null) {
@@ -21,15 +21,15 @@ public class SpellCard : Card
         else {
             Debug.Log("Unable to load Spell_" + SpellID);
         }
-  }
+    }
 }
 
 public enum SpellType {
-      Blessing,
-      Hex
+        Blessing,
+        Hex
     }
 public class SpellData {
-  public SpellType Type{ get; set;}
-  public int Damage{ get; set;}
-  public int AttackSpeed{ get; set;}
+    public SpellType Type{ get; set;}
+    public int Damage{ get; set;}
+    public int AttackSpeed{ get; set;}
 }

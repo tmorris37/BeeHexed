@@ -15,6 +15,7 @@ TagManager:
   - Projectile
   - Projetile
   - Obstacle
+  - Undefined
   layers:
   - Default
   - TransparentFX
@@ -23,7 +24,7 @@ TagManager:
   - Water
   - UI
   - TowerBody
-  - 
+  - Effects
   - 
   - 
   - 
@@ -49,9 +50,18 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Background
+    uniqueID: 4147478815
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Text
+  - name: Tower
     uniqueID: 3838032757
+    locked: 0
+  - name: Enemy
+    uniqueID: 90585607
+    locked: 0
+  - name: Effect
+    uniqueID: 4019302019
     locked: 0

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3161000316992470741}
   - component: {fileID: 8151426367890482933}
   m_Layer: 0
-  m_Name: BearCub
+  m_Name: AssassinBear
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -77,7 +77,7 @@ SpriteRenderer:
   m_SortingLayerID: 90585607
   m_SortingLayer: -1
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: c176c9fcd88558d4c91216c7cf2264ed, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 38dc13863bd221f478555c0799cdef80, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

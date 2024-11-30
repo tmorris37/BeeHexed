@@ -18,13 +18,13 @@ namespace EnemyAndTowers
             nullDir // No direction
         }
         // [SerializeField] protected FloatingHealthBar healthBar;
-        public int EnemyID;                 // Determines the type of enemy
+    public string enemyType;                // Type of enemy
         public int health;                  // Current health of the enemy
         public float movementSpeed = 0.5f;  // Speed at which the enemy moves (tiles per second)
         public float moveTimeRemaining;     // Time remaining to move to the next tile
         public float attackRate = 1f;       // Time between attacks
         public float attackCooldown;        // Time remaining before the enemy can attack again
-        public int attackDamage;          // Damage dealt by the enemy
+        public int attackDamage;            // Damage dealt by the enemy
         public Vector3 targetPosition;      // Position the enemy is moving towards
         public MovementAlgorithms movement; // Movement algorithms for the enemy
         public EnemyData data;              // Data about the enemy
@@ -51,7 +51,7 @@ namespace EnemyAndTowers
             }
             // Assets/Resources/Enemies/Enemy_"".json
             // Creates a TextAsset containing the data from Enemy_"".json
-            var FileData = Resources.Load<TextAsset>("Enemies/Enemy_" + EnemyID);
+            var FileData = Resources.Load<TextAsset>("Enemies/" + enemyType);
 
             if (FileData != null)
             {
@@ -63,16 +63,21 @@ namespace EnemyAndTowers
             }
             else
             {
-                Debug.Log("Unable to load Enemy_" + EnemyID);
+                Debug.Log("Unable to load Enemy:" + enemyType);
             }
             this.health = this.data.MaxHealth;
-            // healthBar = GetComponentInChildren<FloatingHealthBar>();
-            // healthBar.UpdateHealthBar(this.health, this.data.MaxHP);
+            this.movementSpeed = this.data.Speed;
+            this.attackDamage = this.data.Attacks[0].DamageAmount;
+            this.attackRate =  1 / this.data.Attacks[0].AttackRate;
             attackCooldown = attackRate;
+
             inertiaDir = InertiaDirection.nullDir;
             inertiaIO = InertiaDirection.nullDir;
             desiredInertiaDir = InertiaDirection.nullDir;
             desiredInertiaIO = InertiaDirection.nullDir;
+            
+            // healthBar = GetComponentInChildren<FloatingHealthBar>();
+            // healthBar.UpdateHealthBar(this.health, this.data.MaxHP);
         }
 
         // Call this method to smoothly move the enemy to a target position
@@ -108,6 +113,7 @@ namespace EnemyAndTowers
             // Set the final position exactly to the target
             transform.position = target;
         }
+
         protected virtual void Update()
         {
             // Update the list of targets from the detection script
@@ -174,6 +180,7 @@ namespace EnemyAndTowers
     public class EnemyData
     {
         public int MaxHealth { get; set; }
+        public float Speed { get; set; }
         public IList<Attack> Attacks { get; set; }
         public string MovementType { get; set; }
         // More fields based on what we need to store about an enemy
@@ -184,6 +191,7 @@ namespace EnemyAndTowers
     {
         public string DamageType { get; set; }
         public int DamageAmount { get; set; }
+        public float AttackRate { get; set; }
         // More fields based on attack type
     }
     #endregion

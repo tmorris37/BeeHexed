@@ -9,8 +9,10 @@ using EnemyAndTowers;
 
 public class Spawner : MonoBehaviour
 {
-    [SerializeField] public GameObject enemyPrefab0;
-    [SerializeField] public GameObject enemyPrefab1;
+    [SerializeField] public GameObject assassinBear;
+    [SerializeField] public GameObject bearCub;
+    [SerializeField] public GameObject bombeardier;
+    [SerializeField] public GameObject slothBear;
 
     [SerializeField] public GridManager gridManager;
     [SerializeField] public CaveGenerator caveGenerator;
@@ -19,6 +21,7 @@ public class Spawner : MonoBehaviour
     [SerializeField] public GameObject cheerios;
 
     [SerializeField] public GameObject cavePrefab;
+    [SerializeField] public GameObject centerTower;
 
     [SerializeField] public int radius;
     [SerializeField] public bool DEBUG;
@@ -35,6 +38,16 @@ public class Spawner : MonoBehaviour
     {
         this.cavePositions = caveGenerator.cavePositions;
         SpawnCaves();
+        SpawnCenterTower();
+    }
+
+    public void SpawnCenterTower()
+    {
+        GameObject centerTower = Instantiate(this.centerTower);
+        Tower centerTowerComponent = centerTower.GetComponent<Tower>();
+        HexTile centerTile = gridManager.FetchTile(0, 0, 0);
+        centerTile.EnterTile(centerTower);
+        centerTowerComponent.gridManager = this.gridManager;
     }
 
     private void SpawnCheerios()
@@ -44,7 +57,7 @@ public class Spawner : MonoBehaviour
         spot.EnterTile(che);
     }
 
-    public void SpawnFromCaves(int enemyID)
+    public void SpawnFromCaves(string enemyType)
     {
         GameObject newEnemy;
         Vector3 randomCavePosition = cavePositions[UnityEngine.Random.Range(0, cavePositions.Count)];
@@ -53,21 +66,31 @@ public class Spawner : MonoBehaviour
         int s = (int)randomCavePosition.z;
         // Spawn Unity Object with Enemy script (Prefab)
         // TODO: Make this not hardcoded
-        if (enemyID == 0)
+        switch (enemyType)
         {
-            newEnemy = Instantiate(enemyPrefab0);
-        } else if (enemyID == 1)
-        {
-            newEnemy = Instantiate(enemyPrefab1);
-        } else {
-            Debug.LogError("Invalid Enemy ID");
-            return;
+            case "BearCub" :
+                newEnemy = Instantiate(bearCub);
+                break;
+            case "Bombeardier" :
+                newEnemy = Instantiate(bombeardier);
+                break;
+            case "SlothBear" :
+                newEnemy = Instantiate(slothBear);
+                break;
+            case "AssassinBear" :
+                newEnemy = Instantiate(assassinBear);
+                break;
+            default:
+                Debug.LogError("Invalid Enemy ID");
+                return;
+                
         }
+        
         Enemy newEnemyComponent = newEnemy.GetComponent<Enemy>();
     
         if (newEnemyComponent != null)
         {
-            newEnemyComponent.EnemyID = enemyID;
+            newEnemyComponent.enemyType = enemyType;
             newEnemyComponent.SetQRS(q, r, s);
             newEnemyComponent.movement = movement;
             (float x, float y) = this.gridManager.QRStoXY(q, r, s);

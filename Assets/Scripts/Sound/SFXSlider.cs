@@ -9,16 +9,24 @@ public class SFXSlider : MonoBehaviour
     {
         slider = GetComponent<Slider>();
 
-        // Set the slider's initial value based on the MusicManager
-        float volume;
-        if (SFXManager.Instance != null && SFXManager.Instance.sfxMixer.GetFloat("SFXVolume", out volume))
+        // Initialize the slider's value based on the SFXManager
+        if (SFXManager.Instance != null)
         {
-            // Convert decibel value back to linear (0 to 1)
-            slider.value = Mathf.Pow(10, volume / 20);
+            float volume;
+            // Check if we can get the SFXVolume from the AudioMixer
+            if (SFXManager.Instance.sfxMixer.GetFloat("SFXVolume", out volume))
+            {
+                // Convert decibel value back to linear (0 to 1)
+                slider.value = Mathf.Pow(10, volume / 20);
+            }
+            else
+            {
+                slider.value = 0.5f; // Default value if unable to get volume
+            }
         }
         else
         {
-            slider.value = 0.5f; // Default value
+            slider.value = 0.5f; // Default value if SFXManager is not available
         }
 
         // Add listener to update volume when slider value changes

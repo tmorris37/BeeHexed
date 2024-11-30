@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 using Newtonsoft.Json;
@@ -18,25 +19,15 @@ namespace EnemyAndTowers
 
         protected override void Attack()
         {
-            // Loop through all targets and deal damage
-            foreach (Transform tower in targets)
+            Transform target = targets.First();
+
+            GameObject bomb = Instantiate(bombPrefab, transform.position, Quaternion.identity);
+            BombeardierProjectile bombScript = bomb.GetComponent<BombeardierProjectile>();
+            bombScript.bombDamage = attackDamage;
+            bombScript?.Seek(target.transform);
+            if (SFXManager.Instance != null)
             {
-                GameObject bomb = Instantiate(bombPrefab, transform.position, Quaternion.identity);
-                BombeardierProjectile bombScript = bomb.GetComponent<BombeardierProjectile>();
-                bombScript.bombDamage = attackDamage;
-                if (bombScript != null)
-                {
-                    Transform target = tower;
-                    
-                    bombScript.Seek(target.transform);
-                }
-                
-                
-                // Tower towerScript = tower.GetComponent<Tower>();
-                // if (towerScript != null)
-                // {
-                //     towerScript.TakeDamage(attackDamage);
-                // }
+                SFXManager.Instance.PlayToss();
             }
         }
 

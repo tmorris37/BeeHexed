@@ -9,6 +9,10 @@ using Map;
 namespace Map {
 public class QuestionDialogueScript : MonoBehaviour
 {
+    public static QuestionDialogueScript Instance {
+        get; 
+        private set;
+    }
     // Question Text in textbox
     [SerializeField] private TMP_Text textBox;
 
@@ -17,6 +21,7 @@ public class QuestionDialogueScript : MonoBehaviour
     [SerializeField] private Button noButton;
 
 private void Awake() {
+    Instance = this;
 //    Transform textBoxTransform = transform.Find("TextBox");
     Transform yesButtonTransform = transform.Find("YesButton");
     Transform noButtonTransform = transform.Find("NoButton");

@@ -20,13 +20,13 @@ public class MapScript : MonoBehaviour
         {
             if (MusicManager.Instance != null)
             {
-                if (sceneName == "Level0")
+                if (sceneName == "MainMenu")
                 {
-                    MusicManager.Instance.PlayInGameMusic();
+                    MusicManager.Instance.PlayMainMenuMusic();
                 }
                 else
                 {
-                    MusicManager.Instance.PlayMainMenuMusic();
+                    MusicManager.Instance.PlayInGameMusic();
                 }
             }
             SceneManager.LoadScene(sceneName);

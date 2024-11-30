@@ -12,6 +12,7 @@ namespace EnemyAndTowers
         public float speed = 5f;
         private Vector3 startScale; // Initial scale of the bomb
         private float totalDistance; // Total distance to the target
+        public GameObject explosionPrefab;
 
         // Set the target for the projectile
         public void Seek(Transform target)
@@ -32,6 +33,13 @@ namespace EnemyAndTowers
                 {
                     SFXManager.Instance.PlayExplosion();
                 }
+                
+
+                GameObject explosion = Instantiate(explosionPrefab, target.position, Quaternion.identity);
+                // BombeardierProjectile bombScript = ex.GetComponent<BombeardierProjectile>();
+                // bombScript.bombDamage = attackDamage;
+                // bombScript?.Seek(target.transform);
+                // if (SFXManager.Instance != null)
             }
         }
         private void Update()

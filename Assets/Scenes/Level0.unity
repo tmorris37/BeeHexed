@@ -1210,8 +1210,8 @@ TilemapRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -147488481
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0.006726444, y: 0.07399106, z: 0}
@@ -2363,7 +2363,7 @@ MonoBehaviour:
   DEBUG_MODE: 0
   waveText: {fileID: 1378812805}
   spawner: {fileID: 949248046}
-  enemiesPerWave: 3
+  enemiesPerWave: 5
   numWaves: 1
   timeBetweenWaves: 5
   timeBetweenSpawns: 3

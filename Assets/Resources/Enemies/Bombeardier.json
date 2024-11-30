@@ -4,7 +4,7 @@
     "Attacks": [
         {
             "DamageType": "Ranged",
-            "DamageAmount": 2,
+            "DamageAmount": 4,
             "AttackRate": 0.5
         }
     ],

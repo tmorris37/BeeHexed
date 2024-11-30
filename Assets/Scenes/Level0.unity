@@ -2363,7 +2363,7 @@ MonoBehaviour:
   DEBUG_MODE: 0
   waveText: {fileID: 1378812805}
   spawner: {fileID: 949248046}
-  enemiesPerWave: 3
+  enemiesPerWave: 5
   numWaves: 1
   timeBetweenWaves: 5
   timeBetweenSpawns: 3

@@ -100,6 +100,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bombDamage: 1
   speed: 2
+  explosionPrefab: {fileID: 6704207199829585174, guid: 8a2a35bd122bdcc459ee57e664816a89, type: 3}
 --- !u!58 &8285401154296600030
 CircleCollider2D:
   m_ObjectHideFlags: 0

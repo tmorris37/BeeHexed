@@ -27,8 +27,8 @@ MonoBehaviour:
     min: 4
     max: 5
   numOfStartingNodes:
-    min: 5
-    max: 5
+    min: 3
+    max: 4
   extraPaths: 1
   layers:
   - nodeType: 0

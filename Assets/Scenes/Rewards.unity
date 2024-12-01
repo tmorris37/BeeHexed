@@ -176,7 +176,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DEBUG_MODE: 0
   deckSavePath: Assets/Deck/Deck.json
-  mapScene: Scenes/Map
+  mapScene: Assets/STSMap_Gen_Package/Scenes/Overworld.unity
 --- !u!114 &542492701
 MonoBehaviour:
   m_ObjectHideFlags: 0

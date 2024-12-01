@@ -14,7 +14,7 @@ public class MainMenu : MonoBehaviour
     {
         if (MusicManager.Instance != null)
             {
-                if (sceneName == "Map")
+                if (sceneName == "Overworld")
                 {
                     MusicManager.Instance.PlayNewGameMusic();
                 }

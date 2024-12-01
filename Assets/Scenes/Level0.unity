@@ -4562,7 +4562,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gridManager: {fileID: 1554881295}
   Obstacle1: {fileID: 8427140594737057986, guid: e0954496b7fdcd3469d4cb6db17afa30, type: 3}
-  Obstacle2: {fileID: 8427140594737057986, guid: e0954496b7fdcd3469d4cb6db17afa30, type: 3}
+  Obstacle2: {fileID: 8427140594737057986, guid: 860b4ad79f0fdaf4483de3a30701df18, type: 3}
   Percent: 0
   Percentage: 0
   Constant: 0

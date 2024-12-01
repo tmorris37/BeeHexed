@@ -39,6 +39,10 @@ public class Spawner : MonoBehaviour
         this.cavePositions = caveGenerator.cavePositions;
         SpawnCaves();
         SpawnCenterTower();
+        if(MusicManager.Instance != null)
+        {
+            MusicManager.Instance.PlayInGameMusic();
+        }
     }
 
     public void SpawnCenterTower()
@@ -48,13 +52,6 @@ public class Spawner : MonoBehaviour
         HexTile centerTile = gridManager.FetchTile(0, 0, 0);
         centerTile.EnterTile(centerTower);
         centerTowerComponent.gridManager = this.gridManager;
-    }
-
-    private void SpawnCheerios()
-    {
-        GameObject che = Instantiate(cheerios);
-        HexTile spot = this.gridManager.FetchTile(0, 0, 0);
-        spot.EnterTile(che);
     }
 
     public void SpawnFromCaves(string enemyType)

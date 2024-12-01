@@ -168,9 +168,9 @@ namespace EnemyAndTowers
         }
 
         public virtual void Stop() {
-          StopAllCoroutines();
-          movementSpeed = 0;
-          attackRate = 0;
+            StopAllCoroutines();
+            movementSpeed = 0;
+            attackRate = 0;
         }
     }
 

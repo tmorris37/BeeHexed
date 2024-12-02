@@ -15,6 +15,8 @@ namespace EnemyAndTowers
         public float fireRate;
         public int health;
         public int damage;
+
+        public bool active;
         protected List<Transform> targets;
         protected float fireCountdown;
 

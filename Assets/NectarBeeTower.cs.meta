@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/NectarBeeTower.cs.meta
+guid: 0b9ad616c0241bd47b17e1fa6f86b35f
+========
+guid: db6a100212931b347b38b56acb823912
+>>>>>>>> main:Assets/Scripts/Enemies And Towers/Enemies/Bombeardier.cs.meta
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

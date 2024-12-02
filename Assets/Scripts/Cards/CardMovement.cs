@@ -7,7 +7,7 @@ using EnemyAndTowers;
 
 public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerEnterHandler, IPointerExitHandler
 {
-
+    public bool DEBUG_MODE;
     private RectTransform rectTransform;
     private Canvas canvas;
     private Vector2 originLocalCursorPosition;
@@ -144,70 +144,7 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
     }
 
     private void HandlePlayState() {
-      /*rectTransform.localPosition = playPosition;
-      rectTransform.localRotation = Quaternion.identity;
-      // mouse released
-      if (!Input.GetMouseButton(0)) {
-        CardDisplay cardDisplay = GetComponent<CardDisplay>();
-        NectarManager nectarManager = FindObjectOfType<NectarManager>();
-        // check cost
-        if (cardDisplay.cardData.cost <= nectarManager.GetNectar()) {
-          TowerSelector towerSelector = FindObjectOfType<TowerSelector>();
-          if (cardDisplay.cardData.cardType == Card.CardType.Tower) {
-            // ensures tower is playable at mouse location
-            if (towerSelector.spawnTower(((TowerCard)cardDisplay.cardData).prefab)) {
-              nectarManager.SetNectar(nectarManager.GetNectar() - cardDisplay.cardData.cost);
-            } else {
-              errorManager.SetErrorMsg("Invalid tile!");
-              GoToState(2);
-              playArrow.SetActive(false);
-              return;
-            }
-          // ((TowerCard)cardDisplay.cardData).fieldSprite
-          //Instantiate(gameObject, Input.mousePosition / canvas.scaleFactor + new Vector3(-400f, -400f, 0f), Quaternion.identity);
-            
-            GameObject to = ((TowerCard)cardDisplay.cardData).prefab;
-            if (to.GetComponent<PulserTower>() != null)
-            {
-              
-            }
-            towerSelector.spawnTower(((TowerCard)cardDisplay.cardData).prefab);
-          
-          
-          
-          // set parent transform
-          } else {
-            // cast spell
-            if (((SpellCard)cardDisplay.cardData).Type == SpellType.Hex) {
-              if (towerSelector.castSpell(((SpellCard)cardDisplay.cardData).prefab, SpellType.Hex)) {
-                nectarManager.SetNectar(nectarManager.GetNectar() - cardDisplay.cardData.cost);
-              } else {
-                errorManager.SetErrorMsg("Invalid tile!");
-                GoToState(2);
-                playArrow.SetActive(false);
-                return;
-              }
-            } else {
-              towerSelector.castSpell(((SpellCard)cardDisplay.cardData).prefab, SpellType.Blessing);
-              nectarManager.SetNectar(nectarManager.GetNectar() - cardDisplay.cardData.cost);
-            }
-            
-          }
-        // Discard card and destroy card
-        HandManager handManager = FindObjectOfType<HandManager>();
-        handManager.cardsInHand.Remove(gameObject);
-        handManager.DiscardCard(cardDisplay.cardData);
-        Destroy(gameObject);
-        } else {
-        errorManager.SetErrorMsg("Not Enough Nectar!");
-        GoToState(2);
-        playArrow.SetActive(false);
-      }
-    } 
-      if (Input.mousePosition.y / canvas.scaleFactor < cardPlayZone.y) {
-        GoToState(2);
-        playArrow.SetActive(false);
-      }*/
+
     rectTransform.localPosition = playPosition;
     rectTransform.localRotation = Quaternion.identity;
     // mouse released
@@ -223,7 +160,9 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
             if (cardDisplay.cardData.cardType == Card.CardType.Tower)
             {
               GameObject to = ((TowerCard)cardDisplay.cardData).prefab;
-              Debug.Log("Its about to look at a tower");
+              if (DEBUG_MODE) {
+                Debug.Log("Its about to look at a tower");
+              }             
               // ensures tower is playable at mouse location
               if (towerSelector.spawnTower(to)) {
                 nectarManager.SetNectar(nectarManager.GetNectar() - cardDisplay.cardData.cost);
@@ -259,12 +198,6 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
                 nectarManager.SetNectar(nectarManager.GetNectar() - cardDisplay.cardData.cost);
               }
             }
-
-            // Discard card and destroy card
-            /*HandManager handManager = FindObjectOfType<HandManager>();
-            handManager.cardsInHand.Remove(gameObject);
-            handManager.DiscardCard(cardDisplay.cardData);
-            Destroy(gameObject);*/
             destroyCard();
         }
         else
@@ -308,8 +241,9 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
     float snappedCenterAngle = Mathf.Round(centerAngle / 60f) * 60f;
 
     // Debug the calculated angles for verification
-    Debug.Log($"Snapped Angle: {snappedAngle}, Center Angle: {snappedCenterAngle}");
-
+    if (DEBUG_MODE) {
+      Debug.Log($"Snapped Angle: {snappedAngle}, Center Angle: {snappedCenterAngle}");
+    }
     // Use a tolerance to check if snappedAngle points toward the center
     float tolerance = 30f; // Adjust if necessary
     /*if (Mathf.Abs(Mathf.DeltaAngle(snappedAngle, centerAngle)) < tolerance)
@@ -319,7 +253,9 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
     }*/
     if (Mathf.Abs(Mathf.DeltaAngle(angle, centerAngle)) < tolerance)
     {
-        Debug.Log("Blocked rotation toward the center! Adjust the direction.");
+        if (DEBUG_MODE) {
+          Debug.Log("Blocked rotation toward the center! Adjust the direction.");
+        }
         return; // Skip updating rotation but keep the user in the adjustment state
     }
 
@@ -329,7 +265,9 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
     // Confirm rotation on click
     if (Input.GetMouseButtonDown(0))
     {
-        Debug.Log($"Beamer Tower rotation set to {snappedAngle} degrees.");
+        if (DEBUG_MODE) {
+          Debug.Log($"Beamer Tower rotation set to {snappedAngle} degrees.");
+        }
         beamerTower.active = true;
         destroyCard();
         GoToState(0); // Return to default state

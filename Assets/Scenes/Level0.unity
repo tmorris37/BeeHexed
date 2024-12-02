@@ -3606,12 +3606,11 @@ MonoBehaviour:
   DEVELOPER_MODE: 0
   DEBUG_MODE: 0
   customDeck:
-  - {fileID: 11400000, guid: 2942af11a37e5f04a8fecc1b7c0ae4ec, type: 2}
-  - {fileID: 11400000, guid: 2942af11a37e5f04a8fecc1b7c0ae4ec, type: 2}
-  - {fileID: 11400000, guid: 2942af11a37e5f04a8fecc1b7c0ae4ec, type: 2}
-  - {fileID: 11400000, guid: 2942af11a37e5f04a8fecc1b7c0ae4ec, type: 2}
-  - {fileID: 11400000, guid: 2942af11a37e5f04a8fecc1b7c0ae4ec, type: 2}
-  - {fileID: 11400000, guid: 2942af11a37e5f04a8fecc1b7c0ae4ec, type: 2}
+  - {fileID: 11400000, guid: 2edd6cb0950a7b34896f87da642c90e3, type: 2}
+  - {fileID: 11400000, guid: 2edd6cb0950a7b34896f87da642c90e3, type: 2}
+  - {fileID: 11400000, guid: 0764704ebb4245b449a3db872a0d0ee2, type: 2}
+  - {fileID: 11400000, guid: 0764704ebb4245b449a3db872a0d0ee2, type: 2}
+  - {fileID: 11400000, guid: 0764704ebb4245b449a3db872a0d0ee2, type: 2}
   deck: []
   handLimit: 8
   deckSavePath: Assets/Deck/Deck.json

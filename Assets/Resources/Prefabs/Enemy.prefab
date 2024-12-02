@@ -102,20 +102,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d9ecbbee90e9b544882b87ac5824819, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DEBUG: 0
   q: 0
   r: 0
   s: 0
   GridRadius: 0
-  DEBUG: 1
-  GridManager: {fileID: 0}
-  EnemyID: 0
-  health: 0
   gridManager: {fileID: 0}
+  enemyType: 
+  health: 0
   movementSpeed: 0.33333334
-  Detection: {fileID: 0}
+  moveTimeRemaining: 0
   attackRate: 1
   attackCooldown: 0
+  attackDamage: 0
+  targetPosition: {x: 0, y: 0, z: 0}
+  movement: {fileID: 0}
+  detection: {fileID: 0}
   targets: []
+  inertiaIO: 0
+  inertiaDir: 0
+  desiredInertiaDir: 0
+  desiredInertiaIO: 0
 --- !u!61 &7338443146895155815
 BoxCollider2D:
   m_ObjectHideFlags: 0

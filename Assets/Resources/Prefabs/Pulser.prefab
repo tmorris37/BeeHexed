@@ -178,7 +178,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -456934539
-  m_SortingLayer: -2
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: c105e2acef28dd94ab81f5d3aabe6f78, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -203,7 +203,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 890cba8e1470f0d4bac2d66e9ab7c305, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DEBUG: 1
+  DEBUG: 0
   q: 0
   r: 0
   s: 0
@@ -214,6 +214,7 @@ MonoBehaviour:
   fireRate: 2
   health: 0
   damage: 1
+  active: 0
   healthBar: {fileID: 0}
   pulseRate: 1
   projectilePrefab: {fileID: 1813104218997895954, guid: dfe7bc1084486f34c87d7b9056d82f23, type: 3}

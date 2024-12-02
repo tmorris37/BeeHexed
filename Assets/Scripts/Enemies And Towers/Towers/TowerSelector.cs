@@ -17,6 +17,7 @@ public class TowerSelector : MonoBehaviour
     private TileBase originalTile;
     private bool hasHoveredTile;
     private Vector3Int cellPosition;
+    public bool DEBUG_MODE;
 
     void Update()
     {
@@ -46,41 +47,6 @@ public class TowerSelector : MonoBehaviour
                 hasHoveredTile = true;
             }
         }
-
-        // // Check for mouse click to place a tower
-        // if (hasHoveredTile)
-        // {
-        //     //get the tile from grid manager
-        //     //set it to whatever the tower is
-        //     (int q, int r, int s) = this.gridManager.XYtoQRS(cellPosition.x, cellPosition.y);
-        //     HexTile spot = this.gridManager.FetchTile(q, r, s);
-        //     HexPosition TowerComponent;
-        //     GameObject t;
-        //     if (!spot.getOccupied())
-        //     {
-        //         if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1))
-        //         {
-        //             if (Input.GetMouseButtonDown(0))
-        //             {
-        //                 Vector3 towerPosition = hexTilemap.CellToWorld(lastHoveredTilePosition) + new Vector3(0, 0.5f, 0); // Adjust for tile center
-        //                 t = Instantiate(towerPrefab, towerPosition, Quaternion.identity); // Spawn the tower at the tile position
-
-        //                 TowerComponent = t.GetComponent<Tower>();
-        //             }
-        //             else
-        //             {
-        //                 Vector3 towerPosition = hexTilemap.CellToWorld(lastHoveredTilePosition) + new Vector3(0, 0, 0); // Adjust for tile center
-        //                 t = Instantiate(PulserPrefab, towerPosition, Quaternion.identity); // Spawn the tower at the tile position
-
-        //                 TowerComponent = t.GetComponent<PulserTower>();
-        //             }
-        //             TowerComponent.GridManager = this.gridManager;
-        //             TowerComponent.SetQRS(q, r, s);
-        //             spot.EnterTile(t);
-        //             Debug.Log("Tower placed at: " + q + r + s);
-        //         }
-        //     }
-        // }
     }
 
 
@@ -104,7 +70,9 @@ public class TowerSelector : MonoBehaviour
                     towerComponent.gridManager = this.gridManager;
                     towerComponent.SetQRS(q, r, s);
                     spot.EnterTile(t);
-                    Debug.Log("Tower cast at: " + q + r + s);
+                    if (DEBUG_MODE) {
+                      Debug.Log("Tower cast at: " + q + r + s);
+                    }
                     return true;
                 }
             }
@@ -126,7 +94,9 @@ public class TowerSelector : MonoBehaviour
                 {
                   Vector3 spellPosition = hexTilemap.CellToWorld(lastHoveredTilePosition); // Adjust for tile center
                   t = Instantiate(spell, spellPosition, Quaternion.identity); // Spawn the 'spell' at the tile position
-                  Debug.Log("Spell cast at: " + q + r + s);
+                  if (DEBUG_MODE) {
+                    Debug.Log("Spell cast at: " + q + r + s);
+                  }
                   return true;
                 }
             }

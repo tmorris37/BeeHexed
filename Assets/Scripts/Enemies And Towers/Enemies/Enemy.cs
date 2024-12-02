@@ -36,6 +36,7 @@ namespace EnemyAndTowers
         public InertiaDirection desiredInertiaIO;    // Desired direction of inertia for the enemy (in/out)
 
 
+
         protected virtual void Start()
         {
             // Get the hitbox of the enemy
@@ -121,15 +122,19 @@ namespace EnemyAndTowers
             
             // Check if there are any targets in range and attack if off cooldown
             if (attackCooldown <= 0f && targets.Count > 0)
-            {
+            {   
+              if (DEBUG) {
                 Debug.Log("Targets identified, time to attack");
-                Attack();
-                attackCooldown = attackRate;
+              }
+              Attack();
+              attackCooldown = attackRate;
             }
             // Try and move towards the next tile if off cooldown
             if (moveTimeRemaining <= 0f)
             {
-                Debug.Log("No targets identified, time to move");
+                if (DEBUG) {
+                  Debug.Log("No targets identified, time to move");  
+                }
                 // Only reset the moveTimeRemaining if the enemy actually started moving
                 if (movement.SimpleMove(this)) {
                     moveTimeRemaining = 1 / movementSpeed;

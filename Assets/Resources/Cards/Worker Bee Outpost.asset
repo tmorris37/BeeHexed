@@ -20,4 +20,4 @@ MonoBehaviour:
   cardType: 0
   towerID: 7
   fieldSprite: {fileID: 21300000, guid: 1681a573a9a67d34b86ab141d6bbfa0b, type: 3}
-  prefab: {fileID: 1460209656345654594, guid: 246305428a605e34aa8078d43adab99f, type: 3}
+  prefab: {fileID: 8130761501851656185, guid: 7d66b6a21a682624194ce9e3f0e4eb5f, type: 3}

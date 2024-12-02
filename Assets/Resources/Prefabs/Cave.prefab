@@ -27,9 +27,9 @@ Transform:
   m_GameObject: {fileID: 7393846077666523299}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.5, y: 4.98, z: 0}
-  m_LocalScale: {x: 0.1223, y: 0.1223, z: 0.1223}
-  m_ConstrainProportionsScale: 0
+  m_LocalPosition: {x: 0.5, y: 5.26, z: 0}
+  m_LocalScale: {x: 1.31, y: 1.31, z: 1.31}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -71,10 +71,10 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 90585607
+  m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 0003b94081b5af743b54b79df247f61e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 43b71326e48ff9549aa65a9a588067d3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -84,7 +84,7 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
-  m_SpriteSortPoint: 0
+  m_SpriteSortPoint: 1
 --- !u!58 &8894206715748303828
 CircleCollider2D:
   m_ObjectHideFlags: 0

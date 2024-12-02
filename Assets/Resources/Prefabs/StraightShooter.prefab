@@ -204,6 +204,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5abd05a1c64ce0c4983c81c2f73a083a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DEBUG: 0
+  q: 0
+  r: 0
+  s: 0
+  GridRadius: 0
+  gridManager: {fileID: 0}
+  towerID: 0
+  detection: {fileID: 0}
+  fireRate: 2
+  health: 0
+  damage: 2
+  active: 0
+  healthBar: {fileID: 0}
+  beam: {fileID: 3655123639976924818, guid: 57b9ba4538121644f9dc61520d9c7307, type: 3}
 --- !u!1 &7775187920543030862
 GameObject:
   m_ObjectHideFlags: 0
@@ -294,5 +308,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de9540f4804d9db49b0dd3724984fd81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tower: {fileID: 0}
+  tower: {fileID: 1673946522485345010}
   targets: []

@@ -9,7 +9,7 @@ namespace EnemyAndTowers
     {
         public GameObject beam;
 
-        public bool active;
+        //public bool active;
 
         protected override void Start()
         {
@@ -21,6 +21,7 @@ namespace EnemyAndTowers
 
         protected override void Update()
         {
+            
             this.targets = detection.targets;
             if (this.health <= 0)
             {

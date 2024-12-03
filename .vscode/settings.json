@@ -56,5 +56,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "BeeHexed.sln"
+    "dotnet.defaultSolution": "BeeHexed2.sln"
 }

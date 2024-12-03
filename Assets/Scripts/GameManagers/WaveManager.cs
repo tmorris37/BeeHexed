@@ -12,7 +12,7 @@ public class WaveManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI waveText;
     [SerializeField] private Spawner spawner;
 
-    [SerializeField] private float timeBetweenWaves = 10f;
+    [SerializeField] private float timeBetweenWaves;
 
     private bool lastEnemySpawned = false;
 
@@ -85,7 +85,7 @@ public class WaveManager : MonoBehaviour
                 spawner.SpawnFromCaves(enemyType);
                 yield return new WaitForSeconds(timeBetweenSpawns);
             }
-            if (currentWave == waves.Count - 1) {
+            if (currentWave == waves.Count) {
                 lastEnemySpawned = true;
             } else {
                 yield return new WaitForSeconds(timeBetweenWaves);

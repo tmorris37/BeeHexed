@@ -66,6 +66,12 @@ namespace EnemyAndTowers
             this.health = this.health - damage;
         }
 
+        public virtual void GoRed()
+        {
+            SpriteRenderer sprite = GetComponent<SpriteRenderer>();
+            sprite.color = Color.red;
+        }
+
         private IEnumerator FadeBackColor(SpriteRenderer sprite, float duration)
         {
             Color startColor = sprite.color;

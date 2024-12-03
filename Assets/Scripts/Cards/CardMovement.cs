@@ -251,19 +251,31 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
         Debug.Log("Blocked rotation toward the center! Adjust the direction.");
         return; // Skip updating rotation but keep the user in the adjustment state
     }*/
+    bool blocked = false;
     if (Mathf.Abs(Mathf.DeltaAngle(angle, centerAngle)) < tolerance)
     {
+        blocked = true;
         if (DEBUG_MODE) {
           Debug.Log("Blocked rotation toward the center! Adjust the direction.");
         }
-        return; // Skip updating rotation but keep the user in the adjustment state
+        //return; // Skip updating rotation but keep the user in the adjustment state
     }
 
     // Update the tower's rotation
     beamerTower.transform.rotation = Quaternion.Euler(0, 0, snappedAngle);
+    SpriteRenderer sprite = beamerTower.GetComponent<SpriteRenderer>();
+
+    if (blocked)
+    {
+      sprite.color = Color.red;
+    }
+    else
+    {
+      sprite.color = Color.white;
+    }
 
     // Confirm rotation on click
-    if (Input.GetMouseButtonDown(0))
+    if (Input.GetMouseButtonDown(0) && !blocked)
     {
         if (DEBUG_MODE) {
           Debug.Log($"Beamer Tower rotation set to {snappedAngle} degrees.");

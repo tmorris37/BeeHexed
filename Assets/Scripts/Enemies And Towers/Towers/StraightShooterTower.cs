@@ -41,12 +41,12 @@ namespace EnemyAndTowers
         }
 
         private void Fire()
-{
-    if (projectilePrefab == null)
-    {
-        Debug.LogError("Projectile prefab not assigned!");
-        return;
-    }
+        {
+            if (projectilePrefab == null)
+            {
+                Debug.LogError("Projectile prefab not assigned!");
+                return;
+            }
 
     // Use the tower's rotation to determine the direction
     Vector3 direction = transform.right; // Assuming the tower faces along its local right direction

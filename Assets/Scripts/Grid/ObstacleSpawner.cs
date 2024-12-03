@@ -18,6 +18,7 @@ public class ObstacleSpawner : MonoBehaviour
     [SerializeField] public bool Percent;
     [SerializeField] public float Percentage;
     [SerializeField] public bool Constant;
+    [SerializeField] public bool ConstantInverse;
     [SerializeField] public int ConstantQuantity;
 
     [SerializeField] public List<int> Inputs;
@@ -34,6 +35,10 @@ public class ObstacleSpawner : MonoBehaviour
         else if (Constant)
         {
             SpawnNObstaclesPerRing(ConstantQuantity);
+        }
+        else if (ConstantInverse)
+        {
+            SpawnXPercentObstaclesPerRing(1.0f, ConstantQuantity);
         }
         else
         {
@@ -66,12 +71,12 @@ public class ObstacleSpawner : MonoBehaviour
 
     // Spawns X % obstacles in each ring except for the Center (Hive) and outermost ring (Cave-zone)
     // If X < 0, no obstacles. If X > 1, all obstacles
-    public void SpawnXPercentObstaclesPerRing(float X)
+    public void SpawnXPercentObstaclesPerRing(float X, int offset = 0)
     {
         List<int> PercentageObstacles = new List<int>();
         for (int i = 1; i < this.gridManager.GridRadius; i++)
         {
-            PercentageObstacles.Add((int) (X * i * 6));
+            PercentageObstacles.Add(((int) (X * i * 6)) - offset);
         }
         SpawnObstaclesPerRing(PercentageObstacles);
     }
@@ -100,27 +105,21 @@ public class ObstacleSpawner : MonoBehaviour
                 ObstacleTileSelector.SelectNRandomTiles(ObstacleQuantities[i], 
                                                         RingNumber, 
                                                         TileSelectorCallback);
-
-            int q, r, s;
-            for (int j = 0; j < RandomTiles.Count; j++)
-            {
-                (q, r, s) = RandomTiles[j];
-                SpawnObstacle(q, r, s);
-            }
         }
     }
 
-    // Temporarily Spawns an obstacle
+    // Spawns an obstacle if it does not block the center off
+    // Returns true if spawned, false if not spawned
     public bool TileSelectorCallback((int, int, int) QRSTuple)
     {
         (int q, int r, int s) = QRSTuple;
         
-        // Creates a temporary obstacle to occupy the tile of interest
         if (this.obstacleTracker.Contains(QRSTuple))
         {
             return false;
         }
 
+        // Creates a tracker obstacle to occupy the tile of interest
         this.obstacleTracker.Add(QRSTuple);
 
         ShortestPath PathVerifier = new ShortestPath();
@@ -134,34 +133,28 @@ public class ObstacleSpawner : MonoBehaviour
                                         ),
                                         DijkstraCallback
                                        );
-                                       /*
-        string debugString = QRSTuple + ": ";
-        foreach ((int, int, int) node in Path)
-        {
-            debugString += node;
-        }
-        Debug.Log(debugString);
-        */
 
-        // Leaves the Tile and destroys the temporary obstacle
+        // Spawns the obstacle if there is still a valid path
+        if (Path.Count != 0)
+        {
+            SpawnObstacle(q, r, s);
+            return true;
+        }
+        // Otherwise removes it
         this.obstacleTracker.Remove(QRSTuple);
 
-        return (Path.Count != 0);
+        return false;
     }
 
     // Checks if the Tile is in obstacleTracker
     public bool DijkstraCallback((int, int, int) QRSTuple)
     {
-        (int q, int r, int s) = QRSTuple;
-
         return this.obstacleTracker.Contains(QRSTuple);
     }
 
     // Spawns an Obstacle at (q, r, s). Checks to ensure spawnable, deletes otherwise
     public void SpawnObstacle(int q, int r, int s)
     {
-        this.obstacleTracker.Add((q, r, s));
-
         GameObject CurrentObstacle = Instantiate(RandomObstacleFromList());
         CurrentObstacle.transform.SetParent(gameObject.transform);
 

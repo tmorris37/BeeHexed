@@ -158,6 +158,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 1813104218997895954}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8d05bfdc88044aa41b612463f5c9981b, type: 3}
+  m_Script: {fileID: 11500000, guid: ded010eb4a26e814dba6a918af79771d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damage: 10
+  tower: {fileID: 0}

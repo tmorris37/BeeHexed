@@ -22,6 +22,8 @@ public class ObstacleSpawner : MonoBehaviour
 
     [SerializeField] public List<int> Inputs;
 
+    public List<(int, int, int)> obstacleTracker;
+
     void Start()
     {
         this.Obstacles = AddObstaclePrefabs();
@@ -81,6 +83,8 @@ public class ObstacleSpawner : MonoBehaviour
     // If List Length is too big, truncates the extra rings.
     public void SpawnObstaclesPerRing(List<int> ObstacleQuantities)
     {
+        this.obstacleTracker = new List<(int, int, int)>();
+
         // MaxRing Represents the largest ring we can spawn an obstacle in
         int MaxRing = (ObstacleQuantities.Count < gridManager.GridRadius) ?
                        ObstacleQuantities.Count : gridManager.GridRadius - 1;
@@ -92,7 +96,10 @@ public class ObstacleSpawner : MonoBehaviour
         {
             int RingNumber = i + 1;
 
-            List<(int, int, int)> RandomTiles = ObstacleTileSelector.SelectNRandomTiles(ObstacleQuantities[i], RingNumber);
+            List<(int, int, int)> RandomTiles = 
+                ObstacleTileSelector.SelectNRandomTiles(ObstacleQuantities[i], 
+                                                        RingNumber, 
+                                                        TileSelectorCallback);
 
             int q, r, s;
             for (int j = 0; j < RandomTiles.Count; j++)
@@ -103,9 +110,58 @@ public class ObstacleSpawner : MonoBehaviour
         }
     }
 
+    // Temporarily Spawns an obstacle
+    public bool TileSelectorCallback((int, int, int) QRSTuple)
+    {
+        (int q, int r, int s) = QRSTuple;
+        
+        // Creates a temporary obstacle to occupy the tile of interest
+        if (this.obstacleTracker.Contains(QRSTuple))
+        {
+            return false;
+        }
+
+        this.obstacleTracker.Add(QRSTuple);
+
+        ShortestPath PathVerifier = new ShortestPath();
+
+        // Uses a test pair of coordinates (center and edge) to see if the path is blocked
+        List<(int, int, int)> Path = 
+            PathVerifier.DijkstraSimple(this.gridManager, (0, 0, 0),
+                                        ( gridManager.GridRadius, 
+                                         -gridManager.GridRadius,
+                                         0
+                                        ),
+                                        DijkstraCallback
+                                       );
+                                       /*
+        string debugString = QRSTuple + ": ";
+        foreach ((int, int, int) node in Path)
+        {
+            debugString += node;
+        }
+        Debug.Log(debugString);
+        */
+
+        // Leaves the Tile and destroys the temporary obstacle
+        this.obstacleTracker.Remove(QRSTuple);
+
+        return (Path.Count != 0);
+    }
+
+    // Checks if the Tile is in obstacleTracker
+    public bool DijkstraCallback((int, int, int) QRSTuple)
+    {
+        (int q, int r, int s) = QRSTuple;
+
+        return this.obstacleTracker.Contains(QRSTuple);
+    }
+
     // Spawns an Obstacle at (q, r, s). Checks to ensure spawnable, deletes otherwise
     public void SpawnObstacle(int q, int r, int s)
     {
+        this.obstacleTracker.Add((q, r, s));
+
         GameObject CurrentObstacle = Instantiate(RandomObstacleFromList());
         CurrentObstacle.transform.SetParent(gameObject.transform);
 

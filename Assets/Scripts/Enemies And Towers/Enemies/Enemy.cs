@@ -35,7 +35,7 @@ namespace EnemyAndTowers
         public InertiaDirection desiredInertiaDir;    // Desired direction of inertia for the enemy (cw/ccw)
         public InertiaDirection desiredInertiaIO;    // Desired direction of inertia for the enemy (in/out)
 
-
+        public List<(int, int, int)> DijkstraMoves;  // A List of the moves to be taken, calculated by Dijkstra
 
         protected virtual void Start()
         {
@@ -79,6 +79,8 @@ namespace EnemyAndTowers
             
             // healthBar = GetComponentInChildren<FloatingHealthBar>();
             // healthBar.UpdateHealthBar(this.health, this.data.MaxHP);
+
+            this.DijkstraMoves = movement.DijkstraInitialize(this);
         }
 
         // Call this method to smoothly move the enemy to a target position
@@ -136,7 +138,7 @@ namespace EnemyAndTowers
                   Debug.Log("No targets identified, time to move");  
                 }
                 // Only reset the moveTimeRemaining if the enemy actually started moving
-                if (movement.SimpleMove(this)) {
+                if (movement.DijkstraMove(this, this.DijkstraMoves)) {
                     moveTimeRemaining = 1 / movementSpeed;
                 }
             }

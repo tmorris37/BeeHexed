@@ -2350,14 +2350,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DEBUG_MODE: 0
+  STARTUP_TIME: 5
   waveText: {fileID: 1378812805}
   spawner: {fileID: 949248046}
-  enemiesPerWave: 5
-  numWaves: 1
-  timeBetweenWaves: 5
-  timeBetweenSpawns: 3
-  timeToRewardLoad: 10
+  timeBetweenWaves: 10
   nectarManager: {fileID: 852255254}
+  waves:
+  - enemies:
+    - spawnFrequency: 0.75
+      enemyType: BearCub
+    - spawnFrequency: 0.25
+      enemyType: Bombeardier
+    avgEnemies: 6
+    enemySpread: 2
+    avgTimeBetweenSpawns: 2
 --- !u!4 &781918216
 Transform:
   m_ObjectHideFlags: 0
@@ -2636,6 +2642,7 @@ MonoBehaviour:
   towerPrefab: {fileID: 842843656095350179, guid: 466a0a1c4ac211b4cac99a17de01d534, type: 3}
   gridManager: {fileID: 1554881295}
   PulserPrefab: {fileID: 1460209656345654594, guid: 246305428a605e34aa8078d43adab99f, type: 3}
+  DEBUG_MODE: 0
 --- !u!114 &949248045
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4649,6 +4656,7 @@ MonoBehaviour:
   Percent: 0
   Percentage: 0
   Constant: 0
+  ConstantInverse: 0
   ConstantQuantity: 0
   Inputs: 02000000050000000400000004000000
 --- !u!4 &1914675432

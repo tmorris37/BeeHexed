@@ -5,33 +5,33 @@ using UnityEngine;
 
 public class Providence : UniversalDurationSpell<Tower>
 {
-  // length of spell effect in seconds
-  [SerializeField] float duration = 10f;
-  // how long the effect has been active in seconds
-  [SerializeField] string targetTag = "Tower";
-  [SerializeField] float fireRateIncrease = 2f;
+    // length of spell effect in seconds
+    [SerializeField] float duration = 10f;
+    // how long the effect has been active in seconds
+    [SerializeField] string targetTag = "Tower";
+    [SerializeField] float fireRateIncrease = 2f;
 
-  public override void ApplySpellEffect(Tower entity, SpriteRenderer sprite)
-  {
-    // fireRate appears to work logically backwards right now
-    entity.fireRate *= 1 / fireRateIncrease;
-    entity.health = entity.data.MaxHealth;
-    sprite.color = Color.yellow;
-  }
+    public override void ApplySpellEffect(Tower entity, SpriteRenderer sprite)
+    {
+        // fireRate appears to work logically backwards right now
+        entity.fireRate *= 1 / fireRateIncrease;
+        entity.health = entity.data.MaxHealth;
+        sprite.color = Color.yellow;
+    }
 
-  public override void EndEffect(Tower entity, SpriteRenderer sprite)
-  {
-    entity.fireRate *= fireRateIncrease;
-    sprite.color = Color.white;
-  }
+    public override void EndEffect(Tower entity, SpriteRenderer sprite)
+    {
+        entity.fireRate *= fireRateIncrease;
+        sprite.color = Color.white;
+    }
 
-  public override float GetDuration()
-  {
-    return duration;
-  }
+    public override float GetDuration()
+    {
+        return duration;
+    }
 
-  public override string GetTargetTag()
-  {
-    return targetTag;
-  }
-}
+    public override string GetTargetTag()
+    {
+        return targetTag;
+    }
+    }

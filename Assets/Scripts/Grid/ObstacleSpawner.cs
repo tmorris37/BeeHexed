@@ -18,9 +18,12 @@ public class ObstacleSpawner : MonoBehaviour
     [SerializeField] public bool Percent;
     [SerializeField] public float Percentage;
     [SerializeField] public bool Constant;
+    [SerializeField] public bool ConstantInverse;
     [SerializeField] public int ConstantQuantity;
 
     [SerializeField] public List<int> Inputs;
+
+    public List<(int, int, int)> obstacleTracker;
 
     void Start()
     {
@@ -32,6 +35,10 @@ public class ObstacleSpawner : MonoBehaviour
         else if (Constant)
         {
             SpawnNObstaclesPerRing(ConstantQuantity);
+        }
+        else if (ConstantInverse)
+        {
+            SpawnXPercentObstaclesPerRing(1.0f, ConstantQuantity);
         }
         else
         {
@@ -64,12 +71,12 @@ public class ObstacleSpawner : MonoBehaviour
 
     // Spawns X % obstacles in each ring except for the Center (Hive) and outermost ring (Cave-zone)
     // If X < 0, no obstacles. If X > 1, all obstacles
-    public void SpawnXPercentObstaclesPerRing(float X)
+    public void SpawnXPercentObstaclesPerRing(float X, int offset = 0)
     {
         List<int> PercentageObstacles = new List<int>();
         for (int i = 1; i < this.gridManager.GridRadius; i++)
         {
-            PercentageObstacles.Add((int) (X * i * 6));
+            PercentageObstacles.Add(((int) (X * i * 6)) - offset);
         }
         SpawnObstaclesPerRing(PercentageObstacles);
     }
@@ -81,6 +88,8 @@ public class ObstacleSpawner : MonoBehaviour
     // If List Length is too big, truncates the extra rings.
     public void SpawnObstaclesPerRing(List<int> ObstacleQuantities)
     {
+        this.obstacleTracker = new List<(int, int, int)>();
+
         // MaxRing Represents the largest ring we can spawn an obstacle in
         int MaxRing = (ObstacleQuantities.Count < gridManager.GridRadius) ?
                        ObstacleQuantities.Count : gridManager.GridRadius - 1;
@@ -92,15 +101,55 @@ public class ObstacleSpawner : MonoBehaviour
         {
             int RingNumber = i + 1;
 
-            List<(int, int, int)> RandomTiles = ObstacleTileSelector.SelectNRandomTiles(ObstacleQuantities[i], RingNumber);
-
-            int q, r, s;
-            for (int j = 0; j < RandomTiles.Count; j++)
-            {
-                (q, r, s) = RandomTiles[j];
-                SpawnObstacle(q, r, s);
-            }
+            List<(int, int, int)> RandomTiles = 
+                ObstacleTileSelector.SelectNRandomTiles(ObstacleQuantities[i], 
+                                                        RingNumber, 
+                                                        TileSelectorCallback);
         }
+    }
+
+    // Spawns an obstacle if it does not block the center off
+    // Returns true if spawned, false if not spawned
+    public bool TileSelectorCallback((int, int, int) QRSTuple)
+    {
+        (int q, int r, int s) = QRSTuple;
+        
+        if (this.obstacleTracker.Contains(QRSTuple))
+        {
+            return false;
+        }
+
+        // Creates a tracker obstacle to occupy the tile of interest
+        this.obstacleTracker.Add(QRSTuple);
+
+        ShortestPath PathVerifier = new ShortestPath();
+
+        // Uses a test pair of coordinates (center and edge) to see if the path is blocked
+        List<(int, int, int)> Path = 
+            PathVerifier.DijkstraSimple(this.gridManager, (0, 0, 0),
+                                        ( gridManager.GridRadius, 
+                                         -gridManager.GridRadius,
+                                         0
+                                        ),
+                                        DijkstraCallback
+                                       );
+
+        // Spawns the obstacle if there is still a valid path
+        if (Path.Count != 0)
+        {
+            SpawnObstacle(q, r, s);
+            return true;
+        }
+        // Otherwise removes it
+        this.obstacleTracker.Remove(QRSTuple);
+
+        return false;
+    }
+
+    // Checks if the Tile is in obstacleTracker
+    public bool DijkstraCallback((int, int, int) QRSTuple)
+    {
+        return this.obstacleTracker.Contains(QRSTuple);
     }
 
     // Spawns an Obstacle at (q, r, s). Checks to ensure spawnable, deletes otherwise

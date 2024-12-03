@@ -62,9 +62,7 @@ public class Spawner : MonoBehaviour
         int r = (int)randomCavePosition.y;
         int s = (int)randomCavePosition.z;
         // Spawn Unity Object with Enemy script (Prefab)
-        // TODO: Make this not hardcoded
-        switch (enemyType)
-        {
+        switch (enemyType) {
             case "BearCub" :
                 newEnemy = Instantiate(bearCub);
                 break;
@@ -78,7 +76,7 @@ public class Spawner : MonoBehaviour
                 newEnemy = Instantiate(assassinBear);
                 break;
             default:
-                Debug.LogError("Invalid Enemy ID");
+                Debug.LogError("Invalid Enemy ID:" + enemyType);
                 return;
                 
         }

@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c0e21d7e0f4ed8e41a6b868c6ea87a76, type: 3}
-  m_Name: Apprentice
+  m_Name: WorkerBeeOutpost
   m_EditorClassIdentifier: 
-  cardName: Apprentice
-  cost: 1
-  bodyText: Shoots bolts of magic that do 5 damage each
-  health: 30
-  art: {fileID: 21300000, guid: d479eba340936494a9465d73db7ca732, type: 3}
+  cardName: Worker Bee Outpost
+  cost: 3
+  bodyText: This tower provides you with one extra nectar every 10 seconds
+  health: 15
+  art: {fileID: 21300000, guid: 5d1d0e04c06c38040a205e3bf12ff82e, type: 3}
   cardType: 0
-  towerID: 6
-  fieldSprite: {fileID: 21300000, guid: b7a40ae0d54274845aafba7f7a8a98c0, type: 3}
-  prefab: {fileID: 4099846672770950340, guid: 5c06eeba816ad2c4fb93a6c3da93381f, type: 3}
+  towerID: 7
+  fieldSprite: {fileID: 0}
+  prefab: {fileID: 0}

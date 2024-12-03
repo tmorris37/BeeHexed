@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using Newtonsoft.Json;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
@@ -9,7 +11,8 @@ public class DeckSelector : MonoBehaviour, IPointerDownHandler, IPointerEnterHan
 {
     [SerializeField] private GameObject highlight;
     [SerializeField] private float hoverScale = 1.1f;
-
+    [SerializeField] private string savePath = "Assets/Deck/Save.json";
+    [SerializeField] private bool DEBUG_MODE = false;
 
     void Awake()
     {
@@ -29,7 +32,7 @@ public class DeckSelector : MonoBehaviour, IPointerDownHandler, IPointerEnterHan
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        WriteDeckToFile(name);
+        WriteDeckNameToFile(name);
         LoadDeckPage();
     }
 
@@ -43,7 +46,9 @@ public class DeckSelector : MonoBehaviour, IPointerDownHandler, IPointerEnterHan
         SceneManager.LoadScene("DeckSummary");
     }
 
-    private void WriteDeckToFile(string deckName) {
-        
+    private void WriteDeckNameToFile(string deckName) {
+        string jsonDeckName = JsonConvert.SerializeObject(deckName);
+        if (DEBUG_MODE) Debug.Log("Written Deck Name: " + jsonDeckName);
+        File.WriteAllText(savePath, jsonDeckName);
     }
 }

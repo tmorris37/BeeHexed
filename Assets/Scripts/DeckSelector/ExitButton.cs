@@ -9,4 +9,8 @@ public class ExitButton : MonoBehaviour
     public void ExitToMainMenu() {
         SceneManager.LoadScene("MainMenu");
     }
+
+    public void BackToDeckSelect() {
+        SceneManager.LoadScene("DeckSelect");
+    }
 }

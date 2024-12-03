@@ -1128,7 +1128,7 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: d5539ec3fd60860409e33fa6d374966a, type: 3}
     - target: {fileID: 4413771841936138715, guid: 3aff5170be97a7447923e3bed995b3a5, type: 3}
       propertyPath: m_Name
-      value: Bzzrak
+      value: Bzz'rak
       objectReference: {fileID: 0}
     - target: {fileID: 5237203310577726428, guid: 3aff5170be97a7447923e3bed995b3a5, type: 3}
       propertyPath: m_Sprite

@@ -504,6 +504,7 @@ MonoBehaviour:
   pathTile: {fileID: 4519046639785806374, guid: 53ca5b54660b144438c113a7606f193e, type: 3}
   caveGenerator: {fileID: 0}
   movement: {fileID: 0}
+  Tiles: []
 --- !u!4 &183433773
 Transform:
   m_ObjectHideFlags: 0
@@ -2681,7 +2682,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 949248041}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8417782df49a0024cb32c6833a7e42db, type: 3}
   m_Name: 
@@ -3700,7 +3701,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ec5579fda5fec6498b7eadc492806b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GridRadius: 5
+  GridRadius: 7
   HexTilePrefab: {fileID: 5180860355450847252, guid: 804f7f8b96697d147a944995af89b244, type: 3}
   DEBUG: 0
 --- !u!4 &1554881296
@@ -4578,7 +4579,7 @@ MonoBehaviour:
   gridManager: {fileID: 1554881295}
   cavePrefab: {fileID: 7393846077666523299, guid: 72013799fbfe550428d1f8d3914131af, type: 3}
   numCaves: 6
-  radius: 5
+  radius: 7
   DEBUG: 0
   cavePositions: []
 --- !u!4 &1846675531

@@ -19,6 +19,7 @@ public class TileSpawner : MonoBehaviour
     public List<(int, int, int)> pathTiles;
     public CaveGenerator caveGenerator;
     public MovementAlgorithms movement;
+    public List<GameObject> Tiles;
 
     void Awake()
     {
@@ -117,6 +118,7 @@ public class TileSpawner : MonoBehaviour
         } else {
             CurrentTile = Instantiate(RandomTileFromList());
         }
+        Tiles.Add(CurrentTile);
 
         CurrentTile.transform.SetParent(gameObject.transform);
 

@@ -216,7 +216,7 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
     }
 
 
-    private void HandleRotationState()
+   /*private void HandleRotationState()
 {
     
 
@@ -245,14 +245,11 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
       Debug.Log($"Snapped Angle: {snappedAngle}, Center Angle: {snappedCenterAngle}");
     }
     // Use a tolerance to check if snappedAngle points toward the center
-    float tolerance = 30f; // Adjust if necessary
-    /*if (Mathf.Abs(Mathf.DeltaAngle(snappedAngle, centerAngle)) < tolerance)
-    {
-        Debug.Log("Blocked rotation toward the center! Adjust the direction.");
-        return; // Skip updating rotation but keep the user in the adjustment state
-    }*/
+    float tolerance = 10f; // Adjust if necessary
+    
     bool blocked = false;
-    if (Mathf.Abs(Mathf.DeltaAngle(angle, centerAngle)) < tolerance)
+    //if (Mathf.Abs(Mathf.DeltaAngle(angle, centerAngle)) < tolerance)
+    if (angle == centerAngle)
     {
         blocked = true;
         if (DEBUG_MODE) {
@@ -286,6 +283,56 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
     }
 
 
+}*/
+  private void HandleRotationState()
+{
+    Tower beamerTower = FindObjectOfType<Tower>();
+    beamerTower.active = false;
+    if (beamerTower == null)
+        return;
+
+    // Get mouse position
+    Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+    mousePosition.z = 0;
+
+    // Calculate the angle between the tower and the mouse
+    Vector3 direction = mousePosition - beamerTower.transform.position;
+    float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 180f;
+
+    // Snap to the nearest hexagonal direction
+    float snappedAngle = Mathf.Round(angle / 60f) * 60f;
+
+    // Calculate the angle pointing toward the map's center (assuming center is at (0, 0))
+    Vector3 centerDirection = beamerTower.transform.position;
+    float centerAngle = Mathf.Atan2(centerDirection.y, centerDirection.x) * Mathf.Rad2Deg;
+
+    // Check if the snapped angle points toward the center
+    bool isBlocked = Mathf.Abs(Mathf.DeltaAngle(snappedAngle, centerAngle)) < 1f;
+
+    // Update the tower's rotation
+    beamerTower.transform.rotation = Quaternion.Euler(0, 0, snappedAngle);
+
+    // Update visual feedback
+    SpriteRenderer sprite = beamerTower.GetComponent<SpriteRenderer>();
+    if (isBlocked)
+    {
+        sprite.color = Color.red;
+        //beamerTower.active = false; // Tower is inactive if pointed at the center
+    }
+    else
+    {
+        sprite.color = Color.white;
+        //beamerTower.active = true; // Tower is active otherwise
+    }
+
+    // Confirm rotation on click if not blocked
+    if (Input.GetMouseButtonDown(0) && !isBlocked)
+    {
+        Debug.Log($"Beamer Tower rotation set to {snappedAngle} degrees.");
+        beamerTower.active = true;
+        destroyCard();
+        GoToState(0); // Return to default state
+    }
 }
 
 

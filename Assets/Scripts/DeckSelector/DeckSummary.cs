@@ -15,6 +15,8 @@ public class DeckSummary : MonoBehaviour {
     [SerializeField] private int maxCardsInRow = 6;
     [SerializeField] private int maxRows = 2;
     [SerializeField] private float cardScaleFactor = 0.75f;
+    [SerializeField] private int rowScaleFactor = -275;
+    [SerializeField] private float verticalCardDisplayOffset = 75;
     public GameObject towerCardPrefab;
     public GameObject spellCardPrefab;
     private List<Card> deck;
@@ -50,6 +52,7 @@ public class DeckSummary : MonoBehaviour {
         Card[] deckArr = deck.ToArray();
         for (int card = 0; card < deck.Count; card++) {
             GameObject displayedCard;
+            if (DEBUG_MODE) Debug.Log("Instantiating card at transform: " + transform.position);
             if (deckArr[card].cardType == Card.CardType.Tower) {
                 displayedCard = Instantiate(towerCardPrefab, cardPostions[card], Quaternion.identity, transform);
             } else {
@@ -75,7 +78,7 @@ public class DeckSummary : MonoBehaviour {
         if (DEVELOPER_MODE) {
             width = testWidth;
         } else {
-            width = rectTransform.rect.width - 100;
+            width = rectTransform.rect.width;
         }   
         // what row we are on
         if (DEBUG_MODE) Debug.Log("Rows required " + Math.Ceiling((double)numCards / maxCardsInRow));
@@ -93,7 +96,7 @@ public class DeckSummary : MonoBehaviour {
                 if (DEBUG_MODE) Debug.Log("Relative card " + relativeCard);
                 float cardWidth = towerCardPrefab.GetComponent<RectTransform>().rect.width * towerCardPrefab.transform.localScale.x;
                 float spacing = cardWidth + (width - cardsInRow * cardWidth) / (cardsInRow - 1);
-                positions[card] = new Vector3(cardWidth / 2 + relativeCard * spacing, transform.localPosition.y + row * -275 + 475);
+                positions[card] = new Vector3(cardWidth / 2 + relativeCard * spacing, transform.localPosition.y + row * rowScaleFactor + verticalCardDisplayOffset);
                 if (DEBUG_MODE) Debug.Log("added position " + positions[card]);
             }
         }

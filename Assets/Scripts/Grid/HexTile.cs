@@ -7,7 +7,7 @@ using EnemyAndTowers;
 
 namespace GridSystem
 {
-    public class HexTile : MonoBehaviour
+    public class HexTile : HexPosition
     {
         public bool DPSEffect;
 
@@ -67,11 +67,11 @@ namespace GridSystem
 
         public bool getOccupied()
         {
-            if (this.Occupants.Count > 0)
+            if (Occupants.Count == 0 || (Occupants.Count == 1 && Occupants[0].GetComponent<BaseTile>() != null))
             {
-                return true;
+                return false;
             }
-            return false;
+            return true;
             
         }
 

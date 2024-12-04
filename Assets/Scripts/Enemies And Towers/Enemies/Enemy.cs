@@ -39,6 +39,9 @@ namespace EnemyAndTowers
 
         protected virtual void Start()
         {
+            // Figure out the movement algorithm for the enemy
+            this.DijkstraMoves = movement.DijkstraInitialize(this);
+            
             // Get the hitbox of the enemy
             detection = GetComponentInChildren<EnemyDetection>();
             // Instantiates the Enemy at the Provided Spawn Location
@@ -80,7 +83,6 @@ namespace EnemyAndTowers
             // healthBar = GetComponentInChildren<FloatingHealthBar>();
             // healthBar.UpdateHealthBar(this.health, this.data.MaxHP);
 
-            this.DijkstraMoves = movement.DijkstraInitialize(this);
         }
 
         // Call this method to smoothly move the enemy to a target position
@@ -124,18 +126,18 @@ namespace EnemyAndTowers
             
             // Check if there are any targets in range and attack if off cooldown
             if (attackCooldown <= 0f && targets.Count > 0)
-            {   
-              if (DEBUG) {
-                Debug.Log("Targets identified, time to attack");
-              }
-              Attack();
-              attackCooldown = attackRate;
+            {
+                if (DEBUG) {
+                    Debug.Log("Targets identified, time to attack");
+                }
+                Attack();
+                attackCooldown = attackRate;
             }
             // Try and move towards the next tile if off cooldown
             if (moveTimeRemaining <= 0f)
             {
                 if (DEBUG) {
-                  Debug.Log("No targets identified, time to move");  
+                    Debug.Log("No targets identified, time to move");  
                 }
                 // Only reset the moveTimeRemaining if the enemy actually started moving
                 if (movement.DijkstraMove(this, this.DijkstraMoves)) {

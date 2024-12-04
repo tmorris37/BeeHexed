@@ -105,6 +105,7 @@ public class Spawner : MonoBehaviour
             (float x, float y) = gridManager.QRStoXY((int)cavePosition.x, (int)cavePosition.y, (int)cavePosition.z);
             GameObject newCave = Instantiate(cavePrefab);
             newCave.transform.position = new Vector3(x, y, 0);
+            newCave.tag="Cave";
         }
         if (DEBUG)
         {

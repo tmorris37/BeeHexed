@@ -15,7 +15,8 @@ TagManager:
   - Projectile
   - Projetile
   - Obstacle
-  - Undefined
+  - Tile
+  - Cave
   layers:
   - Default
   - TransparentFX

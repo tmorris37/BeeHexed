@@ -4,8 +4,8 @@
     "Attacks": [
         {
             "DamageType": "Ranged",
-            "DamageAmount": 4,
-            "AttackRate": 0.5
+            "DamageAmount": 2,
+            "AttackRate": 0.33333333
         }
     ],
     "MovementType": "Ground"

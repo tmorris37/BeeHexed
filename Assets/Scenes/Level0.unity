@@ -470,6 +470,55 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 100735280}
   m_CullTransparentMesh: 1
+--- !u!1 &183433771
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 183433773}
+  - component: {fileID: 183433772}
+  m_Layer: 0
+  m_Name: TileSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &183433772
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 183433771}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22e27449306cac64299f78a8bd97b7a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gridManager: {fileID: 1554881295}
+  tile: {fileID: 4519046639785806374, guid: bff1ca3ccc8940e4a97ed4fc6f117044, type: 3}
+  pathTile: {fileID: 4519046639785806374, guid: 53ca5b54660b144438c113a7606f193e, type: 3}
+  caveGenerator: {fileID: 0}
+  movement: {fileID: 0}
+--- !u!4 &183433773
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 183433771}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 245.60333, y: 75.41476, z: -5.3598757}
+  m_LocalScale: {x: 0.26038507, y: 0.29541576, z: 0.29541576}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2085776624}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &265368847
 GameObject:
   m_ObjectHideFlags: 0
@@ -1201,7 +1250,7 @@ TilemapRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -147488481
   m_SortingLayer: -1
-  m_SortingOrder: 2
+  m_SortingOrder: -1
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0.006726444, y: 0.07399106, z: 0}
   m_MaxChunkCount: 16
@@ -2357,12 +2406,12 @@ MonoBehaviour:
   nectarManager: {fileID: 852255254}
   waves:
   - enemies:
-    - spawnFrequency: 0.75
+    - spawnFrequency: 0.8
       enemyType: BearCub
-    - spawnFrequency: 0.25
+    - spawnFrequency: 0.2
       enemyType: Bombeardier
-    avgEnemies: 6
-    enemySpread: 2
+    avgEnemies: 3
+    enemySpread: 1
     avgTimeBetweenSpawns: 2
 --- !u!4 &781918216
 Transform:
@@ -4506,6 +4555,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1846675531}
   - component: {fileID: 1846675530}
+  - component: {fileID: 1846675532}
   m_Layer: 0
   m_Name: CaveGenerator
   m_TagString: Untagged
@@ -4546,6 +4596,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1846675532
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1846675529}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09773d23da11e3d4faa96349ad3b79bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  caveGenerator: {fileID: 1846675530}
+  gridManager: {fileID: 1554881295}
 --- !u!1 &1854202666
 GameObject:
   m_ObjectHideFlags: 0
@@ -4833,6 +4897,7 @@ Transform:
   m_LocalScale: {x: 3.8404663, y: 3.3850598, z: 3.3850598}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 183433773}
   - {fileID: 834354651}
   - {fileID: 1570746386}
   m_Father: {fileID: 0}
@@ -4849,5 +4914,5 @@ SceneRoots:
   - {fileID: 457705402}
   - {fileID: 930808615}
   - {fileID: 1846675531}
-  - {fileID: 580640693}
   - {fileID: 1914675432}
+  - {fileID: 580640693}

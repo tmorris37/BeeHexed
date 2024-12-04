@@ -19,7 +19,7 @@ public class TowerSelector : MonoBehaviour
     private Vector3Int cellPosition;
     public bool DEBUG_MODE;
 
-    void Update()
+    /*void Update()
     {
         // Get the mouse position in world space
         Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -47,7 +47,44 @@ public class TowerSelector : MonoBehaviour
                 hasHoveredTile = true;
             }
         }
+    }*/
+
+    void Update()
+{
+    // Get the mouse position in world space
+    Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+    mouseWorldPos.z = 0;
+
+    // Convert the mouse position to a cell position in the tilemap
+    cellPosition = hexTilemap.WorldToCell(mouseWorldPos);
+
+    // If the mouse is over a new cell
+    if (cellPosition != lastHoveredTilePosition)
+    {
+        // Reset the last hovered tile if there was one
+        if (hasHoveredTile)
+        {
+            hexTilemap.SetTile(lastHoveredTilePosition, originalTile); // Restore the original tile
+            hasHoveredTile = false;
+        }
+
+        // Set the new tile to the highlight tile
+        if (hexTilemap.HasTile(cellPosition))
+        {
+            originalTile = hexTilemap.GetTile(cellPosition); // Save the original tile
+            hexTilemap.SetTile(cellPosition, highlightTile); // Highlight the current tile
+            lastHoveredTilePosition = cellPosition;
+            hasHoveredTile = true;
+        }
     }
+
+    // Handle case where mouse moves off the tilemap
+    if (!hexTilemap.HasTile(cellPosition) && hasHoveredTile)
+    {
+        hexTilemap.SetTile(lastHoveredTilePosition, originalTile);
+        hasHoveredTile = false;
+    }
+}
 
 
     public bool spawnTower(GameObject tower) {

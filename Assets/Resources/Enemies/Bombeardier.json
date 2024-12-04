@@ -1,6 +1,6 @@
 {
     "MaxHealth": 10,
-    "Speed": 0.25,
+    "Speed": 0.2,
     "Attacks": [
         {
             "DamageType": "Ranged",

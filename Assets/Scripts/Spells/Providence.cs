@@ -8,7 +8,7 @@ public class Providence : UniversalDurationSpell<Tower>
   // length of spell effect in seconds
   [SerializeField] float duration = 10f;
   // how long the effect has been active in seconds
-  [SerializeField] string targetTag = "Tower";
+  string targetingTag = "Tower";
   [SerializeField] float fireRateIncrease = 2f;
 
   public override void ApplySpellEffect(Tower entity, SpriteRenderer sprite)
@@ -32,6 +32,6 @@ public class Providence : UniversalDurationSpell<Tower>
 
   public override string GetTargetTag()
   {
-    return targetTag;
+    return targetingTag;
   }
 }

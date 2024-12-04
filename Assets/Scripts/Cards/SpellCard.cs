@@ -9,7 +9,7 @@ public class SpellCard : Card
     [SerializeField] private int SpellID;
     public SpellType Type;
     private SpellData spellData;
-    public GameObject prefab;
+    //public GameObject prefab;
 
     void Start() {
     var FileData = Resources.Load<TextAsset>("Spells/Spell_" + SpellID);

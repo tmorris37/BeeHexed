@@ -26,4 +26,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/STSMap_Gen_Package/Scenes/Overworld.unity
     guid: 829559c35f39df149933d2bcc5288eb2
+  - enabled: 1
+    path: Assets/Scenes/OverworldMap.unity
+    guid: bdc262f5568ed4db0b5304c179bbac50
   m_configObjects: {}

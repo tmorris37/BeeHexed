@@ -5,6 +5,7 @@ using System.IO;
 using Newtonsoft.Json;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class DeckSelector : MonoBehaviour, IPointerDownHandler, IPointerEnterHandler, IPointerExitHandler
@@ -14,6 +15,8 @@ public class DeckSelector : MonoBehaviour, IPointerDownHandler, IPointerEnterHan
     [SerializeField] private string savePath = "Assets/Deck/Save.json";
     [SerializeField] private bool DEBUG_MODE = false;
     [SerializeField] private Color themeColor;
+    // assigned in prefab
+    [SerializeField] private Button viewButton;
     private Color selectColor;
     private bool selected;
     private SelectionManager selectionManager;
@@ -52,10 +55,12 @@ public class DeckSelector : MonoBehaviour, IPointerDownHandler, IPointerEnterHan
         if (selected) {
             highlight.GetComponent<Image>().color = selectColor;
             transform.localScale *= hoverScale;
+            viewButton.gameObject.SetActive(true);
         } else {
             highlight.GetComponent<Image>().color = Color.white;
             highlight.SetActive(false);
             transform.localScale /= hoverScale;
+            viewButton.gameObject.SetActive(false);
         }
     }
 
@@ -65,6 +70,10 @@ public class DeckSelector : MonoBehaviour, IPointerDownHandler, IPointerEnterHan
 
     public void RevertToNonHoverState() {
         transform.localScale /= hoverScale;
+    }
+
+    public void LoadDeckPage() {
+        SceneManager.LoadScene("DeckSummary");
     }
 
     private void WriteDeckNameToFile(string name) {

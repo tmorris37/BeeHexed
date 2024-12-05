@@ -3,14 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class SelectionManager : MonoBehaviour
 {
+    [SerializeField] private Button continueButton;
     private string selected;
     private string baseSelected = "None";
     private Dictionary<string, DeckSelector> decks = new();
     void Awake()
     {
+        continueButton.gameObject.SetActive(false);
         selected = baseSelected;
         DeckSelector[] decks = GetComponentsInChildren<DeckSelector>();
         foreach (DeckSelector deck in decks) {
@@ -25,6 +28,7 @@ public class SelectionManager : MonoBehaviour
         }
         if (selected != name) {
             selected = name;
+            continueButton.gameObject.SetActive(true);
             if (res) {
                 prevDeck.RevertToNonHoverState();
             }
@@ -34,17 +38,15 @@ public class SelectionManager : MonoBehaviour
             }
         } else {
             selected = "None";
+            continueButton.gameObject.SetActive(false);
             prevDeck.RevertToHoverState();
         }
         
     }
 
-     public void LoadDeckPage() {
-        SceneManager.LoadScene("DeckSummary");
-    }
 
     public void LoadMapPage() {
-        SceneManager.LoadScene("Map");
+        SceneManager.LoadScene("Overworld");
     }
     
 }

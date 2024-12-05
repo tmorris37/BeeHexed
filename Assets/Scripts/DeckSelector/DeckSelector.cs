@@ -5,7 +5,6 @@ using System.IO;
 using Newtonsoft.Json;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class DeckSelector : MonoBehaviour, IPointerDownHandler, IPointerEnterHandler, IPointerExitHandler
@@ -15,32 +14,57 @@ public class DeckSelector : MonoBehaviour, IPointerDownHandler, IPointerEnterHan
     [SerializeField] private string savePath = "Assets/Deck/Save.json";
     [SerializeField] private bool DEBUG_MODE = false;
     [SerializeField] private Color themeColor;
+    private Color selectColor;
+    private bool selected;
+    private SelectionManager selectionManager;
 
     void Awake()
     {
+        selectionManager = FindObjectOfType<SelectionManager>();
         highlight.SetActive(false); 
+        selectColor = new Color(0, 255, 208, 255f);
     }
 
 
     public void OnPointerEnter(PointerEventData eventData) {
-        highlight.SetActive(true);
-        transform.localScale *= hoverScale;
+        if (!selected) {
+            highlight.SetActive(true);
+            transform.localScale *= hoverScale;
+        }
     }
 
     public void OnPointerDown(PointerEventData eventData)
     {
         WriteDeckNameToFile(name);
-        LoadDeckPage();
+        selectionManager.Select(name);
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        highlight.SetActive(false);
-        transform.localScale /= hoverScale;
+        if (!selected) {
+            highlight.SetActive(false);
+            transform.localScale /= hoverScale;
+        }
     }
 
-    private void LoadDeckPage() {
-        SceneManager.LoadScene("DeckSummary");
+    public void SetSelected(bool whether) {
+        selected = whether;
+        if (selected) {
+            highlight.GetComponent<Image>().color = selectColor;
+            transform.localScale *= hoverScale;
+        } else {
+            highlight.GetComponent<Image>().color = Color.white;
+            highlight.SetActive(false);
+            transform.localScale /= hoverScale;
+        }
+    }
+
+    public void RevertToHoverState() {
+        highlight.SetActive(true);
+    }
+
+    public void RevertToNonHoverState() {
+        transform.localScale /= hoverScale;
     }
 
     private void WriteDeckNameToFile(string name) {
@@ -54,5 +78,6 @@ public class DeckSelector : MonoBehaviour, IPointerDownHandler, IPointerEnterHan
         if (DEBUG_MODE) Debug.Log("Written Deck Name: " + playerData.deckName);
         File.WriteAllText(savePath, jsonData);
     }
+
 
 }

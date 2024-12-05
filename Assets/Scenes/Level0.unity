@@ -2725,7 +2725,7 @@ MonoBehaviour:
   cheerios: {fileID: 1341650181057277616, guid: 3c7e526a0cb3c794babc428402c385dd, type: 3}
   cavePrefab: {fileID: 7393846077666523299, guid: 72013799fbfe550428d1f8d3914131af, type: 3}
   centerTower: {fileID: 1341650181057277616, guid: 3c7e526a0cb3c794babc428402c385dd, type: 3}
-  radius: 0
+  radius: 7
   DEBUG: 0
   movement: {fileID: 580640692}
 --- !u!1 &962259158
@@ -3700,7 +3700,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ec5579fda5fec6498b7eadc492806b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GridRadius: 5
+  GridRadius: 7
   HexTilePrefab: {fileID: 5180860355450847252, guid: 804f7f8b96697d147a944995af89b244, type: 3}
   DEBUG: 0
 --- !u!4 &1554881296
@@ -4578,7 +4578,7 @@ MonoBehaviour:
   gridManager: {fileID: 1554881295}
   cavePrefab: {fileID: 7393846077666523299, guid: 72013799fbfe550428d1f8d3914131af, type: 3}
   numCaves: 6
-  radius: 5
+  radius: 7
   DEBUG: 0
   cavePositions: []
 --- !u!4 &1846675531

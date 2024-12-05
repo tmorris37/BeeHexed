@@ -1,6 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using Newtonsoft.Json;
+using Unity.VisualScripting.IonicZip;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -8,6 +12,8 @@ using UnityEngine.UI;
 public class SelectionManager : MonoBehaviour
 {
     [SerializeField] private Button continueButton;
+    [SerializeField] private string savePath = "Assets/Deck/Save.json";
+    [SerializeField] private string deckPath = "Assets/Deck/";
     private string selected;
     private string baseSelected = "None";
     private Dictionary<string, DeckSelector> decks = new();
@@ -44,9 +50,25 @@ public class SelectionManager : MonoBehaviour
         
     }
 
-
+    // Writes the chosen deck to file and loads the map
     public void LoadMapPage() {
-        SceneManager.LoadScene("Overworld");
+        bool res = decks.TryGetValue(selected, out DeckSelector currDeck);
+        if (res) {
+            WriteDeckToFile(currDeck.gameObject.name);
+            SceneManager.LoadScene("Overworld");
+        } else {
+            throw new NullReferenceException("Selected deck does not exist");
+        }
+        
     }
-    
+
+    private void WriteDeckToFile(string deckName) {
+        string jsonPlayerData = File.ReadAllText(savePath);
+        PlayerData saveData = JsonConvert.DeserializeObject<PlayerData>(jsonPlayerData);
+        string jsonCardPaths = File.ReadAllText(deckPath + deckName + ".json");
+        IList<string> paths = JsonConvert.DeserializeObject<IList<string>>(jsonCardPaths);
+        saveData.cardPaths = paths;
+        jsonPlayerData = JsonConvert.SerializeObject(saveData);
+        File.WriteAllText(savePath, jsonPlayerData);
+    }
 }

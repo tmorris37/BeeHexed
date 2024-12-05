@@ -6,7 +6,7 @@ using UnityEngine;
 public class PlayerData
 {
     public string deckName;
-    public IList<Card> deck;
+    public IList<string> cardPaths;
     public BasicColor themeColor; 
 }
 

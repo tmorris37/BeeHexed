@@ -80,7 +80,7 @@ public class DeckSelector : MonoBehaviour, IPointerDownHandler, IPointerEnterHan
         PlayerData playerData = new()
         {
             deckName = name,
-            deck = null,
+            cardPaths = null,
             themeColor = BasicColor.ConvertToBasicColor(themeColor)
         };
         string jsonData = JsonConvert.SerializeObject(playerData);

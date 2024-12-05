@@ -10,16 +10,17 @@ public class TileSpawner : MonoBehaviour
     [SerializeField] public GridManager gridManager;
 
     // Corresponds to 2 Prefabs we might want to spawn
-    [SerializeField] public GameObject tile;
-    [SerializeField] public GameObject pathTile;
+    [SerializeField] private List<GameObject> pathTiles;
 
-    private List<GameObject> tiles;
-
+    [SerializeField] private List<GameObject> normalTiles;
+    private List<Vector3Int> tilePositions;
     public List<(int, int, int)> obstacleTracker;
-    public List<(int, int, int)> pathTiles;
+    public List<(int, int, int)> pathTilePositions;
     public CaveGenerator caveGenerator;
     public MovementAlgorithms movement;
-    public List<GameObject> Tiles;
+
+    // Assume you have a Dictionary to map QRS to children
+    [SerializeField] private Dictionary<Vector3Int, SpriteRenderer> qrsToChildMap;
 
     void Awake()
     {
@@ -29,13 +30,15 @@ public class TileSpawner : MonoBehaviour
     
     void Start()
     {
-        AddTilePrefabs();
+        tilePositions = new List<Vector3Int>();
+        qrsToChildMap = new Dictionary<Vector3Int, SpriteRenderer>();
         GetPaths();
         SpawnTiles();
+        ColorTile(new Vector3Int(3, -3, 0), Color.red);
     }
 
     public void GetPaths() {
-        pathTiles = new List<(int, int, int)>();
+        pathTilePositions = new List<(int, int, int)>();
         foreach (Vector3 cave in caveGenerator.cavePositions)
         {
             (int q, int r, int s) = ((int)cave.x, (int)cave.y, (int)cave.z);
@@ -47,23 +50,12 @@ public class TileSpawner : MonoBehaviour
             List<(int, int, int)> path = movement.DijkstraInitialize(tempEnemy);
             if (path.Count > 0)
             {
-                pathTiles.AddRange(path);
+                pathTilePositions.AddRange(path);
             }
             // Add the cave to the path
-            pathTiles.Add((q, r, s));
+            pathTilePositions.Add((q, r, s));
         }
         
-    }
-
-    // Creates a List from the Tile Prefabs attached to script
-    public void AddTilePrefabs()
-    {
-        List<GameObject> Tiles = new List<GameObject>();
-
-        Tiles.Add(tile);
-
-        Debug.Log("Tiles: " + Tiles.Count);
-        tiles = Tiles;
     }
 
     // Checks if the Tile is in obstacleTracker
@@ -84,7 +76,7 @@ public class TileSpawner : MonoBehaviour
                 q = gridManager.IJtoQRS(i,j).Item1;
                 r = gridManager.IJtoQRS(i,j).Item2;
                 s = gridManager.IJtoQRS(i,j).Item3;
-                if (pathTiles.Contains((q, r, s)))
+                if (pathTilePositions.Contains((q, r, s)))
                 {
                     SpawnTile(q, r, s, "Path");
                 } else {
@@ -99,7 +91,7 @@ public class TileSpawner : MonoBehaviour
                 q = gridManager.IJtoQRS(i,j).Item1;
                 r = gridManager.IJtoQRS(i,j).Item2;
                 s = gridManager.IJtoQRS(i,j).Item3;
-                if (pathTiles.Contains((q, r, s)))
+                if (pathTilePositions.Contains((q, r, s)))
                 {
                     SpawnTile(q, r, s, "Path");
                 } else {
@@ -114,11 +106,13 @@ public class TileSpawner : MonoBehaviour
     {
         GameObject CurrentTile;
         if (type == "Path") {
-            CurrentTile = Instantiate(pathTile);
+            CurrentTile = Instantiate(RandomTileFromList(type));
         } else {
             CurrentTile = Instantiate(RandomTileFromList());
         }
-        Tiles.Add(CurrentTile);
+        Vector3Int qrs = new Vector3Int(q, r, s);
+        tilePositions.Add(qrs);
+        qrsToChildMap[qrs] = CurrentTile.GetComponent<SpriteRenderer>();
 
         CurrentTile.transform.SetParent(gameObject.transform);
 
@@ -139,9 +133,42 @@ public class TileSpawner : MonoBehaviour
         // }
     }
 
-    public GameObject RandomTileFromList()
+    public bool HasTile(Vector3Int position)
     {
-        int index = Random.Range(0, tiles.Count);
-        return tiles[index];
+        foreach (Vector3Int tilePosition in tilePositions)
+        {
+            if (tilePosition == position)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void ColorTile(Vector3Int position, Color color)
+    {
+        // Convert XY to QRS
+        (int q, int r, int s) = (position.x, position.y, position.z);
+        Vector3Int qrsPosition = new Vector3Int(q, r, s);
+
+        // Check if the tile exists in the map
+        if (qrsToChildMap.TryGetValue(qrsPosition, out SpriteRenderer spriteRenderer))
+        {
+            // Apply the color to the correct child
+            spriteRenderer.color = color;
+        }
+        else
+        {
+            Debug.LogWarning($"Tile at QRS {qrsPosition} not found!");
+        }
+    }
+
+    public GameObject RandomTileFromList(string type = "Normal")
+    {
+        if (type == "Path") {
+            return pathTiles[Random.Range(0, pathTiles.Count)];
+        } else {
+            return normalTiles[Random.Range(0, normalTiles.Count)];
+        }
     }
 }

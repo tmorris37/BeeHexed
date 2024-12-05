@@ -552,6 +552,22 @@ PrefabInstance:
       propertyPath: m_fontColor32.rgba
       value: 4279681587
       objectReference: {fileID: 0}
+    - target: {fileID: 8031922056820645314, guid: 3aff5170be97a7447923e3bed995b3a5, type: 3}
+      propertyPath: themeColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8031922056820645314, guid: 3aff5170be97a7447923e3bed995b3a5, type: 3}
+      propertyPath: themeColor.b
+      value: 0.0627451
+      objectReference: {fileID: 0}
+    - target: {fileID: 8031922056820645314, guid: 3aff5170be97a7447923e3bed995b3a5, type: 3}
+      propertyPath: themeColor.g
+      value: 0.76470596
+      objectReference: {fileID: 0}
+    - target: {fileID: 8031922056820645314, guid: 3aff5170be97a7447923e3bed995b3a5, type: 3}
+      propertyPath: themeColor.r
+      value: 0.18823531
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -843,6 +859,22 @@ PrefabInstance:
     - target: {fileID: 6613904194319444686, guid: 3aff5170be97a7447923e3bed995b3a5, type: 3}
       propertyPath: m_Color.r
       value: 0.61635214
+      objectReference: {fileID: 0}
+    - target: {fileID: 8031922056820645314, guid: 3aff5170be97a7447923e3bed995b3a5, type: 3}
+      propertyPath: themeColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8031922056820645314, guid: 3aff5170be97a7447923e3bed995b3a5, type: 3}
+      propertyPath: themeColor.b
+      value: 0.0627451
+      objectReference: {fileID: 0}
+    - target: {fileID: 8031922056820645314, guid: 3aff5170be97a7447923e3bed995b3a5, type: 3}
+      propertyPath: themeColor.g
+      value: 0.6509804
+      objectReference: {fileID: 0}
+    - target: {fileID: 8031922056820645314, guid: 3aff5170be97a7447923e3bed995b3a5, type: 3}
+      propertyPath: themeColor.r
+      value: 0.76470596
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1202,6 +1234,22 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 0.6156863
       objectReference: {fileID: 0}
+    - target: {fileID: 8031922056820645314, guid: 3aff5170be97a7447923e3bed995b3a5, type: 3}
+      propertyPath: themeColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8031922056820645314, guid: 3aff5170be97a7447923e3bed995b3a5, type: 3}
+      propertyPath: themeColor.b
+      value: 0.0627451
+      objectReference: {fileID: 0}
+    - target: {fileID: 8031922056820645314, guid: 3aff5170be97a7447923e3bed995b3a5, type: 3}
+      propertyPath: themeColor.g
+      value: 0.0627451
+      objectReference: {fileID: 0}
+    - target: {fileID: 8031922056820645314, guid: 3aff5170be97a7447923e3bed995b3a5, type: 3}
+      propertyPath: themeColor.r
+      value: 0.77647066
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1480,6 +1528,22 @@ PrefabInstance:
       value: 'Vespera,
 
         The Deceiver'
+      objectReference: {fileID: 0}
+    - target: {fileID: 8031922056820645314, guid: 3aff5170be97a7447923e3bed995b3a5, type: 3}
+      propertyPath: themeColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8031922056820645314, guid: 3aff5170be97a7447923e3bed995b3a5, type: 3}
+      propertyPath: themeColor.b
+      value: 0.76470596
+      objectReference: {fileID: 0}
+    - target: {fileID: 8031922056820645314, guid: 3aff5170be97a7447923e3bed995b3a5, type: 3}
+      propertyPath: themeColor.g
+      value: 0.23137257
+      objectReference: {fileID: 0}
+    - target: {fileID: 8031922056820645314, guid: 3aff5170be97a7447923e3bed995b3a5, type: 3}
+      propertyPath: themeColor.r
+      value: 0.0627451
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

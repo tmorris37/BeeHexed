@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using System.IO;
 using Newtonsoft.Json;
 using UnityEngine;
@@ -13,17 +14,13 @@ public class DeckSelector : MonoBehaviour, IPointerDownHandler, IPointerEnterHan
     [SerializeField] private float hoverScale = 1.1f;
     [SerializeField] private string savePath = "Assets/Deck/Save.json";
     [SerializeField] private bool DEBUG_MODE = false;
+    [SerializeField] private Color themeColor;
 
     void Awake()
     {
-        highlight.SetActive(false);
+        highlight.SetActive(false); 
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     public void OnPointerEnter(PointerEventData eventData) {
         highlight.SetActive(true);
@@ -46,9 +43,16 @@ public class DeckSelector : MonoBehaviour, IPointerDownHandler, IPointerEnterHan
         SceneManager.LoadScene("DeckSummary");
     }
 
-    private void WriteDeckNameToFile(string deckName) {
-        string jsonDeckName = JsonConvert.SerializeObject(deckName);
-        if (DEBUG_MODE) Debug.Log("Written Deck Name: " + jsonDeckName);
-        File.WriteAllText(savePath, jsonDeckName);
+    private void WriteDeckNameToFile(string name) {
+        PlayerData playerData = new()
+        {
+            deckName = name,
+            deck = null,
+            themeColor = BasicColor.ConvertToBasicColor(themeColor)
+        };
+        string jsonData = JsonConvert.SerializeObject(playerData);
+        if (DEBUG_MODE) Debug.Log("Written Deck Name: " + playerData.deckName);
+        File.WriteAllText(savePath, jsonData);
     }
+
 }

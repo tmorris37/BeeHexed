@@ -313,7 +313,7 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
     beamerTower.transform.rotation = Quaternion.Euler(0, 0, snappedAngle);
 
     // Update visual feedback
-    SpriteRenderer sprite = beamerTower.GetComponent<SpriteRenderer>();
+    SpriteRenderer sprite = beamerTower.GetComponentInChildren<SpriteRenderer>();
     if (isBlocked)
     {
         sprite.color = Color.red;

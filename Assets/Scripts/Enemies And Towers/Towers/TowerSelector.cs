@@ -14,11 +14,11 @@ public class TowerSelector : MonoBehaviour
 
     public GameObject PulserPrefab;
 
-    private Vector3Int lastHoveredTilePosition;
+    private Vector3Int lastHovPositionQRS;
     private TileBase originalTile;
     private Vector3Int origTilePos;
     private bool hasHoveredTile;
-    private Vector3Int cellPosition;
+    private Vector3Int HovPositionQRS;
     public bool DEBUG_MODE;
 
     void Start()
@@ -36,35 +36,33 @@ public class TowerSelector : MonoBehaviour
         // Convert the mouse position to a cell position in the tilemap
         Vector3Int tileMapXY = hexTilemap.WorldToCell(mouseWorldPos);
 
-
         (int q, int r, int s) = gridManager.TileMapXYtoQRS(tileMapXY.x, tileMapXY.y);
 
-
-        Vector3Int qrsPosition = new Vector3Int(q, r, s);
-        cellPosition = qrsPosition;
+        // Set the current hovered position in QRS coordinates
+        HovPositionQRS = new Vector3Int(q, r, s);
 
         if (DEBUG_MODE)
         {
-            Debug.Log("QRS Position: " + qrsPosition);
+            Debug.Log("QRS Position: " + HovPositionQRS);
         }
         // If the mouse is over a new cell
-        if (cellPosition != lastHoveredTilePosition)
+        if (HovPositionQRS != lastHovPositionQRS)
         {
             // Reset the last hovered tile if there was one
             if (hasHoveredTile)
             {
-                tiles.ColorTile(lastHoveredTilePosition, Color.white); // Restore the original tile
+                tiles.ColorTile(lastHovPositionQRS, Color.white); // Restore the original tile
                 hasHoveredTile = false;
             }
 
             // Set the new tile to the highlight tile
-            if (tiles.HasTile(cellPosition))
+            if (tiles.HasTile(HovPositionQRS))
             {
-                origTilePos = cellPosition;
-                tiles.ColorTile(cellPosition, Color.grey); // Highlight the new tile
-                // originalTile = hexTilemap.GetTile(cellPosition); // Save the original tile
-                // hexTilemap.SetTile(cellPosition, highlightTile);
-                lastHoveredTilePosition = cellPosition;
+                origTilePos = HovPositionQRS;
+                tiles.ColorTile(HovPositionQRS, Color.grey); // Highlight the new tile
+                // originalTile = hexTilemap.GetTile(HovPositionQRS); // Save the original tile
+                // hexTilemap.SetTile(HovPositionQRS, highlightTile);
+                lastHovPositionQRS = HovPositionQRS;
                 hasHoveredTile = true;
             }
         }
@@ -75,7 +73,7 @@ public class TowerSelector : MonoBehaviour
       // Check for mouse click to place a tower
         if (hasHoveredTile)
         {
-            (int q, int r, int s) = (cellPosition.x, cellPosition.y, cellPosition.z);
+            (int q, int r, int s) = (HovPositionQRS.x, HovPositionQRS.y, HovPositionQRS.z);
             HexTile spot = gridManager.FetchTile(q, r, s);
             HexPosition towerComponent;
             GameObject t;
@@ -86,7 +84,9 @@ public class TowerSelector : MonoBehaviour
                     if (DEBUG_MODE) {
                         Debug.Log("Click released at: " + q + r + s);
                     }
-                    Vector3 towerPosition = hexTilemap.CellToWorld(lastHoveredTilePosition); // Adjust for tile center
+                    (int x, int y) = gridManager.QRStoTileMapXY(q, r, s);
+                    Vector3Int tileMapXY = new Vector3Int(x, y, 0);
+                    Vector3 towerPosition = hexTilemap.CellToWorld(tileMapXY); // Adjust for tile center
                     t = Instantiate(tower, towerPosition, Quaternion.identity); // Spawn the tower at the tile position
                     towerComponent = t.GetComponent<HexPosition>();
                     towerComponent.gridManager = this.gridManager;
@@ -104,33 +104,39 @@ public class TowerSelector : MonoBehaviour
     }
 
     public bool castSpell(GameObject spell, SpellType spellType) {
-        // Check for mouse click to place a tower
-        if (spellType == SpellType.Hex) {
-            if (hasHoveredTile) {
-                (int q, int r, int s) = (cellPosition.x, cellPosition.y, cellPosition.z);
-                HexTile spot = this.gridManager.FetchTile(q, r, s);
-                GameObject t;
-                if (!spot.getOccupied())
-                {
-                    if (Input.GetMouseButtonUp(0))
-                    {
-                        Vector3 spellPosition = hexTilemap.CellToWorld(lastHoveredTilePosition); // Adjust for tile center
-                        t = Instantiate(spell, spellPosition, Quaternion.identity); // Spawn the 'spell' at the tile position
-                    if (DEBUG_MODE) {
-                        Debug.Log("Spell cast at: " + q + r + s);
-                    }
-                    return true;
-                    }
-                }
-            } 
-        return false;
-    } else {
         if (Input.GetMouseButtonUp(0)) {
             Vector3 spellPosition = Vector3.zero;
             GameObject t = Instantiate(spell, spellPosition, Quaternion.identity); // Spawn the 'spell' at 0,0,0
             return true;
         }
-        }
         return false;
+        // // Check for mouse click to place a tower
+        // if (spellType == SpellType.Hex) {
+        //     if (hasHoveredTile) {
+        //         (int q, int r, int s) = (HovPositionQRS.x, HovPositionQRS.y, HovPositionQRS.z);
+        //         HexTile spot = this.gridManager.FetchTile(q, r, s);
+        //         GameObject t;
+        //         if (!spot.getOccupied())
+        //         {
+        //             if (Input.GetMouseButtonUp(0))
+        //             {
+        //                 Vector3 spellPosition = hexTilemap.CellToWorld(lastHovPositionQRS); // Adjust for tile center
+        //                 t = Instantiate(spell, spellPosition, Quaternion.identity); // Spawn the 'spell' at the tile position
+        //             if (DEBUG_MODE) {
+        //                 Debug.Log("Spell cast at: " + q + r + s);
+        //             }
+        //             return true;
+        //             }
+        //         }
+        //     } 
+        // return false;
+        // } else {
+        //     if (Input.GetMouseButtonUp(0)) {
+        //         Vector3 spellPosition = Vector3.zero;
+        //         GameObject t = Instantiate(spell, spellPosition, Quaternion.identity); // Spawn the 'spell' at 0,0,0
+        //         return true;
+        //     }
+        //     }
+        //     return false;
     }
 }

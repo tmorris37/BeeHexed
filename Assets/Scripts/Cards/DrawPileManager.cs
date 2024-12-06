@@ -22,7 +22,7 @@ public class DrawPileManager : MonoBehaviour
 
     [SerializeField] int handLimit = 8;
     
-    [SerializeField] private string deckSavePath = "Assets/Deck/Deck.json";
+    [SerializeField] private string savePath = "Assets/Deck/Save.json";
 
     private HandManager handManager;
     private DiscardManager discardManager;
@@ -47,21 +47,27 @@ public class DrawPileManager : MonoBehaviour
     foreach (Card card in deck){
       cardNames.Add("Cards/" + card.cardName);
     }
-    string jsonDeck = JsonConvert.SerializeObject(cardNames);
-    File.WriteAllText(deckSavePath, jsonDeck);
+    PlayerData playerData = new PlayerData
+    {
+        themeColor = BasicColor.ConvertToBasicColor(Color.black),
+        deckName = "DevDeck",
+        cardPaths = cardNames
+    };
+    string jsonSave = JsonConvert.SerializeObject(playerData);
+    File.WriteAllText(savePath, jsonSave);
     if (DEBUG_MODE)
-      Debug.Log("Written Deck" + jsonDeck);
+      Debug.Log("Written Save" + jsonSave);
   }
 
 
   void getDeckFromFile() {
       deck.Clear();
-      string JSONPlainText = File.ReadAllText(deckSavePath);
+      string JSONPlainText = File.ReadAllText(savePath);
       if (DEBUG_MODE) {
         Debug.Log("Read deck" + JSONPlainText);
       }
-      // String (JSON) -> List
-      IList<string> cardPaths = JsonConvert.DeserializeObject<List<string>>(JSONPlainText);
+      PlayerData playerData = JsonConvert.DeserializeObject<PlayerData>(JSONPlainText);
+      IList<string> cardPaths = playerData.cardPaths;
       // add each card once
       foreach (string path in cardPaths) {
         deck.Add(Resources.Load<Card>(path));
@@ -118,7 +124,7 @@ public class DrawPileManager : MonoBehaviour
     // DEVELOPER ONLY METHODS
     public void DEV_setDeckPath(string path) {
       if (DEVELOPER_MODE) {
-        deckSavePath = path;
+        savePath = path;
       }
     }
 

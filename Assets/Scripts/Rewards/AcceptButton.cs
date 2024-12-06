@@ -10,21 +10,15 @@ using UnityEngine.UI;
 public class AcceptButton : MonoBehaviour
 {
     [SerializeField] private bool DEBUG_MODE;
-    [SerializeField] private string deckSavePath = "Assets/Deck/Deck.json";
+    [SerializeField] private string savePath = "Assets/Deck/Save.json";
     [SerializeField] private string mapScene = "Assets/STSMap_Gen_Package/Scenes/Overworld.unity";
-    private List<Card> deck = new();
+    private PlayerData saveData;
     private void Start() {
-      string JSONPlainText = File.ReadAllText(deckSavePath);
+      string JSONPlainText = File.ReadAllText(savePath);
       if (DEBUG_MODE) Debug.Log("Read JSON: " + JSONPlainText);
       // String (JSON) -> List
-      IList<string> cardPaths = JsonConvert.DeserializeObject<List<string>>(JSONPlainText);
-      
-      // add each card from file
-      foreach (string path in cardPaths) {
-        if (DEBUG_MODE) Debug.Log("Path: " + path);
-        deck.Add(Resources.Load<Card>(path));
-      }
-      if (DEBUG_MODE) Debug.Log("Read Deck: " + deck);
+      saveData = JsonConvert.DeserializeObject<PlayerData>(JSONPlainText);
+      if (DEBUG_MODE) Debug.Log("Read Deck: " + saveData.cardPaths);
     }
     private void LoadMapScene() {
       if (MusicManager.Instance != null)
@@ -37,17 +31,12 @@ public class AcceptButton : MonoBehaviour
     public void WriteDeckWithRewardAndLoad() {
       RewardManager rm = FindObjectOfType<RewardManager>();
       if (DEBUG_MODE) Debug.Log(rm);
-      // two copies of the reward card
-      deck.Add(rm.GetRewardCard());
-      deck.Add(rm.GetRewardCard());
-      List<string> cardNames = new();
-      foreach (Card card in deck){
-        cardNames.Add("Cards/" + card.cardName);
-      }
-      if (DEBUG_MODE) Debug.Log("Deck Size: " + cardNames.Count);
-      string jsonDeck = JsonConvert.SerializeObject(cardNames);
-      if (DEBUG_MODE) Debug.Log("Written Reward Deck: " + jsonDeck);
-      File.WriteAllText(deckSavePath, jsonDeck);
+      // one copy of the reward card
+      saveData.cardPaths.Add("Cards/" + rm.GetRewardCard().cardName);
+      if (DEBUG_MODE) Debug.Log("Deck Size: " + saveData.cardPaths.Count);
+      string jsonSave = JsonConvert.SerializeObject(saveData);
+      if (DEBUG_MODE) Debug.Log("Written Reward Deck: " + jsonSave);
+      File.WriteAllText(savePath, jsonSave);
       LoadMapScene();
     }
    

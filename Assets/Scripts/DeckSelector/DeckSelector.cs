@@ -86,6 +86,7 @@ public class DeckSelector : MonoBehaviour, IPointerDownHandler, IPointerEnterHan
             // clears previous selection
             selectionManager.Reset();
             selectionManager.Select(selectText);
+            transform.localScale *= hoverScale;
         }
     }
 

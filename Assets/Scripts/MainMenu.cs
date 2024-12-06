@@ -8,6 +8,7 @@ public class MainMenu : MonoBehaviour
 { 
 
     [SerializeField] private string deckSavePath = "Assets/Deck/Deck.json";
+    [SerializeField] private string tempPath = "Assets/Deck/temp.json";
 
    // Switches Scene to input Scene, sceneName
     public void GoToScene(string sceneName) 
@@ -39,5 +40,7 @@ public class MainMenu : MonoBehaviour
       }
       string jsonDeck = JsonConvert.SerializeObject(cardNames);
       File.WriteAllText(deckSavePath, jsonDeck);
+      string jsonTemp = JsonConvert.SerializeObject("None");
+      File.WriteAllText(tempPath, jsonTemp);
     }
 }

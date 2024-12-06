@@ -30,15 +30,18 @@ public class TileSpawner : MonoBehaviour
     
     void Start()
     {
+        // Initialize the tilePositions list and the qrsToChildMap dictionary
         tilePositions = new List<Vector3Int>();
         qrsToChildMap = new Dictionary<Vector3Int, SpriteRenderer>();
+        // Get the paths from the caveGenerator, slightly janky
         GetPaths();
+        // Spawn the tiles
         SpawnTiles();
-        ColorTile(new Vector3Int(3, -3, 0), Color.red);
     }
 
     public void GetPaths() {
         pathTilePositions = new List<(int, int, int)>();
+        // For each cave, get the path from the cave
         foreach (Vector3 cave in caveGenerator.cavePositions)
         {
             (int q, int r, int s) = ((int)cave.x, (int)cave.y, (int)cave.z);
@@ -52,7 +55,7 @@ public class TileSpawner : MonoBehaviour
             {
                 pathTilePositions.AddRange(path);
             }
-            // Add the cave to the path
+            // Add the cave path tiles to the list
             pathTilePositions.Add((q, r, s));
         }
         
@@ -122,15 +125,6 @@ public class TileSpawner : MonoBehaviour
 
         (float x, float y) = gridManager.QRStoXY(q, r, s);
         CurrentTile.transform.position = new Vector3(x, y, 0);
-        // if (CurrentTile.GetComponent<BaseTile>().SetPosition())
-        // {
-        //     (float x, float y) = gridManager.QRStoXY(q, r, s);
-        //     CurrentTile.transform.position = new Vector3(x, y, 0);
-        // }
-        // else
-        // {
-        //     Destroy(CurrentTile);
-        // }
     }
 
     public bool HasTile(Vector3Int position)

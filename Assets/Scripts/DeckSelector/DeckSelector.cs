@@ -58,6 +58,7 @@ public class DeckSelector : MonoBehaviour, IPointerDownHandler, IPointerEnterHan
         selected = whether;
         if (selected) {
             highlight.GetComponent<Image>().color = selectColor;
+            highlight.SetActive(true);
             transform.localScale *= hoverScale;
         } else {
             highlight.GetComponent<Image>().color = Color.white;
@@ -81,9 +82,9 @@ public class DeckSelector : MonoBehaviour, IPointerDownHandler, IPointerEnterHan
     private void CheckSelected() {
         string jsonSelectText = File.ReadAllText(tempPath);
         string selectText = JsonConvert.DeserializeObject<string>(jsonSelectText);
-        if (selectText == "None") {
-            return;
-        } else {
+        if (selectText == gameObject.name) {
+            // clears previous selection
+            selectionManager.Reset();
             selectionManager.Select(selectText);
         }
     }

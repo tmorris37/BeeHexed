@@ -31,14 +31,12 @@ public class SelectionManager : MonoBehaviour
     }
     public void Select(string name)
     {
-        // set previous deck to false
+        // deselect previously selected deck if it exists
         bool res = decks.TryGetValue(selected, out DeckSelector prevDeck);
         if (res) {
             prevDeck.SetSelected(false);
-        } else {
-            throw new NullReferenceException("Deck does not exist");
         }
-        Debug.Log(name + " previously Selected?: " + res);
+        // if we selected a new deck
         if (selected != name) {
             selected = name;
             continueButton.gameObject.SetActive(true);
@@ -52,12 +50,16 @@ public class SelectionManager : MonoBehaviour
                 viewButton.image.color = currDeck.GetThemeColor();
             }
         } else {
-            selected = "None";
+            selected = baseSelected;
             continueButton.gameObject.SetActive(false);
             viewButton.gameObject.SetActive(false);
             prevDeck.RevertToHoverState();
         }
         
+    }
+
+    public void Reset() {
+        selected = baseSelected;
     }
 
     // Writes the chosen deck to file and loads the map

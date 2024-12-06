@@ -1,6 +1,6 @@
 {
     "MaxHealth": 15,
-    "Speed": 0.25,
+    "Speed": 0.2,
     "Attacks": [
         {
             "DamageType": "Physical",

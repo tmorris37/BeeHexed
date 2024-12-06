@@ -829,6 +829,9 @@ namespace EnemyAndTowers
                 }
                 Debug.Log(debugStr);
             }
+
+            DijkstraMoves.RemoveAt(0);
+            
             return DijkstraMoves;
         }
 

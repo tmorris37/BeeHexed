@@ -16,7 +16,6 @@ public class DeckSelector : MonoBehaviour, IPointerDownHandler, IPointerEnterHan
     [SerializeField] private bool DEBUG_MODE = false;
     [SerializeField] private Color themeColor;
     // assigned in prefab
-    [SerializeField] private Button viewButton;
     private Color selectColor;
     private bool selected;
     private SelectionManager selectionManager;
@@ -55,12 +54,10 @@ public class DeckSelector : MonoBehaviour, IPointerDownHandler, IPointerEnterHan
         if (selected) {
             highlight.GetComponent<Image>().color = selectColor;
             transform.localScale *= hoverScale;
-            viewButton.gameObject.SetActive(true);
         } else {
             highlight.GetComponent<Image>().color = Color.white;
             highlight.SetActive(false);
             transform.localScale /= hoverScale;
-            viewButton.gameObject.SetActive(false);
         }
     }
 
@@ -72,8 +69,8 @@ public class DeckSelector : MonoBehaviour, IPointerDownHandler, IPointerEnterHan
         transform.localScale /= hoverScale;
     }
 
-    public void LoadDeckPage() {
-        SceneManager.LoadScene("DeckSummary");
+    public Color GetThemeColor() {
+        return themeColor;
     }
 
     private void WriteDeckNameToFile(string name) {

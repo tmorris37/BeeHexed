@@ -12,6 +12,7 @@ using UnityEngine.UI;
 public class SelectionManager : MonoBehaviour
 {
     [SerializeField] private Button continueButton;
+    [SerializeField] private Button viewButton;
     [SerializeField] private string savePath = "Assets/Deck/Save.json";
     [SerializeField] private string deckPath = "Assets/Deck/";
     private string selected;
@@ -20,6 +21,7 @@ public class SelectionManager : MonoBehaviour
     void Awake()
     {
         continueButton.gameObject.SetActive(false);
+        viewButton.gameObject.SetActive(false);
         selected = baseSelected;
         DeckSelector[] decks = GetComponentsInChildren<DeckSelector>();
         foreach (DeckSelector deck in decks) {
@@ -35,16 +37,19 @@ public class SelectionManager : MonoBehaviour
         if (selected != name) {
             selected = name;
             continueButton.gameObject.SetActive(true);
+            viewButton.gameObject.SetActive(true);
             if (res) {
                 prevDeck.RevertToNonHoverState();
             }
             res = decks.TryGetValue(selected, out DeckSelector currDeck);
             if (res) {
                 currDeck.SetSelected(true);
+                viewButton.image.color = currDeck.GetThemeColor();
             }
         } else {
             selected = "None";
             continueButton.gameObject.SetActive(false);
+            viewButton.gameObject.SetActive(false);
             prevDeck.RevertToHoverState();
         }
         
@@ -59,7 +64,10 @@ public class SelectionManager : MonoBehaviour
         } else {
             throw new NullReferenceException("Selected deck does not exist");
         }
-        
+    }
+
+    public void LoadDeckView() {
+        SceneManager.LoadScene("DeckSummary");
     }
 
     private void WriteDeckToFile(string deckName) {

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,7 +13,7 @@ public class PlayerData
 
 // this class is a simplification of the Color class that allows it to be serialized into JSON
 // the standard Color class cannot be serialized because it contains a proprty of type Color, leading to infinite self-references
-public class BasicColor
+public class BasicColor : IEquatable<BasicColor>
 {
     public float red;
     public float green;
@@ -33,5 +34,16 @@ public class BasicColor
     // converts Color to BasicColor
     public static BasicColor ConvertToBasicColor(Color color) {
         return new BasicColor(color.r, color.g, color.b, color.a);
+    }
+
+    public bool Equals(BasicColor other)
+    {
+        if (other is null) {
+            return false;
+        }
+        if (ReferenceEquals(this, other)) {
+            return true;
+        }
+        return red == other.red && green == other.green && blue == other.blue && alpha == other.alpha;
     }
 }

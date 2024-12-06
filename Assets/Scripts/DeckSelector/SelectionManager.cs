@@ -15,6 +15,7 @@ public class SelectionManager : MonoBehaviour
     [SerializeField] private Button viewButton;
     [SerializeField] private string savePath = "Assets/Deck/Save.json";
     [SerializeField] private string deckPath = "Assets/Deck/";
+    [SerializeField] private string tempPath = "Assets/Deck/temp.json";
     private string selected;
     private string baseSelected = "None";
     private Dictionary<string, DeckSelector> decks = new();
@@ -30,10 +31,14 @@ public class SelectionManager : MonoBehaviour
     }
     public void Select(string name)
     {
+        // set previous deck to false
         bool res = decks.TryGetValue(selected, out DeckSelector prevDeck);
         if (res) {
             prevDeck.SetSelected(false);
+        } else {
+            throw new NullReferenceException("Deck does not exist");
         }
+        Debug.Log(name + " previously Selected?: " + res);
         if (selected != name) {
             selected = name;
             continueButton.gameObject.SetActive(true);
@@ -67,6 +72,8 @@ public class SelectionManager : MonoBehaviour
     }
 
     public void LoadDeckView() {
+        string jsonSelection = JsonConvert.SerializeObject(selected);
+        File.WriteAllText(tempPath, jsonSelection);
         SceneManager.LoadScene("DeckSummary");
     }
 

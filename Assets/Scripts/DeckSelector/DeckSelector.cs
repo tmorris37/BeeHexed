@@ -13,6 +13,7 @@ public class DeckSelector : MonoBehaviour, IPointerDownHandler, IPointerEnterHan
     [SerializeField] private GameObject highlight;
     [SerializeField] private float hoverScale = 1.1f;
     [SerializeField] private string savePath = "Assets/Deck/Save.json";
+    [SerializeField] private string tempPath = "Assets/Deck/temp.json";
     [SerializeField] private bool DEBUG_MODE = false;
     [SerializeField] private Color themeColor;
     // assigned in prefab
@@ -25,6 +26,10 @@ public class DeckSelector : MonoBehaviour, IPointerDownHandler, IPointerEnterHan
         selectionManager = FindObjectOfType<SelectionManager>();
         highlight.SetActive(false); 
         selectColor = new Color(0, 255, 208, 255f);
+    }
+
+    void Start() {
+        CheckSelected();
     }
 
 
@@ -71,6 +76,16 @@ public class DeckSelector : MonoBehaviour, IPointerDownHandler, IPointerEnterHan
 
     public Color GetThemeColor() {
         return themeColor;
+    }
+
+    private void CheckSelected() {
+        string jsonSelectText = File.ReadAllText(tempPath);
+        string selectText = JsonConvert.DeserializeObject<string>(jsonSelectText);
+        if (selectText == "None") {
+            return;
+        } else {
+            selectionManager.Select(selectText);
+        }
     }
 
     private void WriteDeckNameToFile(string name) {

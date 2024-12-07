@@ -69,7 +69,6 @@ public class TowerSelector : MonoBehaviour
     }
 
     public bool spawnTower(GameObject tower) {
-      // Check for mouse click to place a tower
         if (hasHoveredTile)
         {
             (int q, int r, int s) = (HovPositionQRS.x, HovPositionQRS.y, HovPositionQRS.z);
@@ -78,37 +77,27 @@ public class TowerSelector : MonoBehaviour
             GameObject t;
             if (!spot.getOccupied())
             {
-                if (Input.GetMouseButtonUp(0))
-                {
-                    if (DEBUG_MODE) {
-                        Debug.Log("Click released at: " + q + r + s);
-                    }
-                    (int x, int y) = gridManager.QRStoTileMapXY(q, r, s);
-                    Vector3Int tileMapXY = new Vector3Int(x, y, 0);
-                    Vector3 towerPosition = hexTilemap.CellToWorld(tileMapXY); // Adjust for tile center
-                    t = Instantiate(tower, towerPosition, Quaternion.identity); // Spawn the tower at the tile position
-                    towerComponent = t.GetComponent<HexPosition>();
-                    towerComponent.gridManager = this.gridManager;
-                    towerComponent.SetQRS(q, r, s);
-                    spot.EnterTile(t);
-                    if (DEBUG_MODE) {
-                        Debug.Log("Tower cast at: " + q + r + s);
-                    }
-                    return true;
+                (int x, int y) = gridManager.QRStoTileMapXY(q, r, s);
+                Vector3Int tileMapXY = new Vector3Int(x, y, 0);
+                Vector3 towerPosition = hexTilemap.CellToWorld(tileMapXY); // Adjust for tile center
+                t = Instantiate(tower, towerPosition, Quaternion.identity); // Spawn the tower at the tile position
+                towerComponent = t.GetComponent<HexPosition>();
+                towerComponent.gridManager = this.gridManager;
+                towerComponent.SetQRS(q, r, s);
+                spot.EnterTile(t);
+                if (DEBUG_MODE) {
+                    Debug.Log("Tower cast at: " + q + r + s);
                 }
+                return true;
             }
             return false;
         } 
         return false;
     }
 
-    public bool castSpell(GameObject spell, SpellType spellType) {
-        // Check for mouse click to place a tower
-        if (Input.GetMouseButtonUp(0)) {
-            Vector3 spellPosition = Vector3.zero;
-            GameObject t = Instantiate(spell, spellPosition, Quaternion.identity); // Spawn the 'spell' at 0,0,0
-            return true;
-        }
-        return false;
+    public bool CastSpell(GameObject spell) {
+        Vector3 spellPosition = Vector3.zero;
+        Instantiate(spell, spellPosition, Quaternion.identity); // Spawn the 'spell' at 0,0,0
+        return true;
     }
 }

@@ -1,11 +1,6 @@
-
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.Rendering;
 using EnemyAndTowers;
-using Unity.VisualScripting.IonicZip;
-using System;
 using System.Collections;
 
 public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerEnterHandler, IPointerExitHandler
@@ -58,8 +53,7 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
             break;
         case 2:
             HandleDragState();
-            if (!Input.GetMouseButton(0) && playstyle == CardPlaystyle.Dragging)
-            {
+            if (!Input.GetMouseButton(0) && playstyle == CardPlaystyle.Dragging) {
                 GoToState(0);
             }
             break;
@@ -93,8 +87,7 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
         playArrow.SetActive(true);
         rectTransform.localPosition = Vector3.Lerp(rectTransform.position, playPosition, lerpTime);
       }
-      else if (desiredState == 4)
-      {
+      else if (desiredState == 4) {
         currState = 4;
         playArrow.SetActive(true);
       } else if (desiredState == -1) {
@@ -168,7 +161,6 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
             {
                 PlayCard();
             }
-
             if (Input.mousePosition.y / canvas.scaleFactor < cardPlayZone.y)
             {
                 GoToState(2);
@@ -196,9 +188,7 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
             if (cardDisplay.cardData.cardType == Card.CardType.Tower)
             {
               GameObject to = ((TowerCard)cardDisplay.cardData).prefab;
-              if (DEBUG_MODE) {
-                Debug.Log("Its about to look at a tower");
-              }             
+              if (DEBUG_MODE) Debug.Log("Its about to look at a tower");           
               // ensures tower is playable at mouse location
               if (towerSelector.spawnTower(to)) {
                 nectarManager.SetNectar(nectarManager.GetNectar() - cardDisplay.cardData.cost);
@@ -220,19 +210,8 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
             else
             {
               // Cast spell
-              if (((SpellCard)cardDisplay.cardData).Type == SpellType.Hex) {
-                if (towerSelector.castSpell(((SpellCard)cardDisplay.cardData).prefab, SpellType.Hex)) {
-                  nectarManager.SetNectar(nectarManager.GetNectar() - cardDisplay.cardData.cost);
-                } else {
-                  errorManager.SetErrorMsg("Invalid tile!");
-                  GoToState(0); // 2
-                  playArrow.SetActive(false);
-                  return;
-                }
-              } else {
-                towerSelector.castSpell(((SpellCard)cardDisplay.cardData).prefab, SpellType.Blessing);
+                towerSelector.CastSpell(((SpellCard)cardDisplay.cardData).prefab);
                 nectarManager.SetNectar(nectarManager.GetNectar() - cardDisplay.cardData.cost);
-              }
             }
             destroyCard();
         }

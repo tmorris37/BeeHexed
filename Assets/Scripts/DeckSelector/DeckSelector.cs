@@ -20,6 +20,7 @@ public class DeckSelector : MonoBehaviour, IPointerDownHandler, IPointerEnterHan
     private Color selectColor;
     private bool selected;
     private SelectionManager selectionManager;
+    private bool playAudio = true;
 
     void Awake()
     {
@@ -43,6 +44,7 @@ public class DeckSelector : MonoBehaviour, IPointerDownHandler, IPointerEnterHan
     public void OnPointerDown(PointerEventData eventData)
     {
         WriteDeckNameToFile(name);
+        playAudio = true;
         selectionManager.Select(name);
     }
 
@@ -60,6 +62,9 @@ public class DeckSelector : MonoBehaviour, IPointerDownHandler, IPointerEnterHan
             highlight.GetComponent<Image>().color = selectColor;
             highlight.SetActive(true);
             transform.localScale *= hoverScale;
+            if (playAudio) {
+                PlayAudio();
+            }
         } else {
             highlight.GetComponent<Image>().color = Color.white;
             highlight.SetActive(false);
@@ -83,6 +88,7 @@ public class DeckSelector : MonoBehaviour, IPointerDownHandler, IPointerEnterHan
         string jsonSelectText = File.ReadAllText(tempPath);
         string selectText = JsonConvert.DeserializeObject<string>(jsonSelectText);
         if (selectText == gameObject.name) {
+            playAudio = false;
             // clears previous selection
             selectionManager.Reset();
             selectionManager.Select(selectText);
@@ -102,5 +108,34 @@ public class DeckSelector : MonoBehaviour, IPointerDownHandler, IPointerEnterHan
         File.WriteAllText(savePath, jsonData);
     }
 
+    private void PlayAudio() {
+        switch (gameObject.name) {
+            case "Beeatrice": {
+                SFXManager.Instance.stopCurrentSFX();
+                SFXManager.Instance.SetVolume(0.15f);
+                SFXManager.Instance.PlayFanfare();
+                break;
+            }
+            case "Bzz'rak": {
+                SFXManager.Instance.stopCurrentSFX();
+                SFXManager.Instance.SetVolume(0.5f);
+                SFXManager.Instance.PlayFire1();
+                break;
+            }
+            case "Hivean": {
+                SFXManager.Instance.stopCurrentSFX();
+                SFXManager.Instance.SetVolume(0.15f);
+                SFXManager.Instance.PlayMechanical();
+                break;
+            }
+            case "Vespera": {
+                SFXManager.Instance.stopCurrentSFX();
+                SFXManager.Instance.SetVolume(0.20f);
+                SFXManager.Instance.PlayElectric();
+                break;
+            }   
+        }
+        
+    }
 
 }

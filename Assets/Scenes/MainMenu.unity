@@ -573,6 +573,11 @@ MonoBehaviour:
   Pulse: {fileID: 8300000, guid: ed28874eece7c764cb4091e2c90bee4b, type: 3}
   Explosion: {fileID: 8300000, guid: 4c394284fa6c1984186b2f28be93c5f1, type: 3}
   TossBomb: {fileID: 8300000, guid: c391dd1bc0234c5409db5fce8e9de972, type: 3}
+  Fireball1: {fileID: 8300000, guid: a61860bc890e7444eadb686f838894fb, type: 3}
+  Fireball2: {fileID: 8300000, guid: c5abf3bff4081b0489ac1c197064a1df, type: 3}
+  ElectricGust: {fileID: 8300000, guid: d6f5e2210c56b114694e16f3fc46cb35, type: 3}
+  MechanicalArmor: {fileID: 8300000, guid: 8d8fb65a91654224a8a996de403c6b7f, type: 3}
+  Fanfare: {fileID: 8300000, guid: 45eb0bc965b9bec42b0634a22acf52ca, type: 3}
 --- !u!4 &290391415
 Transform:
   m_ObjectHideFlags: 0
@@ -1236,6 +1241,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   deckSavePath: Assets/Deck/Deck.json
+  tempPath: Assets/Deck/temp.json
 --- !u!114 &1305653588
 MonoBehaviour:
   m_ObjectHideFlags: 0

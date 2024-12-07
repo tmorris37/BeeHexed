@@ -6,10 +6,16 @@ public class SFXManager : MonoBehaviour
     public static SFXManager Instance { get; private set; }
     public AudioMixer sfxMixer;
     public float volume;
+    private AudioSource currentPlaying;
     public AudioClip Beem;
     public AudioClip Pulse;
     public AudioClip Explosion;
     public AudioClip TossBomb;
+    public AudioClip Fireball1;
+    public AudioClip Fireball2;
+    public AudioClip ElectricGust;
+    public AudioClip MechanicalArmor;
+    public AudioClip Fanfare;
 
     private void Awake()
     {
@@ -55,6 +61,36 @@ public class SFXManager : MonoBehaviour
         PlaySFX(Pulse);
     }
 
+    public void PlayFire1()
+    {
+        PlaySFX(Fireball1);
+    }
+
+    public void PlayFire2()
+    {
+        PlaySFX(Fireball2);
+    }
+    public void PlayFanfare()
+    {
+        PlaySFX(Fanfare);
+    }
+    public void PlayElectric()
+    {
+        PlaySFX(ElectricGust);
+    }
+    public void PlayMechanical()
+    {
+        PlaySFX(MechanicalArmor);
+    }
+
+    public void stopCurrentSFX() {
+        if (currentPlaying != null) {
+            Debug.Log("Stopping " + currentPlaying);
+            currentPlaying.Stop();
+        }
+    }
+
+
     private void PlaySFX(AudioClip clip)
     {
         // Create a new GameObject with an AudioSource to play the clip
@@ -62,6 +98,8 @@ public class SFXManager : MonoBehaviour
         AudioSource audioSource = sfxObject.AddComponent<AudioSource>();
 
         // Set up the AudioSource
+        
+        currentPlaying = audioSource;
         audioSource.clip = clip;
         audioSource.outputAudioMixerGroup = sfxMixer.FindMatchingGroups("SFX")[0]; // Assuming you have an "SFX" group
         audioSource.volume = 1f;

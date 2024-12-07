@@ -23,7 +23,6 @@ public class Settings : MonoBehaviour
     {
         string json = File.ReadAllText(settingSavePath);
         CardPlaystyle playstyle = JsonConvert.DeserializeObject<CardPlaystyle>(json);
-        Debug.Log("Playstyle " + playstyle);
         if (playstyle == CardPlaystyle.Clicking) {
             playStyleSlider.value = 0;
         } else {
@@ -68,7 +67,6 @@ public class Settings : MonoBehaviour
         } else {
             json = JsonConvert.SerializeObject(CardPlaystyle.Dragging);
         }
-        Debug.Log("Saving style" + json);
         File.WriteAllText(settingSavePath, json);
     }
 }

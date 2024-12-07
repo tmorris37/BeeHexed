@@ -13,7 +13,7 @@ public class SelectionManager : MonoBehaviour
 {
     [SerializeField] private Button continueButton;
     [SerializeField] private Button viewButton;
-    [SerializeField] private string tempPath = "Assets/Deck/temp.json";
+    // [SerializeField] private string tempPath = "Assets/Deck/temp.json";
     private string selected;
     private string baseSelected = "None";
     private Dictionary<string, DeckSelector> decks = new();
@@ -72,8 +72,7 @@ public class SelectionManager : MonoBehaviour
     }
 
     public void LoadDeckView() {
-        string jsonSelection = JsonConvert.SerializeObject(selected);
-        File.WriteAllText(tempPath, jsonSelection);
+        DeckSelected.selectedDeck = selected;
         SceneManager.LoadScene("DeckSummary");
     }
 

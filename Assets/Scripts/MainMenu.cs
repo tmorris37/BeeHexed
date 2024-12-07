@@ -19,6 +19,7 @@ public class MainMenu : MonoBehaviour
         //             MusicManager.Instance.PlayNewGameMusic();
         //         }
         //     }
+        DeckSelected.selectedDeck = "None";
         SceneManager.LoadScene(sceneName);
     }
 

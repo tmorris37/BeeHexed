@@ -12,6 +12,25 @@ public class Settings : MonoBehaviour
 {
     public string settingSavePath = "Assets/Deck/Settings.json";
     [SerializeField] private Slider playStyleSlider;
+    [SerializeField] private Color clickColor;
+    [SerializeField] private Color dragColor;
+    void Awake() {
+        LoadSettingsFromFile();
+        ChangeSliderColor();
+    }
+
+    private void LoadSettingsFromFile()
+    {
+        string json = File.ReadAllText(settingSavePath);
+        CardPlaystyle playstyle = JsonConvert.DeserializeObject<CardPlaystyle>(json);
+        Debug.Log("Playstyle " + playstyle);
+        if (playstyle == CardPlaystyle.Clicking) {
+            playStyleSlider.value = 0;
+        } else {
+            playStyleSlider.value = 1;
+        }
+    }
+
     // Sets quality of 
     public void SetQuality (int qualityIndex)
     {
@@ -33,6 +52,14 @@ public class Settings : MonoBehaviour
         SavePlayStylePreferences(playStyleSlider.value);
     }
 
+    public void ChangeSliderColor() {
+        if (playStyleSlider.value == 0) {
+            playStyleSlider.handleRect.GetComponent<Image>().color = clickColor; 
+        } else {
+            playStyleSlider.handleRect.GetComponent<Image>().color = dragColor;
+        }
+    }
+
     private void SavePlayStylePreferences(float value)
     {
         string json;
@@ -41,6 +68,7 @@ public class Settings : MonoBehaviour
         } else {
             json = JsonConvert.SerializeObject(CardPlaystyle.Dragging);
         }
+        Debug.Log("Saving style" + json);
         File.WriteAllText(settingSavePath, json);
     }
 }

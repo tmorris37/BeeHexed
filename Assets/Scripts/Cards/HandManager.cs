@@ -58,7 +58,6 @@ public class HandManager : MonoBehaviour
     handSize++;
     addCard.GetComponent<CardDisplay>().cardData = card;
     addCard.GetComponent<CardMovement>().playstyle = playstyle;
-    Debug.Log("Playstyle: " + playstyle);
     UpdateHandDisplay();
   }
 

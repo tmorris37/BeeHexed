@@ -3,14 +3,21 @@ using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using System.IO;
+using System;
 
 public class MainMenu : MonoBehaviour 
 { 
 
     [SerializeField] private string deckSavePath = "Assets/Deck/Deck.json";
     [SerializeField] private string tempPath = "Assets/Deck/temp.json";
+    [SerializeField] private string settingSavePath = "Assets/Deck/settings.json";
+    [SerializeField] private CardPlaystyle defaultPlaystyle = CardPlaystyle.Clicking;
 
-   // Switches Scene to input Scene, sceneName
+    void Start() {
+    }
+
+
+    // Switches Scene to input Scene, sceneName
     public void GoToScene(string sceneName) 
     {
         // if (MusicManager.Instance != null)
@@ -29,6 +36,7 @@ public class MainMenu : MonoBehaviour
         Application.Quit();
         Debug.Log("Application has quit");
     }
+
 
     public void WriteBaseDeckToFile() {
       // by default, we use two copies of every card in Resources as our starting deck

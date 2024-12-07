@@ -60,17 +60,17 @@ namespace EnemyAndTowers
 
         public virtual void TakeDamage(int damage)
         {
-            SpriteRenderer sprite = GetComponent<SpriteRenderer>();
+            SpriteRenderer sprite = GetComponentInChildren<SpriteRenderer>();
             sprite.color = Color.red;
             StartCoroutine(FadeBackColor(sprite, 0.5f));
             this.health = this.health - damage;
         }
 
-        public virtual void GoRed()
+        /*public virtual void GoRed()
         {
             SpriteRenderer sprite = GetComponent<SpriteRenderer>();
             sprite.color = Color.red;
-        }
+        }*/
 
         private IEnumerator FadeBackColor(SpriteRenderer sprite, float duration)
         {

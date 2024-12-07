@@ -10,7 +10,7 @@ public class TowerCard : Card
 {
   [SerializeField] private int towerID;
   public Sprite fieldSprite;
-  public GameObject prefab;
+  //public GameObject prefab;
   public TowerData towerData;
 
 

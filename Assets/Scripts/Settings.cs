@@ -1,12 +1,17 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using Newtonsoft.Json;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 
 public class Settings : MonoBehaviour
 {
-
+    public string settingSavePath = "Assets/Deck/Settings.json";
+    [SerializeField] private Slider playStyleSlider;
     // Sets quality of 
     public void SetQuality (int qualityIndex)
     {
@@ -19,4 +24,28 @@ public class Settings : MonoBehaviour
         // Hard Coded to bring back to MainMenu
         SceneManager.LoadScene("MainMenu");
     }
+
+    // Sets card playstyle preferenes
+    public void SetPlayStylePreference() {
+        // 0 is click, 1 is drag
+        // converts 0 to 1 and 1 to 0 (AKA toggles)
+        playStyleSlider.value = playStyleSlider.value + 1 + playStyleSlider.value * -2;
+        SavePlayStylePreferences(playStyleSlider.value);
+    }
+
+    private void SavePlayStylePreferences(float value)
+    {
+        string json;
+        if (value == 0) {
+            json = JsonConvert.SerializeObject(CardPlaystyle.Clicking);
+        } else {
+            json = JsonConvert.SerializeObject(CardPlaystyle.Dragging);
+        }
+        File.WriteAllText(settingSavePath, json);
+    }
+}
+
+public enum CardPlaystyle {
+    Clicking,
+    Dragging
 }

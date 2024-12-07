@@ -11,6 +11,7 @@ public class PlayerData
     public BasicColor themeColor; 
 }
 
+
 // this class is a simplification of the Color class that allows it to be serialized into JSON
 // the standard Color class cannot be serialized because it contains a proprty of type Color, leading to infinite self-references
 public class BasicColor : IEquatable<BasicColor>

@@ -22,8 +22,7 @@ public class DrawPileManager : MonoBehaviour
 
     [SerializeField] int handLimit = 8;
     
-    [SerializeField] private string savePath = "Assets/Deck/Save.json";
-
+    private string savePath = Paths.savePath;
     private HandManager handManager;
     private DiscardManager discardManager;
 

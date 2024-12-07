@@ -115,7 +115,7 @@ public class TileSpawner : MonoBehaviour
         }
         Vector3Int qrs = new Vector3Int(q, r, s);
         tilePositions.Add(qrs);
-        qrsToChildMap[qrs] = CurrentTile.GetComponent<SpriteRenderer>();
+        qrsToChildMap[qrs] = CurrentTile.GetComponentInChildren<SpriteRenderer>();
 
         CurrentTile.transform.SetParent(gameObject.transform);
 

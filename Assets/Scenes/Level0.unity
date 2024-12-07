@@ -501,9 +501,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gridManager: {fileID: 1554881295}
   pathTiles:
-  - {fileID: 4519046639785806374, guid: 53ca5b54660b144438c113a7606f193e, type: 3}
+  - {fileID: 4519046639785806374, guid: 0963361598ab06145810511bd4e9578d, type: 3}
+  - {fileID: 4519046639785806374, guid: 93a8737147ded9747807e69528740af5, type: 3}
   normalTiles:
-  - {fileID: 4519046639785806374, guid: bff1ca3ccc8940e4a97ed4fc6f117044, type: 3}
+  - {fileID: 4519046639785806374, guid: 5f7656a6896721649afa04e78285d27b, type: 3}
+  - {fileID: 4519046639785806374, guid: 53ca5b54660b144438c113a7606f193e, type: 3}
   caveGenerator: {fileID: 0}
   movement: {fileID: 0}
 --- !u!4 &183433773
@@ -3672,7 +3674,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 0764704ebb4245b449a3db872a0d0ee2, type: 2}
   deck: []
   handLimit: 8
-  deckSavePath: Assets/Deck/Deck.json
+  savePath: Assets/Deck/Save.json
   drawPileCounter: {fileID: 515682204}
 --- !u!1 &1554881294
 GameObject:

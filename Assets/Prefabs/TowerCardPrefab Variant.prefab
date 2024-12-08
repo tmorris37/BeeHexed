@@ -608,6 +608,14 @@ PrefabInstance:
       propertyPath: m_RenderMode
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 9158651054963895208, guid: b4c2a62bc13b68144b4c25fd2d5b00f6, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9158651054963895208, guid: b4c2a62bc13b68144b4c25fd2d5b00f6, type: 3}
+      propertyPath: m_OverrideSorting
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 6775717920964884381, guid: b4c2a62bc13b68144b4c25fd2d5b00f6, type: 3}
     m_RemovedGameObjects: []
@@ -702,12 +710,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07aeb0c9d1d9ca74faec8df834dc843e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DEBUG_MODE: 0
+  origCardRotation: {x: 0, y: 0, z: 0, w: 0}
+  origCardPosition: {x: 0, y: 0, z: 0}
+  origCardScale: {x: 0, y: 0, z: 0}
   hoverScale: 1.1
   playPosition: {x: -400, y: 500, z: 0}
   hoverHighlight: {fileID: 319122641020508303}
   playArrow: {fileID: 1087313091270607980}
   cardPlayZone: {x: 0, y: 400}
   lerpTime: 0.1
+  errorManager: {fileID: 0}
 --- !u!224 &8446286050923697858 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6132360889243443293, guid: b4c2a62bc13b68144b4c25fd2d5b00f6, type: 3}

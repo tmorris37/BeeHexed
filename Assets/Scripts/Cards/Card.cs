@@ -11,6 +11,7 @@ public class Card : ScriptableObject
   [SerializeField] public Sprite art;
   //[SerializeField] public UnityEngine.UI.Image art;
   [SerializeField] public CardType cardType;
+  [SerializeField] public GameObject prefab;
 
     // Start is called before the first frame update
     void Start()

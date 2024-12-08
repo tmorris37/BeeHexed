@@ -98,7 +98,6 @@ namespace EnemyAndTowers
         public IList<TowerAttack> Attacks { get; set; }
         
 
-        
         // More fields based on what we need to store about an enemy
     }
 

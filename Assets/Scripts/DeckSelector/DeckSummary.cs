@@ -6,11 +6,15 @@ using Newtonsoft.Json;
 using TMPro;
 using UnityEngine;
 
+// This class manages the display of the cards on the DeckSummary screen
 public class DeckSummary : MonoBehaviour {   
     public bool DEBUG_MODE = false;
     public bool DEVELOPER_MODE = false;
+    // The text at the top of the screen 
     [SerializeField] private TextMeshProUGUI titleText;
+    // how many cards to display in one row
     [SerializeField] private int maxCardsInRow = 6;
+    // how many rows of cards can reasonably be displayed
     [SerializeField] private int maxRows = 2;
     [SerializeField] private float cardScaleFactor = 0.75f;
     [SerializeField] private int rowScaleFactor = -275;
@@ -80,6 +84,7 @@ public class DeckSummary : MonoBehaviour {
         } else {
             width = rectTransform.rect.width;
         }   
+        if (DEBUG_MODE) Debug.Log("Read width is " + width);
         // what row we are on
         if (DEBUG_MODE) Debug.Log("Rows required " + Math.Ceiling((double)numCards / maxCardsInRow));
         for (int row = 0; row < Math.Ceiling((double)numCards / maxCardsInRow); row++) {
@@ -88,8 +93,8 @@ public class DeckSummary : MonoBehaviour {
             if (DEBUG_MODE) Debug.Log("Cards processed: " + numCardsDone);
             // which card we are on, given what row we are on
             // loops up to maxCardsInRow times, this clamp is inelegant I feel
-            if (DEBUG_MODE) Debug.Log("Cards in this row =  " + Math.Clamp(numCards - numCardsDone, 0, 6));
-            int cardsInRow = Math.Clamp(numCards - numCardsDone, 0, 6);
+            if (DEBUG_MODE) Debug.Log("Cards in this row =  " + Math.Clamp(numCards - numCardsDone, 0, maxCardsInRow));
+            int cardsInRow = Math.Clamp(numCards - numCardsDone, 0, maxCardsInRow);
             for (int card = numCardsDone; card < cardsInRow + numCardsDone; card++) {
                 if (DEBUG_MODE) Debug.Log("On card " + card);
                 int relativeCard = card % maxCardsInRow;

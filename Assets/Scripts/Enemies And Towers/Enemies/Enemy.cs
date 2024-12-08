@@ -106,6 +106,8 @@ namespace EnemyAndTowers
             // Calculate total time to travel based on speed
             float travelTime = distance / movementSpeed;
             float elapsedTime = 0f;
+            moveTimeRemaining = travelTime;
+
 
             // Move the enemy towards the target position
             while (elapsedTime < travelTime)
@@ -142,7 +144,7 @@ namespace EnemyAndTowers
                 Attack();
                 attackCooldown = attackRate;
             }
-            // Try and move towards the next tile if off cooldown
+            // Try and move towards the next tile if off cooldown and at the target position
             if (targetPositionXY == transform.position && moveTimeRemaining <= 0f)
             {
                 if (DEBUG) {
@@ -150,7 +152,6 @@ namespace EnemyAndTowers
                 }
                 // Only reset the moveTimeRemaining if the enemy actually started moving
                 if (movement.DijkstraMove(this, DijkstraMoves)) {
-                    moveTimeRemaining = 1 / movementSpeed;
                 }
             }
             // Update the timers

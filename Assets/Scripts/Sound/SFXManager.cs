@@ -10,6 +10,8 @@ public class SFXManager : MonoBehaviour
     public AudioClip Pulse;
     public AudioClip Explosion;
     public AudioClip TossBomb;
+    public AudioClip FireballCast;
+    public AudioClip FireballExplode;
 
     private void Awake()
     {
@@ -53,6 +55,16 @@ public class SFXManager : MonoBehaviour
     public void PlayPulse()
     {
         PlaySFX(Pulse);
+    }
+
+    public void PlayFireballCast()
+    {
+        PlaySFX(FireballCast);
+    }
+
+    public void PlayFireballExplode()
+    {
+        PlaySFX(FireballExplode);
     }
 
     private void PlaySFX(AudioClip clip)

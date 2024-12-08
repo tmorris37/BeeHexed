@@ -862,6 +862,7 @@ namespace EnemyAndTowers
             RotateTowards(enemy, targetPositionXY);
 
             if (enemy.UpdatePosition(dq, dr, ds) == 1) {
+            if (enemy.UpdatePosition(dq, dr, ds) == 1) {
                 DijkstraMoves.RemoveAt(0);
                 enemy.targetPositionXY = targetPositionXY;
                 enemy.MoveToPosition();

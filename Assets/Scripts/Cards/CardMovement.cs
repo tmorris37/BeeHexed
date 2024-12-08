@@ -192,9 +192,8 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
               // ensures tower is playable at mouse location
               if (towerSelector.spawnTower(to)) {
                 nectarManager.SetNectar(nectarManager.GetNectar() - cardDisplay.cardData.cost);
-                if (to.GetComponent<BeamerTower>() != null || to.GetComponent<StraightShooterTower>() != null)
-                {
-                  if (DEBUG_MODE) Debug.Log("It knows its a beamer");
+                if (to.GetComponent<Tower>().IsRotatable()) {
+                  if (DEBUG_MODE) Debug.Log("It is a rotatable tower");
                   // Transition to the rotation state
                   GoToState(4); 
                   //playArrow.SetActive(false);

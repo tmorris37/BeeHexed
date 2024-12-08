@@ -28,6 +28,14 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: df34f476f035db54d8dd46e9804999ec, type: 3}
+    - target: {fileID: 5952500006321472481, guid: 1b2efda9e5db79643bb0adee8cfb9c1b, type: 3}
+      propertyPath: m_SortingLayer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5952500006321472481, guid: 1b2efda9e5db79643bb0adee8cfb9c1b, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -456934539
+      objectReference: {fileID: 0}
     - target: {fileID: 7540821712904116268, guid: 1b2efda9e5db79643bb0adee8cfb9c1b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -110,10 +118,11 @@ MonoBehaviour:
   gridManager: {fileID: 0}
   towerID: 0
   detection: {fileID: 0}
-  fireRate: 1
+  fireRate: 4
   health: 0
-  damage: 15
+  damage: 8
   active: 0
   healthBar: {fileID: 0}
   projectilePrefab: {fileID: 5559887198013430573, guid: 3ccecbd6e01422349b691680351c177f, type: 3}
   projectileSpeed: 5
+  projectileSpriteRotationOffset: 45

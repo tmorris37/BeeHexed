@@ -5,13 +5,14 @@ using UnityEngine;
 namespace EnemyAndTowers {
     public class Fireball : MonoBehaviour
     {
-        public FireflySorceress tower;
+        public int damage = 0;
+        [SerializeField] GameObject explosion;
 
         private void OnTriggerEnter2D(Collider2D collision) {
             if (collision.CompareTag("EnemyBody"))
             {
-                // Deal damage to the enemy
-                tower.DealDamage();
+                GameObject expl = Instantiate(explosion, transform.localPosition, Quaternion.identity);
+                expl.GetComponent<FireballExplosion>().damage = damage;
                 // Destroy the projectile after it hits the enemy
                 Destroy(gameObject);
             }

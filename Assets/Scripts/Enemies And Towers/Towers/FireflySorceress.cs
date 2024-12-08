@@ -8,6 +8,7 @@ public class FireflySorceress : Tower
 {
     public GameObject projectilePrefab;
     public float projectileSpeed = 5f;
+    public float projectileSpriteRotationOffset = 45;
 
     protected override void Start() {
         base.Start();
@@ -39,10 +40,11 @@ public class FireflySorceress : Tower
         // Instantiate the projectile at the tower's position
         GameObject proj = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
         Fireball projectile = proj.GetComponent<Fireball>();
-        projectile.tower = this;
+        projectile.damage = damage;
 
         // Rotate the projectile to face the firing direction
-        projectile.transform.rotation = Quaternion.LookRotation(Vector3.forward, direction);
+        // projectile.transform.rotation = Quaternion.LookRotation(Vector3.forward, direction);
+        projectile.transform.rotation = Quaternion.Euler(0, 0, transform.rotation.eulerAngles.z + projectileSpriteRotationOffset);
 
         // Set the velocity of the projectile
         Rigidbody2D rb = projectile.GetComponent<Rigidbody2D>();

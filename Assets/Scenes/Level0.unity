@@ -3664,17 +3664,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 179dd428836948f449d0617198da4296, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DEVELOPER_MODE: 0
+  DEVELOPER_MODE: 1
   DEBUG_MODE: 0
   customDeck:
-  - {fileID: 11400000, guid: 2edd6cb0950a7b34896f87da642c90e3, type: 2}
-  - {fileID: 11400000, guid: 2edd6cb0950a7b34896f87da642c90e3, type: 2}
-  - {fileID: 11400000, guid: 0764704ebb4245b449a3db872a0d0ee2, type: 2}
-  - {fileID: 11400000, guid: 0764704ebb4245b449a3db872a0d0ee2, type: 2}
-  - {fileID: 11400000, guid: 0764704ebb4245b449a3db872a0d0ee2, type: 2}
+  - {fileID: 11400000, guid: 3be26d53f46076346b9b2dd714668422, type: 2}
+  - {fileID: 11400000, guid: 3be26d53f46076346b9b2dd714668422, type: 2}
+  - {fileID: 11400000, guid: 3be26d53f46076346b9b2dd714668422, type: 2}
+  - {fileID: 11400000, guid: 3be26d53f46076346b9b2dd714668422, type: 2}
+  - {fileID: 11400000, guid: 3be26d53f46076346b9b2dd714668422, type: 2}
+  - {fileID: 11400000, guid: 3be26d53f46076346b9b2dd714668422, type: 2}
   deck: []
   handLimit: 8
-  savePath: Assets/Deck/Save.json
   drawPileCounter: {fileID: 515682204}
 --- !u!1 &1554881294
 GameObject:
@@ -4074,6 +4074,7 @@ MonoBehaviour:
   drawPileManager: {fileID: 0}
   discardManager: {fileID: 0}
   handSize: 0
+  settingSavePath: Assets/Deck/Settings.json
 --- !u!1 &1630860455
 GameObject:
   m_ObjectHideFlags: 0

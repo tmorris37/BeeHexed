@@ -33,7 +33,9 @@ public class FireflySorceress : Tower
         {
             throw new NullReferenceException("Projectile prefab not assigned!");
         }
-
+        if (SFXManager.Instance != null) {
+            SFXManager.Instance.PlayFireballCast();
+        }
         // Use the tower's rotation to determine the direction
         Vector3 direction = transform.right; // Assuming the tower faces along its local right direction
 

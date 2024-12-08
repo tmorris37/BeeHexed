@@ -426,7 +426,7 @@ MonoBehaviour:
   volume: 0.5
   mainMenuClip: {fileID: 8300000, guid: 5906dd866e116754ca0b8e705f246cdb, type: 3}
   newGameClip: {fileID: 8300000, guid: ddf1e3f693c7a3c4d976fc796aac4062, type: 3}
-  inGameClip: {fileID: 8300000, guid: 49073505d55c18546b7c07c4555387bc, type: 3}
+  inGameClip: {fileID: 8300000, guid: 37ddc5318bf004f4a80c4cc7e1903e3d, type: 3}
 --- !u!4 &180065175
 Transform:
   m_ObjectHideFlags: 0
@@ -1235,7 +1235,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1eae8e4c42110dc438108e8f389c119c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deckSavePath: Assets/Deck/Deck.json
 --- !u!114 &1305653588
 MonoBehaviour:
   m_ObjectHideFlags: 0

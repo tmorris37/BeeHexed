@@ -859,11 +859,11 @@ namespace EnemyAndTowers
 
             (float a, float b) = GridManager.QRStoXY(targetQ,targetR,targetS);
             Vector3 targetPositionXY = new Vector3(a, b, 0);
-            enemy.targetPositionXY = targetPositionXY;
             RotateTowards(enemy, targetPositionXY);
 
             if (enemy.UpdatePosition(dq, dr, ds) == 1) {
                 DijkstraMoves.RemoveAt(0);
+                enemy.targetPositionXY = targetPositionXY;
                 enemy.MoveToPosition();
                 return true;
             }

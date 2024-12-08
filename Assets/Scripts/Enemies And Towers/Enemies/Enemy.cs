@@ -144,7 +144,7 @@ namespace EnemyAndTowers
                 Attack();
                 attackCooldown = attackRate;
             }
-            // Try and move towards the next tile if off cooldown
+            // Try and move towards the next tile if off cooldown and at the target position
             if (targetPositionXY == transform.position && moveTimeRemaining <= 0f)
             {
                 if (DEBUG) {

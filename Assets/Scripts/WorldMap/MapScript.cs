@@ -70,7 +70,7 @@ public class MapScript : MonoBehaviour
             { "2.1.1", new List<GameObject> { level_3_node_1_1 } },
             { "2.1.2", new List<GameObject> { level_3_node_1_2 } },
             { "3.1.1", new List<GameObject> { level_4_node_1_1 } },
-            { "3.1.2", new List<GameObject> { level_4_node_1_2_1, level_4_1_2_2 } },
+            { "3.1.2", new List<GameObject> { level_4_node_1_2_1, level_4_node_1_2_2 } },
             { "4.1.1", new List<GameObject> { final_node } },
             { "4.1.2.1", new List<GameObject> { final_node } },
             { "4.1.2.2", new List<GameObject> { final_node } },

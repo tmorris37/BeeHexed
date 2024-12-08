@@ -573,6 +573,8 @@ MonoBehaviour:
   Pulse: {fileID: 8300000, guid: ed28874eece7c764cb4091e2c90bee4b, type: 3}
   Explosion: {fileID: 8300000, guid: 4c394284fa6c1984186b2f28be93c5f1, type: 3}
   TossBomb: {fileID: 8300000, guid: c391dd1bc0234c5409db5fce8e9de972, type: 3}
+  FireballCast: {fileID: 8300000, guid: fb004875fa96c864384f2017a0be4280, type: 3}
+  FireballExplode: {fileID: 8300000, guid: 923803e22dd79764dafbaffade9dd0de, type: 3}
 --- !u!4 &290391415
 Transform:
   m_ObjectHideFlags: 0

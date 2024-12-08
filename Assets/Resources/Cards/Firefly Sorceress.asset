@@ -18,6 +18,6 @@ MonoBehaviour:
   health: 25
   art: {fileID: 21300000, guid: 8dfb58077f1742448aeffd2e87e5c8af, type: 3}
   cardType: 0
+  prefab: {fileID: 8710756646489622268, guid: 7e4109935c2cac24094eb3329ce79313, type: 3}
   towerID: 3
   fieldSprite: {fileID: 21300000, guid: df34f476f035db54d8dd46e9804999ec, type: 3}
-  prefab: {fileID: 842843656095350179, guid: 466a0a1c4ac211b4cac99a17de01d534, type: 3}

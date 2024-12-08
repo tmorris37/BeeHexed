@@ -11,6 +11,6 @@ public class RejectButtonScript : MonoBehaviour {
         MusicManager.Instance.PlayNewGameMusic();
       }
       if (DEBUG_MODE) Debug.Log("Loading map...");
-      SceneManager.LoadScene("Overworld");
+      SceneManager.LoadScene("OverworldToyBox");
     }
 }

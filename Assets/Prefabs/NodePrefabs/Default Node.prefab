@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 746008051042940714}
   - component: {fileID: 211953591368571969}
   - component: {fileID: 4770576415910626610}
-  - component: {fileID: 5431511630644568361}
   m_Layer: 5
   m_Name: Default Node
   m_TagString: Untagged
@@ -121,7 +120,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5431511630644568361}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: MapScript, BeeHexedAssembly
         m_MethodName: GoToScene
         m_Mode: 5
@@ -133,15 +132,3 @@ MonoBehaviour:
           m_StringArgument: Level0
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &5431511630644568361
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3703891279571309452}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 46cedece177c97e42867f5815413c81c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

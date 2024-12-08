@@ -14,12 +14,15 @@ public abstract class UniversalDurationSpell<T> : DurationSpell
   void GetTargetsAndApply() {
     targets = GameObject.FindGameObjectsWithTag(targetTag);
     foreach (GameObject target in targets) {
-      T entity = target.GetComponent<T>();
-      SpriteRenderer sprite = target.GetComponent<SpriteRenderer>();
-      if (entity == null || sprite == null) {
-        throw new NullReferenceException("Component was null in target for this spell");
-      }
-      ApplySpellEffect(entity, sprite);
+        T entity = target.GetComponent<T>();
+        SpriteRenderer sprite = target.GetComponent<SpriteRenderer>();
+        if (sprite == null) sprite = target.GetComponentInChildren<SpriteRenderer>();
+        if (entity == null) {
+            throw new NullReferenceException("GetTargets: Entity was null in" + entity +"for this spell");
+        } else if (sprite == null) {
+            throw new NullReferenceException("GetTargets: Sprite was null in"  + entity + "for this spell");
+        }
+        ApplySpellEffect(entity, sprite);
     }
   }
 
@@ -36,9 +39,12 @@ public abstract class UniversalDurationSpell<T> : DurationSpell
       } 
       T entity = target.GetComponent<T>();
       SpriteRenderer sprite = target.GetComponent<SpriteRenderer>();
-      if (entity == null || sprite == null) {
-        throw new NullReferenceException("Component was null in target for this spell");
-      }
+      if (sprite == null) sprite = target.GetComponentInChildren<SpriteRenderer>();
+      if (entity == null) {
+            throw new NullReferenceException("EndEffect: Entity was null in" + entity +"for this spell");
+        } else if (sprite == null) {
+            throw new NullReferenceException("EndEffect: Sprite was null in"  + entity + "for this spell");
+        }
       EndEffect(entity, sprite);
     }
   }

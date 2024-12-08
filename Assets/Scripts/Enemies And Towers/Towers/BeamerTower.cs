@@ -14,7 +14,7 @@ namespace EnemyAndTowers
         protected override void Start()
         {
             base.Start();
-            
+            //rotatable = true;
             fireCountdown = fireRate;
             //animator = GetComponent<Animator>();
         }
@@ -67,6 +67,10 @@ namespace EnemyAndTowers
                     }
                 }
             }
+        }
+
+        public override bool IsRotatable() {
+            return true;
         }
     }
 }

@@ -87,6 +87,10 @@ namespace EnemyAndTowers
 
             sprite.color = endColor; // Ensure the final color is set
         }
+
+        public virtual bool IsRotatable() {
+            return false;
+        }
     }
 
     #region JSON Data Structures

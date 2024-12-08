@@ -100,7 +100,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 869358b3adaf9114c9da898de2daf2ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DEBUG: 0
+  DEBUG: 1
   q: 0
   r: 0
   s: 0
@@ -113,7 +113,8 @@ MonoBehaviour:
   attackRate: 1
   attackCooldown: 0
   attackDamage: 5
-  targetPosition: {x: 0, y: 0, z: 0}
+  isPaused: 0
+  targetPositionXY: {x: 0, y: 0, z: 0}
   movement: {fileID: 0}
   detection: {fileID: 0}
   targets: []

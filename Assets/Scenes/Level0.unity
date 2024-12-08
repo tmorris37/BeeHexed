@@ -2410,13 +2410,35 @@ MonoBehaviour:
   nectarManager: {fileID: 852255254}
   waves:
   - enemies:
+    - spawnFrequency: 1
+      enemyType: BearCub
+    avgEnemies: 3
+    enemySpread: 1
+    avgTimeBetweenSpawns: 8
+  - enemies:
     - spawnFrequency: 0.8
       enemyType: BearCub
     - spawnFrequency: 0.2
       enemyType: Bombeardier
-    avgEnemies: 3
+    avgEnemies: 5
     enemySpread: 1
-    avgTimeBetweenSpawns: 2
+    avgTimeBetweenSpawns: 8
+  - enemies:
+    - spawnFrequency: 0.6
+      enemyType: BearCub
+    - spawnFrequency: 0.4
+      enemyType: Bombeardier
+    avgEnemies: 5
+    enemySpread: 1
+    avgTimeBetweenSpawns: 3
+  - enemies:
+    - spawnFrequency: 0.6
+      enemyType: BearCub
+    - spawnFrequency: 0.4
+      enemyType: AssassinBear
+    avgEnemies: 5
+    enemySpread: 1
+    avgTimeBetweenSpawns: 3
 --- !u!4 &781918216
 Transform:
   m_ObjectHideFlags: 0
@@ -2696,7 +2718,7 @@ MonoBehaviour:
   towerPrefab: {fileID: 842843656095350179, guid: 466a0a1c4ac211b4cac99a17de01d534, type: 3}
   gridManager: {fileID: 1554881295}
   PulserPrefab: {fileID: 1460209656345654594, guid: 246305428a605e34aa8078d43adab99f, type: 3}
-  DEBUG_MODE: 0
+  DEBUG_MODE: 1
 --- !u!114 &949248045
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2730,7 +2752,7 @@ MonoBehaviour:
   cheerios: {fileID: 1341650181057277616, guid: 3c7e526a0cb3c794babc428402c385dd, type: 3}
   cavePrefab: {fileID: 7393846077666523299, guid: 72013799fbfe550428d1f8d3914131af, type: 3}
   centerTower: {fileID: 1341650181057277616, guid: 3c7e526a0cb3c794babc428402c385dd, type: 3}
-  radius: 0
+  radius: 7
   DEBUG: 0
   movement: {fileID: 580640692}
 --- !u!1 &962259158
@@ -4583,7 +4605,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gridManager: {fileID: 1554881295}
   cavePrefab: {fileID: 7393846077666523299, guid: 72013799fbfe550428d1f8d3914131af, type: 3}
-  numCaves: 6
+  numCaves: 3
   radius: 7
   DEBUG: 0
   cavePositions: []
@@ -4728,7 +4750,7 @@ MonoBehaviour:
   Constant: 0
   ConstantInverse: 0
   ConstantQuantity: 0
-  Inputs: 02000000050000000400000004000000
+  Inputs: 0200000005000000060000000700000008000000
 --- !u!4 &1914675432
 Transform:
   m_ObjectHideFlags: 0

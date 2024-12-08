@@ -49,10 +49,11 @@ namespace EnemyAndTowers
             // Use the tower's rotation to determine the direction
             Vector3 direction = transform.right; // Assuming the tower faces along its local right direction
 
-            // Instantiate the projectile at the tower's position
-            GameObject proj = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
-            SSbullet projectile = proj.GetComponent<SSbullet>();
-            projectile.tower = this;
+    // Instantiate the projectile at the tower's position
+    GameObject proj = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
+    SSbullet projectile = proj.GetComponent<SSbullet>();
+    projectile.tower = this;
+    projectile.velocity = projectileSpeed;
 
             // Rotate the projectile to face the firing direction
             projectile.transform.rotation = Quaternion.LookRotation(Vector3.forward, direction);

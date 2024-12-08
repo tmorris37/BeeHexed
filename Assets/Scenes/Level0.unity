@@ -2410,13 +2410,35 @@ MonoBehaviour:
   nectarManager: {fileID: 852255254}
   waves:
   - enemies:
+    - spawnFrequency: 1
+      enemyType: BearCub
+    avgEnemies: 3
+    enemySpread: 1
+    avgTimeBetweenSpawns: 8
+  - enemies:
     - spawnFrequency: 0.8
       enemyType: BearCub
     - spawnFrequency: 0.2
       enemyType: Bombeardier
-    avgEnemies: 3
+    avgEnemies: 5
     enemySpread: 1
-    avgTimeBetweenSpawns: 2
+    avgTimeBetweenSpawns: 8
+  - enemies:
+    - spawnFrequency: 0.6
+      enemyType: BearCub
+    - spawnFrequency: 0.4
+      enemyType: Bombeardier
+    avgEnemies: 5
+    enemySpread: 1
+    avgTimeBetweenSpawns: 3
+  - enemies:
+    - spawnFrequency: 0.6
+      enemyType: BearCub
+    - spawnFrequency: 0.4
+      enemyType: AssassinBear
+    avgEnemies: 5
+    enemySpread: 1
+    avgTimeBetweenSpawns: 3
 --- !u!4 &781918216
 Transform:
   m_ObjectHideFlags: 0
@@ -3674,7 +3696,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 0764704ebb4245b449a3db872a0d0ee2, type: 2}
   deck: []
   handLimit: 8
-  savePath: Assets/Deck/Save.json
   drawPileCounter: {fileID: 515682204}
 --- !u!1 &1554881294
 GameObject:
@@ -4074,6 +4095,7 @@ MonoBehaviour:
   drawPileManager: {fileID: 0}
   discardManager: {fileID: 0}
   handSize: 0
+  settingSavePath: Assets/Deck/Settings.json
 --- !u!1 &1630860455
 GameObject:
   m_ObjectHideFlags: 0
@@ -4582,7 +4604,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gridManager: {fileID: 1554881295}
   cavePrefab: {fileID: 7393846077666523299, guid: 72013799fbfe550428d1f8d3914131af, type: 3}
-  numCaves: 6
+  numCaves: 3
   radius: 7
   DEBUG: 0
   cavePositions: []
@@ -4727,7 +4749,7 @@ MonoBehaviour:
   Constant: 0
   ConstantInverse: 0
   ConstantQuantity: 0
-  Inputs: 02000000050000000400000004000000
+  Inputs: 0200000005000000060000000700000008000000
 --- !u!4 &1914675432
 Transform:
   m_ObjectHideFlags: 0

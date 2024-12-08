@@ -14,6 +14,8 @@ namespace Node
         [SerializeField] public GridManager gridManager;
 
         [SerializeField] public GameObject nodePrefab;
+
+        [SerializeField] private Transform parentTransform; 
         [SerializeField] public int numNodes;
         [SerializeField] public int radius;
         [SerializeField] public bool DEBUG;

@@ -218,7 +218,7 @@ MonoBehaviour:
   active: 0
   healthBar: {fileID: 0}
   projectilePrefab: {fileID: 1813104218997895954, guid: dfe7bc1084486f34c87d7b9056d82f23, type: 3}
-  projectileSpeed: 10
+  projectileSpeed: 5
 --- !u!1 &7775187920543030862
 GameObject:
   m_ObjectHideFlags: 0

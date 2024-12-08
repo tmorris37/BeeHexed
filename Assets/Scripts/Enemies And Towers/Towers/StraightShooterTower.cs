@@ -55,6 +55,7 @@ namespace EnemyAndTowers
     GameObject proj = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
     SSbullet projectile = proj.GetComponent<SSbullet>();
     projectile.tower = this;
+    projectile.velocity = projectileSpeed;
 
     // Rotate the projectile to face the firing direction
     projectile.transform.rotation = Quaternion.LookRotation(Vector3.forward, direction);

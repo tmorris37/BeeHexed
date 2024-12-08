@@ -2730,7 +2730,7 @@ MonoBehaviour:
   cheerios: {fileID: 1341650181057277616, guid: 3c7e526a0cb3c794babc428402c385dd, type: 3}
   cavePrefab: {fileID: 7393846077666523299, guid: 72013799fbfe550428d1f8d3914131af, type: 3}
   centerTower: {fileID: 1341650181057277616, guid: 3c7e526a0cb3c794babc428402c385dd, type: 3}
-  radius: 0
+  radius: 7
   DEBUG: 0
   movement: {fileID: 580640692}
 --- !u!1 &962259158

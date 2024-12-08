@@ -13,9 +13,7 @@ public class SelectionManager : MonoBehaviour
 {
     [SerializeField] private Button continueButton;
     [SerializeField] private Button viewButton;
-    [SerializeField] private string savePath = "Assets/Deck/Save.json";
-    [SerializeField] private string deckPath = "Assets/Deck/";
-    [SerializeField] private string tempPath = "Assets/Deck/temp.json";
+    // [SerializeField] private string tempPath = "Assets/Deck/temp.json";
     private string selected;
     private string baseSelected = "None";
     private Dictionary<string, DeckSelector> decks = new();
@@ -74,18 +72,17 @@ public class SelectionManager : MonoBehaviour
     }
 
     public void LoadDeckView() {
-        string jsonSelection = JsonConvert.SerializeObject(selected);
-        File.WriteAllText(tempPath, jsonSelection);
+        DeckSelected.selectedDeck = selected;
         SceneManager.LoadScene("DeckSummary");
     }
 
     private void WriteDeckToFile(string deckName) {
-        string jsonPlayerData = File.ReadAllText(savePath);
+        string jsonPlayerData = File.ReadAllText(Paths.savePath);
         PlayerData saveData = JsonConvert.DeserializeObject<PlayerData>(jsonPlayerData);
-        string jsonCardPaths = File.ReadAllText(deckPath + deckName + ".json");
+        string jsonCardPaths = File.ReadAllText(Paths.presetsPath + deckName + ".json");
         IList<string> paths = JsonConvert.DeserializeObject<IList<string>>(jsonCardPaths);
         saveData.cardPaths = paths;
         jsonPlayerData = JsonConvert.SerializeObject(saveData);
-        File.WriteAllText(savePath, jsonPlayerData);
+        File.WriteAllText(Paths.savePath, jsonPlayerData);
     }
 }

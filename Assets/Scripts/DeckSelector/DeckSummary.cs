@@ -10,8 +10,6 @@ public class DeckSummary : MonoBehaviour {
     public bool DEBUG_MODE = false;
     public bool DEVELOPER_MODE = false;
     [SerializeField] private TextMeshProUGUI titleText;
-    [SerializeField] private string savePath = "Assets/Deck/Save.json";
-    [SerializeField] private string deckPath = "Assets/Deck/";
     [SerializeField] private int maxCardsInRow = 6;
     [SerializeField] private int maxRows = 2;
     [SerializeField] private float cardScaleFactor = 0.75f;
@@ -31,7 +29,7 @@ public class DeckSummary : MonoBehaviour {
     }
 
     void Start() {
-        string jsonPlayerData = File.ReadAllText(savePath);
+        string jsonPlayerData = File.ReadAllText(Paths.savePath);
         PlayerData saveData = JsonConvert.DeserializeObject<PlayerData>(jsonPlayerData);
         deckName = saveData.deckName;
         titleText.text = deckName;
@@ -41,7 +39,7 @@ public class DeckSummary : MonoBehaviour {
     }
 
     void LoadDeck() {
-        string jsonDeck = File.ReadAllText(deckPath + deckName + ".json");
+        string jsonDeck = File.ReadAllText(Paths.presetsPath + deckName + ".json");
         IList<string> cardPaths = JsonConvert.DeserializeObject<List<string>>(jsonDeck);
         // add each card once
         foreach (string path in cardPaths) {

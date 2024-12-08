@@ -65,7 +65,7 @@ public class SelectionManager : MonoBehaviour
         bool res = decks.TryGetValue(selected, out DeckSelector currDeck);
         if (res) {
             WriteDeckToFile(currDeck.gameObject.name);
-            SceneManager.LoadScene("Overworld");
+            SceneManager.LoadScene("OverworldToyBox");
         } else {
             throw new NullReferenceException("Selected deck does not exist");
         }

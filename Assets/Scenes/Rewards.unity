@@ -175,8 +175,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DEBUG_MODE: 0
-  deckSavePath: Assets/Deck/Deck.json
-  mapScene: Assets/STSMap_Gen_Package/Scenes/Overworld.unity
+  savePath: Assets/Deck/Save.json
+  mapScene: OverworldToyBox
 --- !u!114 &542492701
 MonoBehaviour:
   m_ObjectHideFlags: 0

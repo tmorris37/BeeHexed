@@ -8,17 +8,9 @@ using System;
 public class MainMenu : MonoBehaviour 
 { 
 
-
     // Switches Scene to input Scene, sceneName
     public void GoToScene(string sceneName) 
     {
-        // if (MusicManager.Instance != null)
-        //     {
-        //         if (sceneName == "Overworld")
-        //         {
-        //             MusicManager.Instance.PlayNewGameMusic();
-        //         }
-        //     }
         DeckSelected.selectedDeck = "None";
         SceneManager.LoadScene(sceneName);
     }

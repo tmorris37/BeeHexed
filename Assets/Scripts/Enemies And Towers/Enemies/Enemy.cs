@@ -168,6 +168,10 @@ namespace EnemyAndTowers
                 if (towerScript != null)
                 {
                     towerScript.TakeDamage(attackDamage);
+                    if (towerScript.GetComponent<BearricadeTower>() != null)
+                    {
+                        this.TakeDamage(1);
+                    }
                 }
             }
         }

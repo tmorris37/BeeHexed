@@ -17,6 +17,8 @@ TagManager:
   - Obstacle
   - Tile
   - Cave
+  - Undefined
+  - Node
   layers:
   - Default
   - TransparentFX

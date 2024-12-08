@@ -859,16 +859,12 @@ namespace EnemyAndTowers
 
             (float a, float b) = GridManager.QRStoXY(targetQ,targetR,targetS);
             Vector3 targetPositionXY = new Vector3(a, b, 0);
-<<<<<<< Updated upstream
             enemy.targetPositionXY = targetPositionXY;
-=======
             RotateTowards(enemy, targetPositionXY);
->>>>>>> Stashed changes
 
             if (enemy.UpdatePosition(dq, dr, ds) == 1) {
                 DijkstraMoves.RemoveAt(0);
                 enemy.MoveToPosition();
-                RotateTowards(enemy, targetPositionXY);
                 return true;
             }
             if (BlockedByTower(enemy)) {

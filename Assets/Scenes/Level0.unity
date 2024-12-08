@@ -2411,13 +2411,13 @@ MonoBehaviour:
   waves:
   - enemies:
     - spawnFrequency: 1
-      enemyType: BearCub
+      enemyType: AssassinBear
     avgEnemies: 3
     enemySpread: 1
     avgTimeBetweenSpawns: 8
   - enemies:
-    - spawnFrequency: 0.8
-      enemyType: BearCub
+    - spawnFrequency: 1
+      enemyType: AssassinBear
     - spawnFrequency: 0.2
       enemyType: Bombeardier
     avgEnemies: 5
@@ -2718,7 +2718,7 @@ MonoBehaviour:
   towerPrefab: {fileID: 842843656095350179, guid: 466a0a1c4ac211b4cac99a17de01d534, type: 3}
   gridManager: {fileID: 1554881295}
   PulserPrefab: {fileID: 1460209656345654594, guid: 246305428a605e34aa8078d43adab99f, type: 3}
-  DEBUG_MODE: 1
+  DEBUG_MODE: 0
 --- !u!114 &949248045
 MonoBehaviour:
   m_ObjectHideFlags: 0

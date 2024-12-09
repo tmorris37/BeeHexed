@@ -77,7 +77,7 @@ SpriteRenderer:
   m_SortingLayerID: 90585607
   m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 92f9d648a1ba23d449c0830bf51c0451, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 5abd5f45ed54058468754b4e679adeff, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -113,7 +113,8 @@ MonoBehaviour:
   attackRate: 0.3333333
   attackCooldown: 0
   attackDamage: 10
-  targetPosition: {x: 0, y: 0, z: 0}
+  isPaused: 0
+  targetPositionXY: {x: 0, y: 0, z: 0}
   movement: {fileID: 0}
   detection: {fileID: 0}
   targets: []

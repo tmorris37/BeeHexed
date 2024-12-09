@@ -2719,6 +2719,7 @@ MonoBehaviour:
   gridManager: {fileID: 1554881295}
   PulserPrefab: {fileID: 1460209656345654594, guid: 246305428a605e34aa8078d43adab99f, type: 3}
   DEBUG_MODE: 1
+  highlightTileMode: 0
 --- !u!114 &949248045
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3846,8 +3847,8 @@ Transform:
   m_GameObject: {fileID: 1570746385}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: -0.258819, w: 0.9659259}
-  m_LocalPosition: {x: -0.2355, y: 0.0281, z: 0}
-  m_LocalScale: {x: 2.4502037, y: 2.4798257, z: 2.5083208}
+  m_LocalPosition: {x: -0.21, y: 0.04, z: 0}
+  m_LocalScale: {x: 3.4216993, y: 3.4630663, z: 3.5028596}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2085776624}

@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using GridSystem;
 using EnemyAndTowers;
+using Codice.Client.BaseCommands;
 
 public class TowerSelector : MonoBehaviour
 {
@@ -20,6 +21,8 @@ public class TowerSelector : MonoBehaviour
     private bool hasHoveredTile;
     private Vector3Int HovPositionQRS;
     public bool DEBUG_MODE;
+    public bool highlightTileMode;
+    public bool hovTileBlocked;
 
     void Start()
     {
@@ -29,6 +32,8 @@ public class TowerSelector : MonoBehaviour
 
     void Update()
     {
+        
+
         // Get the mouse position in world space
         Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mouseWorldPos.z = 0;
@@ -41,6 +46,13 @@ public class TowerSelector : MonoBehaviour
         // Set the current hovered position in QRS coordinates
         HovPositionQRS = new Vector3Int(q, r, s);
 
+        HexTile candidateTile = gridManager.FetchTile(q, r, s);
+        if (candidateTile.getOccupiedByObstacle() || candidateTile.getOccupiedByTower())
+        {
+            hovTileBlocked = true;
+        } else {
+            hovTileBlocked = false;
+        }
         if (DEBUG_MODE)
         {
             Debug.Log("QRS Position: " + HovPositionQRS);
@@ -59,11 +71,11 @@ public class TowerSelector : MonoBehaviour
             if (tiles.HasTile(HovPositionQRS))
             {
                 origTilePos = HovPositionQRS;
-                tiles.ColorTile(HovPositionQRS, Color.grey); // Highlight the new tile
-                // originalTile = hexTilemap.GetTile(HovPositionQRS); // Save the original tile
-                // hexTilemap.SetTile(HovPositionQRS, highlightTile);
                 lastHovPositionQRS = HovPositionQRS;
                 hasHoveredTile = true;
+                if (highlightTileMode && !hovTileBlocked) {
+                    tiles.ColorTile(HovPositionQRS, Color.grey); // Highlight the new tile
+                }
             }
         }
     }

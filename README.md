@@ -1,9 +1,11 @@
 # BeeHexed
 The all new roguelike deckbuilder tower defense game, focusing on magical bees!
+---
 ## Administrativa
 [Living Document](https://docs.google.com/document/d/1YeMs-TCpdy3aiPiGqQ2wvI9agQTX7e68viUun7czUgE/edit?usp=sharing) (Must sign in with UW-affiliated email)
 
 Uses Unity 2022.3.49f1 (LTS)
+---
 ## User Manual
 Beehexed is a game running on the Unity Engine, it is a roguelike deckbuilder hex tower defense game. This game is intended for people that love roguelike deckbuilders as a refreshing hybrid take on deckbuilders and tower defense.
 ### Installation
@@ -52,8 +54,6 @@ Do the following:
 5. **Post-Level**:  
    - After completing a level, the next level is selected based on the overworld map path.
 
----
-
 ### Use Cases
 
 #### 1. **Main Menu**
@@ -63,8 +63,6 @@ Do the following:
      - Clicking the **Back** button returns the user to the main menu.  
    - **Exit**: Allows the player to exit the game.  
      - In the Unity Editor, the user can stop the game by clicking the play button at the top.
-
----
 
 #### 2. **Level Gameplay**
 - **Initial Setup**:  
@@ -101,7 +99,7 @@ Report to our [Issues](https://github.com/tmorris37/BeeHexed/issues) page
 - losing then playing again will not reset progress
 - There is a delay between casting certain spells and their effect on the bears
 - Placing cards off the grid uses them without activating their effects
-
+---
 ## Development Manual
 ### Obtaining source code 
 Prerequisite, make sure [Git](https://git-scm.com/downloads) is installed, follow the instructions there.

@@ -24,9 +24,11 @@ To install the game, do the following:
 
 Do the following:
 1. Open the Unity Project you created in the Installation step
-2. In the project window at the bottom of your screen open the 'Scenes' Folder
-3. Double click on the Scene called MainMenu to open it
-4. Click the play button at the top of the screen to start/stop the game (you may want to change Play Focused to Play Maximized)
+2. Go to File -> Build Settings
+3. Hit Build and Run
+4. Select a folder to build the exe file
+5. Say yes to any continue prompts
+6. Play
 
 ### User Guide
 

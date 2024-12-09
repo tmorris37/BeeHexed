@@ -22,6 +22,8 @@ To install the game, do the following:
 
 ### Running software
 
+Play on 1920*1080
+
 Do the following:
 1. Open the Unity Project you created in the Installation step
 2. Go to File -> Build Settings

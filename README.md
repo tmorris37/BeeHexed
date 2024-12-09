@@ -113,7 +113,9 @@ Report to our [Issues](https://github.com/tmorris37/BeeHexed/issues) page
 ---
 ## Development Manual
 ### Obtaining source code 
-Prerequisite, make sure [Git](https://git-scm.com/downloads) is installed, follow the instructions there.
+####Prerequisites - follow the link's instructions
+[Git](https://git-scm.com/downloads)
+[VSCode](https://code.visualstudio.com/)
 
 To setup for development, do the following:
 1. Download and Install [Unity Hub](https://unity.com/download)

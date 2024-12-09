@@ -38,6 +38,7 @@ If the build fails (potentially because of recent commits), do the following:
 3. Double click on the Scene called MainMenu to open it
 4. Click the play button at the top of the screen to start/stop the game (you may want to change Play Focused to Play Maximized)
 
+![MainMenu.png](MainMenu.png)
 
 ### User Guide
 

@@ -78,8 +78,10 @@ namespace GridSystem
             (int i, int j) = QRStoIJ(q, r, s);
             
             //Debug.Log(Grid[i][j]);
-            
-            return Grid[i][j].GetComponent<HexTile>();
+            if (i < Grid.Length && i >= 0 && j >= 0 && j < Grid[i].Length) {
+                return Grid[i][j].GetComponent<HexTile>();
+            }
+            return null;
         }
 
         // Converts the q, r, s coordinates to indices for the HexTile array Grid[][]

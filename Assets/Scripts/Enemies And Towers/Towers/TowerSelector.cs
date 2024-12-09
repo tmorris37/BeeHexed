@@ -32,8 +32,6 @@ public class TowerSelector : MonoBehaviour
 
     void Update()
     {
-        
-
         // Get the mouse position in world space
         Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mouseWorldPos.z = 0;
@@ -47,7 +45,7 @@ public class TowerSelector : MonoBehaviour
         HovPositionQRS = new Vector3Int(q, r, s);
 
         HexTile candidateTile = gridManager.FetchTile(q, r, s);
-        if (candidateTile.getOccupiedByObstacle() || candidateTile.getOccupiedByTower())
+        if (candidateTile != null && (candidateTile.getOccupiedByObstacle() || candidateTile.getOccupiedByTower()))
         {
             hovTileBlocked = true;
         } else {

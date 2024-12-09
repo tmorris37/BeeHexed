@@ -116,7 +116,9 @@ Report to our [Issues](https://github.com/tmorris37/BeeHexed/issues) page
 ---
 ## Development Manual
 ### Obtaining source code 
-####Prerequisites - follow the link's instructions
+
+###Prerequisites - follow the link's instructions
+
 [Git](https://git-scm.com/downloads)
 [VSCode](https://code.visualstudio.com/)
 

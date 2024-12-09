@@ -12,21 +12,14 @@ Beehexed is a game running on the Unity Engine, it is a roguelike deckbuilder he
 
 To install the game, do the following:
 
-1. Download and Install [Unity Hub](https://unity.com/download)
-2. Sign in or Create an Account with Unity
-3. Install Unity Editor version 2022.3.49f1 (LTS) through Unity Hub, if version is not available download through [Unity Version Archive](https://unity.com/releases/editor/archive)
-4. Download the [Zip file](https://github.com/tmorris37/BeeHexed/archive/refs/heads/main.zip) of this Repo
-5. Unzip the file and place into a directory
-6. In Unity Hub, click Add -> Add project from disk, then select the unzipped Beehexed folder
-7. In Unity Hub, ensure the Editor is the correct version and double-click to open the project (this will take a while)
+1. Open the executables directory
+2. Download and Install the exe file, [Beehexed](TODO)
 
 ### Running software
 
 Do the following:
-1. Open the Unity Project you created in the Installation step
-2. In the project window at the bottom of your screen open the 'Scenes' Folder
-3. Double click on the Scene called MainMenu to open it
-4. Click the play button at the top of the screen to start/stop the game (you may want to change Play Focused to Play Maximized)
+1. Open the exe File
+
 
 ### User Guide
 

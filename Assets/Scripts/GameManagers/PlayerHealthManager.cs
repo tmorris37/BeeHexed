@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using System;
-using Codice.CM.Common.Serialization;
 
 public class PlayerHealthManager : MonoBehaviour
 {

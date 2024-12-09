@@ -32,6 +32,8 @@ Do the following:
 5. Say yes to any continue prompts
 6. Play
 
+![BuildSettings.png](BuildSettings.png)
+
 If the build fails (potentially because of recent commits), do the following:
 1. Open the Unity Project you created in the Installation step
 2. In the project window at the bottom of your screen open the 'Scenes' Folder

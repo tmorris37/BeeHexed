@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using Newtonsoft.Json;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -26,6 +28,14 @@ public class HandManager : MonoBehaviour
 
     // TODO: probably privatize everything
     public int handSize = 0;
+    private CardPlaystyle playstyle;
+
+    public string settingSavePath = "Assets/Deck/Settings.json";
+
+    private void Awake() {
+        string json = File.ReadAllText(settingSavePath);
+        playstyle = JsonConvert.DeserializeObject<CardPlaystyle>(json);
+    }
 
     // Start is called before the first frame update
     public void Start()
@@ -47,6 +57,7 @@ public class HandManager : MonoBehaviour
     cardsInHand.Add(addCard);
     handSize++;
     addCard.GetComponent<CardDisplay>().cardData = card;
+    addCard.GetComponent<CardMovement>().playstyle = playstyle;
     UpdateHandDisplay();
   }
 

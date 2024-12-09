@@ -43,13 +43,13 @@ namespace EnemyAndTowers
         // Returns true if the move was successful, false otherwise
         public bool MoveNW(Enemy enemy, int q, int r, int s)
         {
-            enemy.targetPosition = new Vector3(q,r-1,s+1);
             (float a, float b) = GridManager.QRStoXY(q,r-1,s+1);
             Vector3 targetPositionXY = new Vector3(a, b, 0);
+            enemy.targetPositionXY = targetPositionXY;
             if (enemy.Move("Northwest") == 1)
             {
                 RotateTowards(enemy, targetPositionXY);
-                enemy.MoveToPosition(targetPositionXY);
+                enemy.MoveToPosition();
                 return true;
             }
             if (BlockedByTower(enemy))
@@ -63,13 +63,13 @@ namespace EnemyAndTowers
         // Returns true if the move was successful, false otherwise
         public bool MoveNE(Enemy enemy, int q, int r, int s)
         {
-            enemy.targetPosition = new Vector3(q+1,r-1,s);
             (float a, float b) = GridManager.QRStoXY(q+1,r-1,s);
             Vector3 targetPositionXY = new Vector3(a, b, 0);
+            enemy.targetPositionXY = targetPositionXY;
             if (enemy.Move("Northeast") == 1)
             {
                 RotateTowards(enemy, targetPositionXY);
-                enemy.MoveToPosition(targetPositionXY);
+                enemy.MoveToPosition();
                 return true;
             }
             if (BlockedByTower(enemy))
@@ -83,13 +83,13 @@ namespace EnemyAndTowers
         // Returns true if the move was successful, false otherwise
         public bool MoveE(Enemy enemy, int q, int r, int s)
         {
-            enemy.targetPosition = new Vector3(q+1,r,s-1);
             (float a, float b) = GridManager.QRStoXY(q+1,r,s-1);
             Vector3 targetPositionXY = new Vector3(a, b, 0);
+            enemy.targetPositionXY = targetPositionXY;
             if (enemy.Move("East") == 1)
             {
                 RotateTowards(enemy, targetPositionXY);
-                enemy.MoveToPosition(targetPositionXY);
+                enemy.MoveToPosition();
                 return true;
             }
             if (BlockedByTower(enemy))
@@ -103,13 +103,13 @@ namespace EnemyAndTowers
         // Returns true if the move was successful, false otherwise
         public bool MoveSE(Enemy enemy, int q, int r, int s)
         {
-            enemy.targetPosition = new Vector3(q,r+1,s-1);
             (float a, float b) = GridManager.QRStoXY(q,r+1,s-1);
             Vector3 targetPositionXY = new Vector3(a, b, 0);
+            enemy.targetPositionXY = targetPositionXY;
             if (enemy.Move("Southeast") == 1)
             {
                 RotateTowards(enemy, targetPositionXY);
-                enemy.MoveToPosition(targetPositionXY);
+                enemy.MoveToPosition();
                 return true;
             }
             if (BlockedByTower(enemy))
@@ -123,13 +123,13 @@ namespace EnemyAndTowers
         // Returns true if the move was successful, false otherwise
         public bool MoveSW(Enemy enemy, int q, int r, int s)
         {
-            enemy.targetPosition = new Vector3(q-1,r+1,s);
             (float a, float b) = GridManager.QRStoXY(q-1,r+1,s);
             Vector3 targetPositionXY = new Vector3(a, b, 0);
+            enemy.targetPositionXY = targetPositionXY;
             if (enemy.Move("Southwest") == 1)
             {
                 RotateTowards(enemy, targetPositionXY);
-                enemy.MoveToPosition(targetPositionXY);
+                enemy.MoveToPosition();
                 return true;
             }
             if (BlockedByTower(enemy))
@@ -143,13 +143,13 @@ namespace EnemyAndTowers
         // Returns true if the move was successful, false otherwise
         public bool MoveW(Enemy enemy, int q, int r, int s)
         {
-            enemy.targetPosition = new Vector3(q-1,r,s+1);
             (float a, float b) = GridManager.QRStoXY(q-1,r,s+1);
             Vector3 targetPositionXY = new Vector3(a, b, 0);
+            enemy.targetPositionXY = targetPositionXY;
             if (enemy.Move("West") == 1)
             {
                 RotateTowards(enemy, targetPositionXY);
-                enemy.MoveToPosition(targetPositionXY);
+                enemy.MoveToPosition();
                 return true;
             }
             if (BlockedByTower(enemy))
@@ -414,10 +414,8 @@ namespace EnemyAndTowers
         // Checks to see if the target position is blocked by an obstacle
         public bool BlockedByTower(Enemy enemy)
         {
-            int tq = (int) enemy.targetPosition.x;
-            int tr = (int) enemy.targetPosition.y;
-            int ts = (int) enemy.targetPosition.z;
-            if (enemy.isBlockedBy(tq, tr, ts) == 1)
+            (int q, int r, int s) = GridManager.XYtoQRS(enemy.targetPositionXY.x, enemy.targetPositionXY.y);
+            if (enemy.isBlockedBy(q, r, s) == 1)
             {
                 return true;
             }
@@ -806,6 +804,71 @@ namespace EnemyAndTowers
                 } else {
                 return MoveNW(enemy,q,r,s);
                 }
+            }
+            return false;
+        }
+
+        // Calculates and returns the Optimal path from the enemy to (0,0,0)
+        // Note: List includes Enemy's current position. Adds a delay. To 
+        //       resolve, execute DijkstraMoves.RemoveAt(0) before the return
+        public List<(int, int, int)> DijkstraInitialize(Enemy enemy)
+        {
+            (int q, int r, int s) = (enemy.q, enemy.r, enemy.s);
+
+            ShortestPath pathfinder = new ShortestPath();
+
+            List<(int, int, int)> DijkstraMoves = 
+                pathfinder.DijkstraSimple(this.GridManager, (q, r, s), (0, 0, 0), DijkstraCallback);
+            
+            if (DEBUG) {
+                string debugStr = "";
+                foreach (var tile in DijkstraMoves) {
+                    debugStr += tile;
+                }
+                Debug.Log(debugStr);
+            }
+
+            DijkstraMoves.RemoveAt(0);
+            
+            return DijkstraMoves;
+        }
+
+        public bool DijkstraCallback((int, int, int) QRSTuple)
+        {
+            (int q, int r, int s) = QRSTuple;
+
+            return this.GridManager.FetchTile(q, r, s).getOccupiedByObstacle();
+        }
+
+        // Reads the next movement in the provided list. If it is possible, will move (returns true)
+        // Otherwise, will not move and does not change the List
+        public bool DijkstraMove(Enemy enemy, List<(int, int, int)> DijkstraMoves)
+        {
+            (int q, int r, int s) = (enemy.q, enemy.r, enemy.s);
+
+            // If enemy is at the origin, do nothing
+            if ((q == 0 && r == 0 && s == 0) || DijkstraMoves.Count == 0)
+                return false;
+
+            (int targetQ, int targetR, int targetS) = DijkstraMoves[0];
+
+            // Delta q,r,s for update position
+            int dq = targetQ - q;
+            int dr = targetR - r;
+            int ds = targetS - s;
+
+            (float a, float b) = GridManager.QRStoXY(targetQ,targetR,targetS);
+            Vector3 targetPositionXY = new Vector3(a, b, 0);
+            RotateTowards(enemy, targetPositionXY);
+
+            if (enemy.UpdatePosition(dq, dr, ds) == 1) {
+                DijkstraMoves.RemoveAt(0);
+                enemy.targetPositionXY = targetPositionXY;
+                enemy.MoveToPosition();
+                return true;
+            }
+            if (BlockedByTower(enemy)) {
+                RotateTowards(enemy, targetPositionXY);
             }
             return false;
         }

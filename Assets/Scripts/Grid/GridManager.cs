@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 namespace GridSystem
@@ -117,8 +118,8 @@ namespace GridSystem
         // Converts the x, y Unity coordinates to q, r, s cooridinates
         public (int, int, int) XYtoQRS(float x, float y)
         {
-            int r = (int) (-y / (0.866f * 1.0385f));
-            int q = (int) (2*(x / 1.05f) - r)/2;
+            int r = (int) Math.Round(-y / (0.866f * 1.0385f));
+            int q = (int) Math.Round((2*(x / 1.05f) - r)/2);
             int s = 0 - q - r;
 
             return (q, r, s);

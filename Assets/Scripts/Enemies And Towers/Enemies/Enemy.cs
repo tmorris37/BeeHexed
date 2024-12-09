@@ -25,7 +25,8 @@ namespace EnemyAndTowers
         public float attackRate = 1f;       // Time between attacks
         public float attackCooldown;        // Time remaining before the enemy can attack again
         public int attackDamage;            // Damage dealt by the enemy
-        public Vector3 targetPosition;      // Position the enemy is moving towards
+        public bool isPaused = false;       // Whether the enemy is paused
+        public Vector3 targetPositionXY;      // Position the enemy is moving towards
         public MovementAlgorithms movement; // Movement algorithms for the enemy
         public EnemyData data;              // Data about the enemy
         public EnemyDetection detection;    // Detection script for the enemy
@@ -35,9 +36,13 @@ namespace EnemyAndTowers
         public InertiaDirection desiredInertiaDir;    // Desired direction of inertia for the enemy (cw/ccw)
         public InertiaDirection desiredInertiaIO;    // Desired direction of inertia for the enemy (in/out)
 
+        public List<(int, int, int)> DijkstraMoves;  // A List of the moves to be taken, calculated by Dijkstra
 
         protected virtual void Start()
         {
+            // Figure out the movement algorithm for the enemy
+            this.DijkstraMoves = movement.DijkstraInitialize(this);
+            
             // Get the hitbox of the enemy
             detection = GetComponentInChildren<EnemyDetection>();
             // Instantiates the Enemy at the Provided Spawn Location
@@ -69,6 +74,7 @@ namespace EnemyAndTowers
             this.movementSpeed = this.data.Speed;
             this.attackDamage = this.data.Attacks[0].DamageAmount;
             this.attackRate =  1 / this.data.Attacks[0].AttackRate;
+            targetPositionXY = transform.position;
             attackCooldown = attackRate;
 
             inertiaDir = InertiaDirection.nullDir;
@@ -78,24 +84,30 @@ namespace EnemyAndTowers
             
             // healthBar = GetComponentInChildren<FloatingHealthBar>();
             // healthBar.UpdateHealthBar(this.health, this.data.MaxHP);
+
         }
 
         // Call this method to smoothly move the enemy to a target position
-        public virtual void MoveToPosition(Vector3 target)
+        public virtual void MoveToPosition()
         {
             StopAllCoroutines();  // Stop any ongoing movement to avoid conflicts
-            StartCoroutine(MoveToTargetAtFixedSpeed(target));
+            StartCoroutine(MoveToTargetAtFixedSpeed());
         }
 
         // Coroutine to translate the position at a constant speed
-        private IEnumerator MoveToTargetAtFixedSpeed(Vector3 target)
+        private IEnumerator MoveToTargetAtFixedSpeed()
         {
             // Store the initial position of the enemy
             Vector3 initialPosition = transform.position;
 
+            // Calculate the distance to the target position
+            float distance = Vector3.Distance(initialPosition, targetPositionXY);
+
             // Calculate total time to travel based on speed
-            float travelTime = 1 / movementSpeed;
+            float travelTime = distance / movementSpeed;
             float elapsedTime = 0f;
+            moveTimeRemaining = travelTime;
+
 
             // Move the enemy towards the target position
             while (elapsedTime < travelTime)
@@ -104,35 +116,42 @@ namespace EnemyAndTowers
                 float t = elapsedTime / travelTime;
 
                 // Update position at a constant rate towards the target
-                transform.position = Vector3.Lerp(initialPosition, target, t);
+                transform.position = Vector3.Lerp(initialPosition, targetPositionXY, t);
 
                 elapsedTime += Time.deltaTime;
                 yield return null;
             }
 
             // Set the final position exactly to the target
-            transform.position = target;
+            transform.position = targetPositionXY;
         }
 
         protected virtual void Update()
         {
+            if (isPaused)
+            {
+                return;
+            }
             // Update the list of targets from the detection script
-            this.targets = detection.targets;
+            targets = detection.targets;
             
             // Check if there are any targets in range and attack if off cooldown
             if (attackCooldown <= 0f && targets.Count > 0)
             {
-                Debug.Log("Targets identified, time to attack");
+                if (DEBUG) {
+                    Debug.Log("Targets identified, time to attack");
+                }
                 Attack();
                 attackCooldown = attackRate;
             }
-            // Try and move towards the next tile if off cooldown
-            if (moveTimeRemaining <= 0f)
+            // Try and move towards the next tile if off cooldown and at the target position
+            if (targetPositionXY == transform.position && moveTimeRemaining <= 0f)
             {
-                Debug.Log("No targets identified, time to move");
+                if (DEBUG) {
+                    Debug.Log("No targets identified, time to move");
+                }
                 // Only reset the moveTimeRemaining if the enemy actually started moving
-                if (movement.SimpleMove(this)) {
-                    moveTimeRemaining = 1 / movementSpeed;
+                if (movement.DijkstraMove(this, DijkstraMoves)) {
                 }
             }
             // Update the timers
@@ -149,6 +168,10 @@ namespace EnemyAndTowers
                 if (towerScript != null)
                 {
                     towerScript.TakeDamage(attackDamage);
+                    if (towerScript.GetComponent<BearricadeTower>() != null)
+                    {
+                        this.TakeDamage(1);
+                    }
                 }
             }
         }
@@ -168,9 +191,9 @@ namespace EnemyAndTowers
         }
 
         public virtual void Stop() {
-          StopAllCoroutines();
-          movementSpeed = 0;
-          attackRate = 0;
+            StopAllCoroutines();
+            movementSpeed = 0;
+            attackRate = 0;
         }
     }
 

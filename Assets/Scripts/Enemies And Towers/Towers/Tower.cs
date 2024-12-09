@@ -15,6 +15,8 @@ namespace EnemyAndTowers
         public float fireRate;
         public int health;
         public int damage;
+
+        public bool active;
         protected List<Transform> targets;
         protected float fireCountdown;
 
@@ -58,11 +60,17 @@ namespace EnemyAndTowers
 
         public virtual void TakeDamage(int damage)
         {
-            SpriteRenderer sprite = GetComponent<SpriteRenderer>();
+            SpriteRenderer sprite = GetComponentInChildren<SpriteRenderer>();
             sprite.color = Color.red;
             StartCoroutine(FadeBackColor(sprite, 0.5f));
             this.health = this.health - damage;
         }
+
+        /*public virtual void GoRed()
+        {
+            SpriteRenderer sprite = GetComponent<SpriteRenderer>();
+            sprite.color = Color.red;
+        }*/
 
         private IEnumerator FadeBackColor(SpriteRenderer sprite, float duration)
         {
@@ -79,6 +87,10 @@ namespace EnemyAndTowers
 
             sprite.color = endColor; // Ensure the final color is set
         }
+
+        public virtual bool IsRotatable() {
+            return false;
+        }
     }
 
     #region JSON Data Structures
@@ -90,7 +102,6 @@ namespace EnemyAndTowers
         public IList<TowerAttack> Attacks { get; set; }
         
 
-        
         // More fields based on what we need to store about an enemy
     }
 

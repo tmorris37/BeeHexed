@@ -9,18 +9,19 @@ namespace EnemyAndTowers
     {
         public GameObject beam;
 
-        public bool active;
+        //public bool active;
 
         protected override void Start()
         {
             base.Start();
-            
+            //rotatable = true;
             fireCountdown = fireRate;
             //animator = GetComponent<Animator>();
         }
 
         protected override void Update()
         {
+            
             this.targets = detection.targets;
             if (this.health <= 0)
             {
@@ -66,6 +67,10 @@ namespace EnemyAndTowers
                     }
                 }
             }
+        }
+
+        public override bool IsRotatable() {
+            return true;
         }
     }
 }

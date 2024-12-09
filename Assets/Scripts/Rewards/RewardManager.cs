@@ -14,6 +14,7 @@ public class RewardManager : MonoBehaviour
     
     void Awake() {
       Card[] rewardCardList = Resources.LoadAll<Card>("RewardCards");
+      cardSeed = Random.Range(1,100);
       rewardCard = rewardCardList[cardSeed % rewardCardList.Length];
     }
     void Start()

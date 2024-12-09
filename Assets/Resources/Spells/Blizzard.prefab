@@ -44,3 +44,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 449676a27e2014c4d875bbb44dcf9f28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  duration: 1
+  setTag: Enemy
+  damage: 5

@@ -39,6 +39,10 @@ public class Spawner : MonoBehaviour
         this.cavePositions = caveGenerator.cavePositions;
         SpawnCaves();
         SpawnCenterTower();
+        if(MusicManager.Instance != null)
+        {
+            MusicManager.Instance.PlayInGameMusic();
+        }
     }
 
     public void SpawnCenterTower()
@@ -50,13 +54,6 @@ public class Spawner : MonoBehaviour
         centerTowerComponent.gridManager = this.gridManager;
     }
 
-    private void SpawnCheerios()
-    {
-        GameObject che = Instantiate(cheerios);
-        HexTile spot = this.gridManager.FetchTile(0, 0, 0);
-        spot.EnterTile(che);
-    }
-
     public void SpawnFromCaves(string enemyType)
     {
         GameObject newEnemy;
@@ -65,9 +62,7 @@ public class Spawner : MonoBehaviour
         int r = (int)randomCavePosition.y;
         int s = (int)randomCavePosition.z;
         // Spawn Unity Object with Enemy script (Prefab)
-        // TODO: Make this not hardcoded
-        switch (enemyType)
-        {
+        switch (enemyType) {
             case "BearCub" :
                 newEnemy = Instantiate(bearCub);
                 break;
@@ -81,7 +76,7 @@ public class Spawner : MonoBehaviour
                 newEnemy = Instantiate(assassinBear);
                 break;
             default:
-                Debug.LogError("Invalid Enemy ID");
+                Debug.LogError("Invalid Enemy ID:" + enemyType);
                 return;
                 
         }
@@ -110,6 +105,7 @@ public class Spawner : MonoBehaviour
             (float x, float y) = gridManager.QRStoXY((int)cavePosition.x, (int)cavePosition.y, (int)cavePosition.z);
             GameObject newCave = Instantiate(cavePrefab);
             newCave.transform.position = new Vector3(x, y, 0);
+            newCave.tag="Cave";
         }
         if (DEBUG)
         {

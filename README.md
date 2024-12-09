@@ -26,26 +26,68 @@ Do the following:
 3. Double click on the Scene called MainMenu to open it
 4. Click the play button at the top of the screen to start/stop the game (you may want to change Play Focused to Play Maximized)
 
-### User guide
-On startup the user will be presented with a main menu. They will be able to click New Game and be brought into the game.
-The user is brought to the overworld level selection map. From here they can click on one of the icons on the very left or very right. 
-This will bring the player into the game. A level takes place over the course of several rounds. Each round the player gains nectar and cards, but enemies will spawn from the caves.
-The bears will move to attack the center, which the player must defend using their cards. Tower cards place a tower that attacks the bears. Spell cards place unique effects on the player or enemies.
-Cards are played by dragging them from the hand to a tile on the hex grid. 
-Each card has a nectar cost that is subtracted from the player's total nectar in the top right. If the player lacks sufficient nectar, the card is returned to the hand.
-The player loses the game if their health in the top right is reduced to 0 OR if there are still enemies present 10 seconds after the final wave.
-The player wins the game if they have defeated all enemies.
-Based on the path, pick the next level in the overworld map.
+### User Guide
+
+#### Game Flow
+1. **Main Menu**:  
+   - On startup, users are presented with the main menu.  
+   - From here, they can choose to start a new game, adjust settings, or exit.  
+
+2. **Overworld Map**:  
+   - After selecting "New Game," users are taken to the overworld level selection map.  
+   - The map has clickable level icons on the far left and far right.  
+   - Clicking an icon starts the corresponding level.
+
+3. **In-Game Level**:  
+   - A level consists of multiple rounds where enemies spawn and attack the player's center.  
+   - Players gain nectar and cards at the start of each round.  
+   - **Objective**: Defend the center using cards to win the game.  
+
+4. **Game Victory or Loss**:  
+   - **Win Condition**: Defeat all enemies.  
+   - **Loss Condition**:  
+      - Health reaches 0.  
+      - Enemies are still present 10 seconds after the final wave.  
+
+5. **Post-Level**:  
+   - After completing a level, the next level is selected based on the overworld map path.
+
+---
 
 ### Use Cases
-#### Main Menu
-Users will see a main menu with 3 buttons: Play, Settings, and Exit.
-Clicking New Game will begin a run, bringing the player to the level select map
-Clicking settings takes the user to the settings page with volume sliders and a back button. Clicking the back button takes the user back to the main menu.
-To exit the game, hit the play button at the top of the unity editor
-#### Level 
-Upon starting the level, caves that spawn enemies will be randomly placed on the border of the hex grid.
-Players can drag cards to tiles to spawn towers that will occasionally shoot at enemies and cast spells.
+
+#### 1. **Main Menu**
+- **Buttons Available**:  
+   - **Play**: Begins a new run and takes the player to the overworld level selection map.  
+   - **Settings**: Opens the settings page with volume sliders.  
+     - Clicking the **Back** button returns the user to the main menu.  
+   - **Exit**: Allows the player to exit the game.  
+     - In the Unity Editor, the user can stop the game by clicking the play button at the top.
+
+---
+
+#### 2. **Level Gameplay**
+- **Initial Setup**:  
+   - Enemy spawn caves are randomly placed around the border of the hex grid.  
+
+- **Gameplay Actions**:  
+   - Players can drag cards from their hand onto the hex grid to:  
+     - **Spawn Towers**: Towers shoot at enemies periodically.  
+     - **Cast Spells**: Unique effects are applied to the player or enemies.  
+
+- **Resources**:  
+   - **Nectar**:  
+     - Each card has a nectar cost.  
+     - Playing a card subtracts its cost from the player’s nectar total (shown in the top-right corner).  
+     - If nectar is insufficient, the card is returned to the player's hand.  
+
+- **Game Conditions**:  
+   - **Winning**: All enemies are defeated.  
+   - **Losing**:  
+     - Player health (top-right) reaches 0.  
+     - Enemies remain alive 10 seconds after the final wave.  
+
+
 ### Reporting bugs
 Report to our [Issues](https://github.com/tmorris37/BeeHexed/issues) page
 1. Check the list of bugs to see if your bug is already listed. If your circumstances and/or the cause of the bug aren't already listed, continue with the bug report. 
@@ -123,4 +165,3 @@ You can add new tests straight in Unity, as we are using the Unity testing suite
 [CI Tool : Github Actions](https://github.com/tmorris37/BeeHexed/actions)
 
 In order to create a build of the game, in Unity go to file, and then build and run. From there you can choose where you want the build of the game to be stored on your computer.
-

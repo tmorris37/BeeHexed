@@ -8,7 +8,6 @@ namespace EnemyAndTowers
 {
     public class PulserTower : Tower
     {
-        public float pulseRate = 0.5f;
 
         public GameObject projectilePrefab;
 
@@ -21,7 +20,7 @@ namespace EnemyAndTowers
         {
             base.Start();
             
-            pulseCountdown = pulseRate; // Initialize the pulse countdown
+            pulseCountdown = fireRate; // Initialize the pulse countdown
         }
 
         protected override void Update()
@@ -37,7 +36,7 @@ namespace EnemyAndTowers
             if (pulseCountdown <= 0f)
             {
                 DealDamage();
-                pulseCountdown = pulseRate;
+                pulseCountdown = fireRate;
             }
             pulseCountdown -= Time.deltaTime;
         }

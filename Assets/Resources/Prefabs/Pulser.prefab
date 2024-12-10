@@ -158,12 +158,11 @@ MonoBehaviour:
   gridManager: {fileID: 0}
   towerID: 0
   detection: {fileID: 0}
-  fireRate: 2
+  fireRate: 1.5
   health: 0
   damage: 1
   active: 0
   healthBar: {fileID: 0}
-  pulseRate: 1
   projectilePrefab: {fileID: 1813104218997895954, guid: dfe7bc1084486f34c87d7b9056d82f23, type: 3}
   circleAnimator: {fileID: 6997950305440006813}
 --- !u!1 &2151470006906067578
@@ -695,6 +694,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tower: {fileID: 1460209656345654594}
   targets: []
+  DEBUG_MODE: 0
 --- !u!1001 &699986197867078400
 PrefabInstance:
   m_ObjectHideFlags: 0

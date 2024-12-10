@@ -133,7 +133,7 @@ public class Spawner : MonoBehaviour
         {
             if (enemy != null && enemy.health <= 0)
             {
-                if (enemy.enemyType == "BearCub")
+                if (enemy.enemyType == "BearCub" && mamaBear != null)
                 {
                     mamaBear.GetComponent<MamaBear>().IncreaseStats();
                 }

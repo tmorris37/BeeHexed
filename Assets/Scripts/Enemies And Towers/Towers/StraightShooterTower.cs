@@ -74,7 +74,7 @@ namespace EnemyAndTowers
         {
             Transform target = targets[0];
             Enemy enemy = target.GetComponent<Enemy>();
-            enemy.TakeDamage(1);
+            enemy.TakeDamage(damage);
         }
 
         public override bool IsRotatable() {

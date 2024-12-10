@@ -49,7 +49,7 @@ public class MapScript : MonoBehaviour
             {
                 MusicManager.Instance.PlayMainMenuMusic();
             }
-            else
+            else if (sceneName != "Rewards")
             {
                 MusicManager.Instance.PlayInGameMusic();
             }

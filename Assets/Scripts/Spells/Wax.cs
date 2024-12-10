@@ -10,14 +10,12 @@ public class Wax : UniversalDurationSpell<Enemy>
     public override void ApplySpellEffect(Enemy entity, SpriteRenderer sprite)
     {
         entity.movementSpeed *= 0.1f;
-        entity.MoveToPosition();
         sprite.color = Color.yellow;
     }
 
     public override void EndEffect(Enemy entity, SpriteRenderer sprite)
     {
         entity.movementSpeed *= 10f;
-        entity.MoveToPosition();
         sprite.color = Color.white;
     }
 

@@ -16,11 +16,11 @@ public class NectarManager : MonoBehaviour
     }
 
     public void SetNectar(int value) {
-      currentNectar = value;
+        currentNectar = value;
     }
 
     public int GetNectar() {
-      return currentNectar;
+        return currentNectar;
     }
 
     // Update is called once per frame

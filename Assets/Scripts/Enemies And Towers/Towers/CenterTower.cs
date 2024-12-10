@@ -8,10 +8,15 @@ namespace EnemyAndTowers
 {
     public class CenterTower : Tower
     {
+        public float nectarInterval;
+        public GameObject nectarPrefab;
+        private float timer = 0f;
         PlayerHealthManager playerHealthManager;
+        NectarManager nectarManager;
         protected override void Start()
         {
             base.Start();
+            nectarManager = FindObjectOfType<NectarManager>();
             playerHealthManager = FindObjectOfType<PlayerHealthManager>();
             if (playerHealthManager == null)
             {
@@ -32,6 +37,20 @@ namespace EnemyAndTowers
                 tile.LeaveTile(gameObject);
                 Destroy(gameObject);
             }
+            if (timer >= nectarInterval)
+            
+            {
+                addNectar();
+                timer = 0f;
+            }
+            timer += Time.deltaTime;
+        }
+
+        private void addNectar()
+        {
+            Instantiate(nectarPrefab, transform.position, Quaternion.identity);
+            int currNectar = nectarManager.GetNectar();
+            nectarManager.SetNectar(currNectar + 1);
         }
     }
 }

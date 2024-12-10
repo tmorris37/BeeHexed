@@ -4071,19 +4071,20 @@ MonoBehaviour:
   waveText: {fileID: 1378812805}
   spawner: {fileID: 949248046}
   timeBetweenWaves: 10
-  nectarManager: {fileID: 852255254}
   waves:
   - enemies:
     - spawnFrequency: 1
-      enemyType: MamaBear
+      enemyType: BearCub
+    fixedEnemies: []
     avgEnemies: 4
     enemySpread: 1
-    avgTimeBetweenSpawns: 8
+    avgTimeBetweenSpawns: 6
   - enemies:
     - spawnFrequency: 0.8
       enemyType: BearCub
     - spawnFrequency: 0.2
       enemyType: Bombeardier
+    fixedEnemies: []
     avgEnemies: 5
     enemySpread: 1
     avgTimeBetweenSpawns: 6
@@ -4094,7 +4095,8 @@ MonoBehaviour:
       enemyType: Bombeardier
     - spawnFrequency: 0.2
       enemyType: SlothBear
-    avgEnemies: 5
+    fixedEnemies: []
+    avgEnemies: 6
     enemySpread: 1
     avgTimeBetweenSpawns: 4
 --- !u!4 &781918216
@@ -4603,7 +4605,7 @@ MonoBehaviour:
   bearCub: {fileID: 435629412242135445, guid: ce2be51eee2719b48b1bdcb1ec473536, type: 3}
   bombeardier: {fileID: 435629412242135445, guid: 5a061379583b55d47add163dc3ea0b1a, type: 3}
   slothBear: {fileID: 435629412242135445, guid: 2593051021df8134e83697a5a7f90cf6, type: 3}
-  mamaBear: {fileID: 1722403541143666175, guid: 9304e8e32a68ba841aaed80b1d4c890c, type: 3}
+  mamaBearPrefab: {fileID: 1722403541143666175, guid: 9304e8e32a68ba841aaed80b1d4c890c, type: 3}
   gridManager: {fileID: 1554881295}
   caveGenerator: {fileID: 1846675530}
   cheerios: {fileID: 1341650181057277616, guid: 3c7e526a0cb3c794babc428402c385dd, type: 3}

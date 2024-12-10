@@ -5,10 +5,16 @@ using UnityEngine;
 namespace EnemyAndTowers {
     public class MamaBear : Enemy
     {
-        // Start is called before the first frame update
-        void Start()
+        public int baseAttack;
+        public float baseSpeed;
+        public float scale = 1.0f;
+        public float incement = 0.1f;
+
+        protected override void Start()
         {
             base.Start();
+            baseAttack = attackDamage;
+            baseSpeed = movementSpeed;
         }
 
         private IEnumerator MoveToTargetAtFixedSpeed(Vector3 target, float speed)
@@ -36,7 +42,15 @@ namespace EnemyAndTowers {
             transform.position = target;
         }
 
-        
+        public void IncreaseStats()
+        {
+            if (scale < 2.0f)
+            {
+                scale += incement;
+                attackDamage = (int)(baseAttack * scale);
+                movementSpeed = baseSpeed * scale;
+            }
+        }
     }
 }
 

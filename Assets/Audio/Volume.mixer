@@ -33,6 +33,24 @@ AudioMixerGroupController:
   m_Mute: 0
   m_Solo: 0
   m_BypassEffects: 0
+--- !u!244 &-5159574769824757345
+AudioMixerEffectController:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_EffectID: 8aad7ac83ef16eb499fd84d8913c7411
+  m_EffectName: Lowpass
+  m_MixLevel: e57112092126f9f4eb38652b9217cadc
+  m_Parameters:
+  - m_ParameterName: Cutoff freq
+    m_GUID: 1ae0fa6c3dfe67648959c42954ca5b9e
+  - m_ParameterName: Resonance
+    m_GUID: 3353b84bb7b891f47b0359eeecb306bd
+  m_SendTarget: {fileID: 0}
+  m_EnableWetMix: 0
+  m_Bypass: 0
 --- !u!243 &-521042504297623770
 AudioMixerGroupController:
   m_ObjectHideFlags: 0
@@ -48,6 +66,7 @@ AudioMixerGroupController:
   m_Send: 00000000000000000000000000000000
   m_Effects:
   - {fileID: -8739887622771436107}
+  - {fileID: -5159574769824757345}
   m_UserColorIndex: 0
   m_Mute: 0
   m_Solo: 0
@@ -70,6 +89,8 @@ AudioMixerController:
   m_ExposedParameters:
   - guid: ff8845ab959b30c4fb711dc9d123beba
     name: MusicVolume
+  - guid: 1ae0fa6c3dfe67648959c42954ca5b9e
+    name: CutoffFreq
   - guid: 2f3d902d3f71ac14587acd21470d7cb9
     name: SFXVolume
   m_AudioMixerGroupViews:
@@ -126,6 +147,7 @@ AudioMixerSnapshotController:
   m_SnapshotID: 1e7e23ea0c254a644acac8999d19bdd0
   m_FloatValues:
     ff8845ab959b30c4fb711dc9d123beba: 0
+    1ae0fa6c3dfe67648959c42954ca5b9e: 22000
     2f3d902d3f71ac14587acd21470d7cb9: 0.008724246
   m_TransitionOverrides: {}
 --- !u!244 &1273043565901886118

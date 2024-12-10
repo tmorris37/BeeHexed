@@ -21,6 +21,7 @@ namespace EnemyAndTowers
     public string enemyType;                // Type of enemy
         public int health;                  // Current health of the enemy
         public float movementSpeed = 0.5f;  // Speed at which the enemy moves (tiles per second)
+        public float moveSpeedLast;         // Speed of the enemy last update
         public float moveTimeRemaining;     // Time remaining to move to the next tile
         public float attackRate = 1f;       // Time between attacks
         public float attackCooldown;        // Time remaining before the enemy can attack again
@@ -132,6 +133,13 @@ namespace EnemyAndTowers
             {
                 return;
             }
+
+            // Check if the movement speed has changed and update the movement
+            if (moveSpeedLast != movementSpeed)
+            {
+                MoveToPosition();
+            }
+            
             // Update the list of targets from the detection script
             targets = detection.targets;
             
@@ -157,6 +165,8 @@ namespace EnemyAndTowers
             // Update the timers
             moveTimeRemaining -= Time.deltaTime;
             attackCooldown -= Time.deltaTime;
+            // Store the last movement speed
+            moveSpeedLast = movementSpeed;
         }
 
         protected virtual void Attack()

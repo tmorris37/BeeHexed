@@ -45,7 +45,7 @@ public class WaveManager : MonoBehaviour
             int numEnemies = UnityEngine.Random.Range(minEnemies, maxEnemies);
             waveText.text = "Wave: " + currentWave + "/" + waves.Count;
             // Reward the player with 2 nectar at the start of each wave
-            nectarManager.SetNectar(nectarManager.GetNectar() + 2);
+            // nectarManager.SetNectar(nectarManager.GetNectar() + 2);
             // Draw 3 cards at the start of each wave
             for (int i = 0; i < 3; i++) {
                 drawPileManager.DrawCard(handManager);

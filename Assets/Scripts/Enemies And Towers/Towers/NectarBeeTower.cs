@@ -9,6 +9,7 @@ namespace EnemyAndTowers{
     {
 
         public float nectarInterval;
+        public GameObject nectarPrefab;
         private float timer = 0f;
 
         private NectarManager nectarManager;
@@ -35,11 +36,11 @@ namespace EnemyAndTowers{
                 timer = 0f;
             }
             timer += Time.deltaTime;
-
         }
 
         private void addNectar()
         {
+            Instantiate(nectarPrefab, transform.position, Quaternion.identity);
             int currNectar = nectarManager.GetNectar();
             nectarManager.SetNectar(currNectar + 1);
         }

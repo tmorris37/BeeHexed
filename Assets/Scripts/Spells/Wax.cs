@@ -16,7 +16,6 @@ public class Wax : UniversalDurationSpell<Enemy>
 
     public override void EndEffect(Enemy entity, SpriteRenderer sprite)
     {
-        Debug.Log("Movement Speed is " + entity.movementSpeed);
         entity.movementSpeed *= 10f;
         entity.MoveToPosition();
         sprite.color = Color.white;

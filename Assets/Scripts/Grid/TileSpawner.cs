@@ -47,7 +47,6 @@ public class TileSpawner : MonoBehaviour
             (int q, int r, int s) = ((int)cave.x, (int)cave.y, (int)cave.z);
             // I'm honestly not entirely sure how this works but it does
             // Trying to just call DijkstraSimple() was not working
-            ShortestPath PathVerifier = new ShortestPath();
             Enemy tempEnemy = new();
             tempEnemy.SetQRS(q, r, s);
             List<(int, int, int)> path = movement.DijkstraInitialize(tempEnemy);

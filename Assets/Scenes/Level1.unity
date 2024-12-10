@@ -2670,7 +2670,6 @@ GameObject:
   m_Component:
   - component: {fileID: 949248043}
   - component: {fileID: 949248044}
-  - component: {fileID: 949248045}
   - component: {fileID: 949248046}
   m_Layer: 0
   m_Name: Spawner
@@ -2712,21 +2711,9 @@ MonoBehaviour:
   towerPrefab: {fileID: 842843656095350179, guid: 466a0a1c4ac211b4cac99a17de01d534, type: 3}
   gridManager: {fileID: 1554881295}
   PulserPrefab: {fileID: 1460209656345654594, guid: 246305428a605e34aa8078d43adab99f, type: 3}
-  DEBUG_MODE: 1
+  DEBUG_MODE: 0
   highlightTileMode: 0
   hovTileBlocked: 0
---- !u!114 &949248045
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 949248041}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e7f8e81208cb204f883197df769829e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &949248046
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4632,6 +4619,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09773d23da11e3d4faa96349ad3b79bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DEBUG_MODE: 0
   caveGenerator: {fileID: 1846675530}
   gridManager: {fileID: 1554881295}
 --- !u!1 &1854202666

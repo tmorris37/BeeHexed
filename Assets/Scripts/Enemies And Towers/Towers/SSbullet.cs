@@ -149,6 +149,7 @@ namespace EnemyAndTowers
         public GameObject magicEffectPrefab;
 
         private GameObject magicEffect; // Store reference to the spawned magic effect
+        public bool DEBUG_MODE = false;
 
         public void Start()
         {
@@ -159,7 +160,8 @@ namespace EnemyAndTowers
         {
             if (collision.CompareTag("EnemyBody"))
             {
-                Debug.Log("Bullet hit the enemy and deals damage.");
+                if (DEBUG_MODE)
+                    Debug.Log("Bullet hit the enemy and deals damage.");
                 
                 // Deal damage to the enemy
                 tower.DealDamage();

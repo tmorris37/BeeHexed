@@ -6,6 +6,7 @@ using GridSystem;
 
 namespace EnemyAndTowers {
     public class CaveRotator : MonoBehaviour {
+        [SerializeField] private bool DEBUG_MODE = false;
         [SerializeField] public CaveGenerator caveGenerator;
         [SerializeField] public GridManager gridManager;
 
@@ -49,7 +50,7 @@ namespace EnemyAndTowers {
 
                         cave.transform.Rotate(0, 0, rotation);
 
-                        Debug.Log("Cave at " + cavePosition);
+                        if (DEBUG_MODE) Debug.Log("Cave at " + cavePosition);
                     }
                 }
             }

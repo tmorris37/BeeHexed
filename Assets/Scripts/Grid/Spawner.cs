@@ -14,6 +14,8 @@ public class Spawner : MonoBehaviour
     [SerializeField] public GameObject bombeardier;
     [SerializeField] public GameObject slothBear;
 
+    [SerializeField] public GameObject mamaBear;
+
     [SerializeField] public GridManager gridManager;
     [SerializeField] public CaveGenerator caveGenerator;
 
@@ -63,6 +65,9 @@ public class Spawner : MonoBehaviour
         int s = (int)randomCavePosition.z;
         // Spawn Unity Object with Enemy script (Prefab)
         switch (enemyType) {
+            case "MamaBear":
+                newEnemy = Instantiate(mamaBear);
+                break;
             case "BearCub" :
                 newEnemy = Instantiate(bearCub);
                 break;

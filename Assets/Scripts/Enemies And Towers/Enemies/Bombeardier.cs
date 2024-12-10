@@ -13,7 +13,6 @@ namespace EnemyAndTowers
         
         protected override void Start()
         {
-            this.DEBUG = true;
             base.Start();
         }
 

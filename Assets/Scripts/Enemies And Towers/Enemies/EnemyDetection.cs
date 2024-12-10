@@ -6,6 +6,7 @@ public class EnemyDetection : MonoBehaviour
 {
     public GameObject enemy;
     public List<Transform> targets = new List<Transform>();
+    public bool DEBUG_MODE = false;
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -16,7 +17,8 @@ public class EnemyDetection : MonoBehaviour
             {
                 targets.Add(towerTransform);
             }
-            Debug.Log(targets);
+            if (DEBUG_MODE) 
+                Debug.Log(targets);
         }
     }
 

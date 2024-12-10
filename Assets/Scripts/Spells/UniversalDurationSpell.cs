@@ -34,18 +34,17 @@ public abstract class UniversalDurationSpell<T> : DurationSpell
 
   public override void EndEffect() {
     foreach (GameObject target in targets) {
-      if (target == null) {
-        return;
-      } 
-      T entity = target.GetComponent<T>();
-      SpriteRenderer sprite = target.GetComponent<SpriteRenderer>();
-      if (sprite == null) sprite = target.GetComponentInChildren<SpriteRenderer>();
-      if (entity == null) {
-            throw new NullReferenceException("EndEffect: Entity was null in" + entity +"for this spell");
-        } else if (sprite == null) {
-            throw new NullReferenceException("EndEffect: Sprite was null in"  + entity + "for this spell");
-        }
-      EndEffect(entity, sprite);
+        if (target != null) {
+            T entity = target.GetComponent<T>();
+            SpriteRenderer sprite = target.GetComponent<SpriteRenderer>();
+            if (sprite == null) sprite = target.GetComponentInChildren<SpriteRenderer>();
+            if (entity == null) {
+                throw new NullReferenceException("EndEffect: Entity was null in" + entity +"for this spell");
+            } else if (sprite == null) {
+                throw new NullReferenceException("EndEffect: Sprite was null in"  + entity + "for this spell");
+            }
+            EndEffect(entity, sprite);
+        } 
     }
   }
   public abstract void EndEffect(T entity, SpriteRenderer sprite);

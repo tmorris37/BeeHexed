@@ -112,6 +112,7 @@ MonoBehaviour:
   active: 0
   healthBar: {fileID: 0}
   nectarInterval: 10
+  nectarPrefab: {fileID: 6704207199829585174, guid: d29f0c6a504cd254484cf897d8b6ffe1, type: 3}
 --- !u!1 &8311499467380755197
 GameObject:
   m_ObjectHideFlags: 0

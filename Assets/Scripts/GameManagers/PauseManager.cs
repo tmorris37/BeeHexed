@@ -18,13 +18,25 @@ public class PauseManager : MonoBehaviour
         
     }
 
+    public void LoadMainMenu()
+    {
+        Time.timeScale = 1;
+        UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu");
+    }
+
     public void TogglePause()
     {
         isPaused = !isPaused;
-        if (isPaused) {
-            MusicManager.Instance.ApplyPauseFilter();
-        } else {
-            MusicManager.Instance.RemovePauseFilter();
+        if (MusicManager.Instance != null)
+        {
+            if (isPaused)
+            {
+                MusicManager.Instance.ApplyPauseFilter();
+            }
+            else
+            {
+                MusicManager.Instance.RemovePauseFilter();
+            }
         }
         pauseMenu.SetActive(isPaused);
         Time.timeScale = isPaused ? 0 : 1;

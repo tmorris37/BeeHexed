@@ -26,13 +26,8 @@ public class NodeSpawner : MonoBehaviour
     private List<GameObject> nodes = new List<GameObject>();
     void Start()
     {
-        this.nodePositions = nodeGenerator.nodePositions;
+        nodePositions = nodeGenerator.nodePositions;
         SpawnNodes();
-
-        if(MusicManager.Instance != null)
-        {
-            MusicManager.Instance.PlayInGameMusic();
-        }
     }
     
 

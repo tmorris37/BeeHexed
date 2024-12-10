@@ -4464,7 +4464,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   wave: 0
   startingHandSize: 3
-  startingNectar: 10
+  startingNectar: 5
 --- !u!1 &930808612
 GameObject:
   m_ObjectHideFlags: 0
@@ -7686,8 +7686,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 970002919}
-        m_TargetAssemblyTypeName: VictoryManager, BeeHexedAssembly
+      - m_Target: {fileID: 618684764}
+        m_TargetAssemblyTypeName: PauseManager, BeeHexedAssembly
         m_MethodName: LoadMainMenu
         m_Mode: 1
         m_Arguments:

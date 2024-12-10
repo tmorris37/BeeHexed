@@ -3056,10 +3056,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1eae8e4c42110dc438108e8f389c119c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deckSavePath: Assets/Deck/Deck.json
-  tempPath: Assets/Deck/temp.json
-  settingSavePath: Assets/Deck/settings.json
-  defaultPlaystyle: 0
 --- !u!114 &1386915870
 MonoBehaviour:
   m_ObjectHideFlags: 0

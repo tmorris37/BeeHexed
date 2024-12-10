@@ -21,6 +21,11 @@ public class PauseManager : MonoBehaviour
     public void TogglePause()
     {
         isPaused = !isPaused;
+        if (isPaused) {
+            MusicManager.Instance.ApplyPauseFilter();
+        } else {
+            MusicManager.Instance.RemovePauseFilter();
+        }
         pauseMenu.SetActive(isPaused);
         Time.timeScale = isPaused ? 0 : 1;
         Debug.Log("Pause Toggled:" + isPaused);

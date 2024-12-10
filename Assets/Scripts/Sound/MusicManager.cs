@@ -55,8 +55,8 @@ public class MusicManager : MonoBehaviour
     public void SetVolume(float volume)
     {
         this.volume = volume;
-        audioSource.volume = volume;
-        // musicMixer.SetFloat("MusicVolume", Mathf.Log10(volume) * 20);
+        // audioSource.volume = volume;
+        musicMixer.SetFloat("MusicVolume", Mathf.Log10(volume) * 20);
     }
 
     public void PlayMainMenuMusic()

@@ -10,7 +10,6 @@ public class SelectionManager : MonoBehaviour
 {
     [SerializeField] private Button continueButton;
     [SerializeField] private Button viewButton;
-    // [SerializeField] private string tempPath = "Assets/Deck/temp.json";
     private string selected;
     private string baseSelected = "None";
     private Dictionary<string, DeckSelector> decks = new();
@@ -61,7 +60,7 @@ public class SelectionManager : MonoBehaviour
     public void LoadMapPage() {
         bool res = decks.TryGetValue(selected, out DeckSelector currDeck);
         if (res) {
-            WriteDeckToFile(currDeck.gameObject.name);
+            StoreDeck(currDeck.gameObject.name);
             if (MusicManager.Instance != null)
             {
                 MusicManager.Instance.PlayNewGameMusic();
@@ -77,13 +76,9 @@ public class SelectionManager : MonoBehaviour
         SceneManager.LoadScene("DeckSummary");
     }
 
-    private void WriteDeckToFile(string deckName) {
-        string jsonPlayerData = File.ReadAllText(Paths.savePath);
-        PlayerData saveData = JsonConvert.DeserializeObject<PlayerData>(jsonPlayerData);
+    private void StoreDeck(string deckName) {
         string jsonCardPaths = File.ReadAllText(Paths.presetsPath + deckName + ".json");
         IList<string> paths = JsonConvert.DeserializeObject<IList<string>>(jsonCardPaths);
-        saveData.cardPaths = paths;
-        jsonPlayerData = JsonConvert.SerializeObject(saveData);
-        File.WriteAllText(Paths.savePath, jsonPlayerData);
+        PlayerData.cardPaths = paths;
     }
 }

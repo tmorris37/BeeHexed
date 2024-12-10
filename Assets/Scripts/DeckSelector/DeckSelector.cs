@@ -12,10 +12,9 @@ public class DeckSelector : MonoBehaviour, IPointerDownHandler, IPointerEnterHan
 {
     [SerializeField] private GameObject highlight;
     [SerializeField] private float hoverScale = 1.1f;
-    // [SerializeField] private string tempPath = "Assets/Deck/temp.json";
     [SerializeField] private bool DEBUG_MODE = false;
-    [SerializeField] private Color themeColor;
     // assigned in prefab
+    [SerializeField] private Color themeColor;
     private Color selectColor;
     private bool selected;
     private SelectionManager selectionManager;
@@ -24,6 +23,7 @@ public class DeckSelector : MonoBehaviour, IPointerDownHandler, IPointerEnterHan
     {
         selectionManager = FindObjectOfType<SelectionManager>();
         highlight.SetActive(false); 
+        // TODO: Not hard-code this
         selectColor = new Color(0, 255, 208, 255f);
     }
 
@@ -41,7 +41,7 @@ public class DeckSelector : MonoBehaviour, IPointerDownHandler, IPointerEnterHan
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        WriteDeckNameToFile(name);
+        StoreDeckNameColor(name);
         selectionManager.Select(name);
     }
 
@@ -88,16 +88,10 @@ public class DeckSelector : MonoBehaviour, IPointerDownHandler, IPointerEnterHan
         }
     }
 
-    private void WriteDeckNameToFile(string name) {
-        PlayerData playerData = new()
-        {
-            deckName = name,
-            cardPaths = null,
-            themeColor = BasicColor.ConvertToBasicColor(themeColor)
-        };
-        string jsonData = JsonConvert.SerializeObject(playerData);
-        if (DEBUG_MODE) Debug.Log("Written Deck Name: " + playerData.deckName);
-        File.WriteAllText(Paths.savePath, jsonData);
+    private void StoreDeckNameColor(string name) {
+        PlayerData.deckName = name;
+        if (DEBUG_MODE) Debug.Log("Stored deck Name: " + PlayerData.deckName);
+        PlayerData.themeColor = BasicColor.ConvertToBasicColor(themeColor);
     }
 
 

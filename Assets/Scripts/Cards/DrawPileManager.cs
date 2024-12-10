@@ -21,7 +21,6 @@ public class DrawPileManager : MonoBehaviour
 
     [SerializeField] int handLimit = 8;
     
-    private string savePath = Paths.savePath;
     private HandManager handManager;
     private DiscardManager discardManager;
 
@@ -32,40 +31,28 @@ public class DrawPileManager : MonoBehaviour
       handManager = FindObjectOfType<HandManager>();
       //
       if (DEVELOPER_MODE) {
-        WriteDeckToFile(customDeck);
+        StoreDeck(customDeck);
       }
-      getDeckFromFile();
+      GetStoredDeck();
       generateDrawPile(deck);
     }
     
 
-  private void WriteDeckToFile(List<Card> deck)
-  {
-    List<string> cardNames = new();
-    foreach (Card card in deck){
-      cardNames.Add("Cards/" + card.cardName);
-    }
-    PlayerData playerData = new PlayerData
+    private void StoreDeck(List<Card> deck)
     {
-        themeColor = BasicColor.ConvertToBasicColor(Color.black),
-        deckName = "DevDeck",
-        cardPaths = cardNames
-    };
-    string jsonSave = JsonConvert.SerializeObject(playerData);
-    File.WriteAllText(savePath, jsonSave);
-    if (DEBUG_MODE)
-      Debug.Log("Written Save" + jsonSave);
-  }
+        List<string> cardNames = new();
+        foreach (Card card in deck){
+            cardNames.Add("Cards/" + card.cardName);
+        }
+        PlayerData.themeColor = BasicColor.ConvertToBasicColor(Color.black);
+        PlayerData.deckName = "DevDeck";
+        PlayerData.cardPaths = cardNames;
+    }
 
 
-  void getDeckFromFile() {
+  void GetStoredDeck() {
       deck.Clear();
-      string JSONPlainText = File.ReadAllText(savePath);
-      if (DEBUG_MODE) {
-        Debug.Log("Read deck" + JSONPlainText);
-      }
-      PlayerData playerData = JsonConvert.DeserializeObject<PlayerData>(JSONPlainText);
-      IList<string> cardPaths = playerData.cardPaths;
+      IList<string> cardPaths = PlayerData.cardPaths;
       // add each card once
       foreach (string path in cardPaths) {
         deck.Add(Resources.Load<Card>(path));
@@ -120,11 +107,6 @@ public class DrawPileManager : MonoBehaviour
     }
 
     // DEVELOPER ONLY METHODS
-    public void DEV_setDeckPath(string path) {
-      if (DEVELOPER_MODE) {
-        savePath = path;
-      }
-    }
 
     public void DEV_setCustomDeck(List<Card> custDeck) {
       if (DEVELOPER_MODE) {

@@ -29,11 +29,10 @@ public class DeckSummary : MonoBehaviour {
     }
 
     void Start() {
-        string jsonPlayerData = File.ReadAllText(Paths.savePath);
-        PlayerData saveData = JsonConvert.DeserializeObject<PlayerData>(jsonPlayerData);
-        deckName = saveData.deckName;
+        deckName = PlayerData.deckName;
         titleText.text = deckName;
-        titleText.color = saveData.themeColor;
+        Debug.Log(PlayerData.themeColor);
+        titleText.color = PlayerData.themeColor;
         LoadDeck();
         DisplayDeck();
     }

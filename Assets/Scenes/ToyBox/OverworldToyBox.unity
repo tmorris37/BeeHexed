@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 43837177}
   - component: {fileID: 43837176}
   - component: {fileID: 43837175}
+  - component: {fileID: 43837178}
   m_Layer: 5
   m_Name: Back Button
   m_TagString: Untagged
@@ -204,8 +205,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: MapScript, BeeHexedAssembly
+      - m_Target: {fileID: 43837178}
+        m_TargetAssemblyTypeName: MainMenu, BeeHexedAssembly
         m_MethodName: GoToScene
         m_Mode: 5
         m_Arguments:
@@ -254,6 +255,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 43837173}
   m_CullTransparentMesh: 1
+--- !u!114 &43837178
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 43837173}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1eae8e4c42110dc438108e8f389c119c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &183433771
 GameObject:
   m_ObjectHideFlags: 0

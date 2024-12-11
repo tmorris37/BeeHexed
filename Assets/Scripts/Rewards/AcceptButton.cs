@@ -33,8 +33,8 @@ public class AcceptButton : MonoBehaviour
         MusicManager.Instance.PlayNewGameMusic();
       }
       if (DEBUG_MODE) Debug.Log("Loading map...");
-      
-      GameObject.Find("OverworldPersistance").SetActive(true);
+
+      GameObject.Find("MapManager").GetComponent<MapManager>().MakeMapActive();
       SceneManager.LoadScene(mapScene);
     }
     public void WriteDeckWithRewardAndLoad() {

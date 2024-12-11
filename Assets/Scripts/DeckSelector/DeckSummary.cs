@@ -29,7 +29,11 @@ public class DeckSummary : MonoBehaviour {
     }
 
     void Start() {
-        string jsonPlayerData = File.ReadAllText(Paths.savePath);
+        string filepath = Application.persistentDataPath + "/DeckAssets";
+        string jsonPlayerData = File.ReadAllText(filepath + "/Save.json");
+
+        System.IO.Directory.CreateDirectory(filepath);
+
         PlayerData saveData = JsonConvert.DeserializeObject<PlayerData>(jsonPlayerData);
         deckName = saveData.deckName;
         titleText.text = deckName;
@@ -39,7 +43,9 @@ public class DeckSummary : MonoBehaviour {
     }
 
     void LoadDeck() {
-        string jsonDeck = File.ReadAllText(Paths.presetsPath + deckName + ".json");
+        string deckFilepath = "DeckAssets/" + deckName;
+        string jsonDeck = Resources.Load<TextAsset>(deckFilepath).text;
+        
         IList<string> cardPaths = JsonConvert.DeserializeObject<List<string>>(jsonDeck);
         // add each card once
         foreach (string path in cardPaths) {

@@ -12,13 +12,14 @@ public class NodeSpawner : MonoBehaviour
 {
     [SerializeField] public GridManager gridManager;
     [SerializeField] public NodeGenerator nodeGenerator;
-
+    [Header("Levels")]
     [SerializeField] public GameObject level0;
     [SerializeField] public GameObject level1;
     [SerializeField] public GameObject level2;
     [SerializeField] public GameObject level3;
     [SerializeField] public GameObject level4;
     [SerializeField] public GameObject rewards;
+    [Header("Radius")]
     [SerializeField] public int radius;
     [SerializeField] public bool DEBUG;
 
@@ -60,7 +61,7 @@ public class NodeSpawner : MonoBehaviour
         // List to store possible node positions in rings 7 and 8
         List<(int q, int r, int s)> possiblePositions = new List<(int, int, int)>();
 
-        AddRingPositions(8, possiblePositions);
+        AddRingPositions(9, possiblePositions);
 
         // Filter positions for each hextant
         List<(int q, int r, int s)> topLeftPositions = new List<(int, int, int)>();
@@ -170,12 +171,19 @@ public class NodeSpawner : MonoBehaviour
             {
                 (float x, float y) = gridManager.QRStoXY(candidate.q, candidate.r, candidate.s);
                 GameObject newNode;
-                if (nodeType == 1) { 
-                    newNode = Instantiate(level1, new Vector3(x, y, 0), Quaternion.identity, transform);
+                GameObject level;
+                if (nodeType == 1) {
+                    level = NodeRandomizer(level1, .1);
+                    newNode = Instantiate(level, new Vector3(x, y, 0), Quaternion.identity, transform);
+                    newNode.tag = "Node1";
                 } else if (nodeType == 2) {
+                    level = NodeRandomizer(level2, .3);
                     newNode = Instantiate(level2, new Vector3(x, y, 0), Quaternion.identity, transform);
+                    newNode.tag = "Node2";
                 } else {
-                    newNode = Instantiate(level3, new Vector3(x, y, 0), Quaternion.identity, transform);
+                    level = NodeRandomizer(level3, .2);
+                    newNode = Instantiate(level, new Vector3(x, y, 0), Quaternion.identity, transform);
+                    newNode.tag = "Node3";
                 }
                 newNode.name = $"Level{nodeType}Node_{candidate.q}_{candidate.r}_{candidate.s}";
                 spawnedNodes.Add(candidate);
@@ -187,6 +195,16 @@ public class NodeSpawner : MonoBehaviour
         }
     }
 
+    // Randomizes input node with percent chance of getting reward node
+    private GameObject NodeRandomizer(GameObject originalNode, double chance) {
+        GameObject result = originalNode;
+        System.Random random = new System.Random();
+
+        double randomDouble = random.NextDouble();
+        if (randomDouble <= chance)
+            result = rewards;
+        return result;
+    }
     // Helper method to calculate hex distance
     private int HexDistance((int q, int r, int s) a, (int q, int r, int s) b)
     {

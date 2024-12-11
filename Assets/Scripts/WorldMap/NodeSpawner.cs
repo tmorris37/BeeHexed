@@ -177,7 +177,7 @@ public class NodeSpawner : MonoBehaviour
                 } else {
                     newNode = Instantiate(level3, new Vector3(x, y, 0), Quaternion.identity, transform);
                 }
-                newNode.name = $"Level1Node_{candidate.q}_{candidate.r}_{candidate.s}";
+                newNode.name = $"Level{nodeType}Node_{candidate.q}_{candidate.r}_{candidate.s}";
                 spawnedNodes.Add(candidate);
                 nodesToSpawn--;
             }

@@ -22,21 +22,18 @@ public class DrawPileManager : MonoBehaviour
     public List<Card> deck = new();
 
     [SerializeField] int handLimit = 8;
-    
-    private HandManager handManager;
     private DiscardManager discardManager;
-
+    private DeckAnimator deckAnimator;
     public TextMeshProUGUI drawPileCounter;
 
 
     public void Awake() {
-      handManager = FindObjectOfType<HandManager>();
-      //
-      if (DEVELOPER_MODE) {
-        StoreDeck(customDeck);
-      }
-      GetStoredDeck();
-      generateDrawPile(deck);
+        deckAnimator = FindObjectOfType<DeckAnimator>();
+        if (DEVELOPER_MODE) {
+            StoreDeck(customDeck);
+        }
+        GetStoredDeck();
+        generateDrawPile(deck);
     }
     
 
@@ -63,18 +60,15 @@ public class DrawPileManager : MonoBehaviour
     }
 
     public void DrawCard(HandManager handManager) {
-      if (deck.Count == 0) {
-        ShuffleGraveIntoDeck();
-      }
-      if (deck.Count == 0 || handManager.handSize >= handLimit) {
-        return;
-      } else {
-        Card nextCard = deck[0];
-        handManager.AddToHand(nextCard);
-        deck.RemoveAt(0);
-        // handManager.handSize++;
+        if (deck.Count == 0) {
+            ShuffleGraveIntoDeck();
+        }
+        if (deck.Count != 0 && handManager.handSize < handLimit) {
+            Card nextCard = deck[0];
+            deck.RemoveAt(0);
+            handManager.AddToHand(nextCard);
+        }
         drawPileCounter.text = deck.Count.ToString();
-      }
     }
 
   private void ShuffleGraveIntoDeck()
@@ -86,8 +80,8 @@ public class DrawPileManager : MonoBehaviour
       return;
     }
     deck = discardManager.drawAllGraveyard();
+    deckAnimator.Shuffle();
     Shuffle();
-    // currIndex = 0;
   }
 
   // Fisher-Yates Shuffle algorithm

@@ -11,10 +11,14 @@ public class DeckAnimator : MonoBehaviour
     [SerializeField] private int cardsShownInDeck = 4;
     [SerializeField] private GameObject cardBackPrefab;
     private Sprite cardBack;
-    private List<GameObject> deckDisplay;
+    private GameObject[] deckDisplay;
+    private HandManager handManager;
+    private DrawPileManager drawPileManager;
     void Awake()
     {
-        deckDisplay = new();
+        deckDisplay = new GameObject[cardsShownInDeck];
+        handManager = FindObjectOfType<HandManager>();
+        drawPileManager = FindObjectOfType<DrawPileManager>();
         cardBack = GetCardBack();
     }
 
@@ -30,7 +34,7 @@ public class DeckAnimator : MonoBehaviour
             GameObject instance = Instantiate(cardBackPrefab, transform);
             Vector3 cardPosition = new(instance.transform.localPosition.x + xCardOffset * i, instance.transform.localPosition.y + yCardOffset * i);
             instance.transform.localPosition = cardPosition;
-            deckDisplay.Add(instance);
+            deckDisplay[i] = instance;
         }
     }
 
@@ -39,9 +43,28 @@ public class DeckAnimator : MonoBehaviour
         return PlayerData.cardBack.sprite;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    public void DrawCardAnimation(GameObject card) {
+        card.SetActive(false);
+        int deckSize = drawPileManager.deck.Count;
+        // remove cards such that cards match actual deck size
+        // Currently depends on deck size being updated before card is added to hand (BAD)
+        if (deckSize < cardsShownInDeck) {
+            Debug.Log("Read deck size = " + deckSize);
+            deckDisplay[deckSize].SetActive(false);
+        }
+        StartCoroutine(DrawCardCoroutine(card));
+    }
+
+    private IEnumerator DrawCardCoroutine(GameObject card) {
+        yield return new WaitForSeconds(0.5f);
+        card.SetActive(true);
+    }
+
+    public void Shuffle() {
+        for (int card = 0; card < drawPileManager.deck.Count; card++) {
+            if (card < cardsShownInDeck) {
+                deckDisplay[card].SetActive(true);
+            }
+        }
     }
 }

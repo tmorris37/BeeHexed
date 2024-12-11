@@ -292,6 +292,6 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
     }
 
     public void Reset() {
-    GoToState(-1);
+        GoToState(-1);
     }
 }

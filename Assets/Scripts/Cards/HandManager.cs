@@ -25,6 +25,7 @@ public class HandManager : MonoBehaviour
     public DrawPileManager drawPileManager;
 
     public DiscardManager discardManager;
+    private DeckAnimator deckAnimator;
 
     // TODO: probably privatize everything
     public int handSize = 0;
@@ -33,6 +34,7 @@ public class HandManager : MonoBehaviour
     public string settingSavePath = "Assets/Deck/Settings.json";
 
     private void Awake() {
+        deckAnimator = FindObjectOfType<DeckAnimator>();
         string json = File.ReadAllText(settingSavePath);
         playstyle = JsonConvert.DeserializeObject<CardPlaystyle>(json);
     }
@@ -43,23 +45,23 @@ public class HandManager : MonoBehaviour
       discardManager = FindObjectOfType<DiscardManager>();
     }
 
-  public void AddToHand(Card card)
-  {
-    GameObject addCard;
-    if (card.cardType == Card.CardType.Tower) {
-      addCard = Instantiate(towerCardPrefab, handLocation.position,
-       Quaternion.identity, handLocation);
-    } else {
-      addCard = Instantiate(spellCardPrefab, handLocation.position,
-       Quaternion.identity, handLocation);
+    public void AddToHand(Card card)
+    {
+        GameObject addCard;
+        if (card.cardType == Card.CardType.Tower) {
+        addCard = Instantiate(towerCardPrefab, handLocation.position,
+        Quaternion.identity, handLocation);
+        } else {
+        addCard = Instantiate(spellCardPrefab, handLocation.position,
+        Quaternion.identity, handLocation);
+        }
+        cardsInHand.Add(addCard);
+        handSize++;
+        addCard.GetComponent<CardDisplay>().cardData = card;
+        addCard.GetComponent<CardMovement>().playstyle = playstyle;
+        UpdateHandDisplay();
+        deckAnimator.DrawCardAnimation(addCard);
     }
-    
-    cardsInHand.Add(addCard);
-    handSize++;
-    addCard.GetComponent<CardDisplay>().cardData = card;
-    addCard.GetComponent<CardMovement>().playstyle = playstyle;
-    UpdateHandDisplay();
-  }
 
   public bool DiscardCard(Card card) {
     discardManager.discard(card);

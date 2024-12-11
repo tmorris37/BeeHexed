@@ -41,7 +41,9 @@ namespace Node {
         void OnMouseDown()
         {
             // Interaction logic when the GameObject is clicked
+            GameObject.Find("OverworldPersistance").SetActive(false);
             SceneManager.LoadScene(nodeName);
+
         }
     }
 }

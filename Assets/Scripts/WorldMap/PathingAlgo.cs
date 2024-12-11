@@ -37,7 +37,7 @@ namespace Node {
                 foreach (GameObject endNode in end) {
                     // Tries to "connect" the nodes
                     if (SignOf(startNode.transform.position.x) == SignOf(endNode.transform.position.x)
-                        || endNode.transform.position.x == 0f) {
+                        || Math.Round(2.0*endNode.transform.position.x) == 0) {
                         (int, int, int) startQRS =
                             this.gridManager.XYtoQRS(startNode.transform.position.x, startNode.transform.position.y);
                         (int, int, int) endQRS =

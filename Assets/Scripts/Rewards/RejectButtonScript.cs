@@ -11,6 +11,8 @@ public class RejectButtonScript : MonoBehaviour {
         MusicManager.Instance.PlayNewGameMusic();
       }
       if (DEBUG_MODE) Debug.Log("Loading map...");
+      
+      GameObject.Find("OverworldPersistance").SetActive(true);
       SceneManager.LoadScene("OverworldToyBox");
     }
 }

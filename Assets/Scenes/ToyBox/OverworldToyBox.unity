@@ -306,7 +306,6 @@ MonoBehaviour:
   - {fileID: 4519046639785806374, guid: 5f7656a6896721649afa04e78285d27b, type: 3}
   - {fileID: 4519046639785806374, guid: 53ca5b54660b144438c113a7606f193e, type: 3}
   nodeGenerator: {fileID: 881570906}
-  path: {fileID: 629404330}
 --- !u!1 &189521931
 GameObject:
   m_ObjectHideFlags: 0
@@ -583,7 +582,7 @@ MonoBehaviour:
   level3: {fileID: 841922660817754411, guid: 941a35bde78d54f159a2df9f0a227148, type: 3}
   level4: {fileID: 2592918934295224573, guid: 9d681f5dfc0fb4c88ba6730f5a0625d8, type: 3}
   rewards: {fileID: 245944460591396219, guid: 6ea688f09e0e1419faf3cae4ffe4713f, type: 3}
-  radius: 10
+  radius: 11
   DEBUG: 0
 --- !u!4 &590338378
 Transform:
@@ -595,51 +594,6 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 943.23126, y: 255.28345, z: -18.1435}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &629404329
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 629404331}
-  - component: {fileID: 629404330}
-  m_Layer: 0
-  m_Name: PathingAlgo
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &629404330
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 629404329}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1813f9f6cbba846e8b490fcc77a105aa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gridManager: {fileID: 1554881295}
---- !u!4 &629404331
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 629404329}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 943.2312, y: 255.28345, z: -18.1435}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1854,7 +1808,7 @@ MonoBehaviour:
   rewards: {fileID: 245944460591396219, guid: 6ea688f09e0e1419faf3cae4ffe4713f, type: 3}
   parentTransform: {fileID: 0}
   numNodes: 2
-  radius: 10
+  radius: 11
   DEBUG: 0
   nodePositions: []
 --- !u!4 &881570907
@@ -1901,7 +1855,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ec5579fda5fec6498b7eadc492806b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GridRadius: 10
+  GridRadius: 11
   HexTilePrefab: {fileID: 5180860355450847252, guid: 804f7f8b96697d147a944995af89b244, type: 3}
   DEBUG: 0
 --- !u!4 &1554881296
@@ -2069,5 +2023,4 @@ SceneRoots:
   - {fileID: 590338378}
   - {fileID: 1554881296}
   - {fileID: 1914675432}
-  - {fileID: 629404331}
   - {fileID: 862147845}

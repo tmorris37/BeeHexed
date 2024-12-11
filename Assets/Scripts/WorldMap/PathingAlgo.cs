@@ -43,9 +43,13 @@ namespace Node {
                         (int, int, int) endQRS =
                             this.gridManager.XYtoQRS(endNode.transform.position.x, endNode.transform.position.y);
 
-                        List<(int, int, int)> path =
-                            pathfinder.DijkstraSimple(this.gridManager, startQRS, endQRS, DijkstraCallback);
-                        allPaths.AddRange(path);
+                        // Only lets nodes on the same up/down path connect (converges in middle)
+                        if (startQRS.Item2 == 0 || endQRS.Item2 == 0 ||
+                            (SignOf(startNode.transform.position.y) == SignOf(endNode.transform.position.y))) {
+                            List<(int, int, int)> path =
+                                pathfinder.DijkstraSimple(this.gridManager, startQRS, endQRS, DijkstraCallback);
+                            allPaths.AddRange(path);
+                        }
                     }
                 }
             }
@@ -58,9 +62,11 @@ namespace Node {
 
         public bool DijkstraCallback((int, int, int) QRSTuple)
         {
-            (int q, int r, int s) = QRSTuple;
+            //(int q, int r, int s) = QRSTuple;
 
-            return this.gridManager.FetchTile(q, r, s).getOccupiedByObstacle();
+            //return this.gridManager.FetchTile(q, r, s).getOccupiedByObstacle();
+
+            return false;
         }
     }
 }

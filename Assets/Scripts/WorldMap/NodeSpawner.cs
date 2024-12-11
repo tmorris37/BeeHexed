@@ -115,10 +115,10 @@ public class NodeSpawner : MonoBehaviour
 
         // Filter positions for each side
         List<(int q, int r, int s)> side1Positions = FilterPositions(possiblePositions, (q, r, s) =>
-            (q < 2 && s > -2));
+            ((q < 1 && r > 0) || (s > -1 && r < 0)));
 
         List<(int q, int r, int s)> side2Positions = FilterPositions(possiblePositions, (q, r, s) =>
-            (q > -2 && s < 2));
+            ((q > -1 && r < 0) || (r > 0 && s < 1)));
 
         // Spawn 1 node on each side
         List<(int q, int r, int s)> spawnedNodes = new List<(int, int, int)>();

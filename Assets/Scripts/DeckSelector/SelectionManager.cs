@@ -78,12 +78,21 @@ public class SelectionManager : MonoBehaviour
     }
 
     private void WriteDeckToFile(string deckName) {
-        string jsonPlayerData = File.ReadAllText(Paths.savePath);
+
+        // A persistent location to store written data
+        // On Windows: ..\AppData\LocalLow\defaultcompany\BeeHexed\DeckAssets\Save.json
+        string filepath = Application.persistentDataPath + "/DeckAssets";
+
+        string saveFilepath = filepath + "/Save.json";
+        string jsonPlayerData = File.ReadAllText(saveFilepath);
         PlayerData saveData = JsonConvert.DeserializeObject<PlayerData>(jsonPlayerData);
-        string jsonCardPaths = File.ReadAllText(Paths.presetsPath + deckName + ".json");
+
+        string deckFilepath = "DeckAssets/" + deckName;
+        string jsonCardPaths = Resources.Load<TextAsset>(deckFilepath).text;
         IList<string> paths = JsonConvert.DeserializeObject<IList<string>>(jsonCardPaths);
+        
         saveData.cardPaths = paths;
         jsonPlayerData = JsonConvert.SerializeObject(saveData);
-        File.WriteAllText(Paths.savePath, jsonPlayerData);
+        File.WriteAllText(saveFilepath, jsonPlayerData);
     }
 }

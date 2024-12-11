@@ -10,24 +10,34 @@ using UnityEngine.UI;
 
 public class Settings : MonoBehaviour
 {
-    public string settingSavePath = "Assets/Deck/Settings.json";
+    public string settingSavePath;
+
     [SerializeField] private Slider playStyleSlider;
     [SerializeField] private Color clickColor;
     [SerializeField] private Color dragColor;
     void Awake() {
+        // A persistent location to store written data
+        // On Windows: ..\AppData\LocalLow\defaultcompany\BeeHexed\DeckAssets\Settings.json
+        this.settingSavePath = Application.persistentDataPath + "/DeckAssets/Settings.json";
         LoadSettingsFromFile();
         ChangeSliderColor();
     }
 
     private void LoadSettingsFromFile()
     {
-        string json = File.ReadAllText(settingSavePath);
-        CardPlaystyle playstyle = JsonConvert.DeserializeObject<CardPlaystyle>(json);
-        if (playstyle == CardPlaystyle.Clicking) {
+        try {
+            string json = File.ReadAllText(settingSavePath);
+
+            CardPlaystyle playstyle = JsonConvert.DeserializeObject<CardPlaystyle>(json);
+            if (playstyle == CardPlaystyle.Clicking) {
+                playStyleSlider.value = 0;
+            } else {
+                playStyleSlider.value = 1;
+            }
+        } catch {
             playStyleSlider.value = 0;
-        } else {
-            playStyleSlider.value = 1;
         }
+
     }
 
     // Sets quality of 

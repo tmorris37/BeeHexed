@@ -97,7 +97,15 @@ public class DeckSelector : MonoBehaviour, IPointerDownHandler, IPointerEnterHan
         };
         string jsonData = JsonConvert.SerializeObject(playerData);
         if (DEBUG_MODE) Debug.Log("Written Deck Name: " + playerData.deckName);
-        File.WriteAllText(Paths.savePath, jsonData);
+
+        // A persistent location to store written data
+        // On Windows: ..\AppData\LocalLow\defaultcompany\BeeHexed\DeckAssets\Save.json
+        string filepath = Application.persistentDataPath + "/DeckAssets";
+        string saveFilepath = filepath + "/Save.json";
+
+        System.IO.Directory.CreateDirectory(filepath);
+        
+        File.WriteAllText(saveFilepath, jsonData);
     }
 
 

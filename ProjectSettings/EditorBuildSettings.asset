@@ -47,4 +47,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Level4.unity
     guid: ffd6d760299aa93429570ea6a7af816e
+  - enabled: 1
+    path: Assets/Scenes/EmptyMap.unity
+    guid: de8262710d61ad140bd6d6aa74974902
   m_configObjects: {}

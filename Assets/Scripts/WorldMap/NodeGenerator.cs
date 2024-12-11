@@ -13,7 +13,12 @@ namespace Node
     {
         [SerializeField] public GridManager gridManager;
 
-        [SerializeField] public GameObject nodePrefab;
+        [SerializeField] public GameObject level0;
+        [SerializeField] public GameObject level1;
+        [SerializeField] public GameObject level2;
+        [SerializeField] public GameObject level3;
+        [SerializeField] public GameObject level4;
+        [SerializeField] public GameObject rewards;
 
         [SerializeField] private Transform parentTransform; 
         [SerializeField] public int numNodes;
@@ -40,14 +45,6 @@ namespace Node
             {
                 (q, r, s) = nodeLocations[i];
                 nodePositions.Add(new Vector3(q, r, s));
-            }
-            
-            if (DEBUG)
-            {
-                foreach (var position in nodePositions)
-                {
-                    Debug.Log("Node position: " + position);
-                }
             }
         }
 

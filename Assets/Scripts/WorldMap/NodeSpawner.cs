@@ -76,8 +76,8 @@ public class NodeSpawner : MonoBehaviour
 
         // Spawn 2 or 3 nodes in each hextant
         List<(int q, int r, int s)> spawnedNodes = new List<(int, int, int)>();
-        SpawnNodesFromHextant(topLeftPositions, UnityEngine.Random.Range(2, 4), spawnedNodes);
-        SpawnNodesFromHextant(bottomRightPositions, UnityEngine.Random.Range(2, 4), spawnedNodes);
+        SpawnNodesFromHextant(topLeftPositions, UnityEngine.Random.Range(2, 4), spawnedNodes, 1);
+        SpawnNodesFromHextant(bottomRightPositions, UnityEngine.Random.Range(2, 4), spawnedNodes, 1);
 
         Debug.Log("Spawned Level 1 nodes in both hextants.");
     }
@@ -99,8 +99,8 @@ public class NodeSpawner : MonoBehaviour
 
         // Spawn 2–3 nodes in each region
         List<(int q, int r, int s)> spawnedNodes = new List<(int, int, int)>();
-        SpawnNodesFromHextant(region1Positions, UnityEngine.Random.Range(3, 5), spawnedNodes);
-        SpawnNodesFromHextant(region2Positions, UnityEngine.Random.Range(3, 5), spawnedNodes);
+        SpawnNodesFromHextant(region1Positions, UnityEngine.Random.Range(3, 5), spawnedNodes, 2);
+        SpawnNodesFromHextant(region2Positions, UnityEngine.Random.Range(3, 5), spawnedNodes, 2);
 
         Debug.Log("Spawned Level 2 nodes in rings 6 and 7, respecting hextant conditions.");
     }
@@ -121,8 +121,8 @@ public class NodeSpawner : MonoBehaviour
 
         // Spawn 1 node on each side
         List<(int q, int r, int s)> spawnedNodes = new List<(int, int, int)>();
-        SpawnNodesFromHextant(side1Positions, 2, spawnedNodes);
-        SpawnNodesFromHextant(side2Positions, 2, spawnedNodes);
+        SpawnNodesFromHextant(side1Positions, 2, spawnedNodes, 3);
+        SpawnNodesFromHextant(side2Positions, 2, spawnedNodes, 3);
 
         Debug.Log("Spawned 2 Level 3 nodes: one on each side in rings 3 or 4.");
     }
@@ -145,7 +145,7 @@ public class NodeSpawner : MonoBehaviour
 
 
     // Helper method to randomly spawn nodes while ensuring uniqueness
-    private void SpawnNodesFromHextant(List<(int q, int r, int s)> hextantPositions, int nodesToSpawn, List<(int q, int r, int s)> spawnedNodes)
+    private void SpawnNodesFromHextant(List<(int q, int r, int s)> hextantPositions, int nodesToSpawn, List<(int q, int r, int s)> spawnedNodes, int nodeType)
     {
         int attempts = 0;
 
@@ -169,7 +169,14 @@ public class NodeSpawner : MonoBehaviour
             if (valid)
             {
                 (float x, float y) = gridManager.QRStoXY(candidate.q, candidate.r, candidate.s);
-                GameObject newNode = Instantiate(level0, new Vector3(x, y, 0), Quaternion.identity, transform);
+                GameObject newNode;
+                if (nodeType == 1) { 
+                    newNode = Instantiate(level1, new Vector3(x, y, 0), Quaternion.identity, transform);
+                } else if (nodeType == 2) {
+                    newNode = Instantiate(level2, new Vector3(x, y, 0), Quaternion.identity, transform);
+                } else {
+                    newNode = Instantiate(level3, new Vector3(x, y, 0), Quaternion.identity, transform);
+                }
                 newNode.name = $"Level1Node_{candidate.q}_{candidate.r}_{candidate.s}";
                 spawnedNodes.Add(candidate);
                 nodesToSpawn--;

@@ -92,10 +92,10 @@ public class NodeSpawner : MonoBehaviour
 
         // Filter positions for the two regions
         List<(int q, int r, int s)> region1Positions = FilterPositions(possiblePositions, (q, r, s) =>
-            (s > 0 && q < 2 && q > -4) || (q < 0 && s < 4 && s > -2));
+            (s > 0 && q < 1 && q > -4) || (q < 0 && s < 4 && s > -1));
 
         List<(int q, int r, int s)> region2Positions = FilterPositions(possiblePositions, (q, r, s) =>
-            (s < 0 && q < 4 && q > -2) || (q > 0 && s < 2 && s > -4));
+            (s < 0 && q < 4 && q > -1) || (q > 0 && s < 1 && s > -4));
 
         // Spawn 2–3 nodes in each region
         List<(int q, int r, int s)> spawnedNodes = new List<(int, int, int)>();
@@ -169,7 +169,7 @@ public class NodeSpawner : MonoBehaviour
             if (valid)
             {
                 (float x, float y) = gridManager.QRStoXY(candidate.q, candidate.r, candidate.s);
-                GameObject newNode = Instantiate(level1, new Vector3(x, y, 0), Quaternion.identity, transform);
+                GameObject newNode = Instantiate(level0, new Vector3(x, y, 0), Quaternion.identity, transform);
                 newNode.name = $"Level1Node_{candidate.q}_{candidate.r}_{candidate.s}";
                 spawnedNodes.Add(candidate);
                 nodesToSpawn--;

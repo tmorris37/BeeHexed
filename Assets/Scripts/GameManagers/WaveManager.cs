@@ -16,10 +16,8 @@ public class WaveManager : MonoBehaviour
 
     private bool lastEnemySpawned = false;
 
-    [SerializeField] private NectarManager nectarManager;
     private DrawPileManager drawPileManager;
     private HandManager handManager;
-    private VictoryManager victoryManager;
     [SerializeField] private List<Wave> waves;
 
     void Awake() {
@@ -57,28 +55,39 @@ public class WaveManager : MonoBehaviour
                 float avgTimeBetweenSpawns = waves[currentWave-1].avgTimeBetweenSpawns;
                 float timeBetweenSpawns = UnityEngine.Random.Range(avgTimeBetweenSpawns - 0.5f, avgTimeBetweenSpawns + 0.5f);
                 string enemyType = null;
-                // Determine which enemy to spawn based on spawn frequencies
-                for (int j = 0; j <= numEnemies; j++) {
-                    // Generate a random float between 0 and 1
-                    float randomValue = UnityEngine.Random.value;
-                    float cumulativeProbability = 0f;
-
-                    // Determine which enemy to spawn based on spawn frequencies
-                    foreach (var enemyData in waves[currentWave-1].enemies)
-                    {
-                        cumulativeProbability += enemyData.spawnFrequency;
-                        if (randomValue <= cumulativeProbability)
-                        {
-                            enemyType = enemyData.enemyType;
-                            break;
+                // Check if there is a fixed enemy to spawn
+                if (waves[currentWave-1].fixedEnemies.Count > 0) {
+                    foreach (var fixedEnemy in waves[currentWave-1].fixedEnemies) {
+                        if (i + 1 == fixedEnemy.placement) {
+                            enemyType = fixedEnemy.enemyType;
                         }
+                        break;
                     }
+                }
+                if (enemyType == null) {
+                    // Determine which enemy to spawn based on spawn frequencies
+                    for (int j = 0; j <= numEnemies; j++) {
+                        // Generate a random float between 0 and 1
+                        float randomValue = UnityEngine.Random.value;
+                        float cumulativeProbability = 0f;
 
-                    // Ensure an enemy was selected
-                    if (enemyType == null)
-                    {
-                        Debug.LogError("No enemy selected! Check if frequencies sum to 1 for the wave.");
-                        continue;
+                        // Determine which enemy to spawn based on spawn frequencies
+                        foreach (var enemyData in waves[currentWave-1].enemies)
+                        {
+                            cumulativeProbability += enemyData.spawnFrequency;
+                            if (randomValue <= cumulativeProbability)
+                            {
+                                enemyType = enemyData.enemyType;
+                                break;
+                            }
+                        }
+
+                        // Ensure an enemy was selected
+                        if (enemyType == null)
+                        {
+                            Debug.LogError("No enemy selected! Check if frequencies sum to 1 for the wave.");
+                            continue;
+                        }
                     }
                 }
                 // Call the spawner to spawn the enemy
@@ -112,9 +121,17 @@ public class EnemySpawnData
 }
 
 [Serializable]
+public class FixedEnemy
+{
+    public string enemyType;
+    public int placement;
+}
+
+[Serializable]
 public class Wave
 {
     public List<EnemySpawnData> enemies;
+    public List<FixedEnemy> fixedEnemies;
     public int avgEnemies;
     public int enemySpread;
     public float avgTimeBetweenSpawns;

@@ -1,5 +1,5 @@
 {
-    "MaxHealth": 5,
+    "MaxHealth": 10,
     "Speed": 0.75,
     "Attacks": [
         {

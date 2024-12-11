@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.XR;
 using Newtonsoft.Json;
 using System.IO;
+using UnityEngine.UI;
 
 
 public class DrawPileManager : MonoBehaviour
@@ -16,6 +17,7 @@ public class DrawPileManager : MonoBehaviour
     [SerializeField] bool DEBUG_MODE = false;
     // add the cards you want via the inspector, ensure DEVELOPER_MODE is on
     [SerializeField] private List<Card> customDeck;
+    [SerializeField] private Image testCardBack;
 
     public List<Card> deck = new();
 
@@ -47,6 +49,7 @@ public class DrawPileManager : MonoBehaviour
         PlayerData.themeColor = BasicColor.ConvertToBasicColor(Color.black);
         PlayerData.deckName = "DevDeck";
         PlayerData.cardPaths = cardNames;
+        PlayerData.cardBack = testCardBack;
     }
 
 

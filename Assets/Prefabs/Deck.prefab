@@ -330,9 +330,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   highlight: {fileID: 4941904019714804201}
   hoverScale: 1.1
-  savePath: Assets/Deck/Save.json
   DEBUG_MODE: 0
   themeColor: {r: 0, g: 0, b: 0, a: 0}
+  cardBack: {fileID: 5258265538032971561}
 --- !u!1 &4941904019714804201
 GameObject:
   m_ObjectHideFlags: 0

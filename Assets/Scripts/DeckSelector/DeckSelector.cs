@@ -15,6 +15,7 @@ public class DeckSelector : MonoBehaviour, IPointerDownHandler, IPointerEnterHan
     [SerializeField] private bool DEBUG_MODE = false;
     // assigned in prefab
     [SerializeField] private Color themeColor;
+    [SerializeField] private Image cardBack;
     private Color selectColor;
     private bool selected;
     private SelectionManager selectionManager;
@@ -41,7 +42,7 @@ public class DeckSelector : MonoBehaviour, IPointerDownHandler, IPointerEnterHan
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        StoreDeckNameColor(name);
+        StoreDeckData(name);
         selectionManager.Select(name);
     }
 
@@ -88,10 +89,11 @@ public class DeckSelector : MonoBehaviour, IPointerDownHandler, IPointerEnterHan
         }
     }
 
-    private void StoreDeckNameColor(string name) {
+    private void StoreDeckData(string name) {
         PlayerData.deckName = name;
         if (DEBUG_MODE) Debug.Log("Stored deck Name: " + PlayerData.deckName);
         PlayerData.themeColor = BasicColor.ConvertToBasicColor(themeColor);
+        PlayerData.cardBack = cardBack;
     }
 
 

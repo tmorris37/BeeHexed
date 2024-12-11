@@ -69,9 +69,9 @@ public class NodeSpawner : MonoBehaviour
 
         foreach (var (q, r, s) in possiblePositions)
         {
-            if (q < 0 && s > 0 && r < 4 && r > -4) // left most
+            if (q < 0 && s > 0 && r < 4 && r > -4 && r != 0) // left most
                 topLeftPositions.Add((q, r, s));
-            else if (q > 0 && s < 0 && r < 4 && r > -4) // right most
+            else if (q > 0 && s < 0 && r < 4 && r > -4 && r != 0) // right most
                 bottomRightPositions.Add((q, r, s));
         }
 
@@ -88,6 +88,8 @@ public class NodeSpawner : MonoBehaviour
         // List to store possible node positions in rings 6 and 7
         List<(int q, int r, int s)> possiblePositions = new List<(int, int, int)>();
         
+        AddRingPositions(8, possiblePositions);
+    
         AddRingPositions(6, possiblePositions); // Reusing AddRingPositions
 
 
@@ -115,10 +117,10 @@ public class NodeSpawner : MonoBehaviour
 
         // Filter positions for each side
         List<(int q, int r, int s)> side1Positions = FilterPositions(possiblePositions, (q, r, s) =>
-            ((q < 1 && r > 0) || (s > -1 && r < 0)));
+            (q < 1 && r > 1 && s > -1) || (s > 1 && r < 1 && q < 1));
 
         List<(int q, int r, int s)> side2Positions = FilterPositions(possiblePositions, (q, r, s) =>
-            ((q > -1 && r < 0) || (r > 0 && s < 1)));
+            (q > -1 && r > 0 && s < 1) || (r < 0 && s < 1 && q > -1));
 
         // Spawn 1 node on each side
         List<(int q, int r, int s)> spawnedNodes = new List<(int, int, int)>();
@@ -178,7 +180,7 @@ public class NodeSpawner : MonoBehaviour
                     newNode.tag = "Node1";
                 } else if (nodeType == 2) {
                     level = NodeRandomizer(level2, .3);
-                    newNode = Instantiate(level2, new Vector3(x, y, 0), Quaternion.identity, transform);
+                    newNode = Instantiate(level, new Vector3(x, y, 0), Quaternion.identity, transform);
                     newNode.tag = "Node2";
                 } else {
                     level = NodeRandomizer(level3, .2);

@@ -13,10 +13,12 @@ public class NodeSpawner : MonoBehaviour
     [SerializeField] public GridManager gridManager;
     [SerializeField] public NodeGenerator nodeGenerator;
 
-    [SerializeField] public GameObject defaultNode;
-
-    [SerializeField] public GameObject centerNode;
-
+    [SerializeField] public GameObject level0;
+    [SerializeField] public GameObject level1;
+    [SerializeField] public GameObject level2;
+    [SerializeField] public GameObject level3;
+    [SerializeField] public GameObject level4;
+    [SerializeField] public GameObject rewards;
     [SerializeField] public int radius;
     [SerializeField] public bool DEBUG;
 
@@ -27,14 +29,129 @@ public class NodeSpawner : MonoBehaviour
     void Start()
     {
         nodePositions = nodeGenerator.nodePositions;
-        SpawnNodes();
+        SpawnSpecificNodes();
+        SpawnLevel1Nodes();
+        //SpawnNodes();
     }
     
+    public void SpawnSpecificNodes()
+    {
+        // Leftmost Hex (q = -radius, r = radius, s = 0)
+        (float leftX, float leftY) = gridManager.QRStoXY(-radius, 0, radius);
+        GameObject leftNode = Instantiate(level0, new Vector3(leftX, leftY, 0), Quaternion.identity, transform);
+        leftNode.name = "LeftmostNode";
 
+        // Rightmost Hex (q = radius, r = -radius, s = 0)
+        (float rightX, float rightY) = gridManager.QRStoXY(radius, 0, -radius);
+        GameObject rightNode = Instantiate(level0, new Vector3(rightX, rightY, 0), Quaternion.identity, transform);
+        rightNode.name = "RightmostNode";
+
+        // Center Hex (q = 0, r = 0, s = 0)
+        (float centerX, float centerY) = gridManager.QRStoXY(0, 0, 0);
+        GameObject centerNode = Instantiate(level4, new Vector3(centerX, centerY, 0), Quaternion.identity, transform);
+        centerNode.name = "CenterNode";
+
+        Debug.Log("Leftmost, Rightmost, and Center nodes have been spawned.");
+        }
+
+        public void SpawnLevel1Nodes()
+        {
+        // List to store possible node positions in rings 7 and 8
+        List<(int q, int r, int s)> possiblePositions = new List<(int, int, int)>();
+
+        // Generate positions for rings 7 and 8
+        AddRingPositions(7, possiblePositions);
+        AddRingPositions(8, possiblePositions);
+
+        // Filter positions for each hextant
+        List<(int q, int r, int s)> topLeftPositions = new List<(int, int, int)>();
+        List<(int q, int r, int s)> bottomRightPositions = new List<(int, int, int)>();
+
+        foreach (var (q, r, s) in possiblePositions)
+        {
+            if (q < 0 && s > 0 && r < 4 && r > -4) // left most
+                topLeftPositions.Add((q, r, s));
+            else if (q > 0 && s < 0 && r < 4 && r > -4) // right most
+                bottomRightPositions.Add((q, r, s));
+        }
+
+        // Spawn 2 or 3 nodes in each hextant
+        List<(int q, int r, int s)> spawnedNodes = new List<(int, int, int)>();
+        SpawnNodesFromHextant(topLeftPositions, UnityEngine.Random.Range(2, 4), spawnedNodes);
+        SpawnNodesFromHextant(bottomRightPositions, UnityEngine.Random.Range(2, 4), spawnedNodes);
+
+        Debug.Log("Spawned Level 1 nodes in both hextants.");
+    }
+
+    // Helper method to randomly spawn nodes while ensuring uniqueness
+    private void SpawnNodesFromHextant(List<(int q, int r, int s)> hextantPositions, int nodesToSpawn, List<(int q, int r, int s)> spawnedNodes)
+    {
+        int attempts = 0;
+
+        while (nodesToSpawn > 0 && hextantPositions.Count > 0 && attempts < 1000)
+        {
+            int randomIndex = UnityEngine.Random.Range(0, hextantPositions.Count);
+            var candidate = hextantPositions[randomIndex];
+
+            // Ensure the candidate node is not already spawned
+            bool valid = true;
+            foreach (var existing in spawnedNodes)
+            {
+                int distance = HexDistance(candidate, existing);
+                if (distance < 3) // Check minimum distance
+                {
+                    valid = false;
+                    break;
+                }
+            }
+
+            if (valid)
+            {
+                (float x, float y) = gridManager.QRStoXY(candidate.q, candidate.r, candidate.s);
+                GameObject newNode = Instantiate(level1, new Vector3(x, y, 0), Quaternion.identity, transform);
+                newNode.name = $"Level1Node_{candidate.q}_{candidate.r}_{candidate.s}";
+                spawnedNodes.Add(candidate);
+                nodesToSpawn--;
+            }
+
+            hextantPositions.RemoveAt(randomIndex);
+            attempts++;
+        }
+    }
+
+    // Helper method to calculate hex distance
+    private int HexDistance((int q, int r, int s) a, (int q, int r, int s) b)
+    {
+        return (Mathf.Abs(a.q - b.q) + Mathf.Abs(a.r - b.r) + Mathf.Abs(a.s - b.s)) / 2;
+    }
+
+    // Helper method to generate positions for a given ring radius
+    private void AddRingPositions(int ringRadius, List<(int, int, int)> positions)
+    {
+        int q = ringRadius;
+        int r = -ringRadius;
+        int s = 0;
+
+        (int dq, int dr, int ds)[] directions = new (int, int, int)[]
+        {
+            (0, 1, -1), (-1, 1, 0), (-1, 0, 1), (0, -1, 1), (1, -1, 0), (1, 0, -1)
+        };
+
+        for (int i = 0; i < 6; i++) // 6 sides
+        {
+            for (int j = 0; j < ringRadius; j++)
+            {
+                positions.Add((q, r, s));
+                q += directions[i].dq;
+                r += directions[i].dr;
+                s += directions[i].ds;
+            }
+        }
+    }
     public void SpawnNodes() {
         foreach (Vector3 nodePosition in nodePositions) {
             (float x, float y) = gridManager.QRStoXY((int)nodePosition.x, (int)nodePosition.y, (int)nodePosition.z);
-            GameObject newNode = Instantiate(defaultNode);
+            GameObject newNode = Instantiate(level0);
             newNode.transform.position = new Vector3(x, y, 0);
             newNode.tag="Node";
         }

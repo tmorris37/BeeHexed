@@ -21,7 +21,7 @@ public class DrawPileManager : MonoBehaviour
 
     [SerializeField] int handLimit = 8;
     
-    private string savePath = Paths.savePath;
+    private string savePath;
     private HandManager handManager;
     private DiscardManager discardManager;
 
@@ -29,6 +29,13 @@ public class DrawPileManager : MonoBehaviour
 
 
     public void Awake() {
+      // A persistent location to store written data
+      // On Windows: ..\AppData\LocalLow\defaultcompany\BeeHexed\DeckAssets\Save.json
+      string filepath = Application.persistentDataPath + "/DeckAssets";
+      this.savePath = filepath + "/Save.json";
+
+      System.IO.Directory.CreateDirectory(filepath);
+      
       handManager = FindObjectOfType<HandManager>();
       //
       if (DEVELOPER_MODE) {

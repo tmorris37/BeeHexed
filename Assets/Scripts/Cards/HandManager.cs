@@ -30,11 +30,22 @@ public class HandManager : MonoBehaviour
     public int handSize = 0;
     private CardPlaystyle playstyle;
 
-    public string settingSavePath = "Assets/Deck/Settings.json";
+    public string settingSavePath;
 
     private void Awake() {
+      // A persistent location to store written data
+      // On Windows: ..\AppData\LocalLow\defaultcompany\BeeHexed\DeckAssets\Save.json
+      string filepath = Application.persistentDataPath + "/DeckAssets";
+      this.settingSavePath = filepath + "/Settings.json";
+
+      System.IO.Directory.CreateDirectory(filepath);
+
+      try {
         string json = File.ReadAllText(settingSavePath);
         playstyle = JsonConvert.DeserializeObject<CardPlaystyle>(json);
+      } catch {
+        playstyle = 0;
+      }
     }
 
     // Start is called before the first frame update

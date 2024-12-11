@@ -31,7 +31,8 @@ public class NodeSpawner : MonoBehaviour
         nodePositions = nodeGenerator.nodePositions;
         SpawnSpecificNodes();
         SpawnLevel1Nodes();
-        //SpawnNodes();
+        SpawnLevel2Nodes();
+        SpawnLevel3Nodes();
     }
     
     public void SpawnSpecificNodes()
@@ -52,15 +53,13 @@ public class NodeSpawner : MonoBehaviour
         centerNode.name = "CenterNode";
 
         Debug.Log("Leftmost, Rightmost, and Center nodes have been spawned.");
-        }
+    }
 
-        public void SpawnLevel1Nodes()
-        {
+    public void SpawnLevel1Nodes()
+    {
         // List to store possible node positions in rings 7 and 8
         List<(int q, int r, int s)> possiblePositions = new List<(int, int, int)>();
 
-        // Generate positions for rings 7 and 8
-        AddRingPositions(7, possiblePositions);
         AddRingPositions(8, possiblePositions);
 
         // Filter positions for each hextant
@@ -82,6 +81,68 @@ public class NodeSpawner : MonoBehaviour
 
         Debug.Log("Spawned Level 1 nodes in both hextants.");
     }
+
+    public void SpawnLevel2Nodes()
+    {
+        // List to store possible node positions in rings 6 and 7
+        List<(int q, int r, int s)> possiblePositions = new List<(int, int, int)>();
+        
+        AddRingPositions(6, possiblePositions); // Reusing AddRingPositions
+
+
+        // Filter positions for the two regions
+        List<(int q, int r, int s)> region1Positions = FilterPositions(possiblePositions, (q, r, s) =>
+            (s > 0 && q < 2 && q > -4) || (q < 0 && s < 4 && s > -2));
+
+        List<(int q, int r, int s)> region2Positions = FilterPositions(possiblePositions, (q, r, s) =>
+            (s < 0 && q < 4 && q > -2) || (q > 0 && s < 2 && s > -4));
+
+        // Spawn 2–3 nodes in each region
+        List<(int q, int r, int s)> spawnedNodes = new List<(int, int, int)>();
+        SpawnNodesFromHextant(region1Positions, UnityEngine.Random.Range(3, 5), spawnedNodes);
+        SpawnNodesFromHextant(region2Positions, UnityEngine.Random.Range(3, 5), spawnedNodes);
+
+        Debug.Log("Spawned Level 2 nodes in rings 6 and 7, respecting hextant conditions.");
+    }
+
+    public void SpawnLevel3Nodes()
+    {
+        // List to store possible node positions in rings 3 and 4
+        List<(int q, int r, int s)> possiblePositions = new List<(int, int, int)>();
+        AddRingPositions(3, possiblePositions); // Generate positions for ring 3
+
+
+        // Filter positions for each side
+        List<(int q, int r, int s)> side1Positions = FilterPositions(possiblePositions, (q, r, s) =>
+            (q < 2 && s > -2));
+
+        List<(int q, int r, int s)> side2Positions = FilterPositions(possiblePositions, (q, r, s) =>
+            (q > -2 && s < 2));
+
+        // Spawn 1 node on each side
+        List<(int q, int r, int s)> spawnedNodes = new List<(int, int, int)>();
+        SpawnNodesFromHextant(side1Positions, 2, spawnedNodes);
+        SpawnNodesFromHextant(side2Positions, 2, spawnedNodes);
+
+        Debug.Log("Spawned 2 Level 3 nodes: one on each side in rings 3 or 4.");
+    }
+
+
+    // Helper method to filter positions based on a condition
+    private List<(int q, int r, int s)> FilterPositions(List<(int q, int r, int s)> positions, 
+        Func<int, int, int, bool> condition)
+    {
+        List<(int q, int r, int s)> filtered = new List<(int, int, int)>();
+        foreach (var (q, r, s) in positions)
+        {
+            if (condition(q, r, s))
+            {
+                filtered.Add((q, r, s));
+            }
+        }
+        return filtered;
+    }
+
 
     // Helper method to randomly spawn nodes while ensuring uniqueness
     private void SpawnNodesFromHextant(List<(int q, int r, int s)> hextantPositions, int nodesToSpawn, List<(int q, int r, int s)> spawnedNodes)
@@ -145,19 +206,6 @@ public class NodeSpawner : MonoBehaviour
                 q += directions[i].dq;
                 r += directions[i].dr;
                 s += directions[i].ds;
-            }
-        }
-    }
-    public void SpawnNodes() {
-        foreach (Vector3 nodePosition in nodePositions) {
-            (float x, float y) = gridManager.QRStoXY((int)nodePosition.x, (int)nodePosition.y, (int)nodePosition.z);
-            GameObject newNode = Instantiate(level0);
-            newNode.transform.position = new Vector3(x, y, 0);
-            newNode.tag="Node";
-        }
-        if (DEBUG) {
-            foreach (var position in nodePositions) {
-                Debug.Log("Node position: " + position);
             }
         }
     }

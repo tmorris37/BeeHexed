@@ -11,6 +11,11 @@ public class MapManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
+    public void DestroyMap() {
+        Destroy(this.persistentMap);
+        Destroy(gameObject);
+    }
+
     public void MakeMapActive() {
         this.persistentMap.SetActive(true);
     }

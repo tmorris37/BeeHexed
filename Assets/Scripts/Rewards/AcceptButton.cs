@@ -12,6 +12,8 @@ public class AcceptButton : MonoBehaviour
     [SerializeField] private bool DEBUG_MODE;
     [SerializeField] private string savePath;
     [SerializeField] private string mapScene = "Assets/STSMap_Gen_Package/Scenes/Overworld.unity";
+    [SerializeField] private string emptyMapScene = "EmptyMap";
+
     private PlayerData saveData;
     private void Start() {
       // A persistent location to store written data
@@ -35,7 +37,7 @@ public class AcceptButton : MonoBehaviour
       if (DEBUG_MODE) Debug.Log("Loading map...");
 
       GameObject.Find("MapManager").GetComponent<MapManager>().MakeMapActive();
-      SceneManager.LoadScene(mapScene);
+      SceneManager.LoadScene(emptyMapScene);
     }
     public void WriteDeckWithRewardAndLoad() {
       RewardManager rm = FindObjectOfType<RewardManager>();

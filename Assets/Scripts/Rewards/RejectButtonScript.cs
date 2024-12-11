@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class RejectButtonScript : MonoBehaviour {
     [SerializeField] private bool DEBUG_MODE;
+    [SerializeField] private string emptyMapScene = "EmptyMap";
     public void LoadMapScene() {
       if (MusicManager.Instance != null)
       {
@@ -13,6 +14,6 @@ public class RejectButtonScript : MonoBehaviour {
       if (DEBUG_MODE) Debug.Log("Loading map...");
 
       GameObject.Find("MapManager").GetComponent<MapManager>().MakeMapActive();
-      SceneManager.LoadScene("OverworldToyBox");
+      SceneManager.LoadScene(emptyMapScene);
     }
 }

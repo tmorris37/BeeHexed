@@ -9,26 +9,33 @@ namespace Node {
     {
         [SerializeField] string nodeName;
         private SpriteRenderer spriteRenderer;
-        public Color highlightColor = Color.yellow; // Color for hover
-        private Color originalColor;
+        [Header("Sprites")]
+        public Sprite defaultSprite;     // The normal/default sprite
+        public Sprite highlightSprite;   // The sprite for when hovering
+
 
         void Start()
         {
             // Cache the SpriteRenderer and original color
             spriteRenderer = GetComponent<SpriteRenderer>();
-            originalColor = spriteRenderer.color;
+            // Set the default sprite at the start
+            if (defaultSprite != null)
+                spriteRenderer.sprite = defaultSprite;
+
         }
 
         void OnMouseEnter()
         {
-            // Highlight the sprite when mouse hovers
-            spriteRenderer.color = highlightColor;
+            // Change to the highlight sprite on hover
+            if (highlightSprite != null)
+                spriteRenderer.sprite = highlightSprite;
         }
 
         void OnMouseExit()
         {
-            // Reset to the original color
-            spriteRenderer.color = originalColor;
+            // Reset to the default sprite when no longer hovering
+            if (defaultSprite != null)
+                spriteRenderer.sprite = defaultSprite;
         }
 
         void OnMouseDown()

@@ -577,8 +577,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gridManager: {fileID: 1554881295}
   nodeGenerator: {fileID: 881570906}
-  defaultNode: {fileID: 3703891279571309452, guid: 876b1e9f508944cd3895ccbbde950d50, type: 3}
-  centerNode: {fileID: 3703891279571309452, guid: 876b1e9f508944cd3895ccbbde950d50, type: 3}
+  level0: {fileID: 3703891279571309452, guid: 876b1e9f508944cd3895ccbbde950d50, type: 3}
+  level1: {fileID: 1884246446936027706, guid: 3092768002c5944c99929cdffc7a58a9, type: 3}
+  level2: {fileID: 5083330461490403363, guid: 3c5f0d58677d54260908bc0999cacf59, type: 3}
+  level3: {fileID: 841922660817754411, guid: 941a35bde78d54f159a2df9f0a227148, type: 3}
+  level4: {fileID: 2592918934295224573, guid: 9d681f5dfc0fb4c88ba6730f5a0625d8, type: 3}
+  rewards: {fileID: 245944460591396219, guid: 6ea688f09e0e1419faf3cae4ffe4713f, type: 3}
   radius: 10
   DEBUG: 0
 --- !u!4 &590338378
@@ -625,6 +629,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1813f9f6cbba846e8b490fcc77a105aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gridManager: {fileID: 1554881295}
 --- !u!4 &629404331
 Transform:
   m_ObjectHideFlags: 0
@@ -1841,7 +1846,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gridManager: {fileID: 1554881295}
-  nodePrefab: {fileID: 3703891279571309452, guid: 876b1e9f508944cd3895ccbbde950d50, type: 3}
+  level0: {fileID: 3703891279571309452, guid: 876b1e9f508944cd3895ccbbde950d50, type: 3}
+  level1: {fileID: 1884246446936027706, guid: 3092768002c5944c99929cdffc7a58a9, type: 3}
+  level2: {fileID: 5083330461490403363, guid: 3c5f0d58677d54260908bc0999cacf59, type: 3}
+  level3: {fileID: 841922660817754411, guid: 941a35bde78d54f159a2df9f0a227148, type: 3}
+  level4: {fileID: 2592918934295224573, guid: 9d681f5dfc0fb4c88ba6730f5a0625d8, type: 3}
+  rewards: {fileID: 245944460591396219, guid: 6ea688f09e0e1419faf3cae4ffe4713f, type: 3}
   parentTransform: {fileID: 0}
   numNodes: 2
   radius: 10

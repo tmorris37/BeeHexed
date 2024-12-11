@@ -96,6 +96,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: level3 node Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 3703891279571309452, guid: 876b1e9f508944cd3895ccbbde950d50, type: 3}
+      propertyPath: m_TagString
+      value: Node3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

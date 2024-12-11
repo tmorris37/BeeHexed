@@ -18,7 +18,6 @@ public class OverworldTileSpawner : MonoBehaviour
     public List<(int, int, int)> obstacleTracker;
     public List<(int, int, int)> pathTilePositions;
     public NodeGenerator nodeGenerator;
-    public PathingAlgo path;
 
     // Assume you have a Dictionary to map QRS to children
     [SerializeField] private Dictionary<Vector3Int, SpriteRenderer> qrsToChildMap;
@@ -26,7 +25,6 @@ public class OverworldTileSpawner : MonoBehaviour
     void Awake() 
     {
         nodeGenerator = GameObject.Find("NodeGenerator").GetComponent<NodeGenerator>();
-        path = GameObject.Find("PathingAlgo").GetComponent<PathingAlgo>();
     }
 
         void Start()
@@ -35,11 +33,13 @@ public class OverworldTileSpawner : MonoBehaviour
         tilePositions = new List<Vector3Int>();
         qrsToChildMap = new Dictionary<Vector3Int, SpriteRenderer>();
         // Spawn the tiles
+        GetPaths();
         SpawnTiles();
     }
 
     public void GetPaths() {
-        
+        PathingAlgo pathfinder = new PathingAlgo();
+        this.pathTilePositions = pathfinder.GetPathTiles(this.gridManager);
     }
 
 
@@ -61,7 +61,11 @@ public class OverworldTileSpawner : MonoBehaviour
                 q = gridManager.IJtoQRS(i,j).Item1;
                 r = gridManager.IJtoQRS(i,j).Item2;
                 s = gridManager.IJtoQRS(i,j).Item3;
-                SpawnTile(q, r, s);
+                if (this.pathTilePositions.Contains((q,r,s))) {
+                    SpawnTile(q, r, s, "Path");
+                } else {
+                    SpawnTile(q, r, s);
+                }
             }
         }
         for (int i = radius + 1; i < radius * 2 + 1; i++)
@@ -71,7 +75,11 @@ public class OverworldTileSpawner : MonoBehaviour
                 q = gridManager.IJtoQRS(i,j).Item1;
                 r = gridManager.IJtoQRS(i,j).Item2;
                 s = gridManager.IJtoQRS(i,j).Item3;
-                SpawnTile(q, r, s);
+                if (this.pathTilePositions.Contains((q,r,s))) {
+                    SpawnTile(q, r, s, "Path");
+                } else {
+                    SpawnTile(q, r, s);
+                }
             }
         }
     }
@@ -131,7 +139,11 @@ public class OverworldTileSpawner : MonoBehaviour
 
     public GameObject RandomTileFromList(string type = "Normal")
     {
-        return normalTiles[Random.Range(0, normalTiles.Count)];
+        if (type == "Path") {
+            return pathTiles[Random.Range(0, pathTiles.Count)];
+        } else {
+            return normalTiles[Random.Range(0, normalTiles.Count)];
+        }
         
     }
 

@@ -92,6 +92,10 @@ PrefabInstance:
       propertyPath: nodeName
       value: level4
       objectReference: {fileID: 0}
+    - target: {fileID: 2075874219250117204, guid: 876b1e9f508944cd3895ccbbde950d50, type: 3}
+      propertyPath: highlightSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 270085fc412dc534eb8961b4dc1bbd86, type: 3}
     - target: {fileID: 3703891279571309452, guid: 876b1e9f508944cd3895ccbbde950d50, type: 3}
       propertyPath: m_Name
       value: level4 node Variant

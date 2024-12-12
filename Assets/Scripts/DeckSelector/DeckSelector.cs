@@ -124,7 +124,7 @@ public class DeckSelector : MonoBehaviour, IPointerDownHandler, IPointerEnterHan
             }
             case "Bzz'rak": {
                 SFXManager.Instance.stopCurrentSFX();
-                SFXManager.Instance.SetVolume(0.5f);
+                SFXManager.Instance.SetVolume(0.3f);
                 SFXManager.Instance.PlayFire1();
                 break;
             }

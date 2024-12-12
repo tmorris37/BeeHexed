@@ -86,6 +86,7 @@ public class TowerSelector : MonoBehaviour
             GameObject t;
             if (!spot.getOccupied())
             {
+                SFXManager.Instance.PlayTowerPlace();
                 (int x, int y) = gridManager.QRStoTileMapXY(q, r, s);
                 Vector3Int tileMapXY = new Vector3Int(x, y, 0);
                 Vector3 towerPosition = hexTilemap.CellToWorld(tileMapXY); // Adjust for tile center

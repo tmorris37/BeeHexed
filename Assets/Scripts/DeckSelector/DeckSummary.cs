@@ -51,6 +51,7 @@ public class DeckSummary : MonoBehaviour {
         foreach (string path in cardPaths) {
             deck.Add(Resources.Load<Card>(path));
         }
+        deck.Sort();
     }
 
     void DisplayDeck() {

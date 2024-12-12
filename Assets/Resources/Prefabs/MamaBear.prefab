@@ -182,7 +182,7 @@ SpriteRenderer:
   m_SortingLayerID: 90585607
   m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: b043ab8e2888f34469a316542f3333c0, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 58594e492a4a48b4a93fe06869fb7727, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -205,6 +205,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01f78c862b59c9e4cb920784bd19e2b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DEBUG: 0
+  q: 0
+  r: 0
+  s: 0
+  GridRadius: 0
+  gridManager: {fileID: 0}
+  enemyType: 
+  health: 0
+  movementSpeed: 0.5
+  moveSpeedLast: 0
+  moveTimeRemaining: 0
+  attackRate: 1
+  attackCooldown: 0
+  attackDamage: 0
+  isPaused: 0
+  targetPositionXY: {x: 0, y: 0, z: 0}
+  movement: {fileID: 0}
+  detection: {fileID: 0}
+  targets: []
+  inertiaIO: 0
+  inertiaDir: 0
+  desiredInertiaDir: 0
+  desiredInertiaIO: 0
+  baseAttack: 0
+  baseSpeed: 0
+  scale: 1
+  incement: 0.1
 --- !u!1 &3214360798960356133
 GameObject:
   m_ObjectHideFlags: 0

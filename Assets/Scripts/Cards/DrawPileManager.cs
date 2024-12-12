@@ -112,7 +112,7 @@ public class DrawPileManager : MonoBehaviour
       System.Random randy = new System.Random();
       List<Card> shuffled = new List<Card>();
       while (deck.Count > 0) {
-        int k = randy.Next(0, deck.Count - 1);
+        int k = randy.Next(0, deck.Count);
         shuffled.Add(deck[k]);
         deck.Remove(deck[k]);
       }

@@ -48,7 +48,10 @@ namespace EnemyAndTowers {
             {
                 scale += incement;
                 attackDamage = (int)(baseAttack * scale);
-                movementSpeed = baseSpeed * scale;
+                // Temp fix for demo
+                if (movementSpeed > 0.05) {
+                    movementSpeed = baseSpeed * scale;
+                }
             }
         }
     }

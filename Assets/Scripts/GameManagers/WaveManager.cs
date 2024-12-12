@@ -49,7 +49,7 @@ public class WaveManager : MonoBehaviour
                 drawPileManager.DrawCard(handManager);
             }
             // Spawn enemies
-            for (int i = 0; i <= numEnemies; i++)
+            for (int i = 0; i < numEnemies; i++)
             {
                 // Generate a random float for time between spawns
                 float avgTimeBetweenSpawns = waves[currentWave-1].avgTimeBetweenSpawns;

@@ -9,6 +9,10 @@ public class MapManager : MonoBehaviour
     void Start()
     {
         DontDestroyOnLoad(gameObject);
+        if (MusicManager.Instance != null)
+        {
+            MusicManager.Instance.PlayNewGameMusic();
+        }
     }
 
     public void DestroyMap() {
@@ -18,6 +22,10 @@ public class MapManager : MonoBehaviour
 
     public void MakeMapActive() {
         this.persistentMap.SetActive(true);
+        if (MusicManager.Instance != null)
+        {
+            MusicManager.Instance.PlayNewGameMusic();
+        }
     }
 
     public void MakeMapInactive() {

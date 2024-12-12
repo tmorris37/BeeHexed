@@ -1,10 +1,10 @@
 {
-    "MaxHealth": 15,
+    "MaxHealth": 12,
     "Speed": 0.2,
     "Attacks": [
         {
             "DamageType": "Ranged",
-            "DamageAmount": 4,
+            "DamageAmount": 3,
             "AttackRate": 0.5
         }
     ],

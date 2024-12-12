@@ -44,9 +44,13 @@ namespace EnemyAndTowers
         }
         private void Update()
         {
-            if (target == null)
+            // if (target == null)
+            // {
+            //     Destroy(gameObject); // Destroy the projectile if there's no target
+            //     return;
+            // }
+            if(transform == null || target == null)
             {
-                Destroy(gameObject); // Destroy the projectile if there's no target
                 return;
             }
 

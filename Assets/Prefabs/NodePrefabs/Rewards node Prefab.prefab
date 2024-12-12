@@ -92,6 +92,10 @@ PrefabInstance:
       propertyPath: nodeName
       value: Rewards
       objectReference: {fileID: 0}
+    - target: {fileID: 2075874219250117204, guid: 876b1e9f508944cd3895ccbbde950d50, type: 3}
+      propertyPath: highlightSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: a565183f4ac576a49b6c67be3de04ef2, type: 3}
     - target: {fileID: 3703891279571309452, guid: 876b1e9f508944cd3895ccbbde950d50, type: 3}
       propertyPath: m_Name
       value: Rewards node Prefab

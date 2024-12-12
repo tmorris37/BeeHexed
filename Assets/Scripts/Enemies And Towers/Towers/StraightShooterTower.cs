@@ -10,13 +10,11 @@ namespace EnemyAndTowers
         //public GameObject beam;
         public GameObject projectilePrefab;
         public float projectileSpeed = 10f;
-
         
 
         protected override void Start()
         {
             base.Start();
-            
             fireCountdown = fireRate;
             //animator = GetComponent<Animator>();
         }
@@ -48,34 +46,39 @@ namespace EnemyAndTowers
                 return;
             }
 
-    // Use the tower's rotation to determine the direction
-    Vector3 direction = transform.right; // Assuming the tower faces along its local right direction
+            // Use the tower's rotation to determine the direction
+            Vector3 direction = transform.right; // Assuming the tower faces along its local right direction
 
     // Instantiate the projectile at the tower's position
     GameObject proj = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
     SSbullet projectile = proj.GetComponent<SSbullet>();
     projectile.tower = this;
+    projectile.velocity = projectileSpeed;
 
-    // Rotate the projectile to face the firing direction
-    projectile.transform.rotation = Quaternion.LookRotation(Vector3.forward, direction);
+            // Rotate the projectile to face the firing direction
+            projectile.transform.rotation = Quaternion.LookRotation(Vector3.forward, direction);
 
-    // Set the velocity of the projectile
-    Rigidbody2D rb = projectile.GetComponent<Rigidbody2D>();
-    if (rb != null)
-    {
-        rb.velocity = -1 * direction * projectileSpeed;
-    }
-    else
-    {
-        Debug.LogError("Projectile does not have a Rigidbody2D!");
-    }
-}
+            // Set the velocity of the projectile
+            Rigidbody2D rb = projectile.GetComponent<Rigidbody2D>();
+            if (rb != null)
+            {
+                rb.velocity = -1 * direction * projectileSpeed;
+            }
+            else
+            {
+                Debug.LogError("Projectile does not have a Rigidbody2D!");
+            }
+        }
 
         public void DealDamage()
         {
             Transform target = targets[0];
             Enemy enemy = target.GetComponent<Enemy>();
-            enemy.TakeDamage(1);
+            enemy.TakeDamage(damage);
+        }
+
+        public override bool IsRotatable() {
+            return true;
         }
     }
 }

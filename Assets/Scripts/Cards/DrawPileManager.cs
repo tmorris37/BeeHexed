@@ -6,7 +6,6 @@ using UnityEngine;
 using UnityEngine.XR;
 using Newtonsoft.Json;
 using System.IO;
-using UnityEditor.Experimental.GraphView;
 
 
 public class DrawPileManager : MonoBehaviour
@@ -22,8 +21,7 @@ public class DrawPileManager : MonoBehaviour
 
     [SerializeField] int handLimit = 8;
     
-    [SerializeField] private string savePath = "Assets/Deck/Save.json";
-
+    private string savePath;
     private HandManager handManager;
     private DiscardManager discardManager;
 
@@ -31,6 +29,13 @@ public class DrawPileManager : MonoBehaviour
 
 
     public void Awake() {
+      // A persistent location to store written data
+      // On Windows: ..\AppData\LocalLow\defaultcompany\BeeHexed\DeckAssets\Save.json
+      string filepath = Application.persistentDataPath + "/DeckAssets";
+      this.savePath = filepath + "/Save.json";
+
+      System.IO.Directory.CreateDirectory(filepath);
+      
       handManager = FindObjectOfType<HandManager>();
       //
       if (DEVELOPER_MODE) {

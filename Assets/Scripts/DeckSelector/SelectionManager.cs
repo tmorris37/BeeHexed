@@ -1,10 +1,7 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using Newtonsoft.Json;
-using Unity.VisualScripting.IonicZip;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -13,9 +10,7 @@ public class SelectionManager : MonoBehaviour
 {
     [SerializeField] private Button continueButton;
     [SerializeField] private Button viewButton;
-    [SerializeField] private string savePath = "Assets/Deck/Save.json";
-    [SerializeField] private string deckPath = "Assets/Deck/";
-    [SerializeField] private string tempPath = "Assets/Deck/temp.json";
+    // [SerializeField] private string tempPath = "Assets/Deck/temp.json";
     private string selected;
     private string baseSelected = "None";
     private Dictionary<string, DeckSelector> decks = new();
@@ -67,25 +62,37 @@ public class SelectionManager : MonoBehaviour
         bool res = decks.TryGetValue(selected, out DeckSelector currDeck);
         if (res) {
             WriteDeckToFile(currDeck.gameObject.name);
-            SceneManager.LoadScene("Overworld");
+            if (MusicManager.Instance != null)
+            {
+                MusicManager.Instance.PlayNewGameMusic();
+            }
+            SceneManager.LoadScene("OverworldToyBox");
         } else {
             throw new NullReferenceException("Selected deck does not exist");
         }
     }
 
     public void LoadDeckView() {
-        string jsonSelection = JsonConvert.SerializeObject(selected);
-        File.WriteAllText(tempPath, jsonSelection);
+        DeckSelected.selectedDeck = selected;
         SceneManager.LoadScene("DeckSummary");
     }
 
     private void WriteDeckToFile(string deckName) {
-        string jsonPlayerData = File.ReadAllText(savePath);
+
+        // A persistent location to store written data
+        // On Windows: ..\AppData\LocalLow\defaultcompany\BeeHexed\DeckAssets\Save.json
+        string filepath = Application.persistentDataPath + "/DeckAssets";
+
+        string saveFilepath = filepath + "/Save.json";
+        string jsonPlayerData = File.ReadAllText(saveFilepath);
         PlayerData saveData = JsonConvert.DeserializeObject<PlayerData>(jsonPlayerData);
-        string jsonCardPaths = File.ReadAllText(deckPath + deckName + ".json");
+
+        string deckFilepath = "DeckAssets/" + deckName;
+        string jsonCardPaths = Resources.Load<TextAsset>(deckFilepath).text;
         IList<string> paths = JsonConvert.DeserializeObject<IList<string>>(jsonCardPaths);
+        
         saveData.cardPaths = paths;
         jsonPlayerData = JsonConvert.SerializeObject(saveData);
-        File.WriteAllText(savePath, jsonPlayerData);
+        File.WriteAllText(saveFilepath, jsonPlayerData);
     }
 }

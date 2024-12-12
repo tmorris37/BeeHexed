@@ -77,7 +77,7 @@ SpriteRenderer:
   m_SortingLayerID: 90585607
   m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: c176c9fcd88558d4c91216c7cf2264ed, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 02439cc453b0a9d40a4d004c45eadd71, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -113,7 +113,8 @@ MonoBehaviour:
   attackRate: 1
   attackCooldown: 0
   attackDamage: 5
-  targetPosition: {x: 0, y: 0, z: 0}
+  isPaused: 0
+  targetPositionXY: {x: 0, y: 0, z: 0}
   movement: {fileID: 0}
   detection: {fileID: 0}
   targets: []
@@ -419,3 +420,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemy: {fileID: 435629412242135445}
   targets: []
+  DEBUG_MODE: 0

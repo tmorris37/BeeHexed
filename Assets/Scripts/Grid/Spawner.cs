@@ -14,6 +14,8 @@ public class Spawner : MonoBehaviour
     [SerializeField] public GameObject bombeardier;
     [SerializeField] public GameObject slothBear;
 
+    [SerializeField] public GameObject mamaBearPrefab;
+
     [SerializeField] public GridManager gridManager;
     [SerializeField] public CaveGenerator caveGenerator;
 
@@ -33,6 +35,7 @@ public class Spawner : MonoBehaviour
 
     // List to store all spawned enemies
     private List<Enemy> enemies = new List<Enemy>();
+    private MamaBear mamaBear;
 
     void Start()
     {
@@ -63,6 +66,9 @@ public class Spawner : MonoBehaviour
         int s = (int)randomCavePosition.z;
         // Spawn Unity Object with Enemy script (Prefab)
         switch (enemyType) {
+            case "MamaBear":
+                newEnemy = Instantiate(mamaBearPrefab);
+                break;
             case "BearCub" :
                 newEnemy = Instantiate(bearCub);
                 break;
@@ -95,6 +101,10 @@ public class Spawner : MonoBehaviour
             
             // Add the new enemy to the list of enemies
             enemies.Add(newEnemyComponent);
+            if (enemyType == "MamaBear" && mamaBear == null)
+            {
+                mamaBear = newEnemyComponent.GetComponent<MamaBear>();
+            }
         }
     }
 
@@ -123,6 +133,10 @@ public class Spawner : MonoBehaviour
         {
             if (enemy != null && enemy.health <= 0)
             {
+                if (enemy.enemyType == "BearCub" && mamaBear != null)
+                {
+                    mamaBear.GetComponent<MamaBear>().IncreaseStats();
+                }
                 HexTile tile = gridManager.FetchTile(enemy.q, enemy.r, enemy.s);
                 tile.LeaveTile(enemy.gameObject);
                 Destroy(enemy.gameObject);

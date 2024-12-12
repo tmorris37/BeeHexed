@@ -10,10 +10,19 @@ using UnityEngine.UI;
 public class AcceptButton : MonoBehaviour
 {
     [SerializeField] private bool DEBUG_MODE;
-    [SerializeField] private string savePath = "Assets/Deck/Save.json";
+    [SerializeField] private string savePath;
     [SerializeField] private string mapScene = "Assets/STSMap_Gen_Package/Scenes/Overworld.unity";
+    [SerializeField] private string emptyMapScene = "EmptyMap";
+
     private PlayerData saveData;
     private void Start() {
+      // A persistent location to store written data
+      // On Windows: ..\AppData\LocalLow\defaultcompany\BeeHexed\DeckAssets\Save.json
+      string filepath = Application.persistentDataPath + "/DeckAssets";
+      this.savePath = filepath + "/Save.json";
+
+      System.IO.Directory.CreateDirectory(filepath);
+
       string JSONPlainText = File.ReadAllText(savePath);
       if (DEBUG_MODE) Debug.Log("Read JSON: " + JSONPlainText);
       // String (JSON) -> List
@@ -26,7 +35,9 @@ public class AcceptButton : MonoBehaviour
         MusicManager.Instance.PlayNewGameMusic();
       }
       if (DEBUG_MODE) Debug.Log("Loading map...");
-      SceneManager.LoadScene(mapScene);
+
+      GameObject.Find("MapManager").GetComponent<MapManager>().MakeMapActive();
+      SceneManager.LoadScene(emptyMapScene);
     }
     public void WriteDeckWithRewardAndLoad() {
       RewardManager rm = FindObjectOfType<RewardManager>();

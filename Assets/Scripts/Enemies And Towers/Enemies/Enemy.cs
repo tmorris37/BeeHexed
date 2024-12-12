@@ -21,11 +21,13 @@ namespace EnemyAndTowers
     public string enemyType;                // Type of enemy
         public int health;                  // Current health of the enemy
         public float movementSpeed = 0.5f;  // Speed at which the enemy moves (tiles per second)
+        public float moveSpeedLast;         // Speed of the enemy last update
         public float moveTimeRemaining;     // Time remaining to move to the next tile
         public float attackRate = 1f;       // Time between attacks
         public float attackCooldown;        // Time remaining before the enemy can attack again
         public int attackDamage;            // Damage dealt by the enemy
-        public Vector3 targetPosition;      // Position the enemy is moving towards
+        public bool isPaused = false;       // Whether the enemy is paused
+        public Vector3 targetPositionXY;      // Position the enemy is moving towards
         public MovementAlgorithms movement; // Movement algorithms for the enemy
         public EnemyData data;              // Data about the enemy
         public EnemyDetection detection;    // Detection script for the enemy
@@ -73,6 +75,7 @@ namespace EnemyAndTowers
             this.movementSpeed = this.data.Speed;
             this.attackDamage = this.data.Attacks[0].DamageAmount;
             this.attackRate =  1 / this.data.Attacks[0].AttackRate;
+            targetPositionXY = transform.position;
             attackCooldown = attackRate;
 
             inertiaDir = InertiaDirection.nullDir;
@@ -86,21 +89,26 @@ namespace EnemyAndTowers
         }
 
         // Call this method to smoothly move the enemy to a target position
-        public virtual void MoveToPosition(Vector3 target)
+        public virtual void MoveToPosition()
         {
             StopAllCoroutines();  // Stop any ongoing movement to avoid conflicts
-            StartCoroutine(MoveToTargetAtFixedSpeed(target));
+            StartCoroutine(MoveToTargetAtFixedSpeed());
         }
 
         // Coroutine to translate the position at a constant speed
-        private IEnumerator MoveToTargetAtFixedSpeed(Vector3 target)
+        private IEnumerator MoveToTargetAtFixedSpeed()
         {
             // Store the initial position of the enemy
             Vector3 initialPosition = transform.position;
 
+            // Calculate the distance to the target position
+            float distance = Vector3.Distance(initialPosition, targetPositionXY);
+
             // Calculate total time to travel based on speed
-            float travelTime = 1 / movementSpeed;
+            float travelTime = distance / movementSpeed;
             float elapsedTime = 0f;
+            moveTimeRemaining = travelTime;
+
 
             // Move the enemy towards the target position
             while (elapsedTime < travelTime)
@@ -109,20 +117,31 @@ namespace EnemyAndTowers
                 float t = elapsedTime / travelTime;
 
                 // Update position at a constant rate towards the target
-                transform.position = Vector3.Lerp(initialPosition, target, t);
+                transform.position = Vector3.Lerp(initialPosition, targetPositionXY, t);
 
                 elapsedTime += Time.deltaTime;
                 yield return null;
             }
 
             // Set the final position exactly to the target
-            transform.position = target;
+            transform.position = targetPositionXY;
         }
 
         protected virtual void Update()
         {
+            if (isPaused)
+            {
+                return;
+            }
+
+            // Check if the movement speed has changed and update the movement
+            if (moveSpeedLast != movementSpeed)
+            {
+                MoveToPosition();
+            }
+            
             // Update the list of targets from the detection script
-            this.targets = detection.targets;
+            targets = detection.targets;
             
             // Check if there are any targets in range and attack if off cooldown
             if (attackCooldown <= 0f && targets.Count > 0)
@@ -133,20 +152,21 @@ namespace EnemyAndTowers
                 Attack();
                 attackCooldown = attackRate;
             }
-            // Try and move towards the next tile if off cooldown
-            if (moveTimeRemaining <= 0f)
+            // Try and move towards the next tile if off cooldown and at the target position
+            if (targetPositionXY == transform.position && moveTimeRemaining <= 0f)
             {
                 if (DEBUG) {
-                    Debug.Log("No targets identified, time to move");  
+                    Debug.Log("No targets identified, time to move");
                 }
                 // Only reset the moveTimeRemaining if the enemy actually started moving
-                if (movement.DijkstraMove(this, this.DijkstraMoves)) {
-                    moveTimeRemaining = 1 / movementSpeed;
+                if (movement.DijkstraMove(this, DijkstraMoves)) {
                 }
             }
             // Update the timers
             moveTimeRemaining -= Time.deltaTime;
             attackCooldown -= Time.deltaTime;
+            // Store the last movement speed
+            moveSpeedLast = movementSpeed;
         }
 
         protected virtual void Attack()
@@ -158,6 +178,10 @@ namespace EnemyAndTowers
                 if (towerScript != null)
                 {
                     towerScript.TakeDamage(attackDamage);
+                    if (towerScript.GetComponent<BearricadeTower>() != null)
+                    {
+                        this.TakeDamage(1);
+                    }
                 }
             }
         }

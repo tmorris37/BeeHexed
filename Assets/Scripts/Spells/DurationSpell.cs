@@ -17,10 +17,10 @@ public abstract class DurationSpell : MonoBehaviour
     // increase time framerate-independently each frame until duration is met, then end the effect
     void Update() {
         if (currTime <= spellDuration) {
-        currTime += Time.deltaTime;
+            currTime += Time.deltaTime;
         } else {
-        EndEffect();
-        Destroy(gameObject);
+            EndEffect();
+            Destroy(gameObject);
         }
     }
 

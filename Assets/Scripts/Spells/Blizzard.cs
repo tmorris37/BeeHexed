@@ -11,7 +11,7 @@ public class Blizzard : UniversalDurationSpell<Enemy>
 
   public override void ApplySpellEffect(Enemy entity, SpriteRenderer sprite)
   {
-    entity.TakeDamage(5);
+    entity.TakeDamage(damage);
     sprite.color = Color.blue;
   }
 

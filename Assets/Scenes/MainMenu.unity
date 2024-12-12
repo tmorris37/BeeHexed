@@ -424,9 +424,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   musicMixer: {fileID: 24100000, guid: 8954569ea1c100b4abc974846b84367f, type: 2}
   volume: 0.5
-  mainMenuClip: {fileID: 8300000, guid: 5906dd866e116754ca0b8e705f246cdb, type: 3}
-  newGameClip: {fileID: 8300000, guid: ddf1e3f693c7a3c4d976fc796aac4062, type: 3}
-  inGameClip: {fileID: 8300000, guid: 49073505d55c18546b7c07c4555387bc, type: 3}
+  mainMenuClip: {fileID: 8300000, guid: 37ddc5318bf004f4a80c4cc7e1903e3d, type: 3}
+  newGameClip: {fileID: 8300000, guid: 9e010b5c58b45d9459eae2553e365959, type: 3}
+  inGameClip: {fileID: 8300000, guid: 7d007542603cf664ba4a5b0680ec04fc, type: 3}
+  normalCutoffFrequency: 22000
+  pausedCutoffFrequency: 500
+  transitionDuration: 0.1
 --- !u!4 &180065175
 Transform:
   m_ObjectHideFlags: 0
@@ -578,6 +581,8 @@ MonoBehaviour:
   ElectricGust: {fileID: 8300000, guid: d6f5e2210c56b114694e16f3fc46cb35, type: 3}
   MechanicalArmor: {fileID: 8300000, guid: 8d8fb65a91654224a8a996de403c6b7f, type: 3}
   Fanfare: {fileID: 8300000, guid: 45eb0bc965b9bec42b0634a22acf52ca, type: 3}
+  FireballCast: {fileID: 8300000, guid: fb004875fa96c864384f2017a0be4280, type: 3}
+  FireballExplode: {fileID: 8300000, guid: 923803e22dd79764dafbaffade9dd0de, type: 3}
 --- !u!4 &290391415
 Transform:
   m_ObjectHideFlags: 0
@@ -1137,7 +1142,6 @@ GameObject:
   - component: {fileID: 1305653584}
   - component: {fileID: 1305653583}
   - component: {fileID: 1305653587}
-  - component: {fileID: 1305653588}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -1240,22 +1244,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1eae8e4c42110dc438108e8f389c119c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deckSavePath: Assets/Deck/Deck.json
-  tempPath: Assets/Deck/temp.json
---- !u!114 &1305653588
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1305653582}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a37f4ff1d9fdcca4ea7c9bab9e16f0ee, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  config: {fileID: 0}
-  view: {fileID: 0}
 --- !u!1 &1334504575
 GameObject:
   m_ObjectHideFlags: 0
@@ -2256,6 +2244,50 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1886462590}
   m_CullTransparentMesh: 1
+--- !u!1 &1937941163
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1937941165}
+  - component: {fileID: 1937941164}
+  m_Layer: 0
+  m_Name: MapDestroyer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1937941164
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1937941163}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7b12bfbb337ac943984198ed6e62af1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1937941165
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1937941163}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 3.001876, y: -1.999326, z: -0.13555574}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1953808415
 GameObject:
   m_ObjectHideFlags: 0
@@ -2400,3 +2432,4 @@ SceneRoots:
   - {fileID: 120096104}
   - {fileID: 290391415}
   - {fileID: 180065175}
+  - {fileID: 1937941165}

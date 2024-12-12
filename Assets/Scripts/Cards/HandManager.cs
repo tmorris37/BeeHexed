@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using Newtonsoft.Json;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -26,6 +28,25 @@ public class HandManager : MonoBehaviour
 
     // TODO: probably privatize everything
     public int handSize = 0;
+    private CardPlaystyle playstyle;
+
+    public string settingSavePath;
+
+    private void Awake() {
+      // A persistent location to store written data
+      // On Windows: ..\AppData\LocalLow\defaultcompany\BeeHexed\DeckAssets\Save.json
+      string filepath = Application.persistentDataPath + "/DeckAssets";
+      this.settingSavePath = filepath + "/Settings.json";
+
+      System.IO.Directory.CreateDirectory(filepath);
+
+      try {
+        string json = File.ReadAllText(settingSavePath);
+        playstyle = JsonConvert.DeserializeObject<CardPlaystyle>(json);
+      } catch {
+        playstyle = 0;
+      }
+    }
 
     // Start is called before the first frame update
     public void Start()
@@ -47,6 +68,7 @@ public class HandManager : MonoBehaviour
     cardsInHand.Add(addCard);
     handSize++;
     addCard.GetComponent<CardDisplay>().cardData = card;
+    addCard.GetComponent<CardMovement>().playstyle = playstyle;
     UpdateHandDisplay();
   }
 

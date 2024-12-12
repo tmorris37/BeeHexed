@@ -17,6 +17,13 @@ TagManager:
   - Obstacle
   - Tile
   - Cave
+  - Undefined
+  - Node
+  - Node0
+  - Node1
+  - Node2
+  - Node3
+  - Node4
   layers:
   - Default
   - TransparentFX
@@ -65,4 +72,7 @@ TagManager:
     locked: 0
   - name: Effect
     uniqueID: 4019302019
+    locked: 0
+  - name: Button
+    uniqueID: 897110841
     locked: 0

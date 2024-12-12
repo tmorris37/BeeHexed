@@ -18,6 +18,9 @@ public class SFXManager : MonoBehaviour
     public AudioClip Fanfare;
     public AudioClip FireballCast;
     public AudioClip FireballExplode;
+    public AudioClip Blizzard;
+    public AudioClip buttonClick;
+    public AudioClip towerPlace;
 
     private void Awake()
     {
@@ -84,10 +87,21 @@ public class SFXManager : MonoBehaviour
     {
         PlaySFX(MechanicalArmor);
     }
+    public void PlayBlizzard() {
+        PlaySFX(Blizzard);
+    }
+    public void PlayButtonClick()
+    {
+        PlaySFX(buttonClick);
+    }
+    public void PlayTowerPlace()
+    {
+        PlaySFX(towerPlace);
+    }
 
     public void stopCurrentSFX() {
         if (currentPlaying != null) {
-            Debug.Log("Stopping " + currentPlaying);
+            // Debug.Log("Stopping " + currentPlaying);
             currentPlaying.Stop();
         }
     }

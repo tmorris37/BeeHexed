@@ -785,6 +785,7 @@ MonoBehaviour:
   healthText: {fileID: 4606764229589269306}
   costText: {fileID: 6226152694362643194}
   bodyText: {fileID: 6006782026125041561}
+  typeText: {fileID: 0}
 --- !u!61 &1398149729110091024
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1162,8 +1163,8 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1220237909471917754}
   - {fileID: 119541386671343179}
+  - {fileID: 1220237909471917754}
   m_Father: {fileID: 6132360889243443293}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}

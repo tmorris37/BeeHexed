@@ -4089,7 +4089,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fc61592ee1a0a94bae8ed7be1ac301d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  towerCardPrefab: {fileID: 8077857296831189447, guid: 826e36fb7148e4d4a8a26f1366230c59, type: 3}
+  towerCardPrefab: {fileID: 604658642940401221, guid: ebc1fc11a39efd846a7507a8f395bf7c, type: 3}
   spellCardPrefab: {fileID: 5380670101522893719, guid: df288bc6b1e4d4847a206984e56fb62a, type: 3}
   handLocation: {fileID: 469132736}
   fanSpread: 9

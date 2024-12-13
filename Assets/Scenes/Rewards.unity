@@ -177,6 +177,7 @@ MonoBehaviour:
   DEBUG_MODE: 0
   savePath: Assets/Deck/Save.json
   mapScene: OverworldToyBox
+  emptyMapScene: EmptyMap
 --- !u!114 &542492701
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -224,6 +225,18 @@ MonoBehaviour:
       - m_Target: {fileID: 542492700}
         m_TargetAssemblyTypeName: AcceptButton, BeeHexedAssembly
         m_MethodName: WriteDeckWithRewardAndLoad
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1106467108}
+        m_TargetAssemblyTypeName: ButtonClicker, BeeHexedAssembly
+        m_MethodName: ButtonClickSFX
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -618,6 +631,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1106467108}
+        m_TargetAssemblyTypeName: ButtonClicker, BeeHexedAssembly
+        m_MethodName: ButtonClickSFX
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &894755002
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -803,6 +828,7 @@ GameObject:
   - component: {fileID: 1106467104}
   - component: {fileID: 1106467103}
   - component: {fileID: 1106467107}
+  - component: {fileID: 1106467108}
   m_Layer: 5
   m_Name: BackgroundCanvas
   m_TagString: Untagged
@@ -909,6 +935,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DEBUG_MODE: 0
+  emptyMapScene: EmptyMap
+--- !u!114 &1106467108
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1106467102}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88123da0c8065a241b07fe12d9b8edae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1397382543
 GameObject:
   m_ObjectHideFlags: 0

@@ -122,6 +122,7 @@ public class SFXManager : MonoBehaviour
         // Create a new GameObject with an AudioSource to play the clip
         GameObject sfxObject = new GameObject("SFX_" + clip.name);
         AudioSource audioSource = sfxObject.AddComponent<AudioSource>();
+        DontDestroyOnLoad(audioSource);
 
         // Set up the AudioSource
         

@@ -19,6 +19,7 @@ public class MainMenu : MonoBehaviour
     // Switches Scene to input Scene, sceneName
     public void GoToScene(string sceneName) 
     {
+        SFXManager.Instance.PlayButtonClick();
         DeckSelected.selectedDeck = "None";
         SceneManager.LoadScene(sceneName);
     }

@@ -614,7 +614,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9158651054963895208, guid: b4c2a62bc13b68144b4c25fd2d5b00f6, type: 3}
       propertyPath: m_OverrideSorting
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 6775717920964884381, guid: b4c2a62bc13b68144b4c25fd2d5b00f6, type: 3}
@@ -714,6 +714,7 @@ MonoBehaviour:
   origCardRotation: {x: 0, y: 0, z: 0, w: 0}
   origCardPosition: {x: 0, y: 0, z: 0}
   origCardScale: {x: 0, y: 0, z: 0}
+  playstyle: 0
   hoverScale: 1.1
   playPosition: {x: -400, y: 500, z: 0}
   hoverHighlight: {fileID: 319122641020508303}

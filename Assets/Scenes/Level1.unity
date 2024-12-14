@@ -3693,11 +3693,15 @@ MonoBehaviour:
   DEBUG_MODE: 0
   customDeck:
   - {fileID: 11400000, guid: 3be26d53f46076346b9b2dd714668422, type: 2}
-  - {fileID: 11400000, guid: 3be26d53f46076346b9b2dd714668422, type: 2}
-  - {fileID: 11400000, guid: 3be26d53f46076346b9b2dd714668422, type: 2}
-  - {fileID: 11400000, guid: 3be26d53f46076346b9b2dd714668422, type: 2}
-  - {fileID: 11400000, guid: 3be26d53f46076346b9b2dd714668422, type: 2}
-  - {fileID: 11400000, guid: 3be26d53f46076346b9b2dd714668422, type: 2}
+  - {fileID: 11400000, guid: 0df30bd4a6ddbe54c9ca215651d7fc72, type: 2}
+  - {fileID: 11400000, guid: 0df30bd4a6ddbe54c9ca215651d7fc72, type: 2}
+  - {fileID: 11400000, guid: 0df30bd4a6ddbe54c9ca215651d7fc72, type: 2}
+  - {fileID: 11400000, guid: 4234014f9a599cc43b3336157fe6ab3c, type: 2}
+  - {fileID: 11400000, guid: 4234014f9a599cc43b3336157fe6ab3c, type: 2}
+  - {fileID: 11400000, guid: 4234014f9a599cc43b3336157fe6ab3c, type: 2}
+  - {fileID: 11400000, guid: d242b2c6671f9c74986c35c43f917e1d, type: 2}
+  - {fileID: 11400000, guid: d242b2c6671f9c74986c35c43f917e1d, type: 2}
+  - {fileID: 11400000, guid: d242b2c6671f9c74986c35c43f917e1d, type: 2}
   deck: []
   handLimit: 8
   drawPileCounter: {fileID: 515682204}

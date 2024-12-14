@@ -21,6 +21,7 @@ public class SFXManager : MonoBehaviour
     public AudioClip Blizzard;
     public AudioClip buttonClick;
     public AudioClip towerPlace;
+    public AudioClip thunderclap;
 
     private void Awake()
     {
@@ -115,6 +116,10 @@ public class SFXManager : MonoBehaviour
     public void PlayFireballExplode()
     {
         PlaySFX(FireballExplode);
+    }
+
+    public void PlayThunderclap() {
+        PlaySFX(thunderclap);
     }
 
     private void PlaySFX(AudioClip clip)

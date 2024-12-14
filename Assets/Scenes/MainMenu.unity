@@ -586,6 +586,7 @@ MonoBehaviour:
   Blizzard: {fileID: 8300000, guid: 620f68ba7fcf1d14798e7c5790d8b78c, type: 3}
   buttonClick: {fileID: 8300000, guid: f56208ff1079fc342a1463191239a9ff, type: 3}
   towerPlace: {fileID: 8300000, guid: 9c7e05732624a2b4e93a784c0963ab29, type: 3}
+  thunderclap: {fileID: 8300000, guid: adfe52f8c7e4fb846b3b3fd21762282b, type: 3}
 --- !u!4 &290391415
 Transform:
   m_ObjectHideFlags: 0

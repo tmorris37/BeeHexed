@@ -80,7 +80,9 @@ public class DrawPileManager : MonoBehaviour
       return;
     }
     deck = discardManager.drawAllGraveyard();
-    deckAnimator.Shuffle();
+    if (deckAnimator != null) {
+        deckAnimator.Shuffle();
+    }    
     Shuffle();
   }
 

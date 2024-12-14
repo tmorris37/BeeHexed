@@ -44,7 +44,7 @@ public class DeckAnimator : MonoBehaviour
     }
 
     public void DrawCardAnimation(GameObject card) {
-        card.SetActive(false);
+        // card.SetActive(false);
         int deckSize = drawPileManager.deck.Count;
         // remove cards such that cards match actual deck size
         // Currently depends on deck size being updated before card is added to hand (BAD)
@@ -52,13 +52,13 @@ public class DeckAnimator : MonoBehaviour
             Debug.Log("Read deck size = " + deckSize);
             deckDisplay[deckSize].SetActive(false);
         }
-        StartCoroutine(DrawCardCoroutine(card));
+        // StartCoroutine(DrawCardCoroutine(card));
     }
 
-    private IEnumerator DrawCardCoroutine(GameObject card) {
-        yield return new WaitForSeconds(0.5f);
-        card.SetActive(true);
-    }
+    // private IEnumerator DrawCardCoroutine(GameObject card) {
+    //     yield return new WaitForSeconds(0.1f);
+    //     card.SetActive(true);
+    // }
 
     public void Shuffle() {
         for (int card = 0; card < drawPileManager.deck.Count; card++) {

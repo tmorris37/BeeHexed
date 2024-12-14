@@ -6062,7 +6062,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 179dd428836948f449d0617198da4296, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DEVELOPER_MODE: 1
+  DEVELOPER_MODE: 0
   DEBUG_MODE: 0
   customDeck:
   - {fileID: 11400000, guid: d242b2c6671f9c74986c35c43f917e1d, type: 2}

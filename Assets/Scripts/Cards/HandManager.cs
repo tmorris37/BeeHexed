@@ -60,7 +60,9 @@ public class HandManager : MonoBehaviour
         addCard.GetComponent<CardDisplay>().cardData = card;
         addCard.GetComponent<CardMovement>().playstyle = playstyle;
         UpdateHandDisplay();
-        deckAnimator.DrawCardAnimation(addCard);
+        if (deckAnimator != null) {
+            deckAnimator.DrawCardAnimation(addCard);
+        }
     }
 
   public bool DiscardCard(Card card) {

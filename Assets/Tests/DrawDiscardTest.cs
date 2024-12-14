@@ -65,11 +65,11 @@ public class DrawDiscardHandTest
     {
         GameObject Test = new GameObject();
         Test.AddComponent<HandManager>();
+        
         HandManager TestHM = Test.GetComponent<HandManager>();
         TestHM.spellCardPrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/SpellCard.prefab");
         TestHM.towerCardPrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/TowerCardPrefab Variant.prefab");
         TestHM.handLocation = TestHM.transform;
-  
         TestHM.Start();
 
 

@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class UniversalDoom : UniversalSpell<Enemy>
 {
-    public int damage = 50;
+    public int damage = 25;
     public override void ApplySpellEffect(Enemy entity, SpriteRenderer sprite) {
         if (SFXManager.Instance != null) {
             SFXManager.Instance.PlayThunderclap();

@@ -841,7 +841,7 @@ namespace EnemyAndTowers
         }
 
         // Reads the next movement in the provided list. If it is possible, will move (returns true)
-        // Otherwise, will not move and does not change the List
+        // Otherwise, will not move, does not change the List, and does not update targetPositionXY
         public bool DijkstraMove(Enemy enemy, List<(int, int, int)> DijkstraMoves)
         {
             (int q, int r, int s) = (enemy.q, enemy.r, enemy.s);

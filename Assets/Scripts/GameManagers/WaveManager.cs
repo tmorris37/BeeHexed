@@ -24,18 +24,15 @@ public class WaveManager : MonoBehaviour
         drawPileManager = FindObjectOfType<DrawPileManager>();
         handManager = FindObjectOfType<HandManager>();
     }
-    void Start()
-    {
+    void Start() {
         waveText.text = "Waves not started";
         StartCoroutine(WaveRoutine());
     }
 
-    private IEnumerator WaveRoutine()
-    {
+    private IEnumerator WaveRoutine() {
         int currentWave = 0;
         yield return new WaitForSeconds(STARTUP_TIME);
-        while (currentWave < waves.Count)
-        {
+        while (currentWave < waves.Count) {
             currentWave++;
             int minEnemies = waves[currentWave-1].avgEnemies - waves[currentWave-1].enemySpread;
             int maxEnemies = waves[currentWave-1].avgEnemies + waves[currentWave-1].enemySpread;
@@ -49,8 +46,7 @@ public class WaveManager : MonoBehaviour
                 drawPileManager.DrawCard(handManager);
             }
             // Spawn enemies
-            for (int i = 0; i < numEnemies; i++)
-            {
+            for (int i = 0; i < numEnemies; i++) {
                 // Generate a random float for time between spawns
                 float avgTimeBetweenSpawns = waves[currentWave-1].avgTimeBetweenSpawns;
                 float timeBetweenSpawns = UnityEngine.Random.Range(avgTimeBetweenSpawns - 0.5f, avgTimeBetweenSpawns + 0.5f);
@@ -72,19 +68,16 @@ public class WaveManager : MonoBehaviour
                         float cumulativeProbability = 0f;
 
                         // Determine which enemy to spawn based on spawn frequencies
-                        foreach (var enemyData in waves[currentWave-1].enemies)
-                        {
+                        foreach (var enemyData in waves[currentWave-1].enemies) {
                             cumulativeProbability += enemyData.spawnFrequency;
-                            if (randomValue <= cumulativeProbability)
-                            {
+                            if (randomValue <= cumulativeProbability) {
                                 enemyType = enemyData.enemyType;
                                 break;
                             }
                         }
 
                         // Ensure an enemy was selected
-                        if (enemyType == null)
-                        {
+                        if (enemyType == null) {
                             Debug.LogError("No enemy selected! Check if frequencies sum to 1 for the wave.");
                             continue;
                         }
@@ -114,22 +107,19 @@ public class WaveManager : MonoBehaviour
 }
 
 [Serializable]
-public class EnemySpawnData
-{
+public class EnemySpawnData {
     public float spawnFrequency;
     public string enemyType;
 }
 
 [Serializable]
-public class FixedEnemy
-{
+public class FixedEnemy {
     public string enemyType;
     public int placement;
 }
 
 [Serializable]
-public class Wave
-{
+public class Wave {
     public List<EnemySpawnData> enemies;
     public List<FixedEnemy> fixedEnemies;
     public int avgEnemies;

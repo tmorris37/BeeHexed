@@ -14,8 +14,7 @@ public class SelectionManager : MonoBehaviour
     private string selected;
     private string baseSelected = "None";
     private Dictionary<string, DeckSelector> decks = new();
-    void Awake()
-    {
+    void Awake() {
         continueButton.gameObject.SetActive(false);
         viewButton.gameObject.SetActive(false);
         selected = baseSelected;
@@ -24,8 +23,7 @@ public class SelectionManager : MonoBehaviour
             this.decks.Add(deck.gameObject.name, deck);
         }
     }
-    public void Select(string name)
-    {
+    public void Select(string name) {
         // deselect previously selected deck if it exists
         bool res = decks.TryGetValue(selected, out DeckSelector prevDeck);
         if (res) {
@@ -50,7 +48,6 @@ public class SelectionManager : MonoBehaviour
             viewButton.gameObject.SetActive(false);
             prevDeck.RevertToHoverState();
         }
-        
     }
 
     public void Reset() {

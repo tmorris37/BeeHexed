@@ -9,8 +9,7 @@ namespace EnemyAndTowers {
         [SerializeField] GameObject explosion;
 
         private void OnTriggerEnter2D(Collider2D collision) {
-            if (collision.CompareTag("EnemyBody"))
-            {
+            if (collision.CompareTag("EnemyBody")) {
                 GameObject expl = Instantiate(explosion, transform.localPosition, Quaternion.identity);
                 expl.GetComponent<FireballExplosion>().damage = damage;
                 // Destroy the projectile after it hits the enemy

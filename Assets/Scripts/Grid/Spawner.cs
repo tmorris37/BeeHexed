@@ -37,19 +37,14 @@ public class Spawner : MonoBehaviour
     private List<Enemy> enemies = new List<Enemy>();
     private MamaBear mamaBear;
 
-    void Start()
-    {
-        this.cavePositions = caveGenerator.cavePositions;
+    void Start() {
+        cavePositions = caveGenerator.cavePositions;
         SpawnCaves();
         SpawnCenterTower();
-        if(MusicManager.Instance != null)
-        {
-            MusicManager.Instance.PlayInGameMusic();
-        }
+        if(MusicManager.Instance != null) MusicManager.Instance.PlayInGameMusic();
     }
 
-    public void SpawnCenterTower()
-    {
+    public void SpawnCenterTower() {
         GameObject centerTower = Instantiate(this.centerTower);
         Tower centerTowerComponent = centerTower.GetComponent<Tower>();
         HexTile centerTile = gridManager.FetchTile(0, 0, 0);
@@ -57,8 +52,7 @@ public class Spawner : MonoBehaviour
         centerTowerComponent.gridManager = this.gridManager;
     }
 
-    public void SpawnFromCaves(string enemyType)
-    {
+    public void SpawnFromCaves(string enemyType) {
         GameObject newEnemy;
         Vector3 randomCavePosition = cavePositions[UnityEngine.Random.Range(0, cavePositions.Count)];
         int q = (int)randomCavePosition.x;
@@ -84,13 +78,11 @@ public class Spawner : MonoBehaviour
             default:
                 Debug.LogError("Invalid Enemy ID:" + enemyType);
                 return;
-                
         }
         
         Enemy newEnemyComponent = newEnemy.GetComponent<Enemy>();
     
-        if (newEnemyComponent != null)
-        {
+        if (newEnemyComponent != null) {
             newEnemyComponent.enemyType = enemyType;
             newEnemyComponent.SetQRS(q, r, s);
             newEnemyComponent.movement = movement;
@@ -101,40 +93,32 @@ public class Spawner : MonoBehaviour
             
             // Add the new enemy to the list of enemies
             enemies.Add(newEnemyComponent);
-            if (enemyType == "MamaBear" && mamaBear == null)
-            {
+            if (enemyType == "MamaBear" && mamaBear == null) {
                 mamaBear = newEnemyComponent.GetComponent<MamaBear>();
             }
         }
     }
 
-    public void SpawnCaves()
-    {
-        foreach (Vector3 cavePosition in cavePositions)
-        {
+    public void SpawnCaves() {
+        foreach (Vector3 cavePosition in cavePositions) {
             (float x, float y) = gridManager.QRStoXY((int)cavePosition.x, (int)cavePosition.y, (int)cavePosition.z);
             GameObject newCave = Instantiate(cavePrefab);
             newCave.transform.position = new Vector3(x, y, 0);
             newCave.tag="Cave";
         }
-        if (DEBUG)
-        {
-            foreach (var position in cavePositions)
-            {
+        if (DEBUG) {
+            foreach (var position in cavePositions) {
                 Debug.Log("Cave position: " + position);
             }
         }
     }
 
-    public void Update()
-    {
+    public void Update() {
         // Remove and destroy any enemies with 0 or less health
-        enemies.RemoveAll(enemy =>
-        {
+        enemies.RemoveAll(enemy => {
             if (enemy != null && enemy.health <= 0)
             {
-                if (enemy.enemyType == "BearCub" && mamaBear != null)
-                {
+                if (enemy.enemyType == "BearCub" && mamaBear != null) {
                     mamaBear.GetComponent<MamaBear>().IncreaseStats();
                 }
                 HexTile tile = gridManager.FetchTile(enemy.q, enemy.r, enemy.s);
@@ -149,10 +133,8 @@ public class Spawner : MonoBehaviour
     // Generates a random Edge Tile on the current Hex Grid based on GridRadius
     // The logic I wrote to make this work is a little ridiculous, but it works
     // Could be better in q, r, s, but I just did it in i, j
-    public (int q, int r, int s) RandomTileInRadius(int hexRadius, int spawnRadius)
-    {
-        if (spawnRadius > hexRadius)
-        {
+    public (int q, int r, int s) RandomTileInRadius(int hexRadius, int spawnRadius) {
+        if (spawnRadius > hexRadius) {
             Debug.LogError("Spawn Radius cannot be greater than Hex Radius");
             return (0, 0, 0);
         }
@@ -161,27 +143,22 @@ public class Spawner : MonoBehaviour
         int spawnHex = UnityEngine.Random.Range(0, 6*spawnRadius);
         Debug.Log(spawnHex);
         // Random Tile is in the First Row
-        if (spawnHex <= spawnRadius)
-        {
+        if (spawnHex <= spawnRadius) {
             return gridManager.IJtoQRS(hexRadius - spawnRadius, spawnHex - spawnRadius + hexRadius);
         }
         // Random Tile is in the Last Row
-        if (spawnHex >= 5*spawnRadius - 1)
-        {
+        if (spawnHex >= 5*spawnRadius - 1) {
             return gridManager.IJtoQRS(2*hexRadius - (hexRadius - spawnRadius), spawnHex - 5*spawnRadius + 1 - spawnRadius + hexRadius);
         }
         // Random Tile is on Left/Right Edge
         int adjustedSpawnHex = spawnHex - spawnRadius - 1;
         int i, j;
 
-        if (adjustedSpawnHex % 2 == 0)
-        {
+        if (adjustedSpawnHex % 2 == 0) {
             // Tile is on Left Side
             i = 1 + (adjustedSpawnHex / 2) + hexRadius - spawnRadius; 
             j = hexRadius - spawnRadius;
-        }
-        else // (adjustedSpawnHex % 2 == 1)
-        {
+        } else { // (adjustedSpawnHex % 2 == 1)
             // Tile is on Right Side
             i = 1 + ((adjustedSpawnHex - 1) / 2) + hexRadius - spawnRadius;
             j = (i > hexRadius) ? (2*hexRadius - (i - spawnRadius)) : (spawnRadius + i);
@@ -189,5 +166,3 @@ public class Spawner : MonoBehaviour
         return gridManager.IJtoQRS(i, j);
     }
 }
-
-

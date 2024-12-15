@@ -23,22 +23,22 @@ namespace EnemyAndTowers {
         }
 
         void Start() {
-            this.cavePositions = this.caveGenerator.cavePositions;
+            cavePositions = caveGenerator.cavePositions;
 
             ShortestPath pathsFromCave = new ShortestPath();
 
             foreach (Vector3 cavePosition in cavePositions) {
                 (int q, int r, int s) = ((int) cavePosition.x,
-                                         (int) cavePosition.y,
-                                         (int) cavePosition.z);
+                                        (int) cavePosition.y,
+                                        (int) cavePosition.z);
 
                 foreach (GameObject cave in GameObject.FindGameObjectsWithTag("Cave")) {
                     if ((cave.transform.position.x, cave.transform.position.y) == this.gridManager.QRStoXY(q, r, s)) {
                         List<(int, int, int)> cavePath = 
-                            pathsFromCave.DijkstraSimple(this.gridManager,
-                                                         (q, r, s),
-                                                         (0, 0, 0),
-                                                         DijkstraCallback);
+                            pathsFromCave.DijkstraSimple(gridManager,
+                                                        (q, r, s),
+                                                        (0, 0, 0),
+                                                        DijkstraCallback);
                         
                         (int, int, int) QRSTuple = (cavePath[1].Item1 - cavePath[0].Item1,
                                                     cavePath[1].Item2 - cavePath[0].Item2,

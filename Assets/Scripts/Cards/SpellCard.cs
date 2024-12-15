@@ -12,13 +12,12 @@ public class SpellCard : Card
     //public GameObject prefab;
 
     void Start() {
-    var FileData = Resources.Load<TextAsset>("Spells/Spell_" + SpellID);
+        var FileData = Resources.Load<TextAsset>("Spells/Spell_" + SpellID);
 
         if (FileData != null) {
             string JSONPlainText = FileData.text;
             this.spellData = JsonConvert.DeserializeObject<SpellData>(JSONPlainText);
-        }
-        else {
+        } else {
             Debug.Log("Unable to load Spell_" + SpellID);
         }
     }

@@ -17,20 +17,17 @@ public class FireflySorceress : Tower
         fireCountdown = fireRate;
     }
 
-    protected override void Update()
-    {
+    protected override void Update() {
         base.Update();
-        if (fireCountdown <= 0f && targets.Count > 0 && active)
-            {
-                Fire();
-                fireCountdown = fireRate;
-            }
-            fireCountdown -= Time.deltaTime;
+        if (fireCountdown <= 0f && targets.Count > 0 && active) {
+            Fire();
+            fireCountdown = fireRate;
+        }
+        fireCountdown -= Time.deltaTime;
     }
 
     private void Fire() {
-        if (projectilePrefab == null)
-        {
+        if (projectilePrefab == null) {
             throw new NullReferenceException("Projectile prefab not assigned!");
         }
         if (SFXManager.Instance != null) {
@@ -52,8 +49,7 @@ public class FireflySorceress : Tower
         Rigidbody2D rb = projectile.GetComponent<Rigidbody2D>();
         if (rb != null) {
             rb.velocity = -(direction * projectileSpeed);
-        }
-        else {
+        } else {
             throw new NullReferenceException("Projectile does not have a Rigidbody2D!");
         }
     }

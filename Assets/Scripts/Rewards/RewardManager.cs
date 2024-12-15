@@ -13,22 +13,21 @@ public class RewardManager : MonoBehaviour
     // Money and power-ups would go here
     
     void Awake() {
-      Card[] rewardCardList = Resources.LoadAll<Card>("RewardCards");
-      cardSeed = Random.Range(1,100);
-      rewardCard = rewardCardList[cardSeed % rewardCardList.Length];
+        Card[] rewardCardList = Resources.LoadAll<Card>("RewardCards");
+        cardSeed = Random.Range(1,100);
+        rewardCard = rewardCardList[cardSeed % rewardCardList.Length];
     }
-    void Start()
-    {   
-      if (rewardCard.cardType == Card.CardType.Tower) {
-        displayCard = Instantiate(towardCardPrefab, transform);
-      } else {
-        displayCard = Instantiate(spellCardPrefab, transform);
-      }
-      displayCard.GetComponent<CardDisplay>().cardData = rewardCard;
-      displayCard.GetComponent<CardMovement>().enabled = false;
+    void Start() {
+        if (rewardCard.cardType == Card.CardType.Tower) {
+            displayCard = Instantiate(towardCardPrefab, transform);
+        } else {
+            displayCard = Instantiate(spellCardPrefab, transform);
+        }
+        displayCard.GetComponent<CardDisplay>().cardData = rewardCard;
+        displayCard.GetComponent<CardMovement>().enabled = false;
     }
 
     public Card GetRewardCard() {
-      return rewardCard;
+        return rewardCard;
     }
 }

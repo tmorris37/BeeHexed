@@ -47,8 +47,7 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
         // state 2 = Dragging
         // state 3 = Playing
         // state 4 = Rotating
-    switch (currState)
-    {
+    switch (currState) {
         case 1:
             HandleHoverState();
             break;
@@ -209,9 +208,7 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
                     playArrow.SetActive(false);
                     return;
                 }
-            }
-            else
-            {
+            } else {
                 // Cast spell
                 towerSelector.CastSpell(((SpellCard)cardDisplay.cardData).prefab);
                 nectarManager.SetNectar(nectarManager.GetNectar() - cardDisplay.cardData.cost);
@@ -219,9 +216,7 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
             }
             towerSelector.highlightTileMode = false;
             destroyCard();
-        }
-        else
-        {
+        } else {
             errorManager.SetErrorMsg("Not enough nectar!");
             GoToState(0); // 2
             playArrow.SetActive(false);
@@ -262,16 +257,13 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
         {
             sprite.color = Color.red;
             //beamerTower.active = false; // Tower is inactive if pointed at the center
-        }
-        else
-        {
+        } else {
             sprite.color = Color.white;
             //beamerTower.active = true; // Tower is active otherwise
         }
 
         // Confirm rotation on click if not blocked
-        if (Input.GetMouseButtonDown(0) && !isBlocked)
-        {
+        if (Input.GetMouseButtonDown(0) && !isBlocked) {
             if (DEBUG_MODE) {
                 Debug.Log($"Beamer Tower rotation set to {snappedAngle} degrees.");
             }
@@ -282,8 +274,7 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
     }
 
 
-    private void destroyCard()
-    {
+    private void destroyCard() {
         CardDisplay cardDisplay = GetComponent<CardDisplay>();
         HandManager handManager = FindObjectOfType<HandManager>();
         handManager.cardsInHand.Remove(gameObject);
@@ -292,6 +283,6 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
     }
 
     public void Reset() {
-    GoToState(-1);
+        GoToState(-1);
     }
 }

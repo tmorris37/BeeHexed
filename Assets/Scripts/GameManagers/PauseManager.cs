@@ -6,40 +6,30 @@ public class PauseManager : MonoBehaviour
 {
     public bool isPaused = false;
     public GameObject pauseMenu;
+    public bool DEBUG_MODE = false;
     // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    void Start() {}
 
     // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    void Update() {}
 
-    public void LoadMainMenu()
-    {
+    public void LoadMainMenu() {
         Time.timeScale = 1;
         UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu");
     }
 
-    public void TogglePause()
-    {
+    public void TogglePause() {
         isPaused = !isPaused;
         if (MusicManager.Instance != null)
         {
-            if (isPaused)
-            {
+            if (isPaused) {
                 MusicManager.Instance.ApplyPauseFilter();
-            }
-            else
-            {
+            } else {
                 MusicManager.Instance.RemovePauseFilter();
             }
         }
         pauseMenu.SetActive(isPaused);
         Time.timeScale = isPaused ? 0 : 1;
-        Debug.Log("Pause Toggled:" + isPaused);
+        if (DEBUG_MODE) Debug.Log("Pause Toggled:" + isPaused);
     }
 }

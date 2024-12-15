@@ -3,19 +3,17 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Card : ScriptableObject, IComparable
-{
-  [SerializeField] public string cardName;
-  [SerializeField] public int cost;
-  [SerializeField] public string bodyText;
-  [SerializeField] public string health;
-  [SerializeField] public Sprite art;
-  //[SerializeField] public UnityEngine.UI.Image art;
-  [SerializeField] public CardType cardType;
-  [SerializeField] public GameObject prefab;
+public class Card : ScriptableObject, IComparable {
+    [SerializeField] public string cardName;
+    [SerializeField] public int cost;
+    [SerializeField] public string bodyText;
+    [SerializeField] public string health;
+    [SerializeField] public Sprite art;
+    //[SerializeField] public UnityEngine.UI.Image art;
+    [SerializeField] public CardType cardType;
+    [SerializeField] public GameObject prefab;
 
-    public int CompareTo(object obj)
-    {
+    public int CompareTo(object obj) {
         if (obj == null) return 1;
         Card other = obj as Card;
         if (other != null) {
@@ -26,19 +24,17 @@ public class Card : ScriptableObject, IComparable
     }
 
     // Start is called before the first frame update
-    void Start()
-    {
+    void Start() {
         
     }
 
     // Update is called once per frame
-    void Update()
-    {
-         
+    void Update() {
+        
     }
     
     public enum CardType {
-      Tower,
-      Spell
+    Tower,
+    Spell
     }
 }

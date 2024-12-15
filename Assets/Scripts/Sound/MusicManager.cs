@@ -18,10 +18,8 @@ public class MusicManager : MonoBehaviour
     private Coroutine transitionCoroutine;
     
 
-    private void Awake()
-    {
-        if (Instance != null && Instance != this)
-        {
+    private void Awake() {
+        if (Instance != null && Instance != this) {
             Destroy(gameObject);
             return;
         }
@@ -30,15 +28,13 @@ public class MusicManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
 
         audioSource = GetComponent<AudioSource>();
-        if (!audioSource)
-        {
+        if (!audioSource) {
             Debug.LogError("No AudioSource found on MusicManager.");
             return;
         }
 
         lowPassFilter = GetComponent<AudioLowPassFilter>();
-        if (!lowPassFilter)
-        {
+        if (!lowPassFilter) {
             // Add a Low Pass Filter if not present
             lowPassFilter = gameObject.AddComponent<AudioLowPassFilter>();
         }
@@ -46,61 +42,47 @@ public class MusicManager : MonoBehaviour
         lowPassFilter.cutoffFrequency = normalCutoffFrequency;
     }
 
-    public void Start()
-    {
+    public void Start() {
         SetVolume(volume);
         PlayMainMenuMusic();
     }
 
-    public void SetVolume(float volume)
-    {
+    public void SetVolume(float volume) {
         this.volume = volume;
         // audioSource.volume = volume;
         musicMixer.SetFloat("MusicVolume", Mathf.Log10(volume) * 20);
     }
 
-    public void PlayMainMenuMusic()
-    {
+    public void PlayMainMenuMusic() {
         PlayMusic(mainMenuClip);
     }
 
-    public void PlayInGameMusic()
-    {
+    public void PlayInGameMusic() {
         PlayMusic(inGameClip);
     }
 
-    public void PlayNewGameMusic()
-    {
+    public void PlayNewGameMusic() {
         PlayMusic(newGameClip);
     }
 
-    public void ApplyPauseFilter()
-    {
+    public void ApplyPauseFilter() {
         ApplyLowPassFilter(pausedCutoffFrequency);
     }
 
-    public void RemovePauseFilter()
-    {
+    public void RemovePauseFilter() {
         ApplyLowPassFilter(normalCutoffFrequency);
     }
 
-    private void ApplyLowPassFilter(float targetCutoffFrequency)
-    {
-        if (transitionCoroutine != null)
-        {
-            StopCoroutine(transitionCoroutine);
-        }
-
+    private void ApplyLowPassFilter(float targetCutoffFrequency) {
+        if (transitionCoroutine != null) StopCoroutine(transitionCoroutine);
         transitionCoroutine = StartCoroutine(TransitionLowPassFilter(targetCutoffFrequency));
     }
 
-    private System.Collections.IEnumerator TransitionLowPassFilter(float targetCutoffFrequency)
-    {
+    private System.Collections.IEnumerator TransitionLowPassFilter(float targetCutoffFrequency) {
         float startFrequency = lowPassFilter.cutoffFrequency;
         float elapsed = 0f;
 
-        while (elapsed < transitionDuration)
-        {
+        while (elapsed < transitionDuration) {
             elapsed += Time.unscaledDeltaTime; // Use unscaled time to ignore Time.timeScale
             lowPassFilter.cutoffFrequency = Mathf.Lerp(startFrequency, targetCutoffFrequency, elapsed / transitionDuration);
             yield return null;
@@ -109,8 +91,7 @@ public class MusicManager : MonoBehaviour
         lowPassFilter.cutoffFrequency = targetCutoffFrequency;
     }
 
-    private void PlayMusic(AudioClip clip)
-    {
+    private void PlayMusic(AudioClip clip) {
         if (audioSource.clip == clip) return; // Avoid restarting the same audio
         audioSource.Stop();
         audioSource.clip = clip;

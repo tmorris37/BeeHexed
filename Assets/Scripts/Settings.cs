@@ -8,8 +8,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 
-public class Settings : MonoBehaviour
-{
+public class Settings : MonoBehaviour {
     public string settingSavePath;
 
     [SerializeField] private Slider playStyleSlider;
@@ -18,13 +17,12 @@ public class Settings : MonoBehaviour
     void Awake() {
         // A persistent location to store written data
         // On Windows: ..\AppData\LocalLow\defaultcompany\BeeHexed\DeckAssets\Settings.json
-        this.settingSavePath = Application.persistentDataPath + "/DeckAssets/Settings.json";
+        settingSavePath = Application.persistentDataPath + "/DeckAssets/Settings.json";
         LoadSettingsFromFile();
         ChangeSliderColor();
     }
 
-    private void LoadSettingsFromFile()
-    {
+    private void LoadSettingsFromFile() {
         try {
             string json = File.ReadAllText(settingSavePath);
 
@@ -37,18 +35,15 @@ public class Settings : MonoBehaviour
         } catch {
             playStyleSlider.value = 0;
         }
-
     }
 
     // Sets quality of 
-    public void SetQuality (int qualityIndex)
-    {
+    public void SetQuality (int qualityIndex) {
         QualitySettings.SetQualityLevel(qualityIndex);
     }
 
     // Brings User to previous scene
-    public void GoBack(string path)
-    {
+    public void GoBack(string path) {
         // Hard Coded to bring back to MainMenu
         SceneManager.LoadScene("MainMenu");
     }
@@ -69,8 +64,7 @@ public class Settings : MonoBehaviour
         }
     }
 
-    private void SavePlayStylePreferences(float value)
-    {
+    private void SavePlayStylePreferences(float value) {
         string json;
         if (value == 0) {
             json = JsonConvert.SerializeObject(CardPlaystyle.Clicking);

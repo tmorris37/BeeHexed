@@ -7,13 +7,10 @@ public class RejectButtonScript : MonoBehaviour {
     [SerializeField] private bool DEBUG_MODE;
     [SerializeField] private string emptyMapScene = "EmptyMap";
     public void LoadMapScene() {
-      if (MusicManager.Instance != null)
-      {
-        MusicManager.Instance.PlayNewGameMusic();
-      }
-      if (DEBUG_MODE) Debug.Log("Loading map...");
+        if (MusicManager.Instance != null) MusicManager.Instance.PlayNewGameMusic();
+        if (DEBUG_MODE) Debug.Log("Loading map...");
 
-      GameObject.Find("MapManager").GetComponent<MapManager>().MakeMapActive();
-      SceneManager.LoadScene(emptyMapScene);
+        GameObject.Find("MapManager").GetComponent<MapManager>().MakeMapActive();
+        SceneManager.LoadScene(emptyMapScene);
     }
 }

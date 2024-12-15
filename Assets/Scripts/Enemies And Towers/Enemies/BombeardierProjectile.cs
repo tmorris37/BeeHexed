@@ -15,16 +15,14 @@ namespace EnemyAndTowers
         public GameObject explosionPrefab;
 
         // Set the target for the projectile
-        public void Seek(Transform target)
-        {
+        public void Seek(Transform target) {
             this.target = target;
             startScale = transform.localScale; // Record initial scale
             if (target != null)
                 totalDistance = Vector3.Distance(transform.position, target.position); // Calculate total travel distance
         }
 
-        private void OnTriggerEnter2D(Collider2D other)
-        {
+        private void OnTriggerEnter2D(Collider2D other) {
             GameObject entity = other.transform.parent.gameObject;
             if (entity.CompareTag("Tower") && entity.transform == target)
             {
@@ -42,15 +40,13 @@ namespace EnemyAndTowers
                 // if (SFXManager.Instance != null)
             }
         }
-        private void Update()
-        {
+        private void Update() {
             // if (target == null)
             // {
             //     Destroy(gameObject); // Destroy the projectile if there's no target
             //     return;
             // }
-            if(transform == null || target == null)
-            {
+            if(transform == null || target == null) {
                 return;
             }
 
@@ -64,23 +60,18 @@ namespace EnemyAndTowers
             AnimateSize(progress);
 
             // Destroy projectile if it gets very close to the target (within 0.1 units)
-            if (Vector2.Distance(transform.position, target.position) < 0.1f)
-            {
+            if (Vector2.Distance(transform.position, target.position) < 0.1f) {
                 Destroy(gameObject);
                 // Optionally, you can add an effect here to represent the hit
             }
         }
 
-        private void AnimateSize(float progress)
-        {
+        private void AnimateSize(float progress) {
             // Size animation logic
-            if (progress <= 0.5f)
-            {
+            if (progress <= 0.5f) {
                 // Increase size to double at halfway point
                 transform.localScale = Vector3.Lerp(startScale, startScale * 2, progress * 2);
-            }
-            else
-            {
+            } else{
                 // Decrease size back to original size from halfway to the end
                 transform.localScale = Vector3.Lerp(startScale * 2, startScale, (progress - 0.5f) * 2);
             }

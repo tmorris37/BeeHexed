@@ -39,8 +39,7 @@ namespace EnemyAndTowers
 
         public List<(int, int, int)> DijkstraMoves;  // A List of the moves to be taken, calculated by Dijkstra
 
-        protected virtual void Start()
-        {
+        protected virtual void Start() {
             // Figure out the movement algorithm for the enemy
             DijkstraMoves = movement.DijkstraInitialize(this);
             
@@ -49,10 +48,8 @@ namespace EnemyAndTowers
 
             // Instantiates the Enemy at the Provided Spawn Location
             // If The Enemy could not spawn, despawn the sprite
-            if (!SetPosition())
-            {
-                if (DEBUG)
-                    Debug.Log("Despawning");
+            if (!SetPosition()) {
+                if (DEBUG) Debug.Log("Despawning");
                 Destroy(gameObject);
                 return;
             }
@@ -62,16 +59,13 @@ namespace EnemyAndTowers
             // TODO: Make the nemies not reliant on JSON files, use Unity Inspector instead
             var FileData = Resources.Load<TextAsset>("Enemies/" + enemyType);
 
-            if (FileData != null)
-            {
+            if (FileData != null) {
                 // TextAsset -> String (JSON)
                 string JSONPlainText = FileData.text;
                 // String (JSON) -> EnemyData Class
                 data = JsonConvert.DeserializeObject<EnemyData>(JSONPlainText);
                 // We can then read the values from the Data class as needed
-            }
-            else
-            {
+            } else{
                 Debug.Log("Unable to load Enemy:" + enemyType);
             }
 
@@ -95,16 +89,14 @@ namespace EnemyAndTowers
         }
 
         // Call this method to smoothly move the enemy to a target position
-        public virtual void MoveToPosition()
-        {
+        public virtual void MoveToPosition() {
             // Stop any ongoing movement to avoid conflicts
             StopAllCoroutines();
             StartCoroutine(MoveToTargetAtFixedSpeed());
         }
 
         // Coroutine to translate the position at a constant speed
-        private IEnumerator MoveToTargetAtFixedSpeed()
-        {
+        private IEnumerator MoveToTargetAtFixedSpeed() {
             // Store the initial position of the enemy
             Vector3 initialPosition = transform.position;
 
@@ -118,8 +110,7 @@ namespace EnemyAndTowers
 
 
             // Move the enemy towards the target position
-            while (elapsedTime < travelTime)
-            {
+            while (elapsedTime < travelTime) {
                 // Calculate interpolation value based on elapsed time
                 float t = elapsedTime / travelTime;
 
@@ -134,20 +125,17 @@ namespace EnemyAndTowers
             transform.position = targetPositionXY;
         }
 
-        protected virtual void Update()
-        {
+        protected virtual void Update() {
             // Update the list of targets from the detection script
             targets = detection.targets;
 
             // Check if the movement speed has changed and update the movement
-            if (moveSpeedLast != movementSpeed)
-            {
+            if (moveSpeedLast != movementSpeed) {
                 MoveToPosition();
             }
 
             // Check if the enemy has reached the targert position
-            if (targetPositionXY == transform.position && moveTimeRemaining <= 0f)
-            {
+            if (targetPositionXY == transform.position && moveTimeRemaining <= 0f) {
                 movement.DijkstraMove(this, DijkstraMoves);
             }
 
@@ -155,8 +143,7 @@ namespace EnemyAndTowers
             // If the enemy is a physical attacker and is stopped
             // Or if the enemy is a ranged attacker
             if (((attackType == "physical" && targetPositionXY == transform.position) || attackType == "ranged")
-                && attackCooldown <= 0f && targets.Count > 0)
-            {
+                && attackCooldown <= 0f && targets.Count > 0) {
                 Attack();
             }
             
@@ -169,18 +156,15 @@ namespace EnemyAndTowers
 
         // Deal damage to all targets in range
         // Assumes that the attackCooldown is off and resets it
-        protected virtual void Attack()
-        {
+        protected virtual void Attack() {
             // Loop through all targets and deal damage
-            foreach (Transform tower in targets)
-            {
+            foreach (Transform tower in targets) {
                 Tower towerScript = tower.GetComponent<Tower>();
-                if (towerScript != null)
-                {
+                if (towerScript != null) {
                     towerScript.TakeDamage(attackDamage);
                     // If the tower is a barricade and attck is physical, take damage
-                    if (towerScript.GetComponent<BearricadeTower>() != null && attackType == "physical")
-                    {
+                    // TODO: Move this to BearricadeTower.cs
+                    if (towerScript.GetComponent<BearricadeTower>() != null && attackType == "physical") {
                         TakeDamage(1);
                     }
                 }
@@ -189,14 +173,12 @@ namespace EnemyAndTowers
         }
 
         // Method to deal damage to the enemy
-        public virtual void TakeDamage(int damage)
-        {
+        public virtual void TakeDamage(int damage) {
             StartCoroutine(UpdateHealthAfterDelay(damage, 0.04f));
         }
 
         // Coroutine to update the health after a delay
-        private IEnumerator UpdateHealthAfterDelay(int damage, float delay)
-        {
+        private IEnumerator UpdateHealthAfterDelay(int damage, float delay) {
             yield return new WaitForSeconds(delay);
             this.health = this.health - damage;
             // healthBar.UpdateHealthBar(this.health, this.data.MaxHP);

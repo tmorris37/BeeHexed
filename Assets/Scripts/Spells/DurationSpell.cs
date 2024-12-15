@@ -2,18 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class DurationSpell : MonoBehaviour
-{
+public abstract class DurationSpell : MonoBehaviour {
     // how long the spell lasts
     [SerializeField] private float spellDuration;
     // how long the spell has been in effect for
     private float currTime;
     // set duration and begin the effect
-    void Start()
-    {
+    
+    void Start() {
         spellDuration = GetDuration();
         StartEffect();
     }
+
     // increase time framerate-independently each frame until duration is met, then end the effect
     void Update() {
         if (currTime <= spellDuration) {

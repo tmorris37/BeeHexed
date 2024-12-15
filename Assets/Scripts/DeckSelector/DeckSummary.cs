@@ -21,8 +21,7 @@ public class DeckSummary : MonoBehaviour {
     private RectTransform rectTransform;
     private string deckName;
     public int testWidth;
-    void Awake()
-    {
+    void Awake() {
         rectTransform = GetComponent<RectTransform>();
         titleText = FindObjectOfType<TextMeshProUGUI>();
         deck = new();
@@ -73,8 +72,7 @@ public class DeckSummary : MonoBehaviour {
     }
 
 
-    public Vector3[] CalculatePositions()
-    {
+    public Vector3[] CalculatePositions() {
         Vector3[] positions = new Vector3[maxCardsInRow * maxRows];
         int numCards = deck.Count;
         if (DEBUG_MODE) Debug.Log("Number of Cards: " + numCards);
@@ -86,7 +84,7 @@ public class DeckSummary : MonoBehaviour {
             width = testWidth;
         } else {
             width = rectTransform.rect.width;
-        }   
+        }
         // what row we are on
         if (DEBUG_MODE) Debug.Log("Rows required " + Math.Ceiling((double)numCards / maxCardsInRow));
         for (int row = 0; row < Math.Ceiling((double)numCards / maxCardsInRow); row++) {
@@ -112,8 +110,6 @@ public class DeckSummary : MonoBehaviour {
 
 
     public void TEST_SetDeck(List<Card> deck) {
-        if (DEVELOPER_MODE) {
-            this.deck = deck;
-        }
+        if (DEVELOPER_MODE) this.deck = deck;
     }
 }

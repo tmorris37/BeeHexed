@@ -16,22 +16,14 @@ namespace EnemyAndTowers
 
         //public Animator animator;
 
-        protected override void Start()
-        {
+        protected override void Start() {
             base.Start();
-            
             pulseCountdown = fireRate; // Initialize the pulse countdown
         }
 
-        protected override void Update()
-        {
-            this.targets = detection.targets;
-            if (this.health <= 0)
-            {
-                HexTile tile = gridManager.FetchTile(q,r,s);
-                tile.LeaveTile(gameObject);
-                Destroy(gameObject);
-            }
+        protected override void Update() {
+            base.Update();
+            targets = detection.targets;
             // Pulse effect logic
             if (pulseCountdown <= 0f)
             {
@@ -41,22 +33,14 @@ namespace EnemyAndTowers
             pulseCountdown -= Time.deltaTime;
         }
 
-        private void DealDamage()
-        {
+        private void DealDamage() {
             foreach (Transform enemy in targets)
             {
                 Enemy enemyScript = enemy.GetComponent<Enemy>();
-                if (enemyScript != null)
-                {
+                if (enemyScript != null) {
                     enemyScript.TakeDamage(damage);
-                    if (circleAnimator != null)
-                    {
-                        circleAnimator.SetTrigger("PulseEffect");
-                    }
-                    if (SFXManager.Instance != null)
-                    {
-                        SFXManager.Instance.PlayPulse();
-                    }
+                    if (circleAnimator != null) circleAnimator.SetTrigger("PulseEffect");
+                    if (SFXManager.Instance != null) SFXManager.Instance.PlayPulse();
                 }
             }
         }

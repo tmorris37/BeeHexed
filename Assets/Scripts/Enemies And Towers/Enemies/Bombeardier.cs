@@ -11,23 +11,23 @@ namespace EnemyAndTowers
     {
         public GameObject bombPrefab;
         
-        protected override void Start()
-        {
+        protected override void Start() {
             base.Start();
         }
 
-        protected override void Attack()
-        {
+        // Deal damage to first target in range
+        // Assumes that the attackCooldown is off and resets it
+        protected override void Attack() {
             Transform target = targets.First();
 
             GameObject bomb = Instantiate(bombPrefab, transform.position, Quaternion.identity);
             BombeardierProjectile bombScript = bomb.GetComponent<BombeardierProjectile>();
             bombScript.bombDamage = attackDamage;
             bombScript?.Seek(target.transform);
-            if (SFXManager.Instance != null)
-            {
+            if (SFXManager.Instance != null) {
                 SFXManager.Instance.PlayToss();
             }
+            attackCooldown = attackRate;
         }
     }
 }

@@ -21,8 +21,7 @@ public class DeckSelector : MonoBehaviour, IPointerDownHandler, IPointerEnterHan
     private SelectionManager selectionManager;
     private bool playAudio = true;
 
-    void Awake()
-    {
+    void Awake() {
         selectionManager = FindObjectOfType<SelectionManager>();
         highlight.SetActive(false); 
         selectColor = new Color(0, 255, 208, 255f);
@@ -40,15 +39,13 @@ public class DeckSelector : MonoBehaviour, IPointerDownHandler, IPointerEnterHan
         }
     }
 
-    public void OnPointerDown(PointerEventData eventData)
-    {
+    public void OnPointerDown(PointerEventData eventData) {
         WriteDeckNameToFile(name);
         playAudio = true;
         selectionManager.Select(name);
     }
 
-    public void OnPointerExit(PointerEventData eventData)
-    {
+    public void OnPointerExit(PointerEventData eventData) {
         if (!selected) {
             highlight.SetActive(false);
             transform.localScale /= hoverScale;
@@ -95,8 +92,7 @@ public class DeckSelector : MonoBehaviour, IPointerDownHandler, IPointerEnterHan
     }
 
     private void WriteDeckNameToFile(string name) {
-        PlayerData playerData = new()
-        {
+        PlayerData playerData = new() {
             deckName = name,
             cardPaths = null,
             themeColor = BasicColor.ConvertToBasicColor(themeColor)
@@ -143,5 +139,4 @@ public class DeckSelector : MonoBehaviour, IPointerDownHandler, IPointerEnterHan
         }
         
     }
-
 }

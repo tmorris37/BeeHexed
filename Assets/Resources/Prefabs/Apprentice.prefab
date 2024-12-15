@@ -169,7 +169,7 @@ GameObject:
   - component: {fileID: 7540821712904116268}
   - component: {fileID: 228316500209673582}
   m_Layer: 0
-  m_Name: StraightShooter
+  m_Name: Apprentice
   m_TagString: Tower
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

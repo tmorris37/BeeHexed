@@ -19,21 +19,17 @@ namespace EnemyAndTowers
         [SerializeField] private GridManager GridManager;
         
         // Debug function letting us know the move was successful or not
-        public void moveFailure()
-        {
-            if (DEBUG)
-                Debug.Log("Move failed");
+        public void moveFailure() {
+            if (DEBUG) Debug.Log("Move failed");
         }
 
         // Rotate the enemy to face the target position
-        public void RotateTowards(Enemy enemy, Vector3 targetPosition)
-        {
+        public void RotateTowards(Enemy enemy, Vector3 targetPosition) {
             // Calculate the direction vector
             Vector3 direction = targetPosition - enemy.transform.position;
 
             // Rotate to face direction
-            if (direction != Vector3.zero)
-            {
+            if (direction != Vector3.zero) {
                 float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
                 enemy.transform.rotation = Quaternion.Euler(0, 0, angle);
             }
@@ -41,21 +37,16 @@ namespace EnemyAndTowers
 
         // Move the enemy to the northwest
         // Returns true if the move was successful, false otherwise
-        public bool MoveNW(Enemy enemy, int q, int r, int s)
-        {
+        public bool MoveNW(Enemy enemy, int q, int r, int s) {
             (float a, float b) = GridManager.QRStoXY(q,r-1,s+1);
             Vector3 targetPositionXY = new Vector3(a, b, 0);
             enemy.targetPositionXY = targetPositionXY;
-            if (enemy.Move("Northwest") == 1)
-            {
+            if (enemy.Move("Northwest") == 1) {
                 RotateTowards(enemy, targetPositionXY);
                 enemy.MoveToPosition();
                 return true;
             }
-            if (BlockedByTower(enemy))
-            {
-                RotateTowards(enemy, targetPositionXY);
-            }
+            if (BlockedByTower(enemy)) RotateTowards(enemy, targetPositionXY);
             return false;
         }
 
@@ -66,16 +57,12 @@ namespace EnemyAndTowers
             (float a, float b) = GridManager.QRStoXY(q+1,r-1,s);
             Vector3 targetPositionXY = new Vector3(a, b, 0);
             enemy.targetPositionXY = targetPositionXY;
-            if (enemy.Move("Northeast") == 1)
-            {
+            if (enemy.Move("Northeast") == 1) {
                 RotateTowards(enemy, targetPositionXY);
                 enemy.MoveToPosition();
                 return true;
             }
-            if (BlockedByTower(enemy))
-            {
-                RotateTowards(enemy, targetPositionXY);
-            }
+            if (BlockedByTower(enemy)) RotateTowards(enemy, targetPositionXY);
             return false;
         }
 
@@ -86,16 +73,12 @@ namespace EnemyAndTowers
             (float a, float b) = GridManager.QRStoXY(q+1,r,s-1);
             Vector3 targetPositionXY = new Vector3(a, b, 0);
             enemy.targetPositionXY = targetPositionXY;
-            if (enemy.Move("East") == 1)
-            {
+            if (enemy.Move("East") == 1) {
                 RotateTowards(enemy, targetPositionXY);
                 enemy.MoveToPosition();
                 return true;
             }
-            if (BlockedByTower(enemy))
-            {
-                RotateTowards(enemy, targetPositionXY);
-            }
+            if (BlockedByTower(enemy)) RotateTowards(enemy, targetPositionXY);
             return false;
         }
 
@@ -106,16 +89,12 @@ namespace EnemyAndTowers
             (float a, float b) = GridManager.QRStoXY(q,r+1,s-1);
             Vector3 targetPositionXY = new Vector3(a, b, 0);
             enemy.targetPositionXY = targetPositionXY;
-            if (enemy.Move("Southeast") == 1)
-            {
+            if (enemy.Move("Southeast") == 1) {
                 RotateTowards(enemy, targetPositionXY);
                 enemy.MoveToPosition();
                 return true;
             }
-            if (BlockedByTower(enemy))
-            {
-                RotateTowards(enemy, targetPositionXY);
-            }
+            if (BlockedByTower(enemy)) RotateTowards(enemy, targetPositionXY);
             return false;
         }
 
@@ -132,10 +111,7 @@ namespace EnemyAndTowers
                 enemy.MoveToPosition();
                 return true;
             }
-            if (BlockedByTower(enemy))
-            {
-                RotateTowards(enemy, targetPositionXY);
-            }
+            if (BlockedByTower(enemy)) RotateTowards(enemy, targetPositionXY);
             return false;
         }
 
@@ -152,10 +128,7 @@ namespace EnemyAndTowers
                 enemy.MoveToPosition();
                 return true;
             }
-            if (BlockedByTower(enemy))
-            {
-                RotateTowards(enemy, targetPositionXY);
-            }
+            if (BlockedByTower(enemy)) RotateTowards(enemy, targetPositionXY);
             return false;
         }
 
@@ -173,8 +146,7 @@ namespace EnemyAndTowers
                 return false;
             }
             // If the enemy is on a spoke
-            if (q == 0 || r == 0 || s == 0)
-            {
+            if (q == 0 || r == 0 || s == 0) {
                 //Try to move towards the center
                 if (moveInOnSpokes(enemy)) {
                     enemy.inertiaIO = I;
@@ -200,8 +172,7 @@ namespace EnemyAndTowers
                     enemy.desiredInertiaDir = CW;
                 }
                 // Try to move clockwise
-                if (enemy.inertiaDir == CW || enemy.desiredInertiaDir == CW)
-                {
+                if (enemy.inertiaDir == CW || enemy.desiredInertiaDir == CW) {
                     if (moveClockwise(enemy)) {
                         enemy.inertiaDir = CW;
                         enemy.desiredInertiaDir = NULLDIR;
@@ -223,8 +194,7 @@ namespace EnemyAndTowers
                     }
                 }
                 // Try to move counterclockwise
-                if (enemy.inertiaDir == CCW || enemy.desiredInertiaDir == CCW)
-                {
+                if (enemy.inertiaDir == CCW || enemy.desiredInertiaDir == CCW) {
                     if (moveCounterclockwise(enemy)) {
                         enemy.inertiaDir = CCW;
                         enemy.desiredInertiaDir = NULLDIR;
@@ -284,20 +254,6 @@ namespace EnemyAndTowers
                     }
                 }
                 return false;
-
-                // // Try to move out
-                // if ((enemy.inertiaDir == NULLDIR && enemy.desiredInertiaDir == NULLDIR)
-                // && (enemy.inertiaIO == O || enemy.desiredInertiaIO == O)) {
-                //     if (moveOutOnSpokes(enemy)) {
-                //         enemy.inertiaIO = O;
-                //         return true;
-                //     }
-                //     // Failed, check if the blocker was a tower
-                //     if (BlockedByTower(enemy)) {
-                //         enemy.desiredInertiaIO = O;
-                //         return false;
-                //     }
-                // }
             }
 
             // If the enemy is not on a spoke
@@ -313,8 +269,7 @@ namespace EnemyAndTowers
             
             // Try to move clockwise
             if ((enemy.inertiaDir == CW || enemy.desiredInertiaDir == CW)
-            && enemy.desiredInertiaIO == NULLDIR)
-            {
+            && enemy.desiredInertiaIO == NULLDIR) {
                 if (moveClockwise(enemy)) {
                     enemy.inertiaDir = CW;
                     enemy.desiredInertiaDir = NULLDIR;
@@ -331,8 +286,7 @@ namespace EnemyAndTowers
             }
             // Try to move clockwise in
             if ((enemy.inertiaDir == CW || enemy.desiredInertiaDir == CW)
-            && (enemy.desiredInertiaIO == I))
-            {
+            && (enemy.desiredInertiaIO == I)) {
                 if (moveClockwiseIn(enemy)) {
                     enemy.inertiaDir = CW;
                     enemy.desiredInertiaDir = NULLDIR;
@@ -361,8 +315,7 @@ namespace EnemyAndTowers
             }
             // Try to move counterclockwise in
             if ((enemy.inertiaDir == CCW || enemy.desiredInertiaDir == CCW)
-            && enemy.desiredInertiaIO == I)
-            {
+            && enemy.desiredInertiaIO == I) {
                 if (moveCounterclockwiseIn(enemy)) {
                     enemy.inertiaDir = CCW;
                     enemy.desiredInertiaDir = NULLDIR;
@@ -376,9 +329,6 @@ namespace EnemyAndTowers
                     enemy.inertiaIO = I;
                     return false;
                 }
-                // enemy.inertiaIO = NULLDIR;
-                // enemy.desiredInertiaIO = NULLDIR;
-                // enemy.desiredInertiaDir = CW;
                 if (enemy.inertiaDir == CCW) {
                     enemy.desiredInertiaDir = CW;
                     enemy.desiredInertiaIO = I;
@@ -388,8 +338,7 @@ namespace EnemyAndTowers
             }
             // Try to move counterclockwise
             if ((enemy.inertiaDir == CCW || enemy.desiredInertiaDir == CCW)
-            && enemy.desiredInertiaIO == NULLDIR)
-            {
+            && enemy.desiredInertiaIO == NULLDIR) {
                 if (moveCounterclockwise(enemy)) {
                     enemy.inertiaDir = CCW;
                     enemy.desiredInertiaDir = NULLDIR;
@@ -412,20 +361,15 @@ namespace EnemyAndTowers
         }
 
         // Checks to see if the target position is blocked by an obstacle
-        public bool BlockedByTower(Enemy enemy)
-        {
+        public bool BlockedByTower(Enemy enemy) {
             (int q, int r, int s) = GridManager.XYtoQRS(enemy.targetPositionXY.x, enemy.targetPositionXY.y);
-            if (enemy.isBlockedBy(q, r, s) == 1)
-            {
-                return true;
-            }
+            if (enemy.isBlockedBy(q, r, s) == 1) return true;
             return false;
         }
 
         // Move the enemy counterclockwise and towards the middle
         // Returns true if the move was successful, false otherwise
-        public bool moveCounterclockwiseIn(Enemy enemy)
-        {
+        public bool moveCounterclockwiseIn(Enemy enemy) {
             // Get the current position of the enemy
             int q = enemy.q;
             int r = enemy.r;
@@ -437,8 +381,7 @@ namespace EnemyAndTowers
             }
 
             // If the enemy is not on a spoke
-            if (q != 0 && r != 0 && s != 0)
-            {
+            if (q != 0 && r != 0 && s != 0) {
                 int absq = Math.Abs(q);
                 int absr = Math.Abs(r);
                 int abss = Math.Abs(s);
@@ -462,8 +405,7 @@ namespace EnemyAndTowers
 
         // Move the enemy clockwise and towards from the middle
         // Returns true if the move was successful, false otherwise
-        public bool moveClockwiseIn(Enemy enemy)
-        {
+        public bool moveClockwiseIn(Enemy enemy) {
             // Get the current position of the enemy
             int q = enemy.q;
             int r = enemy.r;
@@ -475,8 +417,7 @@ namespace EnemyAndTowers
             }
 
             // If the enemy is not on a spoke
-            if (q != 0 && r != 0 && s != 0)
-            {
+            if (q != 0 && r != 0 && s != 0) {
                 int absq = Math.Abs(q);
                 int absr = Math.Abs(r);
                 int abss = Math.Abs(s);
@@ -500,8 +441,7 @@ namespace EnemyAndTowers
 
         // Move the enemy counterclockwise and away from the middle
         // Returns true if the move was successful, false otherwise
-        public bool moveCounterclockwiseOut(Enemy enemy)
-        {
+        public bool moveCounterclockwiseOut(Enemy enemy) {
             // Get the current position of the enemy
             int q = enemy.q;
             int r = enemy.r;
@@ -513,8 +453,7 @@ namespace EnemyAndTowers
             }
 
             // If the enemy is not on a spoke
-            if (q != 0 && r != 0 && s != 0)
-            {
+            if (q != 0 && r != 0 && s != 0) {
                 int absq = Math.Abs(q);
                 int absr = Math.Abs(r);
                 int abss = Math.Abs(s);
@@ -559,8 +498,7 @@ namespace EnemyAndTowers
 
         // Move the enemy clockwise and away from the middle
         // Returns true if the move was successful, false otherwise
-        public bool moveClockwiseOut(Enemy enemy)
-        {
+        public bool moveClockwiseOut(Enemy enemy) {
             // Get the current position of the enemy
             int q = enemy.q;
             int r = enemy.r;
@@ -572,8 +510,7 @@ namespace EnemyAndTowers
             }
 
             // If the enemy is not on a spoke
-            if (q != 0 && r != 0 && s != 0)
-            {
+            if (q != 0 && r != 0 && s != 0) {
                 int absq = Math.Abs(q);
                 int absr = Math.Abs(r);
                 int abss = Math.Abs(s);
@@ -618,8 +555,7 @@ namespace EnemyAndTowers
         
         // Move the enemy counterclockwise along the hex grid
         // Returns true if the move was successful, false otherwise
-        public bool moveCounterclockwise(Enemy enemy)
-        {
+        public bool moveCounterclockwise(Enemy enemy) {
             // Get the current position of the enemy
             int q = enemy.q;
             int r = enemy.r;
@@ -631,8 +567,7 @@ namespace EnemyAndTowers
             }
 
             // If the enemy is not on a spoke
-            if (q != 0 && r != 0 && s != 0)
-            {
+            if (q != 0 && r != 0 && s != 0) {
                 int absq = Math.Abs(q);
                 int absr = Math.Abs(r);
                 int abss = Math.Abs(s);
@@ -677,8 +612,7 @@ namespace EnemyAndTowers
 
         // Move the enemy clockwise along the hex grid
         // Returns true if the move was successful, false otherwise
-        public bool moveClockwise(Enemy enemy)
-        {
+        public bool moveClockwise(Enemy enemy) {
             // Get the current position of the enemy
             int q = enemy.q;
             int r = enemy.r;
@@ -690,8 +624,7 @@ namespace EnemyAndTowers
             }
 
             // If the enemy is not on a spoke
-            if (q != 0 && r != 0 && s != 0)
-            {
+            if (q != 0 && r != 0 && s != 0) {
                 int absq = Math.Abs(q);
                 int absr = Math.Abs(r);
                 int abss = Math.Abs(s);
@@ -736,8 +669,7 @@ namespace EnemyAndTowers
 
         // If on a spoke, move the enemy towards the center of the hex grid
         // Returns true if the move was successful, false otherwise
-        public bool moveInOnSpokes(Enemy enemy)
-        {
+        public bool moveInOnSpokes(Enemy enemy) {
             // Get the current position of the enemy
             int q = enemy.q;
             int r = enemy.r;
@@ -773,8 +705,7 @@ namespace EnemyAndTowers
 
         // If on a spoke, move the enemy away from the center of the hex grid
         // Returns true if the move was successful, false otherwise
-        public bool moveOutOnSpokes(Enemy enemy)
-        {
+        public bool moveOutOnSpokes(Enemy enemy) {
             // Get the current position of the enemy
             int q = enemy.q;
             int r = enemy.r;
@@ -811,13 +742,12 @@ namespace EnemyAndTowers
         // Calculates and returns the Optimal path from the enemy to (0,0,0)
         // Note: List includes Enemy's current position. Adds a delay. To 
         //       resolve, execute DijkstraMoves.RemoveAt(0) before the return
-        public List<(int, int, int)> DijkstraInitialize(Enemy enemy)
-        {
+        public List<(int, int, int)> DijkstraInitialize(Enemy enemy) {
             (int q, int r, int s) = (enemy.q, enemy.r, enemy.s);
 
             ShortestPath pathfinder = new ShortestPath();
 
-            List<(int, int, int)> DijkstraMoves = 
+            List<(int, int, int)> DijkstraMoves =
                 pathfinder.DijkstraSimple(this.GridManager, (q, r, s), (0, 0, 0), DijkstraCallback);
             
             if (DEBUG) {
@@ -833,22 +763,21 @@ namespace EnemyAndTowers
             return DijkstraMoves;
         }
 
-        public bool DijkstraCallback((int, int, int) QRSTuple)
-        {
+        public bool DijkstraCallback((int, int, int) QRSTuple) {
             (int q, int r, int s) = QRSTuple;
 
             return this.GridManager.FetchTile(q, r, s).getOccupiedByObstacle();
         }
 
+        // For expected behavior, call this function once the enemy has reached the last target position
+        // The enemy will rotate towards the next target position regardless of whether it moves or not
         // Reads the next movement in the provided list. If it is possible, will move (returns true)
         // Otherwise, will not move, does not change the List, and does not update targetPositionXY
-        public bool DijkstraMove(Enemy enemy, List<(int, int, int)> DijkstraMoves)
-        {
+        public bool DijkstraMove(Enemy enemy, List<(int, int, int)> DijkstraMoves) {
             (int q, int r, int s) = (enemy.q, enemy.r, enemy.s);
 
             // If enemy is at the origin, do nothing
-            if ((q == 0 && r == 0 && s == 0) || DijkstraMoves.Count == 0)
-                return false;
+            if ((q == 0 && r == 0 && s == 0) || DijkstraMoves.Count == 0) return false;
 
             (int targetQ, int targetR, int targetS) = DijkstraMoves[0];
 
@@ -867,9 +796,7 @@ namespace EnemyAndTowers
                 enemy.MoveToPosition();
                 return true;
             }
-            if (BlockedByTower(enemy)) {
-                RotateTowards(enemy, targetPositionXY);
-            }
+            if (BlockedByTower(enemy)) RotateTowards(enemy, targetPositionXY);
             return false;
         }
     }

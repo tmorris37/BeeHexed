@@ -6,8 +6,7 @@ using GridSystem;
 using EnemyAndTowers;
 using Node;
 
-public class OverworldTileSpawner : MonoBehaviour
-{
+public class OverworldTileSpawner : MonoBehaviour {
     [SerializeField] public GridManager gridManager;
 
     // Corresponds to 2 Prefabs we might want to spawn
@@ -22,13 +21,11 @@ public class OverworldTileSpawner : MonoBehaviour
     // Assume you have a Dictionary to map QRS to children
     [SerializeField] private Dictionary<Vector3Int, SpriteRenderer> qrsToChildMap;
 
-    void Awake() 
-    {
+    void Awake() {
         nodeGenerator = GameObject.Find("NodeGenerator").GetComponent<NodeGenerator>();
     }
 
-        void Start()
-    {
+        void Start() {
         // Initialize the tilePositions list and the qrsToChildMap dictionary
         tilePositions = new List<Vector3Int>();
         qrsToChildMap = new Dictionary<Vector3Int, SpriteRenderer>();
@@ -39,25 +36,21 @@ public class OverworldTileSpawner : MonoBehaviour
 
     public void GetPaths() {
         PathingAlgo pathfinder = new PathingAlgo();
-        this.pathTilePositions = pathfinder.GetPathTiles(this.gridManager);
+        pathTilePositions = pathfinder.GetPathTiles(this.gridManager);
     }
 
 
     // Checks if the Tile is in obstacleTracker
-    public bool DijkstraCallback((int, int, int) QRSTuple)
-    {
+    public bool DijkstraCallback((int, int, int) QRSTuple) {
         return false;
     }
 
        // Spawns all the tiles in the grid
-    public void SpawnTiles()
-    {
+    public void SpawnTiles() {
         int q,r,s;
         int radius = gridManager.GridRadius;
-        for (int i = 0; i < radius + 1; i++)
-        {
-            for (int j = 0; j < radius + i + 1; j++)
-            {
+        for (int i = 0; i < radius + 1; i++) {
+            for (int j = 0; j < radius + i + 1; j++) {
                 q = gridManager.IJtoQRS(i,j).Item1;
                 r = gridManager.IJtoQRS(i,j).Item2;
                 s = gridManager.IJtoQRS(i,j).Item3;
@@ -68,10 +61,8 @@ public class OverworldTileSpawner : MonoBehaviour
                 }
             }
         }
-        for (int i = radius + 1; i < radius * 2 + 1; i++)
-        {
-            for (int j = 0; j < 2 * radius - (i - 1) % radius; j++)
-            {
+        for (int i = radius + 1; i < radius * 2 + 1; i++) {
+            for (int j = 0; j < 2 * radius - (i - 1) % radius; j++) {
                 q = gridManager.IJtoQRS(i,j).Item1;
                 r = gridManager.IJtoQRS(i,j).Item2;
                 s = gridManager.IJtoQRS(i,j).Item3;
@@ -85,8 +76,7 @@ public class OverworldTileSpawner : MonoBehaviour
     }
 
    // Spawns an Obstacle at (q, r, s). Checks to ensure spawnable, deletes otherwise
-    public void SpawnTile(int q, int r, int s, string type = "Normal")
-    {
+    public void SpawnTile(int q, int r, int s, string type = "Normal") {
         GameObject CurrentTile;
         if (type == "Path") {
             CurrentTile = Instantiate(RandomTileFromList(type));
@@ -107,32 +97,23 @@ public class OverworldTileSpawner : MonoBehaviour
         CurrentTile.transform.position = new Vector3(x, y, 0);
     }
 
-    public bool HasTile(Vector3Int position)
-    {
-        foreach (Vector3Int tilePosition in tilePositions)
-        {
-            if (tilePosition == position)
-            {
-                return true;
-            }
+    public bool HasTile(Vector3Int position) {
+        foreach (Vector3Int tilePosition in tilePositions) {
+            if (tilePosition == position) return true;
         }
         return false;
     }
 
-    public void ColorTile(Vector3Int position, Color color)
-    {
+    public void ColorTile(Vector3Int position, Color color) {
         // Convert XY to QRS
         (int q, int r, int s) = (position.x, position.y, position.z);
         Vector3Int qrsPosition = new Vector3Int(q, r, s);
 
         // Check if the tile exists in the map
-        if (qrsToChildMap.TryGetValue(qrsPosition, out SpriteRenderer spriteRenderer))
-        {
+        if (qrsToChildMap.TryGetValue(qrsPosition, out SpriteRenderer spriteRenderer)) {
             // Apply the color to the correct child
             spriteRenderer.color = color;
-        }
-        else
-        {
+        } else {
             Debug.LogWarning($"Tile at QRS {qrsPosition} not found!");
         }
     }
@@ -144,7 +125,6 @@ public class OverworldTileSpawner : MonoBehaviour
         } else {
             return normalTiles[Random.Range(0, normalTiles.Count)];
         }
-        
     }
 
 }

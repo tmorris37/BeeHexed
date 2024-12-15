@@ -10,10 +10,6 @@ public class PlayerHealthManager : MonoBehaviour
     public TextMeshProUGUI playerHealthText;
     private int currentPlayerHealth = 100;
     //GameObject playerHealth;
-    void Awake()
-    {
-        //playerHealth = GameObject.FindWithTag("PlayerHealth");
-    }
 
     public void TakeDamage(int value) {
         if (currentPlayerHealth <= value) {
@@ -24,13 +20,11 @@ public class PlayerHealthManager : MonoBehaviour
     }
 
     public int GetPlayerHealth() {
-      return currentPlayerHealth;
+        return currentPlayerHealth;
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        //currentPlayerHealth = (int)Math.Ceiling(playerHealth.GetComponent<FloatingHealthBar>().GetValue());
+    void Update() {
         playerHealthText.text = currentPlayerHealth.ToString();
     }
 }

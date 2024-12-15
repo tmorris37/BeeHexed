@@ -5,8 +5,7 @@ using UnityEngine.SceneManagement;
 using Node;
 
 namespace Node {
-    public class NodeScript : MonoBehaviour
-    {
+    public class NodeScript : MonoBehaviour {
         [SerializeField] string nodeName;
         private SpriteRenderer spriteRenderer;
         [Header("Sprites")]
@@ -14,36 +13,30 @@ namespace Node {
         public Sprite highlightSprite;   // The sprite for when hovering
 
 
-        void Start()
-        {
+        void Start() {
             // Cache the SpriteRenderer and original color
             spriteRenderer = GetComponent<SpriteRenderer>();
             // Set the default sprite at the start
             if (defaultSprite != null)
                 spriteRenderer.sprite = defaultSprite;
-
         }
 
-        void OnMouseEnter()
-        {
+        void OnMouseEnter() {
             // Change to the highlight sprite on hover
             if (highlightSprite != null)
                 spriteRenderer.sprite = highlightSprite;
         }
 
-        void OnMouseExit()
-        {
+        void OnMouseExit() {
             // Reset to the default sprite when no longer hovering
             if (defaultSprite != null)
                 spriteRenderer.sprite = defaultSprite;
         }
 
-        void OnMouseDown()
-        {
+        void OnMouseDown() {
             // Interaction logic when the GameObject is clicked
             GameObject.Find("MapManager").GetComponent<MapManager>().MakeMapInactive();
             SceneManager.LoadScene(nodeName);
-
         }
     }
 }

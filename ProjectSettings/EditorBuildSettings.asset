@@ -36,7 +36,7 @@ EditorBuildSettings:
     path: Assets/Scenes/ToyBox/OverworldToyBox.unity
     guid: cb1d76b76f1c442e98acfc073759567e
   - enabled: 1
-    path: Assets/Scenes/Level0.unity
+    path: Assets/Scenes/Level0 old.unity
     guid: f7445846e0df3bc4b919e468b7da42ac
   - enabled: 1
     path: Assets/Scenes/Level2.unity

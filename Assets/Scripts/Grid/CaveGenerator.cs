@@ -20,6 +20,7 @@ namespace EnemyAndTowers
         public List<Vector3> cavePositions = new List<Vector3>();
 
         HashSet<int> usedEdges;
+        [SerializeField] private Seed seedManager;
 
         void Awake() {
             GenerateCaves();

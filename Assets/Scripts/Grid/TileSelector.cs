@@ -10,6 +10,7 @@ namespace GridSystem {
         // If (N > 6*Radius): Returns List with size 6*Radius
         // Otherwise: Returns List with size N
         // If Callback function is specifed, will only add (q, r, s) values that satisfy the Callback
+
         public List<(int, int, int)> SelectNRandomTiles(int N, int Radius, Predicate<(int, int, int)> ConditionCallback = null) {
             List<(int, int, int)> AvailableTiles = TilesInRing(Radius);
 
@@ -26,8 +27,14 @@ namespace GridSystem {
             int i = 0;
 
             while (i < Quantity && AvailableTiles.Count != 0) {
+                // Checks if Seed is null and if it is creates a new one
+                if (Seed.Instance == null) {
+                    GameObject seedObject = new GameObject("SeedContainer");
+                    Seed seed = seedObject.AddComponent<Seed>();
+                    seed.SetSeedFromTime();
+                }
                 // Selects a random tile from the currently available ones
-                int RandomIndex = UnityEngine.Random.Range(0, AvailableTiles.Count);
+                int RandomIndex = Seed.Instance.GetRandomInt(0, AvailableTiles.Count);
 
                 // Shifts the (q, r, s) value from AvailableTiles to NRandomTiles
                 // Only shifts if there is no Callback or if Callback returns true

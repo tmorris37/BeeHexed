@@ -20,10 +20,10 @@ namespace EnemyAndTowers
         // [SerializeField] protected FloatingHealthBar healthBar;
         public string enemyType;                // Type of enemy
         public int health;                  // Current health of the enemy
-        public float movementSpeed = 0.5f;  // Speed at which the enemy moves (tiles per second)
+        public float movementSpeed;  // Speed at which the enemy moves (tiles per second)
         public float moveSpeedLast;         // Speed of the enemy last update
         public float moveTimeRemaining;     // Time remaining to move to the next tile
-        public float attackRate = 1f;       // Time between attacks
+        public float attackRate;       // Time between attacks
         public float attackCooldown;        // Time remaining before the enemy can attack again
         public int attackDamage;            // Damage dealt by the enemy
         public string attackType;           // Type of attack

@@ -24,6 +24,7 @@ public class ObstacleSpawner : MonoBehaviour
     [SerializeField] public List<int> Inputs;
 
     public List<(int, int, int)> obstacleTracker;
+    [SerializeField] private Seed seedManager;
 
     void Start() {
         Obstacles = AddObstaclePrefabs();
@@ -62,7 +63,7 @@ public class ObstacleSpawner : MonoBehaviour
     // If X < 0, no obstacles. If X > 1, all obstacles
     public void SpawnXPercentObstaclesPerRing(float X, int offset = 0) {
         List<int> PercentageObstacles = new List<int>();
-        for (int i = 1; i < this.gridManager.GridRadius; i++) {
+        for (int i = 1; i < gridManager.GridRadius; i++) {
             PercentageObstacles.Add(((int) (X * i * 6)) - offset);
         }
         SpawnObstaclesPerRing(PercentageObstacles);

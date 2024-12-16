@@ -23,8 +23,8 @@ namespace Node {
         [SerializeField] public int radius;
         [SerializeField] public bool DEBUG;
         public List<Vector3> nodePositions = new List<Vector3>();
-
         HashSet<int> usedEdges;
+        [SerializeField] private Seed seedManager;
 
         void Awake() {
             GenerateNodes();
@@ -34,7 +34,9 @@ namespace Node {
             usedEdges = new HashSet<int>();  // Track used edges
 
             TileSelector nodeTileSelector = new TileSelector();
-            List<(int, int, int)> nodeLocations = nodeTileSelector.SelectNRandomTiles(numNodes, radius, TileSelectorCallback);
+            List<(int, int, int)> nodeLocations = nodeTileSelector.SelectNRandomTiles(numNodes,
+                                                                                    radius,
+                                                                                    TileSelectorCallback);
 
             int q, r, s;
             for (int i = 0; i < nodeLocations.Count; i++) {

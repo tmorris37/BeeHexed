@@ -38,10 +38,10 @@ public class Spawner : MonoBehaviour
     private MamaBear mamaBear;
 
     void Start() {
+        if(MusicManager.Instance != null) MusicManager.Instance.PlayInGameMusic();
         cavePositions = caveGenerator.cavePositions;
         SpawnCaves();
         SpawnCenterTower();
-        if(MusicManager.Instance != null) MusicManager.Instance.PlayInGameMusic();
     }
 
     public void SpawnCenterTower() {

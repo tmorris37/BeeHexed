@@ -7,16 +7,8 @@ public class TowerSelector : MonoBehaviour
 {
     public Tilemap hexTilemap;
     public TileSpawner tiles;
-    public Tile highlightTile; // Assign a tile with a different color/shade in the Inspector
-    public GameObject towerPrefab; // Assign your tower prefab in the Inspector
-
     public GridManager gridManager;
-
-    public GameObject PulserPrefab;
-
     private Vector3Int lastHovPositionQRS;
-    private TileBase originalTile;
-    private Vector3Int origTilePos;
     private bool hasHoveredTile;
     private Vector3Int HovPositionQRS;
     public bool DEBUG_MODE;
@@ -58,7 +50,6 @@ public class TowerSelector : MonoBehaviour
 
             // Set the new tile to the highlight tile
             if (tiles.HasTile(HovPositionQRS)) {
-                origTilePos = HovPositionQRS;
                 lastHovPositionQRS = HovPositionQRS;
                 hasHoveredTile = true;
                 if (highlightTileMode && !hovTileBlocked) {

@@ -13,26 +13,15 @@ public class Spawner : MonoBehaviour
     [SerializeField] public GameObject bearCub;
     [SerializeField] public GameObject bombeardier;
     [SerializeField] public GameObject slothBear;
-
     [SerializeField] public GameObject mamaBearPrefab;
-
     [SerializeField] public GridManager gridManager;
     [SerializeField] public CaveGenerator caveGenerator;
-
-
-    [SerializeField] public GameObject cheerios;
-
     [SerializeField] public GameObject cavePrefab;
     [SerializeField] public GameObject centerTower;
-
-    [SerializeField] public int radius;
     [SerializeField] public bool DEBUG;
-
     [SerializeField] private MovementAlgorithms movement;
-
     // List to store cave positions
     private List<Vector3> cavePositions = new List<Vector3>();
-
     // List to store all spawned enemies
     private List<Enemy> enemies = new List<Enemy>();
     private MamaBear mamaBear;

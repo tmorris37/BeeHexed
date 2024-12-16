@@ -24,7 +24,6 @@ public class ObstacleSpawner : MonoBehaviour
     [SerializeField] public List<int> Inputs;
 
     public List<(int, int, int)> obstacleTracker;
-    [SerializeField] private Seed seedManager;
 
     void Start() {
         Obstacles = AddObstaclePrefabs();

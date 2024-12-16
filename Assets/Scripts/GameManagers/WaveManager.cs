@@ -49,7 +49,7 @@ public class WaveManager : MonoBehaviour
             for (int i = 0; i < numEnemies; i++) {
                 // Generate a random float for time between spawns
                 float avgTimeBetweenSpawns = waves[currentWave-1].avgTimeBetweenSpawns;
-                float timeBetweenSpawns = Seed.Instance.GetRandomFloat() * avgTimeBetweenSpawns + (Seed.Instance.GetRandomFloat() - 0.5f);
+                float timeBetweenSpawns = avgTimeBetweenSpawns + (Seed.Instance.GetRandomFloat() - 0.5f);
                 string enemyType = null;
                 // Check if there is a fixed enemy to spawn
                 if (waves[currentWave-1].fixedEnemies.Count > 0) {

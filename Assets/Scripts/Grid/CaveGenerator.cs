@@ -12,15 +12,12 @@ namespace EnemyAndTowers
     public class CaveGenerator : MonoBehaviour
     {
         [SerializeField] public GridManager gridManager;
-
         [SerializeField] public GameObject cavePrefab;
         [SerializeField] public int numCaves;
         [SerializeField] public int radius;
         [SerializeField] public bool DEBUG;
         public List<Vector3> cavePositions = new List<Vector3>();
-
         HashSet<int> usedEdges;
-        [SerializeField] private Seed seedManager;
 
         void Awake() {
             GenerateCaves();

@@ -6,7 +6,7 @@ public class SeededLevelInit : MonoBehaviour {
     public void Awake() {
         levelName = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
         // Checks if Seed is null and if it is creates a new one
-        // This is reallu only for use in the editor, as the seed should be set 
+        // This is really only for use in the editor, as the seed should be set
         // aleady if the game is run from the main menu
         if (Seed.Instance == null) {
             GameObject seedObject = new GameObject("SeedContainer");
@@ -14,6 +14,13 @@ public class SeededLevelInit : MonoBehaviour {
             seed.SetSeedFromTime();
         }
         SetRandomGenerator();
+
+        // Creates a GameSpeedManager the first time a level is loaded
+        if (GameSpeedManager.Instance == null) {
+            GameObject gameSpeedObject = new GameObject("GameSpeedManager");
+            GameSpeedManager gameSpeedManager = gameSpeedObject.AddComponent<GameSpeedManager>();
+            gameSpeedManager.SetGameSpeed(1.0f);
+        }
     }
 
     // Set the random generator based on the level name

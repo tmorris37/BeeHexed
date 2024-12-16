@@ -29,7 +29,7 @@ public class PauseManager : MonoBehaviour
             }
         }
         pauseMenu.SetActive(isPaused);
-        Time.timeScale = isPaused ? 0 : 1;
+        Time.timeScale = isPaused ? 0 : GameSpeedManager.Instance.gameSpeed;
         if (DEBUG_MODE) Debug.Log("Pause Toggled:" + isPaused);
     }
 }

@@ -184,6 +184,8 @@ namespace EnemyAndTowers
             // healthBar.UpdateHealthBar(this.health, this.data.MaxHP);
         }
 
+        // Method to stop the enemy
+        // could probably be removed and replaced with togglePause
         public virtual void Stop() {
             StopAllCoroutines();
             movementSpeed = 0;

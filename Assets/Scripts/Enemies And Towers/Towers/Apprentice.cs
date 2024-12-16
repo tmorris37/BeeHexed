@@ -7,7 +7,6 @@ namespace EnemyAndTowers
 {
     public class Apprentice : Tower
     {
-        //public GameObject beam;
         public GameObject projectilePrefab;
         public float projectileSpeed = 10f;
 

@@ -7,24 +7,24 @@ using GridSystem;
 
 namespace EnemyAndTowers
 {
+    // Base class for all towers
     public class Tower : HexPosition
     {
-        [SerializeField] public int towerID;
-        public TowerData data;
-        public TowerDetection detection;
-        public float fireRate;
-        public int health;
-        public int damage;
+        [SerializeField] public int towerID;  // ID of the tower, used to load data from JSON
+        public TowerData data;                // Data loaded from JSON
+        public TowerDetection detection;      // Reference to the detection script
+        public float fireRate;                // Rate of fire in seconds
+        public int health;                    // Current health of the tower
+        public int damage;                    // Damage dealt by the tower
 
-        public bool active;
-        protected List<Transform> targets;
-        [SerializeField] protected float fireCountdown;
+        public bool active;                   // Whether the tower is active
+        public float fireCountdown;           // Time until the tower can fire again
+        protected List<Transform> targets;    // List of targets in range
 
-        [SerializeField] protected FloatingHealthBar healthBar;
 
         protected virtual void Start() {
+            // Find the TowerDetection script attached to the tower
             detection = GetComponentInChildren<TowerDetection>();
-            // Assets/Resources/Enemies/Enemy_"".json
             // Creates a TextAsset containing the data from Enemy_"".json
             var FileData = Resources.Load<TextAsset>("Towers/Tower_" + towerID);
 
@@ -37,12 +37,15 @@ namespace EnemyAndTowers
             } else {
                 Debug.Log("Unable to load Tower_" + towerID);
             }
+
+            // Set the tower's health to the maximum health
+            // And create an empty list of targets
             health = data.MaxHealth;
-            // healthBar = GetComponentInChildren<FloatingHealthBar>();
-            // healthBar.UpdateHealthBar(this.health, this.Data.MaxHealth);
             targets = new List<Transform>();
         }
 
+        // Update is called once per frame and is used to see if the 
+        // tower still has health. If not, the tower is destroyed.
         protected virtual void Update() {
             if (health <= 0) {
                 HexTile tile = gridManager.FetchTile(q,r,s);
@@ -51,17 +54,20 @@ namespace EnemyAndTowers
             }
         }
 
+        // Function to take damage
         public virtual void TakeDamage(int damage) {
             GoRed();
             StartCoroutine(FadeBackColor(0.5f));
             health = health - damage;
         }
 
+        // Function to change the color of the tower to red
         public virtual void GoRed() {
             SpriteRenderer sprite = GetComponentInChildren<SpriteRenderer>();
             sprite.color = Color.red;
         }
 
+        // Coroutine to fade the color of the tower back to white
         private IEnumerator FadeBackColor(float duration) {
             SpriteRenderer sprite = GetComponentInChildren<SpriteRenderer>();
             Color startColor = sprite.color;
@@ -77,6 +83,8 @@ namespace EnemyAndTowers
             sprite.color = endColor; // Ensure the final color is set
         }
 
+        // Function to check if the tower is rotatable
+        // False by default, but can be overridden in subclasses
         public virtual bool IsRotatable() {
             return false;
         }

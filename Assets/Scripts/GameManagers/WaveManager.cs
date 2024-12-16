@@ -37,7 +37,7 @@ public class WaveManager : MonoBehaviour
             int minEnemies = waves[currentWave-1].avgEnemies - waves[currentWave-1].enemySpread;
             int maxEnemies = waves[currentWave-1].avgEnemies + waves[currentWave-1].enemySpread;
             // Get the number of enemies to spawn
-            int numEnemies = UnityEngine.Random.Range(minEnemies, maxEnemies);
+            int numEnemies = Seed.Instance.GetRandomInt(minEnemies, maxEnemies);
             waveText.text = "Wave: " + currentWave + "/" + waves.Count;
             // Reward the player with 2 nectar at the start of each wave
             // nectarManager.SetNectar(nectarManager.GetNectar() + 2);
@@ -49,7 +49,7 @@ public class WaveManager : MonoBehaviour
             for (int i = 0; i < numEnemies; i++) {
                 // Generate a random float for time between spawns
                 float avgTimeBetweenSpawns = waves[currentWave-1].avgTimeBetweenSpawns;
-                float timeBetweenSpawns = UnityEngine.Random.Range(avgTimeBetweenSpawns - 0.5f, avgTimeBetweenSpawns + 0.5f);
+                float timeBetweenSpawns = Seed.Instance.GetRandomFloat() * avgTimeBetweenSpawns + (Seed.Instance.GetRandomFloat() - 0.5f);
                 string enemyType = null;
                 // Check if there is a fixed enemy to spawn
                 if (waves[currentWave-1].fixedEnemies.Count > 0) {
@@ -64,7 +64,7 @@ public class WaveManager : MonoBehaviour
                     // Determine which enemy to spawn based on spawn frequencies
                     for (int j = 0; j <= numEnemies; j++) {
                         // Generate a random float between 0 and 1
-                        float randomValue = UnityEngine.Random.value;
+                        float randomValue = Seed.Instance.GetRandomFloat();
                         float cumulativeProbability = 0f;
 
                         // Determine which enemy to spawn based on spawn frequencies

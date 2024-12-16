@@ -50,4 +50,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/EmptyMap.unity
     guid: de8262710d61ad140bd6d6aa74974902
+  - enabled: 1
+    path: Assets/Scenes/Level0.unity
+    guid: 8642baad3360c0c4a8ee7294127cb8f0
   m_configObjects: {}

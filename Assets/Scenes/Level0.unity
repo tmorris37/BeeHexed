@@ -468,6 +468,51 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
+--- !u!1 &62062867
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 62062869}
+  - component: {fileID: 62062868}
+  m_Layer: 0
+  m_Name: SeedInitializer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &62062868
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 62062867}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3ee696814ff3ec44892f2acf2fe3a8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levelName: 
+--- !u!4 &62062869
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 62062867}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -10.931472, y: 2.9057283, z: -1.3863031}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &66016223
 GameObject:
   m_ObjectHideFlags: 0
@@ -4049,49 +4094,14 @@ MonoBehaviour:
   timeBetweenWaves: 10
   waves:
   - enemies:
-    - spawnFrequency: 1
-      enemyType: BearCub
-    fixedEnemies:
-    - enemyType: Bombeardier
-      placement: 3
-    avgEnemies: 3
-    enemySpread: 0
-    avgTimeBetweenSpawns: 6
-  - enemies:
-    - spawnFrequency: 0.8
-      enemyType: BearCub
-    - spawnFrequency: 0.2
-      enemyType: Bombeardier
-    fixedEnemies:
-    - enemyType: SlothBear
-      placement: 3
-    avgEnemies: 4
-    enemySpread: 0
-    avgTimeBetweenSpawns: 5
-  - enemies:
-    - spawnFrequency: 0.6
-      enemyType: BearCub
-    - spawnFrequency: 0.4
-      enemyType: Bombeardier
-    fixedEnemies:
-    - enemyType: AssassinBear
-      placement: 4
-    avgEnemies: 5
-    enemySpread: 1
-    avgTimeBetweenSpawns: 4
-  - enemies:
     - spawnFrequency: 0.5
       enemyType: BearCub
-    - spawnFrequency: 0.3
+    - spawnFrequency: 0.5
       enemyType: Bombeardier
-    - spawnFrequency: 0.2
-      enemyType: AssassinBear
-    fixedEnemies:
-    - enemyType: MamaBear
-      placement: 5
-    avgEnemies: 10
-    enemySpread: 1
-    avgTimeBetweenSpawns: 3
+    fixedEnemies: []
+    avgEnemies: 5
+    enemySpread: 0
+    avgTimeBetweenSpawns: 6
 --- !u!4 &781918216
 Transform:
   m_ObjectHideFlags: 0
@@ -4521,7 +4531,7 @@ MonoBehaviour:
   bearCub: {fileID: 435629412242135445, guid: ce2be51eee2719b48b1bdcb1ec473536, type: 3}
   bombeardier: {fileID: 435629412242135445, guid: 5a061379583b55d47add163dc3ea0b1a, type: 3}
   slothBear: {fileID: 435629412242135445, guid: 2593051021df8134e83697a5a7f90cf6, type: 3}
-  mamaBearPrefab: {fileID: 0}
+  mamaBearPrefab: {fileID: 1722403541143666175, guid: 9304e8e32a68ba841aaed80b1d4c890c, type: 3}
   gridManager: {fileID: 1554881295}
   caveGenerator: {fileID: 1846675530}
   cheerios: {fileID: 1341650181057277616, guid: 3c7e526a0cb3c794babc428402c385dd, type: 3}
@@ -8101,3 +8111,4 @@ SceneRoots:
   - {fileID: 1846675531}
   - {fileID: 1914675432}
   - {fileID: 580640693}
+  - {fileID: 62062869}

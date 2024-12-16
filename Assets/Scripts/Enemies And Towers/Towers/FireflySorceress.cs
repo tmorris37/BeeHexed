@@ -19,6 +19,7 @@ public class FireflySorceress : Tower
 
     protected override void Update() {
         base.Update();
+        targets = detection.targets;
         if (fireCountdown <= 0f && targets.Count > 0 && active) {
             Fire();
             fireCountdown = fireRate;

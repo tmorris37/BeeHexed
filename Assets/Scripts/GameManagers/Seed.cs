@@ -35,6 +35,10 @@ public class Seed : MonoBehaviour {
         UnityEngine.Random.InitState(currentSeed);
     }
 
+    public void SetRandomGenerator(int bonusHash) {
+        randomGenerator = new System.Random(currentSeed + bonusHash);
+    }
+
     public int GetRandomInt(int min, int max) {
         return randomGenerator.Next(min, max);
     }

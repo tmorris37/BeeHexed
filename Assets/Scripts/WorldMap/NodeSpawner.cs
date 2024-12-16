@@ -73,8 +73,8 @@ public class NodeSpawner : MonoBehaviour
 
         // Spawn 2 or 3 nodes in each hextant
         List<(int q, int r, int s)> spawnedNodes = new List<(int, int, int)>();
-        SpawnNodesFromHextant(topLeftPositions, UnityEngine.Random.Range(2, 4), spawnedNodes, 1);
-        SpawnNodesFromHextant(bottomRightPositions, UnityEngine.Random.Range(2, 4), spawnedNodes, 1);
+        SpawnNodesFromHextant(topLeftPositions, Seed.Instance.GetRandomInt(2, 4), spawnedNodes, 1);
+        SpawnNodesFromHextant(bottomRightPositions, Seed.Instance.GetRandomInt(2, 4), spawnedNodes, 1);
 
         Debug.Log("Spawned Level 1 nodes in both hextants.");
     }
@@ -97,8 +97,8 @@ public class NodeSpawner : MonoBehaviour
 
         // Spawn 2–3 nodes in each region
         List<(int q, int r, int s)> spawnedNodes = new List<(int, int, int)>();
-        SpawnNodesFromHextant(region1Positions, UnityEngine.Random.Range(3, 5), spawnedNodes, 2);
-        SpawnNodesFromHextant(region2Positions, UnityEngine.Random.Range(3, 5), spawnedNodes, 2);
+        SpawnNodesFromHextant(region1Positions, Seed.Instance.GetRandomInt(3, 5), spawnedNodes, 2);
+        SpawnNodesFromHextant(region2Positions, Seed.Instance.GetRandomInt(3, 5), spawnedNodes, 2);
 
         Debug.Log("Spawned Level 2 nodes in rings 6 and 7, respecting hextant conditions.");
     }
@@ -142,7 +142,7 @@ public class NodeSpawner : MonoBehaviour
         int attempts = 0;
 
         while (nodesToSpawn > 0 && hextantPositions.Count > 0 && attempts < 1000) {
-            int randomIndex = UnityEngine.Random.Range(0, hextantPositions.Count);
+            int randomIndex = Seed.Instance.GetRandomInt(0, hextantPositions.Count);
             var candidate = hextantPositions[randomIndex];
 
             // Ensure the candidate node is not already spawned
@@ -187,7 +187,7 @@ public class NodeSpawner : MonoBehaviour
         GameObject result = originalNode;
         System.Random random = new System.Random();
 
-        double randomDouble = random.NextDouble();
+        double randomDouble = Seed.Instance.GetRandomFloat();
         if (randomDouble <= chance) result = rewards;
         return result;
     }
@@ -229,7 +229,7 @@ public class NodeSpawner : MonoBehaviour
         }
         // For any arbitrary Grid, there are exactly 6*Radius edge tiles
         // Generates a random int in the range [0,6*Radius)
-        int spawnHex = UnityEngine.Random.Range(0, 6*spawnRadius);
+        int spawnHex = Seed.Instance.GetRandomInt(0, 6*spawnRadius);
         Debug.Log(spawnHex);
         // Random Tile is in the First Row
         if (spawnHex <= spawnRadius) {

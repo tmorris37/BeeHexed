@@ -18,7 +18,7 @@ namespace EnemyAndTowers
 
         public bool active;
         protected List<Transform> targets;
-        protected float fireCountdown;
+        [SerializeField] protected float fireCountdown;
 
         [SerializeField] protected FloatingHealthBar healthBar;
 

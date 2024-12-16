@@ -136,9 +136,9 @@ public class TileSpawner : MonoBehaviour
     public GameObject RandomTileFromList(string type = "Normal")
     {
         if (type == "Path") {
-            return pathTiles[Random.Range(0, pathTiles.Count)];
+            return pathTiles[Seed.Instance.GetRandomInt(0, pathTiles.Count)];
         } else {
-            return normalTiles[Random.Range(0, normalTiles.Count)];
+            return normalTiles[Seed.Instance.GetRandomInt(0, normalTiles.Count)];
         }
     }
 }

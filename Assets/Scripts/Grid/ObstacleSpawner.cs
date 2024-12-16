@@ -150,7 +150,7 @@ public class ObstacleSpawner : MonoBehaviour
     }
 
     public GameObject RandomObstacleFromList() {
-        int index = UnityEngine.Random.Range(0, this.Obstacles.Count);
+        int index = Seed.Instance.GetRandomInt(0, this.Obstacles.Count);
         return this.Obstacles[index];
     }
 }

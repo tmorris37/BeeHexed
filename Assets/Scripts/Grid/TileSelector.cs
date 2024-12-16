@@ -27,12 +27,7 @@ namespace GridSystem {
             int i = 0;
 
             while (i < Quantity && AvailableTiles.Count != 0) {
-                // Checks if Seed is null and if it is creates a new one
-                if (Seed.Instance == null) {
-                    GameObject seedObject = new GameObject("SeedContainer");
-                    Seed seed = seedObject.AddComponent<Seed>();
-                    seed.SetSeedFromTime();
-                }
+                
                 // Selects a random tile from the currently available ones
                 int RandomIndex = Seed.Instance.GetRandomInt(0, AvailableTiles.Count);
 

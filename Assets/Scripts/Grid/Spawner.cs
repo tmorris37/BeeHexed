@@ -54,7 +54,7 @@ public class Spawner : MonoBehaviour
 
     public void SpawnFromCaves(string enemyType) {
         GameObject newEnemy;
-        Vector3 randomCavePosition = cavePositions[UnityEngine.Random.Range(0, cavePositions.Count)];
+        Vector3 randomCavePosition = cavePositions[Seed.Instance.GetRandomInt(0, cavePositions.Count)];
         int q = (int)randomCavePosition.x;
         int r = (int)randomCavePosition.y;
         int s = (int)randomCavePosition.z;
@@ -140,7 +140,7 @@ public class Spawner : MonoBehaviour
         }
         // For any arbitrary Grid, there are exactly 6*Radius edge tiles
         // Generates a random int in the range [0,6*Radius)
-        int spawnHex = UnityEngine.Random.Range(0, 6*spawnRadius);
+        int spawnHex = Seed.Instance.GetRandomInt(0, 6*spawnRadius);
         Debug.Log(spawnHex);
         // Random Tile is in the First Row
         if (spawnHex <= spawnRadius) {

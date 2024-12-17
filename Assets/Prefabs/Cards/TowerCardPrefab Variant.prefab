@@ -34,8 +34,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 2.45, y: 3.35}
+  m_AnchoredPosition: {x: -0.000784, y: -0.001099}
+  m_SizeDelta: {x: 2.355825, y: 3.260078}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &182743282476222322
 CanvasRenderer:
@@ -731,7 +731,7 @@ PrefabInstance:
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 4283489259860704750, guid: b4c2a62bc13b68144b4c25fd2d5b00f6, type: 3}
-      insertIndex: -1
+      insertIndex: 0
       addedObject: {fileID: 7552308217729799772}
     - targetCorrespondingSourceObject: {fileID: 4283489259860704750, guid: b4c2a62bc13b68144b4c25fd2d5b00f6, type: 3}
       insertIndex: -1

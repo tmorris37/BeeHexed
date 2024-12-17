@@ -8,6 +8,8 @@ using TMPro;
 
 public class DrawDiscardHandTest
 {
+    private string spellCardPrefabPath = "Assets/Prefabs/Cards/SpellCard.prefab";
+    private string towerCardPrefabPath = "Assets/Prefabs/Cards/TowerCardPrefab Variant.prefab";
     [UnityTest]
 
     // Unit test for DrawPileManager
@@ -66,8 +68,8 @@ public class DrawDiscardHandTest
         GameObject Test = new GameObject();
         Test.AddComponent<HandManager>();
         HandManager TestHM = Test.GetComponent<HandManager>();
-        TestHM.spellCardPrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/SpellCard.prefab");
-        TestHM.towerCardPrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/TowerCardPrefab Variant.prefab");
+        TestHM.spellCardPrefab = AssetDatabase.LoadAssetAtPath<GameObject>(spellCardPrefabPath);
+        TestHM.towerCardPrefab = AssetDatabase.LoadAssetAtPath<GameObject>(towerCardPrefabPath);
         TestHM.handLocation = TestHM.transform;
   
         TestHM.Start();
@@ -222,8 +224,8 @@ public class DrawDiscardHandTest
           Resources.Load<Card>("Cards/Beemer")
         };
         TestDPM.DEV_setCustomDeck(myDeck);
-        TestHM.spellCardPrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/SpellCard.prefab");
-        TestHM.towerCardPrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/TowerCardPrefab Variant.prefab");
+        TestHM.spellCardPrefab = AssetDatabase.LoadAssetAtPath<GameObject>(spellCardPrefabPath);
+        TestHM.towerCardPrefab = AssetDatabase.LoadAssetAtPath<GameObject>(towerCardPrefabPath);
         Test.AddComponent<TextMeshProUGUI>();
         TestDM.graveyardSizeText = Test.GetComponent<TextMeshProUGUI>();
         TestDPM.drawPileCounter = Test.GetComponent<TextMeshProUGUI>();

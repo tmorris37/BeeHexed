@@ -10,6 +10,7 @@ using GridSystem;
 
 public class HexPositionTests
 {
+    private string hexTilePrefabPath = "Assets/Prefabs/HexTilePrefab.prefab";
     // A UnityTest behaves like a coroutine in Play Mode. In Edit Mode you can use
     // `yield return null;` to skip a frame.
     [UnityTest]
@@ -26,7 +27,7 @@ public class HexPositionTests
         TestGM.GridRadius = 10;
         yield return null;
         
-        TestGM.HexTilePrefab = Resources.Load<GameObject>("Prefabs/HexTilePrefab");
+        TestGM.HexTilePrefab = AssetDatabase.LoadAssetAtPath<GameObject>(hexTilePrefabPath);
 
         TestGM.Awake();
 

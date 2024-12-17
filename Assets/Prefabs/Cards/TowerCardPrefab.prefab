@@ -538,8 +538,8 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 3631744020522248041}
   - {fileID: 8847757606380341400}
+  - {fileID: 3631744020522248041}
   - {fileID: 8546241566877079466}
   - {fileID: 7642027503433524438}
   - {fileID: 1229935714401573428}
@@ -785,6 +785,7 @@ MonoBehaviour:
   healthText: {fileID: 4606764229589269306}
   costText: {fileID: 6226152694362643194}
   bodyText: {fileID: 6006782026125041561}
+  typeText: {fileID: 0}
 --- !u!61 &1398149729110091024
 BoxCollider2D:
   m_ObjectHideFlags: 0

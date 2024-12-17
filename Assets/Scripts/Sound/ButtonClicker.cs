@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class ButtonClicker : MonoBehaviour {
     public void ButtonClickSFX() {
-        SFXManager.Instance.PlayButtonClick();
+        if (SFXManager.Instance != null) {
+            SFXManager.Instance.PlayButtonClick();
+        }
     }
 }

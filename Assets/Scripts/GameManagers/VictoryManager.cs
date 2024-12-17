@@ -54,6 +54,9 @@ public class VictoryManager : MonoBehaviour
     }
 
     private void StopGame() {
+        HandManager hm = FindObjectOfType<HandManager>();
+        // so that the hand does not display in front of the victory window
+        hm.SetHandLayer(-1);
         grayout.SetActive(true);
         waveManager.Stop();
         CardMovement[] moveScripts = FindObjectsByType<CardMovement>(FindObjectsSortMode.None);

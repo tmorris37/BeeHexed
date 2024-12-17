@@ -99,4 +99,11 @@ public class HandManager : MonoBehaviour
             }
         }
     }
+
+    public void SetHandLayer(int layer) {
+        Canvas[] cardCanvases = handLocation.gameObject.GetComponentsInChildren<Canvas>();
+        foreach (Canvas canvas in cardCanvases) {
+            canvas.sortingOrder = layer;
+        }
+    }
 }

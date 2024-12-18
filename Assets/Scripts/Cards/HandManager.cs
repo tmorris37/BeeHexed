@@ -100,8 +100,10 @@ public class HandManager : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update() {
-        // UpdateHandDisplay();
+    public void SetHandLayer(int layer) {
+        Canvas[] cardCanvases = handLocation.gameObject.GetComponentsInChildren<Canvas>();
+        foreach (Canvas canvas in cardCanvases) {
+            canvas.sortingOrder = layer;
+        }
     }
 }

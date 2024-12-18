@@ -8,6 +8,7 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
     public bool DEBUG_MODE;
     private RectTransform rectTransform;
     private Canvas canvas;
+    private Canvas cardCanvas;
     private int currState = 0;
     public Quaternion origCardRotation;
     public Vector3 origCardPosition;
@@ -30,6 +31,7 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
     void Awake() {
         rectTransform = GetComponent<RectTransform>();
         canvas = GetComponentInParent<Canvas>();
+        cardCanvas = GetComponentInChildren<Canvas>();
         errorManager = FindObjectOfType<ErrorManager>();
         // store the original transform of the card
         origCardScale = rectTransform.localScale;
@@ -78,6 +80,7 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
             rectTransform.localScale = origCardScale;
             hoverHighlight.SetActive(false);
             playArrow.SetActive(false);
+            cardCanvas.sortingOrder = 1;
         } else if (desiredState == 1) {
             origCardScale = rectTransform.localScale;
             origCardPosition = rectTransform.localPosition;
@@ -144,10 +147,12 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
     }
 
     private void HandleHoverState() {
-        // make it glow and enlarge
+        // make it glow
         hoverHighlight.SetActive(true);
+        // and enlarge
         rectTransform.localScale = origCardScale * hoverScale;
-        // rectTransform.localPosition.Set(rectTransform.localPosition.x, rectTransform.localPosition.y, rectTransform.localPosition.z + 1);
+        // pull forward
+        cardCanvas.sortingOrder = 2;
     }
 
     private void HandleDragState() {

@@ -121,6 +121,7 @@ public class SFXManager : MonoBehaviour
         audioSource.outputAudioMixerGroup = sfxMixer.FindMatchingGroups("SFX")[0]; // Assuming you have an "SFX" group
         audioSource.volume = 1f;
         audioSource.Play();
+        DontDestroyOnLoad(audioSource);
 
         // Destroy the GameObject after the clip finishes playing
         Destroy(sfxObject, clip.length);

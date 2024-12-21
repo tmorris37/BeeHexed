@@ -11,26 +11,17 @@ namespace EnemyAndTowers
 
         //public bool active;
 
-        protected override void Start()
-        {
+        protected override void Start() {
             base.Start();
             //rotatable = true;
             fireCountdown = fireRate;
             //animator = GetComponent<Animator>();
         }
 
-        protected override void Update()
-        {
-            
-            this.targets = detection.targets;
-            if (this.health <= 0)
-            {
-                HexTile tile = gridManager.FetchTile(q,r,s);
-                tile.LeaveTile(gameObject);
-                Destroy(gameObject);
-            }
-            if (fireCountdown <= 0f && targets.Count > 0 && this.active)
-            {
+        protected override void Update() {
+            base.Update();
+            targets = detection.targets;
+            if (fireCountdown <= 0f && targets.Count > 0 && active) {
                 DealDamage();
                 Fire();
                 fireCountdown = fireRate;
@@ -38,10 +29,8 @@ namespace EnemyAndTowers
             fireCountdown -= Time.deltaTime;
         }
 
-        private void Fire()
-        {
-            if (beam == null)
-            {
+        private void Fire() {
+            if (beam == null) {
                 Debug.LogError("Beam prefab not assigned!");
                 return;
             }
@@ -53,16 +42,12 @@ namespace EnemyAndTowers
             Destroy(instantiatedBeam, 0.2f);
         }
 
-        private void DealDamage()
-        {
-            foreach (Transform enemy in targets)
-            {
+        private void DealDamage() {
+            foreach (Transform enemy in targets) {
                 Enemy enemyScript = enemy.GetComponent<Enemy>();
-                if (enemyScript != null)
-                {
+                if (enemyScript != null) {
                     enemyScript.TakeDamage(damage);
-                    if (SFXManager.Instance != null)
-                    {
+                    if (SFXManager.Instance != null) {
                         SFXManager.Instance.PlayBeem();
                     }
                 }

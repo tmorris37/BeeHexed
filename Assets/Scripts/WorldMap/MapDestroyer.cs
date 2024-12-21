@@ -2,17 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MapDestroyer : MonoBehaviour
-{
+public class MapDestroyer : MonoBehaviour {
     // Start is called before the first frame update
-    void Start()
-    {
+    void Start() {
         try {
             GameObject.Find("MapManager").GetComponent<MapManager>().DestroyMap();
-        }
-        catch {
-            
+        } catch {
+            Debug.Log("MapManager not found");
         }
     }
-
 }

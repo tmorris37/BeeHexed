@@ -8,12 +8,9 @@ public class NectarManager : MonoBehaviour
 
     public TextMeshProUGUI nectarText;
     private int currentNectar;
-      
+
     // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    void Start() {}
 
     public void SetNectar(int value) {
         currentNectar = value;
@@ -24,8 +21,7 @@ public class NectarManager : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
-    {
+    void Update() {
         nectarText.text = currentNectar.ToString();
     }
 }

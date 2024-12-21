@@ -4,8 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class PlayerData
-{
+public class PlayerData {
     public string deckName;
     public IList<string> cardPaths;
     public BasicColor themeColor; 
@@ -14,8 +13,7 @@ public class PlayerData
 
 // this class is a simplification of the Color class that allows it to be serialized into JSON
 // the standard Color class cannot be serialized because it contains a proprty of type Color, leading to infinite self-references
-public class BasicColor : IEquatable<BasicColor>
-{
+public class BasicColor : IEquatable<BasicColor> {
     public float red;
     public float green;
     public float blue;
@@ -37,14 +35,11 @@ public class BasicColor : IEquatable<BasicColor>
         return new BasicColor(color.r, color.g, color.b, color.a);
     }
 
-    public bool Equals(BasicColor other)
-    {
-        if (other is null) {
-            return false;
-        }
-        if (ReferenceEquals(this, other)) {
-            return true;
-        }
+    public bool Equals(BasicColor other)  {
+        // If parameter is null return false:
+        if (other is null) return false;
+        // Return true if the fields match:
+        if (ReferenceEquals(this, other)) return true;
         return red == other.red && green == other.green && blue == other.blue && alpha == other.alpha;
     }
 }

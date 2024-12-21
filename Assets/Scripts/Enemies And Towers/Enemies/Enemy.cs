@@ -7,10 +7,10 @@ using GridSystem;
 
 namespace EnemyAndTowers
 {
+    // The base class for all enemies in the game
     public class Enemy : HexPosition
     {
-        public enum InertiaDirection        // Possible directions of inertia
-        {
+        public enum InertiaDirection {        // Possible directions of inertia
             cw,   // Clockwise
             ccw,  // Counter-clockwise
             i,    // Inward
@@ -18,15 +18,15 @@ namespace EnemyAndTowers
             nullDir // No direction
         }
         // [SerializeField] protected FloatingHealthBar healthBar;
-    public string enemyType;                // Type of enemy
+        public string enemyType;                // Type of enemy
         public int health;                  // Current health of the enemy
-        public float movementSpeed = 0.5f;  // Speed at which the enemy moves (tiles per second)
+        public float movementSpeed;  // Speed at which the enemy moves (tiles per second)
         public float moveSpeedLast;         // Speed of the enemy last update
         public float moveTimeRemaining;     // Time remaining to move to the next tile
-        public float attackRate = 1f;       // Time between attacks
+        public float attackRate;       // Time between attacks
         public float attackCooldown;        // Time remaining before the enemy can attack again
         public int attackDamage;            // Damage dealt by the enemy
-        public bool isPaused = false;       // Whether the enemy is paused
+        public string attackType;           // Type of attack
         public Vector3 targetPositionXY;      // Position the enemy is moving towards
         public MovementAlgorithms movement; // Movement algorithms for the enemy
         public EnemyData data;              // Data about the enemy
@@ -39,42 +39,42 @@ namespace EnemyAndTowers
 
         public List<(int, int, int)> DijkstraMoves;  // A List of the moves to be taken, calculated by Dijkstra
 
-        protected virtual void Start()
-        {
+        protected virtual void Start() {
             // Figure out the movement algorithm for the enemy
-            this.DijkstraMoves = movement.DijkstraInitialize(this);
+            DijkstraMoves = movement.DijkstraInitialize(this);
             
             // Get the hitbox of the enemy
             detection = GetComponentInChildren<EnemyDetection>();
+
             // Instantiates the Enemy at the Provided Spawn Location
             // If The Enemy could not spawn, despawn the sprite
-            if (!SetPosition())
-            {
-                if (DEBUG)
-                    Debug.Log("Despawning");
+            if (!SetPosition()) {
+                if (DEBUG) Debug.Log("Despawning");
                 Destroy(gameObject);
                 return;
             }
+
             // Assets/Resources/Enemies/Enemy_"".json
             // Creates a TextAsset containing the data from Enemy_"".json
+            // TODO: Make the nemies not reliant on JSON files, use Unity Inspector instead
             var FileData = Resources.Load<TextAsset>("Enemies/" + enemyType);
 
-            if (FileData != null)
-            {
+            if (FileData != null) {
                 // TextAsset -> String (JSON)
                 string JSONPlainText = FileData.text;
                 // String (JSON) -> EnemyData Class
-                this.data = JsonConvert.DeserializeObject<EnemyData>(JSONPlainText);
+                data = JsonConvert.DeserializeObject<EnemyData>(JSONPlainText);
                 // We can then read the values from the Data class as needed
-            }
-            else
-            {
+            } else{
                 Debug.Log("Unable to load Enemy:" + enemyType);
             }
-            this.health = this.data.MaxHealth;
-            this.movementSpeed = this.data.Speed;
-            this.attackDamage = this.data.Attacks[0].DamageAmount;
-            this.attackRate =  1 / this.data.Attacks[0].AttackRate;
+
+            // Set the initial health, speed, attack values, etc.
+            health = data.MaxHealth;
+            movementSpeed = data.Speed;
+            attackDamage = data.Attacks[0].DamageAmount;
+            attackRate =  1 / data.Attacks[0].AttackRate;
+            attackType = data.Attacks[0].DamageType;
             targetPositionXY = transform.position;
             attackCooldown = attackRate;
 
@@ -89,15 +89,14 @@ namespace EnemyAndTowers
         }
 
         // Call this method to smoothly move the enemy to a target position
-        public virtual void MoveToPosition()
-        {
-            StopAllCoroutines();  // Stop any ongoing movement to avoid conflicts
+        public virtual void MoveToPosition() {
+            // Stop any ongoing movement to avoid conflicts
+            StopAllCoroutines();
             StartCoroutine(MoveToTargetAtFixedSpeed());
         }
 
         // Coroutine to translate the position at a constant speed
-        private IEnumerator MoveToTargetAtFixedSpeed()
-        {
+        private IEnumerator MoveToTargetAtFixedSpeed() {
             // Store the initial position of the enemy
             Vector3 initialPosition = transform.position;
 
@@ -111,8 +110,7 @@ namespace EnemyAndTowers
 
 
             // Move the enemy towards the target position
-            while (elapsedTime < travelTime)
-            {
+            while (elapsedTime < travelTime) {
                 // Calculate interpolation value based on elapsed time
                 float t = elapsedTime / travelTime;
 
@@ -127,41 +125,28 @@ namespace EnemyAndTowers
             transform.position = targetPositionXY;
         }
 
-        protected virtual void Update()
-        {
-            if (isPaused)
-            {
-                return;
-            }
-
-            // Check if the movement speed has changed and update the movement
-            if (moveSpeedLast != movementSpeed)
-            {
-                MoveToPosition();
-            }
-            
+        protected virtual void Update() {
             // Update the list of targets from the detection script
             targets = detection.targets;
-            
-            // Check if there are any targets in range and attack if off cooldown
-            if (attackCooldown <= 0f && targets.Count > 0)
-            {
-                if (DEBUG) {
-                    Debug.Log("Targets identified, time to attack");
-                }
+
+            // Check if the movement speed has changed and update the movement
+            if (moveSpeedLast != movementSpeed) {
+                MoveToPosition();
+            }
+
+            // Check if the enemy has reached the targert position
+            if (targetPositionXY == transform.position && moveTimeRemaining <= 0f) {
+                movement.DijkstraMove(this, DijkstraMoves);
+            }
+
+            // Attacks if cooldown is off, there is at least 1 target and
+            // If the enemy is a physical attacker and is stopped
+            // Or if the enemy is a ranged attacker
+            if (((attackType == "physical" && targetPositionXY == transform.position) || attackType == "ranged")
+                && attackCooldown <= 0f && targets.Count > 0) {
                 Attack();
-                attackCooldown = attackRate;
             }
-            // Try and move towards the next tile if off cooldown and at the target position
-            if (targetPositionXY == transform.position && moveTimeRemaining <= 0f)
-            {
-                if (DEBUG) {
-                    Debug.Log("No targets identified, time to move");
-                }
-                // Only reset the moveTimeRemaining if the enemy actually started moving
-                if (movement.DijkstraMove(this, DijkstraMoves)) {
-                }
-            }
+            
             // Update the timers
             moveTimeRemaining -= Time.deltaTime;
             attackCooldown -= Time.deltaTime;
@@ -169,37 +154,38 @@ namespace EnemyAndTowers
             moveSpeedLast = movementSpeed;
         }
 
-        protected virtual void Attack()
-        {
+        // Deal damage to all targets in range
+        // Assumes that the attackCooldown is off and resets it
+        protected virtual void Attack() {
             // Loop through all targets and deal damage
-            foreach (Transform tower in targets)
-            {
+            foreach (Transform tower in targets) {
                 Tower towerScript = tower.GetComponent<Tower>();
-                if (towerScript != null)
-                {
+                if (towerScript != null) {
                     towerScript.TakeDamage(attackDamage);
-                    if (towerScript.GetComponent<BearricadeTower>() != null)
-                    {
-                        this.TakeDamage(1);
+                    // If the tower is a barricade and attck is physical, take damage
+                    // TODO: Move this to BearricadeTower.cs
+                    if (towerScript.GetComponent<BearricadeTower>() != null && attackType == "physical") {
+                        TakeDamage(1);
                     }
                 }
             }
+            attackCooldown = attackRate;
         }
 
         // Method to deal damage to the enemy
-        public virtual void TakeDamage(int damage)
-        {
+        public virtual void TakeDamage(int damage) {
             StartCoroutine(UpdateHealthAfterDelay(damage, 0.04f));
         }
 
         // Coroutine to update the health after a delay
-        private IEnumerator UpdateHealthAfterDelay(int damage, float delay)
-        {
+        private IEnumerator UpdateHealthAfterDelay(int damage, float delay) {
             yield return new WaitForSeconds(delay);
             this.health = this.health - damage;
             // healthBar.UpdateHealthBar(this.health, this.data.MaxHP);
         }
 
+        // Method to stop the enemy
+        // could probably be removed and replaced with togglePause
         public virtual void Stop() {
             StopAllCoroutines();
             movementSpeed = 0;

@@ -19,9 +19,9 @@ public class DeckSelector : MonoBehaviour, IPointerDownHandler, IPointerEnterHan
     private Color selectColor;
     private bool selected;
     private SelectionManager selectionManager;
+    private bool playAudio = true;
 
-    void Awake()
-    {
+    void Awake() {
         selectionManager = FindObjectOfType<SelectionManager>();
         highlight.SetActive(false); 
         selectColor = new Color(0, 255, 208, 255f);
@@ -39,14 +39,13 @@ public class DeckSelector : MonoBehaviour, IPointerDownHandler, IPointerEnterHan
         }
     }
 
-    public void OnPointerDown(PointerEventData eventData)
-    {
+    public void OnPointerDown(PointerEventData eventData) {
         WriteDeckNameToFile(name);
+        playAudio = true;
         selectionManager.Select(name);
     }
 
-    public void OnPointerExit(PointerEventData eventData)
-    {
+    public void OnPointerExit(PointerEventData eventData) {
         if (!selected) {
             highlight.SetActive(false);
             transform.localScale /= hoverScale;
@@ -59,6 +58,9 @@ public class DeckSelector : MonoBehaviour, IPointerDownHandler, IPointerEnterHan
             highlight.GetComponent<Image>().color = selectColor;
             highlight.SetActive(true);
             transform.localScale *= hoverScale;
+            if (playAudio) {
+                PlayAudio();
+            }
         } else {
             highlight.GetComponent<Image>().color = Color.white;
             highlight.SetActive(false);
@@ -81,6 +83,7 @@ public class DeckSelector : MonoBehaviour, IPointerDownHandler, IPointerEnterHan
     private void CheckSelected() {
         string selectText = DeckSelected.selectedDeck;
         if (selectText == gameObject.name) {
+            playAudio = false;
             // clears previous selection
             selectionManager.Reset();
             selectionManager.Select(selectText);
@@ -89,8 +92,7 @@ public class DeckSelector : MonoBehaviour, IPointerDownHandler, IPointerEnterHan
     }
 
     private void WriteDeckNameToFile(string name) {
-        PlayerData playerData = new()
-        {
+        PlayerData playerData = new() {
             deckName = name,
             cardPaths = null,
             themeColor = BasicColor.ConvertToBasicColor(themeColor)
@@ -108,5 +110,33 @@ public class DeckSelector : MonoBehaviour, IPointerDownHandler, IPointerEnterHan
         File.WriteAllText(saveFilepath, jsonData);
     }
 
-
+    private void PlayAudio() {
+        switch (gameObject.name) {
+            case "Beeatrice": {
+                SFXManager.Instance.stopCurrentSFX();
+                SFXManager.Instance.SetVolume(0.15f);
+                SFXManager.Instance.PlayFanfare();
+                break;
+            }
+            case "Bzz'rak": {
+                SFXManager.Instance.stopCurrentSFX();
+                SFXManager.Instance.SetVolume(0.3f);
+                SFXManager.Instance.PlayFire1();
+                break;
+            }
+            case "Hivean": {
+                SFXManager.Instance.stopCurrentSFX();
+                SFXManager.Instance.SetVolume(0.15f);
+                SFXManager.Instance.PlayMechanical();
+                break;
+            }
+            case "Vespera": {
+                SFXManager.Instance.stopCurrentSFX();
+                SFXManager.Instance.SetVolume(0.20f);
+                SFXManager.Instance.PlayElectric();
+                break;
+            }   
+        }
+        
+    }
 }

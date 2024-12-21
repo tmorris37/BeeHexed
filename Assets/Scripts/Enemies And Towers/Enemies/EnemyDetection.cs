@@ -8,24 +8,18 @@ public class EnemyDetection : MonoBehaviour
     public List<Transform> targets = new List<Transform>();
     public bool DEBUG_MODE = false;
 
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.CompareTag("TowerBody"))
-        {
+    private void OnTriggerEnter2D(Collider2D other) {
+        if (other.CompareTag("TowerBody")) {
             Transform towerTransform = other.transform.root;
-            if (!targets.Contains(towerTransform))
-            {
+            if (!targets.Contains(towerTransform)) {
                 targets.Add(towerTransform);
             }
-            if (DEBUG_MODE) 
-                Debug.Log(targets);
+            if (DEBUG_MODE) Debug.Log(targets);
         }
     }
 
-    private void OnTriggerExit2D(Collider2D other)
-    {
-        if (other.CompareTag("TowerBody"))
-        {
+    private void OnTriggerExit2D(Collider2D other) {
+        if (other.CompareTag("TowerBody")) {
             // Get the root GameObject of the tower
             Transform towerTransform = other.transform.root;
 

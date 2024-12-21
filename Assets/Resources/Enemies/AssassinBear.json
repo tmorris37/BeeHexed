@@ -3,10 +3,10 @@
     "Speed": 0.75,
     "Attacks": [
         {
-            "DamageType": "Physical",
+            "DamageType": "physical",
             "DamageAmount": 15,
             "AttackRate": 0.75
         }
     ],
-    "MovementType": "Ground"
+    "MovementType": "ground"
 }

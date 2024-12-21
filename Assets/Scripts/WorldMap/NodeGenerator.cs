@@ -7,10 +7,8 @@ using GridSystem;
 using EnemyAndTowers;
 using Node;
 
-namespace Node
-{
-    public class NodeGenerator : MonoBehaviour
-    {
+namespace Node {
+    public class NodeGenerator : MonoBehaviour {
         [SerializeField] public GridManager gridManager;
 
         [SerializeField] public GameObject level0;
@@ -25,42 +23,38 @@ namespace Node
         [SerializeField] public int radius;
         [SerializeField] public bool DEBUG;
         public List<Vector3> nodePositions = new List<Vector3>();
-
         HashSet<int> usedEdges;
+        [SerializeField] private Seed seedManager;
 
-        void Awake()
-        {
+        void Awake() {
             GenerateNodes();
         }
 
-        public void GenerateNodes()
-        {
+        public void GenerateNodes() {
             usedEdges = new HashSet<int>();  // Track used edges
 
             TileSelector nodeTileSelector = new TileSelector();
-            List<(int, int, int)> nodeLocations = nodeTileSelector.SelectNRandomTiles(numNodes, radius, TileSelectorCallback);
+            List<(int, int, int)> nodeLocations = nodeTileSelector.SelectNRandomTiles(numNodes,
+                                                                                    radius,
+                                                                                    TileSelectorCallback);
 
             int q, r, s;
-            for (int i = 0; i < nodeLocations.Count; i++)
-            {
+            for (int i = 0; i < nodeLocations.Count; i++) {
                 (q, r, s) = nodeLocations[i];
                 nodePositions.Add(new Vector3(q, r, s));
             }
         }
 
-        public bool TileSelectorCallback((int, int, int) QRSTuple)
-        {
+        public bool TileSelectorCallback((int, int, int) QRSTuple) {
             (int q, int r, int s) = QRSTuple;
             int edge = DetermineEdge(q, r, s);
-            if (usedEdges.Contains(edge) || isSpoke(q, r, s))
-                return false;
+            if (usedEdges.Contains(edge) || isSpoke(q, r, s)) return false;
             usedEdges.Add(edge);
             return true;
         }
 
         // Helper method to determine edge
-        private int DetermineEdge(int q, int r, int s)
-        {
+        private int DetermineEdge(int q, int r, int s) {
             (int i, int j) = gridManager.QRStoIJ(q, r, s);
             if (i == 0) return 1;                // Top
             if (i == 2 * radius) return 2;       // Bottom
@@ -71,8 +65,7 @@ namespace Node
             return 0; // Should never reach here
         }
 
-        public bool isSpoke(int q, int r, int s)
-        {
+        public bool isSpoke(int q, int r, int s) {
             return (Math.Abs(q) == Math.Abs(r) && s == 0) || (Math.Abs(q) == Math.Abs(s) && r == 0) || 
                 (Math.Abs(r) == Math.Abs(s) && q == 0);
         }

@@ -7,79 +7,74 @@ using GridSystem;
 
 namespace EnemyAndTowers
 {
+    // Base class for all towers
     public class Tower : HexPosition
     {
-        [SerializeField] public int towerID;
-        public TowerData data;
-        public TowerDetection detection;
-        public float fireRate;
-        public int health;
-        public int damage;
+        [SerializeField] public int towerID;  // ID of the tower, used to load data from JSON
+        public TowerData data;                // Data loaded from JSON
+        public TowerDetection detection;      // Reference to the detection script
+        public float fireRate;                // Rate of fire in seconds
+        public int health;                    // Current health of the tower
+        public int damage;                    // Damage dealt by the tower
 
-        public bool active;
-        protected List<Transform> targets;
-        protected float fireCountdown;
+        public bool active;                   // Whether the tower is active
+        public float fireCountdown;           // Time until the tower can fire again
+        protected List<Transform> targets;    // List of targets in range
 
-        [SerializeField] protected FloatingHealthBar healthBar;
 
-        protected virtual void Start()
-        {
+        protected virtual void Start() {
+            // Find the TowerDetection script attached to the tower
             detection = GetComponentInChildren<TowerDetection>();
-            // Assets/Resources/Enemies/Enemy_"".json
             // Creates a TextAsset containing the data from Enemy_"".json
             var FileData = Resources.Load<TextAsset>("Towers/Tower_" + towerID);
 
-            if (FileData != null)
-            {
+            if (FileData != null) {
                 // TextAsset -> String (JSON)
                 string JSONPlainText = FileData.text;
                 // String (JSON) -> EnemyData Class
-                this.data = JsonConvert.DeserializeObject<TowerData>(JSONPlainText);
+                data = JsonConvert.DeserializeObject<TowerData>(JSONPlainText);
                 // We can then read the values from the Data class as needed
-            }
-            else
-            {
+            } else {
                 Debug.Log("Unable to load Tower_" + towerID);
             }
-            this.health = this.data.MaxHealth;
-            // healthBar = GetComponentInChildren<FloatingHealthBar>();
-            // healthBar.UpdateHealthBar(this.health, this.Data.MaxHealth);
+
+            // Set the tower's health to the maximum health
+            // And create an empty list of targets
+            health = data.MaxHealth;
             targets = new List<Transform>();
         }
 
-        protected virtual void Update()
-        {
-            this.targets = detection.targets;
-            if (this.health <= 0)
-            {
+        // Update is called once per frame and is used to see if the 
+        // tower still has health. If not, the tower is destroyed.
+        protected virtual void Update() {
+            if (health <= 0) {
                 HexTile tile = gridManager.FetchTile(q,r,s);
                 tile.LeaveTile(gameObject);
                 Destroy(gameObject);
             }
         }
 
-        public virtual void TakeDamage(int damage)
-        {
-            SpriteRenderer sprite = GetComponentInChildren<SpriteRenderer>();
-            sprite.color = Color.red;
-            StartCoroutine(FadeBackColor(sprite, 0.5f));
-            this.health = this.health - damage;
+        // Function to take damage
+        public virtual void TakeDamage(int damage) {
+            GoRed();
+            StartCoroutine(FadeBackColor(0.5f));
+            health = health - damage;
         }
 
-        /*public virtual void GoRed()
-        {
-            SpriteRenderer sprite = GetComponent<SpriteRenderer>();
+        // Function to change the color of the tower to red
+        public virtual void GoRed() {
+            SpriteRenderer sprite = GetComponentInChildren<SpriteRenderer>();
             sprite.color = Color.red;
-        }*/
+        }
 
-        private IEnumerator FadeBackColor(SpriteRenderer sprite, float duration)
-        {
+        // Coroutine to fade the color of the tower back to white
+        private IEnumerator FadeBackColor(float duration) {
+            SpriteRenderer sprite = GetComponentInChildren<SpriteRenderer>();
             Color startColor = sprite.color;
             Color endColor = Color.white;
             float elapsed = 0f;
 
-            while (elapsed < duration)
-            {
+            while (elapsed < duration) {
                 elapsed += Time.deltaTime;
                 sprite.color = Color.Lerp(startColor, endColor, elapsed / duration);
                 yield return null; // Wait for the next frame
@@ -88,6 +83,8 @@ namespace EnemyAndTowers
             sprite.color = endColor; // Ensure the final color is set
         }
 
+        // Function to check if the tower is rotatable
+        // False by default, but can be overridden in subclasses
         public virtual bool IsRotatable() {
             return false;
         }
@@ -96,8 +93,7 @@ namespace EnemyAndTowers
     #region JSON Data Structures
 
     [System.Serializable]
-    public class TowerData
-    {
+    public class TowerData {
         public int MaxHealth { get; set; }
         public IList<TowerAttack> Attacks { get; set; }
         
@@ -107,8 +103,7 @@ namespace EnemyAndTowers
 
 
     //[System.Serializable]
-    public class TowerAttack
-    {
+    public class TowerAttack {
         public string DamageType { get; set; }
         public int DamageAmount { get; set; }
 

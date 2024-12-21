@@ -60,8 +60,7 @@ namespace Node {
             return (number < 0f ? -1 : 1);
         }
 
-        public bool DijkstraCallback((int, int, int) QRSTuple)
-        {
+        public bool DijkstraCallback((int, int, int) QRSTuple) {
             //(int q, int r, int s) = QRSTuple;
 
             //return this.gridManager.FetchTile(q, r, s).getOccupiedByObstacle();

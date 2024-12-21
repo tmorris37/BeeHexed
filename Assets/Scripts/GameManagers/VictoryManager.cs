@@ -16,8 +16,7 @@ public class VictoryManager : MonoBehaviour
     [SerializeField] private GameObject losedow;
     [SerializeField] private GameObject grayout;
     // Start is called before the first frame update
-    void Start()
-    {
+    void Start() {
         waveManager = FindObjectOfType<WaveManager>();
         playerHealthManager = FindObjectOfType<PlayerHealthManager>();
         victoryText.text = "";
@@ -27,9 +26,8 @@ public class VictoryManager : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
-    {
-      // this could potentially be checked on enemy attack or damage take for more efficiency
+    void Update() {
+        // this could potentially be checked on enemy attack or damage take for more efficiency
         determineVictory();
     }
 
@@ -56,15 +54,18 @@ public class VictoryManager : MonoBehaviour
     }
 
     private void StopGame() {
+        HandManager hm = FindObjectOfType<HandManager>();
+        // so that the hand does not display in front of the victory window
+        hm.SetHandLayer(-1);
         grayout.SetActive(true);
         waveManager.Stop();
         CardMovement[] moveScripts = FindObjectsByType<CardMovement>(FindObjectsSortMode.None);
         foreach (CardMovement moveScript in moveScripts) {
-        moveScript.Reset();
-        } 
+            moveScript.Reset();
+        }
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
         foreach (GameObject enemy in enemies) {
-        enemy.GetComponent<Enemy>().Stop();
+            enemy.GetComponent<Enemy>().Stop();
         }
     }
 

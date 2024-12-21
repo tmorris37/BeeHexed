@@ -576,8 +576,17 @@ MonoBehaviour:
   Pulse: {fileID: 8300000, guid: ed28874eece7c764cb4091e2c90bee4b, type: 3}
   Explosion: {fileID: 8300000, guid: 4c394284fa6c1984186b2f28be93c5f1, type: 3}
   TossBomb: {fileID: 8300000, guid: c391dd1bc0234c5409db5fce8e9de972, type: 3}
+  Fireball1: {fileID: 8300000, guid: a61860bc890e7444eadb686f838894fb, type: 3}
+  Fireball2: {fileID: 8300000, guid: c5abf3bff4081b0489ac1c197064a1df, type: 3}
+  ElectricGust: {fileID: 8300000, guid: d6f5e2210c56b114694e16f3fc46cb35, type: 3}
+  MechanicalArmor: {fileID: 8300000, guid: 8d8fb65a91654224a8a996de403c6b7f, type: 3}
+  Fanfare: {fileID: 8300000, guid: 45eb0bc965b9bec42b0634a22acf52ca, type: 3}
   FireballCast: {fileID: 8300000, guid: fb004875fa96c864384f2017a0be4280, type: 3}
   FireballExplode: {fileID: 8300000, guid: 923803e22dd79764dafbaffade9dd0de, type: 3}
+  Blizzard: {fileID: 8300000, guid: 620f68ba7fcf1d14798e7c5790d8b78c, type: 3}
+  buttonClick: {fileID: 8300000, guid: f56208ff1079fc342a1463191239a9ff, type: 3}
+  towerPlace: {fileID: 8300000, guid: 9c7e05732624a2b4e93a784c0963ab29, type: 3}
+  thunderclap: {fileID: 8300000, guid: adfe52f8c7e4fb846b3b3fd21762282b, type: 3}
 --- !u!4 &290391415
 Transform:
   m_ObjectHideFlags: 0
@@ -881,6 +890,18 @@ MonoBehaviour:
           m_StringArgument: Settings
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1305653588}
+        m_TargetAssemblyTypeName: ButtonClicker, BeeHexedAssembly
+        m_MethodName: ButtonClickSFX
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &652508953
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1137,6 +1158,7 @@ GameObject:
   - component: {fileID: 1305653584}
   - component: {fileID: 1305653583}
   - component: {fileID: 1305653587}
+  - component: {fileID: 1305653588}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -1237,6 +1259,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1eae8e4c42110dc438108e8f389c119c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1305653588
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1305653582}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88123da0c8065a241b07fe12d9b8edae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1334504575
@@ -1544,6 +1578,18 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: Settings
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1305653588}
+        m_TargetAssemblyTypeName: ButtonClicker, BeeHexedAssembly
+        m_MethodName: ButtonClickSFX
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1392450060
@@ -2192,6 +2238,18 @@ MonoBehaviour:
       - m_Target: {fileID: 1305653587}
         m_TargetAssemblyTypeName: MainMenu, BeeHexedAssembly
         m_MethodName: WriteBaseDeckToFile
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1305653588}
+        m_TargetAssemblyTypeName: ButtonClicker, BeeHexedAssembly
+        m_MethodName: ButtonClickSFX
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

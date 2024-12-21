@@ -1,12 +1,12 @@
 {
-    "MaxHealth": 15,
+    "MaxHealth": 12,
     "Speed": 0.2,
     "Attacks": [
         {
-            "DamageType": "Ranged",
-            "DamageAmount": 4,
+            "DamageType": "ranged",
+            "DamageAmount": 2,
             "AttackRate": 0.5
         }
     ],
-    "MovementType": "Ground"
+    "MovementType": "ground"
 }

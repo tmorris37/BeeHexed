@@ -10,6 +10,7 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
     private Canvas canvas;
     private Canvas cardCanvas;
     private int currState = 0;
+    private bool cardPlayed = false;
     public Quaternion origCardRotation;
     public Vector3 origCardPosition;
     public Vector3 origCardScale;
@@ -92,8 +93,7 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
             currState = 3;
             playArrow.SetActive(true);
             rectTransform.localPosition = Vector3.Lerp(rectTransform.position, playPosition, lerpTime);
-        }
-        else if (desiredState == 4) {
+        } else if (desiredState == 4) {
             currState = 4;
             playArrow.SetActive(true);
         } else if (desiredState == -1) {
@@ -166,7 +166,7 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
         rectTransform.localRotation = Quaternion.identity;
         if (playstyle == CardPlaystyle.Dragging) {
             // mouse released
-            if (!Input.GetMouseButton(0))
+            if (!Input.GetMouseButton(0) && !cardPlayed)
             {
                 PlayCard();
             }
@@ -176,7 +176,7 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
                 playArrow.SetActive(false);
             }
         } else {
-            if (Input.GetMouseButton(0)) {
+            if (Input.GetMouseButton(0) && !cardPlayed) {
                 PlayCard();
             } else if (Input.GetMouseButton(1)) {
                 GoToState(0);
@@ -186,6 +186,7 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
     }
 
     private void PlayCard() {
+        Debug.Log(gameObject.name + " PLAYING: Delete this debug");
         CardDisplay cardDisplay = GetComponent<CardDisplay>();
         NectarManager nectarManager = FindObjectOfType<NectarManager>();
 
@@ -200,6 +201,7 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
                 // ensures tower is playable at mouse location
                 if (towerSelector.spawnTower(to)) {
                     nectarManager.SetNectar(nectarManager.GetNectar() - cardDisplay.cardData.cost);
+                    cardPlayed = true;
                     if (to.GetComponent<Tower>().IsRotatable()) {
                         if (DEBUG_MODE) Debug.Log("It is a rotatable tower");
                         // Transition to the rotation state
@@ -215,12 +217,15 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
                 }
             } else {
                 // Cast spell
-                towerSelector.CastSpell(((SpellCard)cardDisplay.cardData).prefab);
+                GameObject castSpell = towerSelector.CastSpell(((SpellCard)cardDisplay.cardData).prefab);
                 nectarManager.SetNectar(nectarManager.GetNectar() - cardDisplay.cardData.cost);
-
+                cardPlayed = true;
+                towerSelector.highlightTileMode = false;
+                DestroyCard(castSpell.GetComponent<CardDrawingSpell>());
+                return;
             }
             towerSelector.highlightTileMode = false;
-            destroyCard();
+            DestroyCard(null);
         } else {
             errorManager.SetErrorMsg("Not enough nectar!");
             GoToState(0); // 2
@@ -273,18 +278,32 @@ public class CardMovement : MonoBehaviour, IDragHandler, IPointerDownHandler, IP
                 Debug.Log($"Beamer Tower rotation set to {snappedAngle} degrees.");
             }
             beamerTower.active = true;
-            destroyCard();
+            DestroyCard(null);
             GoToState(0); // Return to default state
         }
     }
 
 
-    private void destroyCard() {
-        CardDisplay cardDisplay = GetComponent<CardDisplay>();
-        HandManager handManager = FindObjectOfType<HandManager>();
-        handManager.cardsInHand.Remove(gameObject);
-        handManager.DiscardCard(cardDisplay.cardData);
-        Destroy(gameObject);
+    // if the card is not a CardDrawingSpell, pass in a null parameter
+    private void DestroyCard(CardDrawingSpell instance) {
+        if (instance != null) {
+            StartCoroutine(DestroyCoroutine(instance));
+        } else {
+            CardDisplay cardDisplay = GetComponent<CardDisplay>();
+            HandManager handManager = FindObjectOfType<HandManager>();
+            handManager.cardsInHand.Remove(gameObject);
+            handManager.DiscardCard(cardDisplay.cardData);
+            Destroy(gameObject);
+        }
+    }
+
+    private IEnumerator DestroyCoroutine(CardDrawingSpell instance) {
+        // loop until card has finished drawing
+        while (!instance.finishedDrawing) {
+            yield return new WaitForSeconds(0.001f);
+        }
+        instance.safeToDestroy = true;
+        DestroyCard(null);
     }
 
     public void Reset() {

@@ -3,27 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SacrificialOffering : MonoBehaviour {
-    DrawPileManager drawPileManager;
-    HandManager handManager;
+public class SacrificialOffering : CardDrawingSpell {
     PlayerHealthManager playerHealth;
-    //Slider playerHealth;
     void Awake() {
-        handManager = FindObjectOfType<HandManager>();
-        drawPileManager = FindObjectOfType<DrawPileManager>();
-        //playerHealth = GameObject.FindWithTag("PlayerHealth");
         playerHealth = FindObjectOfType<PlayerHealthManager>();
-        //playerHealth = FindFirstObjectByType<Slider>();
     }
 
     // Start is called before the first frame update
     void Start() {
-        // draw three cards, take 5 damage
-        for (int i = 0; i < 3; i++) {
-            drawPileManager.DrawCard(handManager);
-        } 
-        //playerHealth.GetComponent<FloatingHealthBar>().Damage(0.25f);
+        DrawCards(3);
         playerHealth.TakeDamage(25);
-        //playerHealth.value -= 0.25f;
     }
 }

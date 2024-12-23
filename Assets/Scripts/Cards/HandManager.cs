@@ -63,10 +63,10 @@ public class HandManager : MonoBehaviour
             addCard = Instantiate(spellCardPrefab, handLocation.position,
             Quaternion.identity, handLocation);
         }
-        
         cardsInHand.Add(addCard);
         handSize++;
         addCard.GetComponent<CardDisplay>().cardData = card;
+        addCard.name = card.cardName;
         addCard.GetComponent<CardMovement>().playstyle = playstyle;
         UpdateHandDisplay();
     }
@@ -80,7 +80,6 @@ public class HandManager : MonoBehaviour
 
     public void UpdateHandDisplay() {
         int numCards = cardsInHand.Count;
-
         if (numCards == 1) {
             cardsInHand[0].transform.localRotation = Quaternion.Euler(0f, 0f, 0f);
             cardsInHand[0].transform.localPosition = new Vector3(0f, 0f, 0f);

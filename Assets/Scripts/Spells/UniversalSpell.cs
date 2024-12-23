@@ -20,9 +20,9 @@ public abstract class UniversalSpell<T> : MonoBehaviour {
     void GetTargetsAndApply() {
         targets = GameObject.FindGameObjectsWithTag(targetTag);
         foreach (GameObject target in targets) {
-        T entity = target.GetComponent<T>();
-        SpriteRenderer sprite = target.GetComponent<SpriteRenderer>();
-        ApplySpellEffect(entity, sprite);
+            T entity = target.GetComponent<T>();
+            SpriteRenderer sprite = target.GetComponent<SpriteRenderer>();
+            ApplySpellEffect(entity, sprite);
         }
     }
 

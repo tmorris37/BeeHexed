@@ -24,9 +24,9 @@ public class SpellCard : Card
 }
 
 public enum SpellType {
-        Blessing,
-        Hex
-    }
+    Blessing,
+    Hex
+}
 public class SpellData {
     public SpellType Type{ get; set;}
     public int Damage{ get; set;}

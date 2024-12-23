@@ -83,9 +83,8 @@ public class TowerSelector : MonoBehaviour
         return false;
     }
 
-    public bool CastSpell(GameObject spell) {
+    public GameObject CastSpell(GameObject spell) {
         Vector3 spellPosition = Vector3.zero;
-        Instantiate(spell, spellPosition, Quaternion.identity); // Spawn the 'spell' at 0,0,0
-        return true;
+        return Instantiate(spell, spellPosition, Quaternion.identity); // Spawn the 'spell' at 0,0,0
     }
 }

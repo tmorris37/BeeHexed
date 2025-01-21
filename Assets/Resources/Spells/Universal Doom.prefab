@@ -45,3 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 50
+  thunderboltPrefab: {fileID: 4497113874181289932, guid: 096f1d4c5ce27d842828c7ab78dd64df, type: 3}
+  fireboltPrefab: {fileID: 8684749703593135256, guid: b69aa536d571b5d46b4015b2f2897669, type: 3}
+  iceboltPrefab: {fileID: 6732660982231236006, guid: 79ffefb74d0ae324e8ece30787d1f87b, type: 3}
+  bolt_offset: 2.5
